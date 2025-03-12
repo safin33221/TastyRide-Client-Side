@@ -11,7 +11,7 @@ const MainLayout = () => {
         <Navbar />
         </Headroom>
       </nav>
-      <main className=" mx-auto">
+      <main className=" min-h-[calc(100vh-65px)] mx-auto">
         <Outlet />
       </main>
       <footer>
