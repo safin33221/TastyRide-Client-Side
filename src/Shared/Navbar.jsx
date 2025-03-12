@@ -6,10 +6,10 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink>Home</NavLink>
+        <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink>All Food</NavLink>
+        <NavLink to={"/all-food"}>All Food</NavLink>
       </li>
       <li>
         <NavLink>Gallery</NavLink>

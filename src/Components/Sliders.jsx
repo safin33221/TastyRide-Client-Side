@@ -14,7 +14,7 @@ const Sliders = () => {
   ];
 
   return (
-    <div className="w-full h-[700px]">
+    <div className="w-full ">
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={0}
@@ -22,14 +22,14 @@ const Sliders = () => {
         loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        className="w-full h-full"
+        className="w-full h-[450px]"
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
             <img
               src={img}
               alt={`Food ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover "
             />
           </SwiperSlide>
         ))}
