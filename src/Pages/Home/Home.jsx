@@ -1,3 +1,4 @@
+import EasyOrder from "../../Components/EasyOrder/EasyOrder";
 import InterNationalFood from "../../Components/internatinalFood/InterNationalFood";
 import OurClient from "../../Components/OurClient/OurClient";
 import PopularCollection from "../../Components/PopularCollection/PopularCollection";
@@ -13,6 +14,8 @@ const Home = () => {
         <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
+        <SectionDivider></SectionDivider>
+        <EasyOrder />
         <SectionDivider></SectionDivider>
         <OurClient></OurClient>
         <SectionDivider></SectionDivider>
