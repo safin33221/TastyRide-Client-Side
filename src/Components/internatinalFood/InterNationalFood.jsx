@@ -1,5 +1,5 @@
 import LeftAside from "./LeftAside"
-import imageLogo from '../../assets/images/middle-img.webp'
+import imageLogo from '../../assets/images/middle-img-reload.png'
 import RightAside from "./RightAside"
 import SectionTitle from "../../Shared/SectionTitle"
 
