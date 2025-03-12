@@ -50,7 +50,7 @@ const RegisterForm = () => {
               className="hidden"
               onChange={(e) => setImgPath(e.target.files[0])}
             />
-            <div className="border-2 font-semibold flex justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
+            <div className="border-2 font-semibold flex bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
               <span className="text-2xl">
                 <FaImage />
               </span>{" "}

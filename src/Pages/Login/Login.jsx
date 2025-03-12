@@ -7,7 +7,7 @@ import OrDivider from "../../Components/commonComponents/OrDivider";
 const Login = () => {
   return (
     <div className=" py-12">
-      <div className="flex flex-col lg:flex-row gap-4 lg:max-w-[1200px] mx-auto rounded-lg  p-6 md:p-10 ">
+      <div className="flex flex-col lg:flex-row gap-4 lg:max-w-[1300px] mx-auto rounded-lg  p-6 md:p-10 ">
         {/* img */}
         <div className="lg:w-1/2 px-8">
           <img src={loginBanner} alt="" className="rounded-md w-full h-full" />
