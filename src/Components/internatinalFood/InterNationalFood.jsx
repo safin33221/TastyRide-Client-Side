@@ -1,17 +1,20 @@
 import LeftAside from "./LeftAside"
 import imageLogo from '../../assets/images/middle-img.webp'
 import RightAside from "./RightAside"
+import SectionTitle from "../../Shared/SectionTitle"
 
 const InterNationalFood = () => {
   return (
-    <div className="container mx-auto">
+    <div className="">
        {/* text */}
-       <h1 className="text-center text-4xl font-semibold mb-3">International Cuisines</h1>
-       <p className="text-center text-xl font-medium mb-12">Incredibly Tasty International Dish</p>
+       <SectionTitle
+         title={'International Cuisines'}
+         desc={'Incredibly Tasty International Dish'}
+       />
        {/* dishes */}
        <div className="flex flex-col lg:flex-row gap-6">
         {/* left-div */}
-        <div className="lg:w-4/12 py-6">
+        <div className="lg:w-4/12 pt-6">
           <LeftAside></LeftAside>  
         </div>
         {/* middle-div */}
@@ -19,7 +22,7 @@ const InterNationalFood = () => {
         <img src={imageLogo} alt="" className="" />
         </div>
         {/* right-div */}
-        <div className="lg:w-4/12 py-6">
+        <div className="lg:w-4/12 pt-6">
          <RightAside></RightAside>
         </div>
        </div>

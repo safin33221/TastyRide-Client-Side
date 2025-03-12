@@ -1,4 +1,5 @@
 import InterNationalFood from "../../Components/internatinalFood/InterNationalFood";
+import OurClient from "../../Components/OurClient/OurClient";
 import Sliders from "../../Components/Sliders";
 import SectionDivider from "../../Shared/SectionDivider";
 
@@ -6,9 +7,13 @@ const Home = () => {
   return (
     <div>
       <Sliders></Sliders>
-      <SectionDivider></SectionDivider>
-      <InterNationalFood></InterNationalFood>
-      <SectionDivider></SectionDivider>
+      <div className="container mx-auto">
+        <SectionDivider></SectionDivider>
+        <InterNationalFood></InterNationalFood>
+        <SectionDivider></SectionDivider>
+        <OurClient></OurClient>
+        <SectionDivider></SectionDivider>
+      </div>
     </div>
   );
 };
