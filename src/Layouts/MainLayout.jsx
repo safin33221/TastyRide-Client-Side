@@ -1,13 +1,15 @@
+import { Outlet } from "react-router";
+import Navbar from "../Shared/Navbar";
 
 
 const MainLayout = () => {
     return (
         <div>
             <nav>
-                <h1>Navbar</h1>
+                <Navbar />
             </nav>
-            <main>
-                <h1>Outlet</h1>
+            <main className="pt-16 px-16 mx-auto">
+                <Outlet/>
             </main>
             <footer>
                 <h1>footer</h1>
