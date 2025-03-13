@@ -22,7 +22,7 @@ const Sliders = () => {
         loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        className="w-full h-[450px]"
+        className="w-full h-[500px] "
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
