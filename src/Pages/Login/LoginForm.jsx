@@ -13,7 +13,7 @@ const LoginForm = () => {
     } = useForm()
 
    const onsubmit = async (data) => {
-      console.log(data);
+      // console.log(data);
   
       await LoginUser(data.email, data.password)
       navigate('/')
