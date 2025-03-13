@@ -55,7 +55,7 @@ const PopularCollection = () => {
             />
 
             {/* Text that appears below on hover */}
-            <div className="absolute bottom-0 left-0 right-0  text-center p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <div className="absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.5)]  text-center p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
               <h3 className="text-red-600 text-xl font-bold">{item.name}</h3>
               <p className="text-slate-400 text-md">{item.price}</p>
             </div>

@@ -69,26 +69,30 @@ const Gallery = () => {
 
   return (
     <div>
+
+      {/* Gallery Header  */}
       <div
-        className="relative  z-0 w-full mb-5  h-[200px] bg-cover bg-center"
+        className="relative  z-0 w-full mb-5  min-h-96 bg-cover bg-center flex items-center justify-center"
         style={{
           backgroundImage:
             "url('https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp')",
         }}
       >
-        <div className="absolute inset-0  bg-opacity-50"></div>
+        {/* <div className="absolute inset-0  bg-opacity-50"></div> */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold  mb-4">
-            Welcome Foods Gallery
+            Foods Gallery
           </h1>
           <p className="text-lg md:text-xl mb-6">See The All Photo And veiw</p>
         </div>
       </div>
-      <div className="gallery grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 mt-2">
+
+      {/* Img Gallery */}
+      <div className="gallery grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 mt-5 md:mt-10 container mx-auto">
         {images.map((image, index) => (
           <div
             key={index}
-            className="relative group overflow-hidden rounded-lg"
+            className="relative group overflow-hidden rounded-lg cursor-pointer"
             onClick={() => openLightbox(index)}
           >
             <img
