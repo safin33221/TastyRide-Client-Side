@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import SectionTitle from "../../Shared/SectionTitle";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
@@ -9,74 +9,86 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import FoodCard from "../../Shared/FoodCard";
 
-
 const foods = [
-    {
-      foodName: "Margherita Pizza",
-      foodImg: "https://secretrecipebd.com/wp-content/uploads/2021/07/vegatable_pizza.jpg",
-      price: 12.99,
-      review: 4.7,
-    },
-    {
-      foodName: "Cheeseburger",
-      foodImg: "https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/1:1/w_2560%2Cc_limit/Smashburger-recipe-120219.jpg",
-      price: 9.49,
-      review: 4.5,
-    },
-    {
-      foodName: "Sushi Platter",
-      foodImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTarw3kiN1sD9Zl9D-1yCEcgZaHjf-D4AbGVw&s",
-      price: 18.99,
-      review: 4.8,
-    },
-    {
-      foodName: "Pasta Carbonara",
-      foodImg: "https://i.ibb.co/tJvv79J/pasta-carbonara.jpg",
-      price: 14.25,
-      review: 4.6,
-    },
-    {
-      foodName: "Grilled Salmon",
-      foodImg: "https://i.ibb.co/r5Whbfm/grilled-salmon.jpg",
-      price: 20.99,
-      review: 4.9,
-    },
-    {
-      foodName: "Chicken Biryani",
-      foodImg: "https://i.ibb.co/Lp9X6FN/chicken-biryani.jpg",
-      price: 11.99,
-      review: 4.7,
-    },
-    {
-      foodName: "Tacos al Pastor",
-      foodImg: "https://i.ibb.co/6Y5JRGc/tacos.jpg",
-      price: 8.99,
-      review: 4.4,
-    },
-    {
-      foodName: "Chocolate Lava Cake",
-      foodImg: "https://i.ibb.co/m5Qyqtf/chocolate-lava-cake.jpg",
-      price: 6.99,
-      review: 4.8,
-    },
-    {
-      foodName: "Caesar Salad",
-      foodImg: "https://i.ibb.co/xfrPKXT/caesar-salad.jpg",
-      price: 7.49,
-      review: 4.3,
-    },
-    {
-      foodName: "Mango Smoothie",
-      foodImg: "https://i.ibb.co/3mgXmfq/mango-smoothie.jpg",
-      price: 5.99,
-      review: 4.6,
-    },
-  ];
-
+  {
+    foodName: "Margherita Pizza",
+    foodImg:
+      "https://secretrecipebd.com/wp-content/uploads/2021/07/vegatable_pizza.jpg",
+    price: 12.99,
+    review: 4.7,
+    category: "Dinner",
+  },
+  {
+    foodName: "Cheeseburger",
+    foodImg:
+      "https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/1:1/w_2560%2Cc_limit/Smashburger-recipe-120219.jpg",
+    price: 9.49,
+    review: 4.5,
+    category: "Lunch",
+  },
+  {
+    foodName: "Sushi Platter",
+    foodImg:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTarw3kiN1sD9Zl9D-1yCEcgZaHjf-D4AbGVw&s",
+    price: 18.99,
+    review: 4.8,
+    category: "Dinner",
+  },
+  {
+    foodName: "Pasta Carbonara",
+    foodImg: "https://i.ibb.co/tJvv79J/pasta-carbonara.jpg",
+    price: 14.25,
+    review: 4.6,
+    category: "Breakfast",
+  },
+  {
+    foodName: "Grilled Salmon",
+    foodImg: "https://i.ibb.co/r5Whbfm/grilled-salmon.jpg",
+    price: 20.99,
+    review: 4.9,
+    category: "Dinner",
+  },
+  {
+    foodName: "Chicken Biryani",
+    foodImg: "https://i.ibb.co/Lp9X6FN/chicken-biryani.jpg",
+    price: 11.99,
+    review: 4.7,
+    category: "Lunch",
+  },
+  {
+    foodName: "Tacos al Pastor",
+    foodImg: "https://i.ibb.co/6Y5JRGc/tacos.jpg",
+    price: 8.99,
+    review: 4.4,
+    category: "Dinner",
+  },
+  {
+    foodName: "Chocolate Lava Cake",
+    foodImg: "https://i.ibb.co/m5Qyqtf/chocolate-lava-cake.jpg",
+    price: 6.99,
+    review: 4.8,
+    category: "Breakfast",
+  },
+  {
+    foodName: "Caesar Salad",
+    foodImg: "https://i.ibb.co/xfrPKXT/caesar-salad.jpg",
+    price: 7.49,
+    review: 4.3,
+    category: "Dinner",
+  },
+  {
+    foodName: "Mango Smoothie",
+    foodImg: "https://i.ibb.co/3mgXmfq/mango-smoothie.jpg",
+    price: 5.99,
+    review: 4.6,
+    category: "Lunch",
+  },
+];
 
 const CategoryFoods = () => {
-    const prevButtonRef = useRef(null);
+  const prevButtonRef = useRef(null);
   const nextButtonRef = useRef(null);
+  const [category, setCategory] = useState("breakfast")
   return (
     <div>
       <SectionTitle
@@ -85,21 +97,27 @@ const CategoryFoods = () => {
       />
       <div className="flex justify-between items-center">
         <div className="space-x-2">
-          <button className="py-3 px-5 bg-red-700 font-semibold text-white uppercase">
+          <button onClick={() => setCategory("breakfast")} className={`py-3 px-5 ${category === "breakfast" ? "bg-red-700" : "bg-yellow-500"} font-semibold text-white uppercase cursor-pointer select-none`}>
             Breakfast
           </button>
-          <button className="py-3 px-5 bg-yellow-500 font-semibold text-white uppercase">
+          <button onClick={() => setCategory("lunch")} className={`py-3 px-5 ${category === "lunch" ? "bg-red-700" : "bg-yellow-500"} font-semibold text-white uppercase cursor-pointer select-none`}>
             Lunch
           </button>
-          <button className="py-3 px-5 bg-yellow-500 font-semibold text-white uppercase">
+          <button onClick={() => setCategory("dinner")} className={`py-3 px-5 ${category === "dinner" ? "bg-red-700" : "bg-yellow-500"} font-semibold text-white uppercase cursor-pointer select-none`}>
             Dinner
           </button>
         </div>
         <div className="space-x-2 flex text-white font-semibold text-2xl">
-          <div ref={prevButtonRef} className="p-3 bg-red-700 cursor-pointer select-none">
+          <div
+            ref={prevButtonRef}
+            className="p-3 bg-red-700 cursor-pointer select-none"
+          >
             <IoIosArrowBack />
           </div>
-          <div ref={nextButtonRef} className="p-3 bg-red-700 cursor-pointer select-none">
+          <div
+            ref={nextButtonRef}
+            className="p-3 bg-red-700 cursor-pointer select-none"
+          >
             <IoIosArrowForward />
           </div>
         </div>
@@ -133,11 +151,10 @@ const CategoryFoods = () => {
         }}
       >
         {foods.map((food, index) => (
-            <SwiperSlide key={index}>
-                <FoodCard food={food}/>
-            </SwiperSlide>
+          <SwiperSlide key={index}>
+            <FoodCard food={food} />
+          </SwiperSlide>
         ))}
-        
       </Swiper>
     </div>
   );
