@@ -14,7 +14,7 @@ const Sliders = () => {
   ];
 
   return (
-    <div className="w-full ">
+    <div className="w-full z-10 ">
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={0}
@@ -29,7 +29,7 @@ const Sliders = () => {
             <img
               src={img}
               alt={`Food ${index + 1}`}
-              className="w-full h-full object-cover "
+              className="w-full h-full object-cover -z-10"
             />
           </SwiperSlide>
         ))}
