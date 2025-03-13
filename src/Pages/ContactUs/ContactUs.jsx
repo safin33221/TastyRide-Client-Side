@@ -16,7 +16,7 @@ const ContactUs = () => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
                     <h1 className="text-5xl font-bold">CONTACT US</h1>
                     <p className="text-gray-200 text-xl mt-3">
-                        Have any questions? We’d love to hear from you. Reach <br /> out to us via phone, email, or by filling out the form below.  via email .
+                        Have any questions? We’d love to hear from you. Reach <br /> out to us via phone, email, or by filling out the form below.  via email phone .
                     </p>
 
                 </div>
