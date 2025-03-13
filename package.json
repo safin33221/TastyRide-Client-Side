@@ -16,11 +16,8 @@
     "react-dom": "^18.3.1",
     "react-fast-marquee": "^1.6.5",
     "react-headroom": "^3.2.1",
-<<<<<<< HEAD
     "react-icons": "^5.5.0",
-=======
     "react-rating-stars-component": "^2.2.0",
->>>>>>> ed2ce7154f704cca67f38e0dc704e61a081265bc
     "react-router": "^7.3.0",
     "swiper": "^11.2.5",
     "tailwindcss": "^4.0.13"
