@@ -1,18 +1,18 @@
-import React from "react";
-import { FiLogIn } from "react-icons/fi";
-import { Link, NavLink } from "react-router";
+import React from 'react';
+import { FiLogIn } from 'react-icons/fi';
+import { Link, NavLink } from 'react-router';
 
 const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink to={'/'}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={"/all-food"}>All Food</NavLink>
+        <NavLink to={'/all-food'}>All Food</NavLink>
       </li>
       <li>
-        <NavLink>Gallery</NavLink>
+        <NavLink to={'/gallery'}>Gallery</NavLink>
       </li>
     </>
   );
@@ -28,13 +28,13 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
+              {' '}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              />{' '}
             </svg>
           </div>
           <ul
@@ -61,13 +61,13 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
+                {' '}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />{" "}
+                />{' '}
               </svg>
               <span className="badge badge-sm indicator-item">8</span>
             </div>
@@ -79,7 +79,7 @@ const Navbar = () => {
             <button className="border px-4 py-1 cursor-pointer flex items-center gap-2 rounded-md">
               <span>
                 <FiLogIn />
-              </span>{" "}
+              </span>{' '}
               Login
             </button>
           </Link>
