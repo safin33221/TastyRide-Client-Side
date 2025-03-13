@@ -6,6 +6,7 @@ import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register';
 import AllFood from '../Pages/AllFood/AllFood';
 import Gallery from '../Pages/Gallery/Gallery';
+import ContactUs from '../Pages/ContactUs/ContactUs';
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
           <Route path="/register" element={<Register />}></Route>
           <Route path="all-food" element={<AllFood />} />
           <Route path="gallery" element={<Gallery />} />
+          <Route path="contact" element={<ContactUs/>} />
         </Route>
       </Routes>
     </BrowserRouter>
