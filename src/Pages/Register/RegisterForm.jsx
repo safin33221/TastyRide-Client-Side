@@ -2,8 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaImage } from "react-icons/fa";
 import { imageUpload } from "../../Utils/Utils";
+import useAuth from "../../Hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const RegisterForm = () => {
+  const { CreateUserWithEmail, UpdateUserProfile } = useAuth()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -15,7 +19,12 @@ const RegisterForm = () => {
   const onsubmit = async (data) => {
     console.log(data);
     const imgUrl = await imageUpload(data.image[0])
-    console.log(imgUrl);
+
+    await CreateUserWithEmail(data.email, data.password)
+    await UpdateUserProfile(data.name, imgUrl)
+    navigate('/')
+
+
   }
 
   return (
