@@ -88,7 +88,7 @@ const foods = [
 const CategoryFoods = () => {
   const prevButtonRef = useRef(null);
   const nextButtonRef = useRef(null);
-  const [category, setCategory] = useState("Breakfast");
+  const [category, setCategory] = useState("All");
 
   const filteredFoods = foods.filter((prev) => prev.category === category);
   return (
