@@ -88,7 +88,9 @@ const foods = [
 const CategoryFoods = () => {
   const prevButtonRef = useRef(null);
   const nextButtonRef = useRef(null);
-  const [category, setCategory] = useState("breakfast")
+  const [category, setCategory] = useState("Breakfast");
+
+  const filteredFoods = foods.filter((prev) => prev.category === category);
   return (
     <div>
       <SectionTitle
@@ -97,13 +99,36 @@ const CategoryFoods = () => {
       />
       <div className="flex justify-between items-center">
         <div className="space-x-2">
-          <button onClick={() => setCategory("breakfast")} className={`py-3 px-5 ${category === "breakfast" ? "bg-red-700" : "bg-yellow-500"} font-semibold text-white uppercase cursor-pointer select-none`}>
+          <button
+            onClick={() => setCategory("All")}
+            className={`py-3 px-5 ${
+              category === "All" ? "bg-red-700" : "bg-yellow-500"
+            } font-semibold text-white uppercase cursor-pointer select-none`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setCategory("Breakfast")}
+            className={`py-3 px-5 ${
+              category === "Breakfast" ? "bg-red-700" : "bg-yellow-500"
+            } font-semibold text-white uppercase cursor-pointer select-none`}
+          >
             Breakfast
           </button>
-          <button onClick={() => setCategory("lunch")} className={`py-3 px-5 ${category === "lunch" ? "bg-red-700" : "bg-yellow-500"} font-semibold text-white uppercase cursor-pointer select-none`}>
+          <button
+            onClick={() => setCategory("Lunch")}
+            className={`py-3 px-5 ${
+              category === "Lunch" ? "bg-red-700" : "bg-yellow-500"
+            } font-semibold text-white uppercase cursor-pointer select-none`}
+          >
             Lunch
           </button>
-          <button onClick={() => setCategory("dinner")} className={`py-3 px-5 ${category === "dinner" ? "bg-red-700" : "bg-yellow-500"} font-semibold text-white uppercase cursor-pointer select-none`}>
+          <button
+            onClick={() => setCategory("Dinner")}
+            className={`py-3 px-5 ${
+              category === "Dinner" ? "bg-red-700" : "bg-yellow-500"
+            } font-semibold text-white uppercase cursor-pointer select-none`}
+          >
             Dinner
           </button>
         </div>
@@ -150,11 +175,17 @@ const CategoryFoods = () => {
           swiper.update(); // Ensure swiper updates on initialization
         }}
       >
-        {foods.map((food, index) => (
-          <SwiperSlide key={index}>
-            <FoodCard food={food} />
-          </SwiperSlide>
-        ))}
+        {category === "All"
+          ? foods.map((food, index) => (
+              <SwiperSlide key={index}>
+                <FoodCard food={food} />
+              </SwiperSlide>
+            ))
+          : filteredFoods.map((food, index) => (
+              <SwiperSlide key={index}>
+                <FoodCard food={food} />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </div>
   );
