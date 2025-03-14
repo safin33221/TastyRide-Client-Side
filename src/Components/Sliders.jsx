@@ -22,14 +22,14 @@ const Sliders = () => {
         loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        className="w-full h-[500px] "
+        className="w-full md:h-[500px] h-[400px] "
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
             <img
               src={img}
               alt={`Food ${index + 1}`}
-              className="w-full h-full object-cover -z-10"
+              className="w-full h-full bg-cover -z-10"
             />
           </SwiperSlide>
         ))}

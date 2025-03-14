@@ -4,14 +4,12 @@ import { Link, NavLink, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 
 const Navbar = () => {
-  const { user, LogoutUser } = useAuth()
-  const navigate = useNavigate()
+  const { user, LogoutUser } = useAuth();
+  const navigate = useNavigate();
   const handleLogOut = () => {
-    LogoutUser()
-    navigate('/')
-  }
-
-
+    LogoutUser();
+    navigate('/');
+  };
 
   const links = (
     <>
@@ -30,7 +28,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className='bg-base-100 shadow-2xl z-50'>
+    <div className="bg-base-100 shadow-2xl z-50">
       <div className="navbar container w-full mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -66,7 +64,11 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle"
+            >
               <div className="indicator">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -88,32 +90,37 @@ const Navbar = () => {
             </div>
           </div>
           {/* user Login& Logout */}
-          {
-            user ? <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
                 <div className="w-10 rounded-full">
-                  <img
-                    alt="loading"
-                    src={user?.photoURL} />
+                  <img alt="loading" src={user?.photoURL} />
                 </div>
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-20 mt-3 w-52 p-2 shadow ">
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-20 mt-3 w-52 p-2 shadow "
+              >
                 <li>
                   <a className="justify-between">
                     Profile
                     <span className="badge">New</span>
                   </a>
                 </li>
-                <li><a>Settings</a></li>
                 <li>
-                  <button onClick={handleLogOut}>
-                    Logout
-                  </button>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <button onClick={handleLogOut}>Logout</button>
                 </li>
               </ul>
-            </div> : <div className="px-4">
+            </div>
+          ) : (
+            <div className="px-4">
               <Link to={'/login'}>
                 <button className="border px-4 py-1 cursor-pointer flex items-center gap-2 rounded-md">
                   <span>
@@ -123,9 +130,7 @@ const Navbar = () => {
                 </button>
               </Link>
             </div>
-          }
-
-
+          )}
         </div>
       </div>
     </div>
