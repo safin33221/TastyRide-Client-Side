@@ -95,44 +95,44 @@ const CategoryFoods = () => {
     <div className="">
       <SectionTitle
         title={"Our Products"}
-        desc={"We have a lot of international cuisine"}
+        desc={"We have a lot of international cuisine"}  
       />
-      <div className="flex flex-col md:flex-row justify-between items-center m-5 lg:m-0">
+      <div className="flex flex-col justify-between items-center m-5 xl:m-0">
         <div className="space-x-2">
           <button
             onClick={() => setCategory("All")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "All" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             All
           </button>
           <button
             onClick={() => setCategory("Breakfast")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "Breakfast" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             Breakfast
           </button>
           <button
             onClick={() => setCategory("Lunch")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "Lunch" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             Lunch
           </button>
           <button
             onClick={() => setCategory("Dinner")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "Dinner" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             Dinner
           </button>
         </div>
-        <div className="space-x-2 flex text-white font-semibold text-2xl mt-4 md:mt-0">
+        <div className="space-x-2 flex text-white font-semibold text-xl md:text-2xl mt-4 md:mt-0">
           <div
             ref={prevButtonRef}
             className="p-3 bg-red-700 cursor-pointer select-none"
