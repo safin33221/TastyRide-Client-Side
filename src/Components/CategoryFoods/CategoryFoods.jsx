@@ -97,7 +97,7 @@ const CategoryFoods = () => {
         title={"Our Products"}
         desc={"We have a lot of international cuisine"}  
       />
-      <div className="flex flex-col justify-between items-center m-5 xl:m-0">
+      <div className="flex flex-col md:flex-row justify-between items-center m-5 xl:m-0">
         <div className="space-x-2">
           <button
             onClick={() => setCategory("All")}
