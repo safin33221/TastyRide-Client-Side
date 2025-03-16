@@ -14,7 +14,7 @@ const Sliders = () => {
   ];
 
   return (
-    <div className="w-full z-10 ">
+    <div className="w-full z-0">
       <Swiper
         modules={[Pagination, Autoplay]}
         spaceBetween={0}
@@ -22,7 +22,8 @@ const Sliders = () => {
         loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        className="w-full md:h-[500px] h-[400px] "
+        className="w-full md:h-[500px] h-[400px]"
+        style={{ zIndex: "0" }}
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
