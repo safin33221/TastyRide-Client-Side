@@ -92,7 +92,7 @@ const CategoryFoods = () => {
 
   const filteredFoods = foods.filter((prev) => prev.category === category);
   return (
-    <div className="">
+    <div className="px-3 md:px-0">
       <SectionTitle
         title={"Our Products"}
         desc={"We have a lot of international cuisine"}  
