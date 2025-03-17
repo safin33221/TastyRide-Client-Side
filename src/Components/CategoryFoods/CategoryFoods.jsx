@@ -36,49 +36,49 @@ const foods = [
   },
   {
     foodName: "Pasta Carbonara",
-    foodImg: "https://i.ibb.co/tJvv79J/pasta-carbonara.jpg",
+    foodImg: "https://www.allrecipes.com/thmb/Vg2cRidr2zcYhWGvPD8M18xM_WY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/11973-spaghetti-carbonara-ii-DDMFS-4x3-6edea51e421e4457ac0c3269f3be5157.jpg",
     price: 14.25,
     review: 4.6,
     category: "Breakfast",
   },
   {
     foodName: "Grilled Salmon",
-    foodImg: "https://i.ibb.co/r5Whbfm/grilled-salmon.jpg",
+    foodImg: "https://www.allrecipes.com/thmb/CfocX_0yH5_hFxtbFkzoWXrlycs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ALR-12720-grilled-salmon-i-VAT-4x3-888cac0fb8a34f6fbde7bf836850cd1c.jpg",
     price: 20.99,
     review: 4.9,
     category: "Dinner",
   },
   {
     foodName: "Chicken Biryani",
-    foodImg: "https://i.ibb.co/Lp9X6FN/chicken-biryani.jpg",
+    foodImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP8l2kuZDANQExDsYteLg0NEUEjLkjudABRg&s",
     price: 11.99,
     review: 4.7,
     category: "Lunch",
   },
   {
     foodName: "Tacos al Pastor",
-    foodImg: "https://i.ibb.co/6Y5JRGc/tacos.jpg",
+    foodImg: "https://www.seriouseats.com/thmb/4kbwN13BlZnZ3EywrtG2AzCKuYs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20210712-tacos-al-pastor-melissa-hom-seriouseats-37-f72cdd02c9574bceb1eef1c8a23b76ed.jpg",
     price: 8.99,
     review: 4.4,
     category: "Dinner",
   },
   {
     foodName: "Chocolate Lava Cake",
-    foodImg: "https://i.ibb.co/m5Qyqtf/chocolate-lava-cake.jpg",
+    foodImg: "https://www.foodandwine.com/thmb/XdFd-DvTtouryLCjeCqwhfmmK-A=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/molten-chocolate-cake-FT-RECIPE0220-0a33d7d0ab0c45588f7bfe742d33a9bc.jpg",
     price: 6.99,
     review: 4.8,
     category: "Breakfast",
   },
   {
     foodName: "Caesar Salad",
-    foodImg: "https://i.ibb.co/xfrPKXT/caesar-salad.jpg",
+    foodImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq_QHLySdpuhk3weCNYHxYp6tc2naOquvCQQ&s",
     price: 7.49,
     review: 4.3,
     category: "Dinner",
   },
   {
     foodName: "Mango Smoothie",
-    foodImg: "https://i.ibb.co/3mgXmfq/mango-smoothie.jpg",
+    foodImg: "https://www.cubesnjuliennes.com/wp-content/uploads/2021/04/Mango-Smoothie-Recipe.jpg",
     price: 5.99,
     review: 4.6,
     category: "Lunch",
@@ -92,47 +92,47 @@ const CategoryFoods = () => {
 
   const filteredFoods = foods.filter((prev) => prev.category === category);
   return (
-    <div className="">
+    <div className="px-3 md:px-0">
       <SectionTitle
         title={"Our Products"}
-        desc={"We have a lot of international cuisine"}
+        desc={"We have a lot of international cuisine"}  
       />
-      <div className="flex flex-col md:flex-row justify-between items-center m-5 lg:m-0">
+      <div className="flex flex-col md:flex-row justify-between items-center m-5 xl:m-0">
         <div className="space-x-2">
           <button
             onClick={() => setCategory("All")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "All" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             All
           </button>
           <button
             onClick={() => setCategory("Breakfast")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "Breakfast" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             Breakfast
           </button>
           <button
             onClick={() => setCategory("Lunch")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "Lunch" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             Lunch
           </button>
           <button
             onClick={() => setCategory("Dinner")}
-            className={`py-3 px-3 md:px-5 ${
+            className={`py-2 px-3 md:px-5 md:py-3 ${
               category === "Dinner" ? "bg-red-700" : "bg-yellow-500"
-            } font-semibold text-white uppercase cursor-pointer select-none`}
+            } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
             Dinner
           </button>
         </div>
-        <div className="space-x-2 flex text-white font-semibold text-2xl mt-4 md:mt-0">
+        <div className="space-x-2 flex text-white font-semibold text-xl md:text-2xl mt-4 md:mt-0">
           <div
             ref={prevButtonRef}
             className="p-3 bg-red-700 cursor-pointer select-none"

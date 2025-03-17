@@ -35,7 +35,7 @@ const popularItems = [
 
 const PopularCollection = () => {
   return (
-    <div >
+    <div className="px-3 md:px-0" >
       <h2 className="text-4xl font-semibold text-center mb-3">Popular Collection</h2>
       <p className="text-center text-gray-500 ">
         Discover our top-rated dishes loved by customers.Discover our top-rated dishes loved by customers.
