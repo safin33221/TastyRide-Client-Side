@@ -3,6 +3,7 @@ import SectionDivider from "../../Shared/SectionDivider";
 import { Link } from "react-router";
 import { FaPhoneSquareAlt } from "react-icons/fa";
 import { MdEmail, MdLocationOn } from "react-icons/md";
+import ContactForm from "./ContactForm";
 
 const ContactUs = () => {
   return (
@@ -67,41 +68,7 @@ const ContactUs = () => {
           <SectionDivider />
 
           {/* Contact Form */}
-          <div className="max-w-5xl mx-auto mb-10">
-            <h2 className="text-center text-xl md:text-3xl font-bold text-gray-700 mb-10">
-              If You Got Any Questions, <br /> Please Do Not Hesitate to Send Us
-              a Message.
-            </h2>
-            <form>
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="w-full bg-gray-100 p-3  mb-4"
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="w-full p-3 bg-gray-100 mb-4"
-              />
-              <input
-                type="text"
-                placeholder="Subject"
-                className="w-full p-3 bg-gray-100 mb-4"
-              />
-              <textarea
-                placeholder="Message"
-                className="w-full p-3 bg-gray-100 h-28 md:h-48 mb-4"
-              ></textarea>
-              <div className="flex items-center justify-center">
-                <button
-                  type="submit"
-                  className="px-2 md:px-6  bg-black text-white py-2 md:py-4  hover:bg-red-500"
-                >
-                  SEND MESSAGE
-                </button>
-              </div>
-            </form>
-          </div>
+          <ContactForm />
         </div>
       </div>
     </div>
