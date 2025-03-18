@@ -11,6 +11,9 @@ import {
   FiUsers,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { Link, Outlet, useNavigate } from "react-router";
+import useAuth from "../Hooks/useAuth";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 export const Dashboard = () => {
   return (
@@ -35,10 +38,12 @@ const Sidebar = () => {
     >
       <TitleSection open={open} />
 
+    {/* Sidebar links goes here  */}
       <div className="space-y-1">
         <Option
           Icon={FiHome}
           title="Dashboard"
+          links="/dashboard/seller"
           selected={selected}
           setSelected={setSelected}
           open={open}
@@ -46,21 +51,24 @@ const Sidebar = () => {
         <Option
           Icon={FiDollarSign}
           title="Sales"
+          links="/dashboard/sales"
           selected={selected}
           setSelected={setSelected}
           open={open}
           notifs={3}
         />
         <Option
-          Icon={FiMonitor}
-          title="View Site"
+          Icon={FiShoppingCart}
+          title="Foods"
+          links=""
           selected={selected}
           setSelected={setSelected}
           open={open}
         />
         <Option
-          Icon={FiShoppingCart}
-          title="Products"
+          Icon={IoIosAddCircleOutline}
+          title="Add Foods"
+          links=""
           selected={selected}
           setSelected={setSelected}
           open={open}
@@ -68,6 +76,7 @@ const Sidebar = () => {
         <Option
           Icon={FiTag}
           title="Tags"
+          links=""
           selected={selected}
           setSelected={setSelected}
           open={open}
@@ -75,6 +84,7 @@ const Sidebar = () => {
         <Option
           Icon={FiBarChart}
           title="Analytics"
+          links=""
           selected={selected}
           setSelected={setSelected}
           open={open}
@@ -82,6 +92,16 @@ const Sidebar = () => {
         <Option
           Icon={FiUsers}
           title="Members"
+          links=""
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+        />
+        <hr className="text-gray-200"/>
+        <Option
+          Icon={FiMonitor}
+          title="View Site"
+          links="/"
           selected={selected}
           setSelected={setSelected}
           open={open}
@@ -93,11 +113,12 @@ const Sidebar = () => {
   );
 };
 
-const Option = ({ Icon, title, selected, setSelected, open, notifs }) => {
+const Option = ({ Icon, title, selected, setSelected, open, notifs, links }) => {
+    const navigate = useNavigate()
   return (
     <motion.button
       layout
-      onClick={() => setSelected(title)}
+      onClick={() => {setSelected(title); navigate(links)}}
       className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title ? "bg-indigo-100 text-indigo-800" : "text-slate-500 hover:bg-slate-100"}`}
     >
       <motion.div
@@ -114,6 +135,7 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs }) => {
           transition={{ delay: 0.125 }}
           className="text-xs font-medium"
         >
+          
           {title}
         </motion.span>
       )}
@@ -137,6 +159,8 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs }) => {
 };
 
 const TitleSection = ({ open }) => {
+    const {user} = useAuth()
+    console.log(user);
   return (
     <div className="mb-3 border-b border-slate-300 pb-3">
       <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100">
@@ -149,7 +173,7 @@ const TitleSection = ({ open }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.125 }}
             >
-              <span className="block text-xs font-semibold">TomIsLoading</span>
+              <span className="block text-xs font-semibold">{user?.displayName}</span>
               <span className="block text-xs text-slate-500">Pro Plan</span>
             </motion.div>
           )}
@@ -161,7 +185,6 @@ const TitleSection = ({ open }) => {
 };
 
 const Logo = () => {
-  // Temp logo from https://logoipsum.com/
   return (
     <motion.div
       layout
@@ -220,4 +243,4 @@ const ToggleClose = ({ open, setOpen }) => {
   );
 };
 
-const MainContent = () => <div className="h-[200vh] w-full"></div>;
+const MainContent = () => <div className="h-[200vh] w-full"><Outlet/></div>;
