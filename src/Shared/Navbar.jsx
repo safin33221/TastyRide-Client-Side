@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiLogIn } from 'react-icons/fi';
-import { Link, NavLink, useNavigate } from 'react-router';
+import { Link, Links, NavLink, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 
 const Navbar = () => {
@@ -112,7 +112,7 @@ const Navbar = () => {
                   </a>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <Link to="/dashboard/seller">Dashboard</Link>
                 </li>
                 <li>
                   <button onClick={handleLogOut}>Logout</button>
