@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 
 const Navbar = () => {
+  
   const { user, LogoutUser } = useAuth();
   const navigate = useNavigate();
   const handleLogOut = () => {
