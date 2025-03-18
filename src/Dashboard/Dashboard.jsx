@@ -38,7 +38,7 @@ const Sidebar = () => {
     >
       <TitleSection open={open} />
 
-    {/* Sidebar links goes here  */}
+    {/* All type of Sidebar links goes here  */}
       <div className="space-y-1">
         <Option
           Icon={FiHome}
