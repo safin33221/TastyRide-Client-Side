@@ -2,7 +2,7 @@
 
 const InterFoodCard = ({title, desc, logo, conClass, textClass}) => {
   return (
-    <div className={`flex gap-3 group flex-row-${conClass}`}>
+    <div className={`flex gap-3 px-3 md:px-0 group flex-row-${conClass}`}>
         {/*text  */}
         <div className={`w-10/12 text-${textClass} p-3`}>
           <h3 className="text-xl font-bold mb-2">{title}</h3>

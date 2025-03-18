@@ -4,25 +4,32 @@ import { FaImage } from "react-icons/fa";
 import { imageUpload } from "../../Utils/Utils";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
-
+import { LuLoaderPinwheel } from "react-icons/lu"
 const RegisterForm = () => {
   const { CreateUserWithEmail, UpdateUserProfile } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
 
   const onsubmit = async (data) => {
-    console.log(data);
+    setIsLoading(true)
     const imgUrl = await imageUpload(data.image[0])
 
-    await CreateUserWithEmail(data.email, data.password)
-    await UpdateUserProfile(data.name, imgUrl)
-    navigate('/')
+    try {
+      await CreateUserWithEmail(data.email, data.password)
+      await UpdateUserProfile(data.name, imgUrl)
+      setIsLoading(false)
+      navigate('/')
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false)
+    }
 
 
   }
@@ -82,11 +89,12 @@ const RegisterForm = () => {
           </label>
         </div>
         {/* submit button */}
-        <input
-          type="submit"
-          value={"Register"}
-          className=" w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6"
-        />
+        <button className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6" type="submit">
+          {
+            isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" />
+            : "Register"
+          }
+        </button>
       </form>
     </div>
   );
