@@ -7,6 +7,9 @@ import Register from '../Pages/Register/Register';
 import AllFood from '../Pages/AllFood/AllFood';
 import Gallery from '../Pages/Gallery/Gallery';
 import ContactUs from '../Pages/ContactUs/ContactUs';
+import { Dashboard } from '../Dashboard/Dashboard';
+import SellerDashboard from '../Dashboard/seller/SellerDashboard';
+import AddFood from '../Dashboard/seller/AddFood';
 
 const Router = () => {
   return (
@@ -19,6 +22,12 @@ const Router = () => {
           <Route path="all-food" element={<AllFood />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs/>} />
+        </Route>
+
+        <Route path='/dashboard' element ={<Dashboard/>}>
+        {/* seller routes  */}
+          <Route path='seller' element={<SellerDashboard/>}/>
+          <Route path='add-foods' element={<AddFood/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
