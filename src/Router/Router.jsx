@@ -10,6 +10,8 @@ import ContactUs from '../Pages/ContactUs/ContactUs';
 import { Dashboard } from '../Dashboard/Dashboard';
 import SellerDashboard from '../Dashboard/seller/SellerDashboard';
 import AddFood from '../Dashboard/seller/AddFood';
+import AdminDashboard from '../Dashboard/Admin Dashboard/AdminDashboard';
+import ManageUsers from '../Dashboard/Admin Dashboard/ManageUsers';
 
 const Router = () => {
   return (
@@ -25,6 +27,9 @@ const Router = () => {
         </Route>
 
         <Route path='/dashboard' element ={<Dashboard/>}>
+        {/* Admin routes */}
+        <Route path='admin' element={<AdminDashboard/>}/>
+        <Route path='manage-user' element={<ManageUsers/>}/>
         {/* seller routes  */}
           <Route path='seller' element={<SellerDashboard/>}/>
           <Route path='add-foods' element={<AddFood/>}/>
