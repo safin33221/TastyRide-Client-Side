@@ -17,17 +17,25 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="all-food" element={<AllFood />} />
           <Route path="gallery" element={<Gallery />} />
-          <Route path="contact" element={<ContactUs/>} />
+          <Route path="contact" element={<ContactUs />} />
         </Route>
 
-        <Route path='/dashboard' element ={<Dashboard/>}>
-        {/* seller routes  */}
-          <Route path='seller' element={<SellerDashboard/>}/>
-          <Route path='add-foods' element={<AddFood/>}/>
+        <Route path='/dashboard' element={<Dashboard />}>
+          {/* Admin Routes */}
+
+
+          {/* Customer routes  */}
+          <Route path='seller' element={<SellerDashboard />} />
+          <Route path='add-foods' element={<AddFood />} />
+
+
+          {/* Customer Routes */}
+
+
         </Route>
       </Routes>
     </BrowserRouter>
