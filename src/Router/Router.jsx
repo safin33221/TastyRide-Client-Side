@@ -12,7 +12,6 @@ import SellerDashboard from '../Dashboard/seller/SellerDashboard';
 import AddFood from '../Dashboard/seller/AddFood';
 import AdminDashboard from '../Dashboard/Admin Dashboard/AdminDashboard';
 import ManageUsers from '../Dashboard/Admin Dashboard/ManageUsers';
-
 const Router = () => {
   return (
     <BrowserRouter>
