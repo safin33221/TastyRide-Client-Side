@@ -1,66 +1,159 @@
-import React, { useState } from 'react';
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const AddFood = () => {
-  const handleSubmit = e => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
+
+  const [food, setFood] = useState({
+    foodName: "",
+    description: "",
+    category: "",
+    price: "",
+    ingredients: "",
+    availability: false,
+    tags: [],
+    image: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+    if (type === "file") {
+      setFood({ ...food, image: files[0] });
+      Swal.fire({
+        icon: "success",
+        title: "Image Added!",
+        text: "Your food image has been successfully selected.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } else if (type === "checkbox" && name === "tags") {
+      setFood({
+        ...food,
+        tags: checked ? [...food.tags, value] : food.tags.filter((tag) => tag !== value),
+      });
+    } else if (type === "checkbox" && name === "availability") {
+      setFood({ ...food, availability: checked });
+    } else {
+      setFood({ ...food, [name]: value });
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., API call to save food item)
-    console.log({
-      foodName,
-      description,
-      category,
-      price,
-      image,
-      ingredients,
-      availability,
-      tags,
-    });
+
+    if (!food.image) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please upload an image!",
+      });
+      return;
+    }
+
+    try {
+      // 1️⃣ Upload image to ImgBB
+      const imgData = new FormData();
+      imgData.append("image", food.image);
+
+      const image_hosting_key = import.meta.env.VITE_IMGBB_API;
+
+      const imgBBRes = await axiosPublic.post(
+        `https://api.imgbb.com/1/upload?key=${image_hosting_key}`,
+        imgData
+      );
+
+      if (imgBBRes.data.success) {
+        const imageUrl = imgBBRes.data.data.url;
+
+        // 2️⃣ Send data to backend
+        const newFood = {
+          foodName: food.foodName,
+          description: food.description,
+          category: food.category,
+          price: Number(food.price),
+          ingredients: food.ingredients.split(",").map((item) => item.trim()),
+          availability: food.availability,
+          tags: food.tags,
+          image: imageUrl,
+          addedBy: user.email,
+        };
+
+        const response = await axiosPublic.post("/api/foods", newFood);
+        console.log("Backend Response:", response.data); // Log the response for debugging
+
+        if (response.data.success) {
+          // SweetAlert2: Food added success
+          await Swal.fire({
+            icon: "success",
+            title: "Food Added!",
+            text: "Your food item has been successfully added.",
+            confirmButtonText: "Go to Dashboard",
+          });
+          navigate("/dashboard"); // Navigation happens after SweetAlert2
+        } else {
+          throw new Error(response.data.message || "Backend did not return success");
+        }
+      } else {
+        throw new Error("Image upload to ImgBB failed");
+      }
+    } catch (error) {
+      console.error("Error adding food:", error.response?.data || error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to add food item. Please try again.",
+      });
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          Add New Food Item
-        </h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Add New Food Item</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Two-Column Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Column */}
             <div className="space-y-6">
-              {/* Food Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Food Name
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Food Name</label>
                 <input
                   type="text"
+                  name="foodName"
+                  value={food.foodName}
+                  onChange={handleChange}
+                  required
                   placeholder="Enter food name"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  required
+                  className="mt-1 block w-full px-3 py-2 border rounded-md"
                 />
               </div>
 
-              {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Description
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Description</label>
                 <textarea
-                  placeholder="Enter a brief description"
-                  rows="3"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  name="description"
+                  value={food.description}
+                  onChange={handleChange}
                   required
+                  rows="3"
+                  placeholder="Enter description"
+                  className="mt-1 block w-full px-3 py-2 border rounded-md"
                 />
               </div>
 
-              {/* Category */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Category
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Category</label>
                 <select
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  name="category"
+                  value={food.category}
+                  onChange={handleChange}
                   required
+                  className="mt-1 block w-full px-3 py-2 border rounded-md"
                 >
                   <option value="" disabled>
                     Select category
@@ -75,70 +168,66 @@ const AddFood = () => {
 
             {/* Right Column */}
             <div className="space-y-6">
-              {/* Price */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Price
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Price</label>
                 <input
                   type="number"
-                  placeholder="Enter price"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  name="price"
+                  value={food.price}
+                  onChange={handleChange}
                   required
+                  placeholder="Enter price"
+                  className="mt-1 block w-full px-3 py-2 border rounded-md"
                 />
               </div>
 
-              {/* Image Upload */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Food Image
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Food Image</label>
                 <input
                   type="file"
-                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  name="image"
+                  onChange={handleChange}
                   required
+                  className="mt-1 block w-full text-sm text-gray-500"
                 />
               </div>
 
-              {/* Ingredients */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Ingredients
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Ingredients</label>
                 <input
                   type="text"
+                  name="ingredients"
+                  value={food.ingredients}
+                  onChange={handleChange}
                   placeholder="List ingredients (comma-separated)"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border rounded-md"
                 />
               </div>
 
-              {/* Availability */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Availability
-                </label>
-                <div className="mt-1">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <span className="ml-2">Available</span>
-                  </label>
-                </div>
+                <label className="block text-sm font-medium text-gray-700">Availability</label>
+                <input
+                  type="checkbox"
+                  name="availability"
+                  checked={food.availability}
+                  onChange={handleChange}
+                  className="h-4 w-4"
+                />
+                <span className="ml-2">Available</span>
               </div>
 
-              {/* Special Tags */}
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Special Tags
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Special Tags</label>
                 <div className="mt-1 space-x-2">
-                  {['Spicy', 'Vegan', 'Gluten-Free'].map(tag => (
+                  {["Spicy", "Vegan", "Gluten-Free"].map((tag) => (
                     <label key={tag} className="inline-flex items-center">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        name="tags"
+                        value={tag}
+                        onChange={handleChange}
+                        checked={food.tags.includes(tag)}
+                        className="h-4 w-4"
                       />
                       <span className="ml-2">{tag}</span>
                     </label>
@@ -148,15 +237,12 @@ const AddFood = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
-          <div>
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Save Food Item
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+          >
+            Save Food Item
+          </button>
         </form>
       </div>
     </div>
