@@ -28,7 +28,8 @@ export const Dashboard = () => {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState('Dashboard');
-  const [role] = useRole()
+  const [role, isPending] = useRole()
+  if (isPending) return
 
 
 
