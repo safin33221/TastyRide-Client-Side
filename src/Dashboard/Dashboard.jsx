@@ -53,15 +53,15 @@ const Sidebar = () => {
             <Option
               Icon={FiHome}
               title="Dashboard"
-              links="/dashboard/adminDashboard"
+              links="/dashboard/admin"
               selected={selected}
               setSelected={setSelected}
               open={open}
             />
             <Option
               Icon={FiUsers}
-              title="Members"
-              links=""
+              title="Manage Users"
+              links="/dashboard/manage-user"
               selected={selected}
               setSelected={setSelected}
               open={open}
