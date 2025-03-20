@@ -49,6 +49,22 @@ const Sidebar = () => {
           open={open}
         />
         <Option
+          Icon={FiHome}
+          title="Admin Dashboard"
+          links="/dashboard/admin"
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+        />
+        <Option
+          Icon={FiHome}
+          title="Manage Users"
+          links="/dashboard/manage-user"
+          selected={selected}
+          setSelected={setSelected}
+          open={open}
+        />
+        <Option
           Icon={FiDollarSign}
           title="Sales"
           links="/dashboard/sales"
