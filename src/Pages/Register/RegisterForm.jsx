@@ -35,7 +35,8 @@ const RegisterForm = () => {
         role: data.role
       }
 
-      const { result } = await axiosPublic.post(`/auth/register`, user)
+
+      const { result } = await axiosPublic.post(`/api/register`, user)
       console.log(result);
       setIsLoading(false)
       navigate('/')
@@ -112,7 +113,8 @@ const RegisterForm = () => {
                 type="radio"
                 name="role"
                 className=""
-                {...register('image')}
+                value='customer'
+                {...register('role',{required:true})}
               />
               Customer
             </div>
@@ -123,8 +125,9 @@ const RegisterForm = () => {
               <input
                 type="radio"
                 name="role"
+                value='restaurant'
                 className=""
-                {...register('image')}
+                {...register('role',{required:true})}
               />
               Reasturant
             </div>

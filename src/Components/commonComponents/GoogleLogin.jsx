@@ -28,7 +28,7 @@ const GoogleLogin = () => {
       }
 
       //Request for Stored User Data
-      await axiosPublic.post(`/auth/register`, user)
+      await axiosPublic.post(`/api/register`, user)
       navigate('/')
 
 
