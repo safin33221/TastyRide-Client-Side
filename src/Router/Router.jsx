@@ -10,9 +10,10 @@ import ContactUs from '../Pages/ContactUs/ContactUs';
 import { Dashboard } from '../Dashboard/Dashboard';
 
 import RestaurantDashboard from '../Dashboard/Restaurant/RestaurantDashboard';
-import AdminDashboard from '../Dashboard/Admin/AdminDashboard';
 import CustomerDashboard from '../Dashboard/Customer/CustomerDashboard';
 import AddFood from '../Dashboard/Restaurant/AddFood';
+import AdminDashboard from '../Dashboard/Admin Dashboard/AdminDashboard';
+import ManageUsers from '../Dashboard/Admin Dashboard/ManageUsers';
 
 const Router = () => {
   return (
@@ -29,7 +30,8 @@ const Router = () => {
 
         <Route path='/dashboard' element={<Dashboard />}>
           {/* Admin Routes */}
-          <Route path='adminDashboard' element={<AdminDashboard />} />
+          <Route path='admin' element={<AdminDashboard />} />
+          <Route path='manage-user' element={<ManageUsers/>} />
 
           {/* Restaurant routes  */}
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
