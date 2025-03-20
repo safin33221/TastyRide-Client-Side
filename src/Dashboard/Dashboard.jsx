@@ -14,6 +14,7 @@ import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import { IoIosAddCircleOutline } from 'react-icons/io';
+import useRole from '../Hooks/useRole';
 
 export const Dashboard = () => {
   return (
@@ -27,6 +28,9 @@ export const Dashboard = () => {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState('Dashboard');
+  const [role] = useRole()
+
+
 
   return (
     <motion.nav
@@ -40,79 +44,112 @@ const Sidebar = () => {
 
       {/* All type of Sidebar links goes here  */}
       <div className="space-y-1">
-        <Option
-          Icon={FiHome}
-          title="Dashboard"
-          links="/dashboard/seller"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiHome}
-          title="Admin Dashboard"
-          links="/dashboard/admin"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiHome}
-          title="Manage Users"
-          links="/dashboard/manage-user"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiDollarSign}
-          title="Sales"
-          links="/dashboard/sales"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          notifs={3}
-        />
-        <Option
-          Icon={FiShoppingCart}
-          title="Foods"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={IoIosAddCircleOutline}
-          title="Add Foods"
-          links="/dashboard/add-foods"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiTag}
-          title="Tags"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiBarChart}
-          title="Analytics"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiUsers}
-          title="Members"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
+
+        {/* Admin Realted Links */}
+        {
+          role === 'admin' &&
+          <>
+            <Option
+              Icon={FiHome}
+              title="Dashboard"
+              links="/dashboard/adminDashboard"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiUsers}
+              title="Members"
+              links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+          </>
+        }
+
+
+        {/* restaurant Realted Links */}
+        {
+          role === 'restaurant' &&
+          <>
+
+            <Option
+              Icon={FiHome}
+              title="Dashboard"
+              links="/dashboard/restaurantDashboard"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiDollarSign}
+              title="Sales"
+              links="/dashboard/restaurant"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+              notifs={3}
+            />
+            <Option
+              Icon={FiShoppingCart}
+              title="Foods"
+              links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={IoIosAddCircleOutline}
+              title="Add Foods"
+              links="/dashboard/add-foods"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiTag}
+              title="Tags"
+              links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiBarChart}
+              title="Analytics"
+              links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+          </>
+        }
+
+
+
+
+        {/* customers Realted Links */}
+
+        {
+          role === 'customer' &&
+          <>
+            <Option
+              Icon={FiHome}
+              title="Dashboard"
+              links="/dashboard/customerDashboard"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+          </>
+        }
+
+
+
+
+
+
         <hr className="text-gray-200" />
         <Option
           Icon={FiMonitor}
@@ -146,11 +183,10 @@ const Option = ({
         setSelected(title);
         navigate(links);
       }}
-      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
-        selected === title
-          ? 'bg-indigo-100 text-indigo-800'
-          : 'text-slate-500 hover:bg-slate-100'
-      }`}
+      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title
+        ? 'bg-indigo-100 text-indigo-800'
+        : 'text-slate-500 hover:bg-slate-100'
+        }`}
     >
       <motion.div
         layout
