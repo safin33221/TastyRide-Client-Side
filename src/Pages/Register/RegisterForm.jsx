@@ -36,7 +36,7 @@ const RegisterForm = () => {
       }
 
 
-      const { result } = await axiosPublic.post(`/auth/register`, user)
+      const { result } = await axiosPublic.post(`/api/register`, user)
       console.log(result);
       setIsLoading(false)
       navigate('/')
