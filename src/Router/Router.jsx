@@ -14,8 +14,8 @@ import CustomerDashboard from '../Dashboard/Customer/CustomerDashboard';
 import AddFood from '../Dashboard/Restaurant/AddFood';
 import AdminDashboard from '../Dashboard/Admin Dashboard/AdminDashboard';
 import ManageUsers from '../Dashboard/Admin Dashboard/ManageUsers';
-import Profile from '../Dashboard/Restaurant/Profile';
-import Advertisement from '../Dashboard/Restaurant/Advertisement';
+import Profile from '../Dashboard/Restaurant/Profile/Profile';
+
 
 const Router = () => {
   return (
