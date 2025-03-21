@@ -11,6 +11,8 @@ import {
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
+import { FaBuysellads } from "react-icons/fa6";
+
 import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
@@ -71,7 +73,7 @@ const Sidebar = () => {
         }
 
 
-        {/* restaurant Realted Links */}
+        {/* restaurant Related Links */}
         {
           role === 'restaurant' &&
           <>
@@ -129,6 +131,14 @@ const Sidebar = () => {
               Icon={FiUser}
               title="Profile"
               links="/dashboard/profile"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FaBuysellads}
+              title="Advertisements"
+              links="/dashboard/ad"
               selected={selected}
               setSelected={setSelected}
               open={open}
