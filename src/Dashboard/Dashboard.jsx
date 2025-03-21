@@ -8,6 +8,7 @@ import {
   FiMonitor,
   FiShoppingCart,
   FiTag,
+  FiUser,
   FiUsers,
 } from 'react-icons/fi';
 import { motion } from 'framer-motion';
@@ -120,6 +121,14 @@ const Sidebar = () => {
               Icon={FiBarChart}
               title="Analytics"
               links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiUser}
+              title="Profile"
+              links="/dashboard/profile"
               selected={selected}
               setSelected={setSelected}
               open={open}
