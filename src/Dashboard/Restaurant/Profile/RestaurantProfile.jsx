@@ -3,13 +3,19 @@ import useAuth from '../../../Hooks/useAuth';
 import { FaCheck, FaRegEdit } from 'react-icons/fa';
 import AboutRestaurant from './AboutRestaurant';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import useUserData from '../../../Hooks/useUserData';
+import Swal from 'sweetalert2';
 
 
 const RestaurantProfile = () => {
     const { user } = useAuth()
+    const [userData, isPending, refetch] = useUserData()
     const axiosPublic = useAxiosPublic()
-    const [restaurantName, setRestaurantName] = useState("Restaurant Name");
+    const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName);
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
+    console.log(userData);
+
+
     const handleEditClick = () => {
         setIsEditing(true); // Enable edit mode
     };
@@ -19,7 +25,12 @@ const RestaurantProfile = () => {
         console.log("Updated Restaurant Name:", restaurantName);
         try {
             const { res } = await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { restaurantName })
-            console.log(res);
+            refetch()
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "Restaurant name change successfully",
+            });
         } catch (error) {
             console.log(error);
         }
@@ -49,7 +60,7 @@ const RestaurantProfile = () => {
                                 <div className="flex items-center gap-4">
                                     <input
                                         type="text"
-                                        value={restaurantName}
+                                        defaultValue={userData?.restaurantDetails?.restaurantName}
                                         onChange={(e) => setRestaurantName(e.target.value)}
                                         className="text-4xl font-bold border-b-2 outline-none focus:border-blue-500"
                                     />
@@ -62,7 +73,7 @@ const RestaurantProfile = () => {
                                 </div>
                             ) : (
                                 <h1 className="text-4xl font-bold flex gap-4">
-                                    {restaurantName}
+                                    {userData?.restaurantDetails?.restaurantName}
                                     <span
                                         onClick={handleEditClick}
                                         className="cursor-pointer text-gray-500"
