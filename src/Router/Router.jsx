@@ -39,6 +39,7 @@ const Router = () => {
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
           <Route path='add-foods' element={<AddFood />} />
           <Route path='profile' element={<Profile />} />
+          <Route path='ad' element={<Advertisement />} />
 
 
           {/* Customer Routes */}
