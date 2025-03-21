@@ -15,6 +15,7 @@ import AddFood from '../Dashboard/Restaurant/AddFood';
 import AdminDashboard from '../Dashboard/Admin Dashboard/AdminDashboard';
 import ManageUsers from '../Dashboard/Admin Dashboard/ManageUsers';
 import Profile from '../Dashboard/Restaurant/Profile/Profile';
+import Advertisement from '../Dashboard/Restaurant/Advertisement';
 
 
 const Router = () => {
