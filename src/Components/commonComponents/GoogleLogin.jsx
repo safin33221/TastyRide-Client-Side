@@ -2,27 +2,43 @@
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const GoogleLogin = () => {
   const { SignInWithGoogle, UpdateUserProfile } = useAuth()
   const navigate = useNavigate()
+  const axiosPublic = useAxiosPublic()
 
 
-  const handleSignInWithGoogle = ()=>{
-     SignInWithGoogle()
-     .then(result => {
-      // console.log(result.user.displayName, result.user.photoURL);
-      UpdateUserProfile(result.user.displayName, result.user.photoURL)
-      .then(()=>{
-        navigate('/');
-      })
-      .catch((error)=>{
-        console.log(error.message);
-        
-      })
-     }).catch((error)=>{
-      console.log(error.message);
-     })
+  const handleSignInWithGoogle = async () => {
+
+    try {
+
+      //Sign in User via Google
+      const result = await SignInWithGoogle()
+
+      //Update User Profile
+      await UpdateUserProfile(result.user.displayName, result.user.photoURL)
+
+      //User Data in object
+      const user = {
+        username: result.user.displayName,
+        email: result.user.email,
+        photo: result.user.photoURL,
+        role: 'customer'
+      }
+
+      //Request for Stored User Data
+      await axiosPublic.post(`/api/register`, user)
+      navigate('/')
+
+
+    } catch (error) {
+      console.log(error);
+    }
+
+
+
   }
   return (
     <div>

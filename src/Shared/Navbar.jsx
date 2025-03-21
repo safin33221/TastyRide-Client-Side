@@ -4,6 +4,7 @@ import { Link, Links, NavLink, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 
 const Navbar = () => {
+  
   const { user, LogoutUser } = useAuth();
   const navigate = useNavigate();
   const handleLogOut = () => {
@@ -112,7 +113,7 @@ const Navbar = () => {
                   </a>
                 </li>
                 <li>
-                  <Link to="/dashboard/seller">Dashboard</Link>
+                  <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
                   <button onClick={handleLogOut}>Logout</button>

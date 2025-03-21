@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   FiBarChart,
   FiChevronDown,
@@ -8,12 +8,14 @@ import {
   FiMonitor,
   FiShoppingCart,
   FiTag,
+  FiUser,
   FiUsers,
-} from "react-icons/fi";
-import { motion } from "framer-motion";
-import { Link, Outlet, useNavigate } from "react-router";
-import useAuth from "../Hooks/useAuth";
-import { IoIosAddCircleOutline } from "react-icons/io";
+} from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { Link, Outlet, useNavigate } from 'react-router';
+import useAuth from '../Hooks/useAuth';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import useRole from '../Hooks/useRole';
 
 export const Dashboard = () => {
   return (
@@ -26,78 +28,139 @@ export const Dashboard = () => {
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState('Dashboard');
+  const [role, isPending] = useRole()
+  if (isPending) return
+
+
 
   return (
     <motion.nav
       layout
       className="sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
       style={{
-        width: open ? "225px" : "fit-content",
+        width: open ? '225px' : 'fit-content',
       }}
     >
       <TitleSection open={open} />
 
-    {/* Sidebar links goes here  */}
+      {/* All type of Sidebar links goes here  */}
       <div className="space-y-1">
-        <Option
-          Icon={FiHome}
-          title="Dashboard"
-          links="/dashboard/seller"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiDollarSign}
-          title="Sales"
-          links="/dashboard/sales"
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-          notifs={3}
-        />
-        <Option
-          Icon={FiShoppingCart}
-          title="Foods"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={IoIosAddCircleOutline}
-          title="Add Foods"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiTag}
-          title="Tags"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiBarChart}
-          title="Analytics"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <Option
-          Icon={FiUsers}
-          title="Members"
-          links=""
-          selected={selected}
-          setSelected={setSelected}
-          open={open}
-        />
-        <hr className="text-gray-200"/>
+
+        {/* Admin Realted Links */}
+        {
+          role === 'admin' &&
+          <>
+            <Option
+              Icon={FiHome}
+              title="Dashboard"
+              links="/dashboard/admin"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiUsers}
+              title="Manage Users"
+              links="/dashboard/manage-user"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+          </>
+        }
+
+
+        {/* restaurant Realted Links */}
+        {
+          role === 'restaurant' &&
+          <>
+
+            <Option
+              Icon={FiHome}
+              title="Dashboard"
+              links="/dashboard/restaurantDashboard"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiDollarSign}
+              title="Sales"
+              links="/dashboard/restaurant"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+              notifs={3}
+            />
+            <Option
+              Icon={FiShoppingCart}
+              title="Foods"
+              links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={IoIosAddCircleOutline}
+              title="Add Foods"
+              links="/dashboard/add-foods"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiTag}
+              title="Tags"
+              links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiBarChart}
+              title="Analytics"
+              links=""
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FiUser}
+              title="Profile"
+              links="/dashboard/profile"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+          </>
+        }
+
+
+
+
+        {/* customers Realted Links */}
+
+        {
+          role === 'customer' &&
+          <>
+            <Option
+              Icon={FiHome}
+              title="Dashboard"
+              links="/dashboard/customerDashboard"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+          </>
+        }
+
+
+
+
+
+
+        <hr className="text-gray-200" />
         <Option
           Icon={FiMonitor}
           title="View Site"
@@ -113,13 +176,27 @@ const Sidebar = () => {
   );
 };
 
-const Option = ({ Icon, title, selected, setSelected, open, notifs, links }) => {
-    const navigate = useNavigate()
+const Option = ({
+  Icon,
+  title,
+  selected,
+  setSelected,
+  open,
+  notifs,
+  links,
+}) => {
+  const navigate = useNavigate();
   return (
     <motion.button
       layout
-      onClick={() => {setSelected(title); navigate(links)}}
-      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title ? "bg-indigo-100 text-indigo-800" : "text-slate-500 hover:bg-slate-100"}`}
+      onClick={() => {
+        setSelected(title);
+        navigate(links);
+      }}
+      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title
+        ? 'bg-indigo-100 text-indigo-800'
+        : 'text-slate-500 hover:bg-slate-100'
+        }`}
     >
       <motion.div
         layout
@@ -135,7 +212,6 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs, links }) => 
           transition={{ delay: 0.125 }}
           className="text-xs font-medium"
         >
-          
           {title}
         </motion.span>
       )}
@@ -147,7 +223,7 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs, links }) => 
             opacity: 1,
             scale: 1,
           }}
-          style={{ y: "-50%" }}
+          style={{ y: '-50%' }}
           transition={{ delay: 0.5 }}
           className="absolute right-2 top-1/2 size-4 rounded bg-indigo-500 text-xs text-white"
         >
@@ -159,8 +235,8 @@ const Option = ({ Icon, title, selected, setSelected, open, notifs, links }) => 
 };
 
 const TitleSection = ({ open }) => {
-    const {user} = useAuth()
-    console.log(user);
+  const { user } = useAuth();
+  console.log(user);
   return (
     <div className="mb-3 border-b border-slate-300 pb-3">
       <div className="flex cursor-pointer items-center justify-between rounded-md transition-colors hover:bg-slate-100">
@@ -173,7 +249,9 @@ const TitleSection = ({ open }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.125 }}
             >
-              <span className="block text-xs font-semibold">{user?.displayName}</span>
+              <span className="block text-xs font-semibold">
+                {user?.displayName}
+              </span>
               <span className="block text-xs text-slate-500">Pro Plan</span>
             </motion.div>
           )}
@@ -215,7 +293,7 @@ const ToggleClose = ({ open, setOpen }) => {
   return (
     <motion.button
       layout
-      onClick={() => setOpen((pv) => !pv)}
+      onClick={() => setOpen(pv => !pv)}
       className="absolute bottom-0 left-0 right-0 border-t border-slate-300 transition-colors hover:bg-slate-100"
     >
       <div className="flex items-center p-2">
@@ -224,7 +302,7 @@ const ToggleClose = ({ open, setOpen }) => {
           className="grid size-10 place-content-center text-lg"
         >
           <FiChevronsRight
-            className={`transition-transform ${open && "rotate-180"}`}
+            className={`transition-transform ${open && 'rotate-180'}`}
           />
         </motion.div>
         {open && (
@@ -243,4 +321,8 @@ const ToggleClose = ({ open, setOpen }) => {
   );
 };
 
-const MainContent = () => <div className="h-[200vh] w-full"><Outlet/></div>;
+const MainContent = () => (
+  <div className="h-[200vh] w-full">
+    <Outlet />
+  </div>
+);
