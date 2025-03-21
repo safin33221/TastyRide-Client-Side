@@ -95,18 +95,19 @@ const Sidebar = () => {
               open={open}
               notifs={3}
             />
-            <Option
-              Icon={FiShoppingCart}
-              title="Foods"
-              links=""
-              selected={selected}
-              setSelected={setSelected}
-              open={open}
-            />
+          
             <Option
               Icon={IoIosAddCircleOutline}
               title="Add Foods"
               links="/dashboard/add-foods"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+              <Option
+              Icon={FiShoppingCart}
+              title="Manage Foods"
+              links="/dashboard/manage-food"
               selected={selected}
               setSelected={setSelected}
               open={open}
