@@ -3,7 +3,7 @@ import useAuth from '../../../Hooks/useAuth';
 import { FaCheck, FaRegEdit } from 'react-icons/fa';
 
 
-const Profile = () => {
+const RestaurantProfile = () => {
     const { user } = useAuth()
     const [restaurantName, setRestaurantName] = useState("Restaurant Name"); 
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
@@ -102,4 +102,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default RestaurantProfile;
