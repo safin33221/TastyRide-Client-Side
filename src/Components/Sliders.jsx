@@ -5,6 +5,7 @@ import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
+import PrimaryButton from '../Shared/PrimaryButton';
 
 const Sliders = () => {
   const axiosPublic = useAxiosPublic()
@@ -33,16 +34,24 @@ const Sliders = () => {
         loop={true}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        className="w-full md:h-[500px] h-[400px]"
+        className="w-full md:h-[600px] h-[400px]"
         style={{ zIndex: "0" }}
       >
         {sliders.map((slider, index) => (
           <SwiperSlide key={index}>
-            <img
+            <div style={{backgroundImage: `url(${slider.image})`}} className='w-full h-full relative bg-cover bg-center flex justify-center items-center'>
+            {/* <img
               src={slider.image}
               alt={`Food ${index + 1}`}
-              className="w-full h-full bg-cover -z-10"
-            />
+              className="w-full h-full object-cover"
+            /> */}
+
+            <div className='bg-[rgba(0,0,0,0.5)] backdrop-blur-sm p-10 flex items-center justify-center flex-col gap-3'>
+              <h1 className='text-white text-3xl font-semibold text-center'>{slider.title}gg</h1>
+              <p className='text-gray-400 text-center font-semibold'>{slider.description}</p>
+              <div className='inline-flex'><PrimaryButton text={"Order Now"}/></div>
+            </div>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
