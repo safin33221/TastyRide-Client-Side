@@ -13,12 +13,18 @@ const RestaurantProfile = () => {
     const { user } = useAuth()
     const [userData, isPending, refetch] = useUserData()
     const axiosPublic = useAxiosPublic()
-    const [selectPhoto, setSelectedPhoto] = useState(null)
-    const [photoFile, setPhotoFile] = useState(null)
+
+    const [selectProfilePhoto, setSelectedProfilePhoto] = useState(null)
+    const [selectCoverPhoto, setSelectedCoverPhoto] = useState(null)
+
+    const [profilePhotoFile, setProfilePhotoFile] = useState(null)
+    const [CoverPhotoFile, setCoverPhotoFile] = useState(null)
+
     const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
- 
 
+
+    // Change Profile Photo functionality Start-----------------------------------------------------
     const handleFileInputClick = () => {
         document.getElementById('fileInput').click()
     }
@@ -27,26 +33,56 @@ const RestaurantProfile = () => {
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
-                setSelectedPhoto(reader.result)
+                setSelectedProfilePhoto(reader.result)
             }
             reader.readAsDataURL(file)
-            setPhotoFile(file)
+            setProfilePhotoFile(file)
         }
     }
-
     const handleProfileChange = async () => {
-        if (photoFile) {
-            const profilePhoto = await imageUpload(photoFile)
+        if (profilePhotoFile) {
+            const profilePhoto = await imageUpload(profilePhotoFile)
             await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { profilePhoto })
+            setProfilePhotoFile(null)
+            setSelectedProfilePhoto(null)
             refetch()
-            setPhotoFile(null)
-            setSelectedPhoto(null)
 
         }
     }
+    // Change Profile Photo functionality end------------------------------------------------------
 
 
 
+
+    // Change Cover Photo functionality Start-----------------------------------------------------
+    const handleCoverFileInputClick = () => {
+        document.getElementById('CoverfileInput').click()
+    }
+    const handleCoverSelcet = (e) => {
+        const file = (e.target.files[0]);
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setSelectedCoverPhoto(reader.result)
+            }
+            reader.readAsDataURL(file)
+            setCoverPhotoFile(file)
+        }
+    }
+    const handleCoverPhotoChange = async () => {
+        if (CoverPhotoFile) {
+            const coverPhoto = await imageUpload(CoverPhotoFile)
+            await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { coverPhoto })
+            setCoverPhotoFile(null)
+            setSelectedCoverPhoto(null)
+            refetch()
+
+        }
+    }
+    // Change Cover Photo functionality End-----------------------------------------------------
+
+
+    // Change Restarant Name Functionality Start---------------------------------------------------
     const handleEditClick = () => {
         setIsEditing(true); // Enable edit mode
     };
@@ -66,31 +102,68 @@ const RestaurantProfile = () => {
             console.log(error);
         }
     };
+    // Change Restarant Name Functionality End-------------------------------------------------------
+
+
+
     return (
         <div>
             <div>
 
                 {/* Main Profile Content */}
+
+                {/* Cover Photo in background */}
                 <div
                     className="relative  z-0 w-full mb-52  min-h-96 bg-cover bg-center flex items-center justify-center "
-                    style={{
-                        backgroundImage:
-                            "url('https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp')",
-                    }}
+
                 >
+                    <img
+                        className='h-[350px] w-full bg-contain bg-center flex items-center'
+                        src={selectCoverPhoto || userData?.restaurantDetails?.coverPhoto || 'https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp'} alt="" />
 
-                    <button className=' btn absolute right-10 top-5 text-slate-500 bg-slate-100 rounded-full'>Edit Cover Photo</button>
+
+                    <label className=' absolute top-10 right-10' >
+
+                        {
+                            CoverPhotoFile ?
+                                <button
+                                    onClick={handleCoverPhotoChange}
+                                    className="btn btn-outline">save</button>
+                                :
+                                <>
+                                    <input
+                                        type="file"
+                                        accept='image/*'
+                                        className='hidden'
+                                        onChange={handleCoverSelcet}
+                                        id="CoverfileInput" />
 
 
+                                    <button
+                                        onClick={handleCoverFileInputClick}
+                                        className='text-2xl bg-white border rounded-full btn' >
+                                        Edit photo
+                                    </button>
+                                </>
+                        }
+
+                    </label>
+
+
+
+
+
+
+                    {/* Profile Photo , Name and Other Info */}
                     <div className='left-10 -bottom-50 absolute md:flex gap-10 items-center '>
                         <div className='relative'>
-                            
-                            <img src={  selectPhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'  } className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
+                            {/* Profile Image */}
+                            <img src={selectProfilePhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'} className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
 
                             <label className=' absolute bottom-10 right-1' >
                                 <input
                                     type="file"
-                                    accept='image'
+                                    accept='image/*'
                                     className='hidden'
                                     onChange={handleProfileSelcet}
                                     id="fileInput" />
@@ -102,13 +175,15 @@ const RestaurantProfile = () => {
                                 </button>
                             </label>
                             {
-                                photoFile &&
+                                profilePhotoFile &&
                                 <button
                                     onClick={handleProfileChange}
                                     className="btn btn-outline">save</button>
                             }
                         </div>
 
+
+                        {/* Restarant Name */}
                         <div>
                             {/* Toggle between input and text */}
                             {isEditing ? (
@@ -144,7 +219,7 @@ const RestaurantProfile = () => {
                                     </span>
                                 </h1>
                             )}
-
+                            {/* Others Infomation */}
                             <div className="flex gap-5">
                                 <h1 className="text-2xl text-gray-500">1k Follower</h1>
                                 <h1 className="text-2xl text-gray-500">3.4 Review</h1>
@@ -156,6 +231,8 @@ const RestaurantProfile = () => {
 
                 <div className='divider divide-black'></div>
 
+
+                {/* Tabs Content */}
                 {/* name of each tab group should be unique */}
                 <div className="tabs tabs-border">
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="Foods" />

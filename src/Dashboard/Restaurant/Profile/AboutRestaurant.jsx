@@ -7,7 +7,7 @@ import useUserData from '../../../Hooks/useUserData';
 const AboutRestaurant = () => {
     const { user } = useAuth()
     const [userData, isPending, refetch] = useUserData()
-    console.log(userData);
+
     const axiosPublic = useAxiosPublic()
     const [isEditing, setIsEditing] = useState(false)
     const [description, setDescription] = useState(userData?.restaurantDetails?.description)
