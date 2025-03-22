@@ -15,8 +15,12 @@ import AddFood from '../Dashboard/Restaurant/AddFood';
 import AdminDashboard from '../Dashboard/Admin Dashboard/AdminDashboard';
 import ManageUsers from '../Dashboard/Admin Dashboard/ManageUsers';
 import Advertisement from '../Dashboard/Restaurant/Advertisement';
+
+import PostAdvertisement from '../Dashboard/Restaurant/PostAdvertisement';
+
 import RestaurantProfile from '../Dashboard/Restaurant/Profile/RestaurantProfile'
 import ManageFood from '../Dashboard/Restaurant/ManageFood';
+
 
 
 const Router = () => {
@@ -43,6 +47,7 @@ const Router = () => {
           <Route path='manage-food' element={<ManageFood/>} />
           <Route path='restaurantProfile' element={<RestaurantProfile />} />
           <Route path='ad' element={<Advertisement />} />
+          <Route path='ad/post' element={<PostAdvertisement />} />
 
 
           {/* Customer Routes */}
