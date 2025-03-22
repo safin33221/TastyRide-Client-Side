@@ -99,7 +99,7 @@ const RegisterForm = () => {
             <div className="border-2 font-semibold flex bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
               <span className="text-2xl">
                 <FaImage />
-              </span>{" "}
+              </span>{" "}  
               Upload Image
             </div>
           </label>
