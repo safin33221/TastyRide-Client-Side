@@ -5,41 +5,35 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
-const Advertisement = () => {
+const ManageAdvertisements = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
 
-  const { data: ads = [], refetch, isLoading } = useQuery({
+  const { data: ads = [], refetch } = useQuery({
     queryKey: ["ads", user?.email],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/api/ad/${user?.email}`);
+      const res = await axiosPublic.get("/api/ad");
       console.log(res.data.data);
       return res.data.data;
     },
   });
 
-  // delete ad 
-  const handleDeleteAd = async(id) => {
+  // status update of ad 
+  const handleUpdate = async(id, status) => {
     try {
-      const res = await axiosPublic.delete(`/api/ad/${id}`)
-      console.log(res.data)
+      const res = await axiosPublic.patch(`/api/ad/${id}`, {status:status})
       if(res.data.success){
         refetch()
       }
     } catch (error) {
-      console.log("Error in delete ad", error)
+      console.log("Error in update status", error)
     }
   }
+  
   return (
     <div className="lg:m-10 p-10 bg-white rounded-xl">
-      <div
-        onClick={() => navigate("/dashboard/ad/post")}
-        className="mb-5 inline-flex"
-      >
-        <PrimaryButton text={"Post Advertisement"} />
-      </div>
-
+      <h1 className="font-semibold text-2xl mb-5">Manage All Ads</h1>
       {/* all ads section  */}
       <section>
         <div className="overflow-x-auto">
@@ -87,8 +81,11 @@ const Advertisement = () => {
                     )}
                   </th>
                   <th>
-                    <button onClick={() => handleDeleteAd(ad._id)} className="btn btn-ghost btn-xs bg-error text-white">
-                      Delete
+                    <button disabled={ad.status === "accepted"} onClick={() => handleUpdate(ad._id, "accepted")} className="btn btn-xs bg-success text-white">
+                      Accept
+                    </button>
+                    <button disabled={ad.status === "pending"} onClick={() => handleUpdate(ad._id, "pending")} className="btn btn-xs bg-error text-white ml-3">
+                      Reject
                     </button>
                   </th>
                 </tr>
@@ -101,4 +98,4 @@ const Advertisement = () => {
   );
 };
 
-export default Advertisement;
+export default ManageAdvertisements;
