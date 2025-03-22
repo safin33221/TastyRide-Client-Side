@@ -20,6 +20,7 @@ import PostAdvertisement from '../Dashboard/Restaurant/PostAdvertisement';
 
 import RestaurantProfile from '../Dashboard/Restaurant/Profile/RestaurantProfile'
 import ManageFood from '../Dashboard/Restaurant/ManageFood';
+import ManageAdvertisements from '../Dashboard/Admin Dashboard/ManageAdvertisements';
 
 
 
@@ -40,6 +41,7 @@ const Router = () => {
           {/* Admin Routes */}
           <Route path='admin' element={<AdminDashboard />} />
           <Route path='manage-user' element={<ManageUsers />} />
+          <Route path='manage-ad' element={<ManageAdvertisements/>}/>
 
           {/* Restaurant routes  */}
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
