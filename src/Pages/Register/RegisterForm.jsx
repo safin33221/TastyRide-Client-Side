@@ -6,11 +6,13 @@ import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
 import { LuLoaderPinwheel } from "react-icons/lu"
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useTranslation } from "react-i18next";
 const RegisterForm = () => {
   const { CreateUserWithEmail, UpdateUserProfile } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
+  const { t } = useTranslation();
 
 
   const {
@@ -56,7 +58,7 @@ const RegisterForm = () => {
         className="">
         {/* name */}
         <div className="mb-8">
-          <label className=" uppercase">Name</label>
+          <label className=" uppercase">{t('register.Name')}</label>
 
           <input
             type="text"
@@ -67,7 +69,7 @@ const RegisterForm = () => {
         </div>
         {/* email */}
         <div className="mb-8">
-          <label className=" uppercase">Email</label>
+          <label className=" uppercase">{t('login.Email')}</label>
 
           <input
             type="email"
@@ -78,7 +80,7 @@ const RegisterForm = () => {
         </div>
         {/* password */}
         <div className="mb-10">
-          <label className=" uppercase">Password</label>
+          <label className=" uppercase">{t('login.Password')}</label>
 
           <input
             type="password"
@@ -99,8 +101,8 @@ const RegisterForm = () => {
             <div className="border-2 font-semibold flex bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
               <span className="text-2xl">
                 <FaImage />
-              </span>{" "}  
-              Upload Image
+              </span>{" "}
+              {t('register.Upload Image')}
             </div>
           </label>
         </div>
@@ -116,7 +118,7 @@ const RegisterForm = () => {
                 value='customer'
                 {...register('role',{required:true})}
               />
-              Customer
+              {t('register.Customer')}
             </div>
           </label>
           <label className=" w-full uppercase flex ">
@@ -129,7 +131,7 @@ const RegisterForm = () => {
                 className=""
                 {...register('role',{required:true})}
               />
-              Reasturant
+             {t('register.Reasturant')}
             </div>
           </label>
 
@@ -138,7 +140,7 @@ const RegisterForm = () => {
         <button className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6" type="submit">
           {
             isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" />
-              : "Register"
+              : t('register.Register')
           }
         </button>
       </form>

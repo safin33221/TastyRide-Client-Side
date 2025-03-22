@@ -2,14 +2,17 @@ import LeftAside from "./LeftAside"
 import imageLogo from '../../assets/images/middle-img-reload.png'
 import RightAside from "./RightAside"
 import SectionTitle from "../../Shared/SectionTitle"
+import { useTranslation } from "react-i18next"
 
 const InterNationalFood = () => {
+const { t } = useTranslation();
+
   return (
     <div className="">
        {/* text */}
        <SectionTitle
-         title={'International Cuisines'}
-         desc={'Incredibly Tasty International Dish'}
+         title={t('sectionTitle.title')}
+         desc={t('sectionTitle.desc')}
        />
        {/* dishes */}
        <div className="flex flex-col lg:flex-row gap-6">

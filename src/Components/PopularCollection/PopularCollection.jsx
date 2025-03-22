@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 
 
 const popularItems = [
@@ -34,11 +35,12 @@ const popularItems = [
 ];
 
 const PopularCollection = () => {
+  const { t } = useTranslation();
   return (
     <div className="px-3 md:px-0" >
-      <h2 className="text-4xl font-semibold text-center mb-3">Popular Collection</h2>
+      <h2 className="text-4xl font-semibold text-center mb-3">{t('sectionTitle.title3')}</h2>
       <p className="text-center text-gray-500 ">
-        Discover our top-rated dishes loved by customers.Discover our top-rated dishes loved by customers.
+        {t('sectionTitle.desc3')}
       </p>
 
       <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
@@ -56,8 +58,8 @@ const PopularCollection = () => {
 
             {/* Text that appears below on hover */}
             <div className="absolute bottom-0 left-0 right-0 bg-[rgba(0,0,0,0.5)]  text-center p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 className="text-red-600 text-xl font-bold">{item.name}</h3>
-              <p className="text-slate-400 text-md">{item.price}</p>
+              <h3 className="text-red-600 text-xl font-bold">{t(`ourItem.${item.name}`)}</h3>
+              <p className="text-slate-400 text-md">{t(`ourItem.${item.price}`)}</p>
             </div>
           </div>
         ))}
