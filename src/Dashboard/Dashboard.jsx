@@ -17,7 +17,8 @@ import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import { IoIosAddCircleOutline } from 'react-icons/io';
-import useRole from '../Hooks/useRole';
+
+import useUserData from '../Hooks/useUserData';
 
 export const Dashboard = () => {
   return (
@@ -31,7 +32,7 @@ export const Dashboard = () => {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState('Dashboard');
-  const [role, isPending] = useRole()
+  const [userData, isPending] = useUserData()
   if (isPending) return
 
 
@@ -51,7 +52,7 @@ const Sidebar = () => {
 
         {/* Admin Realted Links */}
         {
-          role === 'admin' &&
+          userData?.role === 'admin' &&
           <>
             <Option
               Icon={FiHome}
@@ -75,7 +76,7 @@ const Sidebar = () => {
 
         {/* restaurant Related Links */}
         {
-          role === 'restaurant' &&
+          userData?.role === 'restaurant' &&
           <>
 
             <Option
@@ -95,18 +96,19 @@ const Sidebar = () => {
               open={open}
               notifs={3}
             />
+
             <Option
-              Icon={FiShoppingCart}
-              title="Foods"
-              links=""
+              Icon={IoIosAddCircleOutline}
+              title="Add Foods"
+              links="/dashboard/add-foods"
               selected={selected}
               setSelected={setSelected}
               open={open}
             />
             <Option
-              Icon={IoIosAddCircleOutline}
-              title="Add Foods"
-              links="/dashboard/add-foods"
+              Icon={FiShoppingCart}
+              title="Manage Foods"
+              links="/dashboard/manage-food"
               selected={selected}
               setSelected={setSelected}
               open={open}
@@ -130,7 +132,7 @@ const Sidebar = () => {
             <Option
               Icon={FiUser}
               title="Profile"
-              links="/dashboard/profile"
+              links="/dashboard/restaurantProfile"
               selected={selected}
               setSelected={setSelected}
               open={open}
@@ -152,7 +154,7 @@ const Sidebar = () => {
         {/* customers Realted Links */}
 
         {
-          role === 'customer' &&
+          userData?.role === 'customer' &&
           <>
             <Option
               Icon={FiHome}
