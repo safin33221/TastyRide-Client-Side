@@ -1,9 +1,11 @@
+import { useTranslation } from "react-i18next";
 import SectionTitle from "../../Shared/SectionTitle";
 import img1 from "../../assets/order-step-icons/setp-img1.webp";
 import img2 from "../../assets/order-step-icons/setp-img2.webp";
 import img3 from "../../assets/order-step-icons/setp-img3.webp";
 
 function EasyOrder() {
+  const { t } = useTranslation();
   return (
     <div>
       <div
@@ -19,9 +21,9 @@ function EasyOrder() {
           <div className="max-w-full">
             {/* title */}
             <SectionTitle
-              title={"Easy Order"}
+              title={t('sectionTitle.title4')}
               desc={
-                "You can place your order in three steps."
+                t('sectionTitle.desc4')
               }
             />
             {/* card items for easy order steps */}
@@ -30,36 +32,33 @@ function EasyOrder() {
                 <div className="flex flex-col items-center justify-center">
                     <div className="relative w-xs flex flex-col items-center justify-center">
                         <img src={img1} alt="step1-img"/>
-                        <span className="bg-red-600 rounded-full w-9 h-9 flex items-center justify-center -mt-4 shadow-xs font-bold">1</span>
+                        <span className="bg-red-600 rounded-full w-9 h-9 flex items-center justify-center -mt-4 shadow-xs font-bold">{t('number.1')}</span>
                     </div>
                     <div className="mt-8">
-                    <h1 className="text-2xl font-bold mb-3">Explore Restaurants</h1>
-                    <p className="font-semibold">Browse through a variety of top-rated restaurants near you. Use filters to find cuisine, 
-                        price range, and customer ratings to make the best choice.</p>
+                    <h1 className="text-2xl font-bold mb-3">{t('easyOrder.title1')}</h1>
+                    <p className="font-semibold">{t('easyOrder.desc1')}</p>
                     </div>
                 </div>
                  {/* card-2 */}
                  <div className="flex flex-col items-center justify-center">
                     <div className="relative w-xs flex flex-col items-center justify-center">
                         <img src={img2} alt="step1-img"/>
-                        <span className="bg-red-600 rounded-full w-9 h-9 flex items-center justify-center -mt-4 shadow-xs font-bold">2</span>
+                        <span className="bg-red-600 rounded-full w-9 h-9 flex items-center justify-center -mt-4 shadow-xs font-bold">{t('number.2')}</span>
                     </div>
                     <div className="mt-8">
-                    <h1 className="text-2xl font-bold mb-3">Choose a Tasty Dish</h1>
-                    <p className="font-semibold">Craving something special? Select from a wide range of mouth-watering dishes. 
-                        Add your favorite items to the cart and customize them as needed. </p>
+                    <h1 className="text-2xl font-bold mb-3">{t('easyOrder.title2')}</h1>
+                    <p className="font-semibold">{t('easyOrder.desc2')}</p>
                     </div>
                 </div>
                  {/* card-3 */}
                  <div className="flex flex-col items-center justify-center">
                     <div className="relative w-xs flex flex-col items-center justify-center">
                         <img src={img3} alt="step1-img"/>
-                        <span className="bg-red-600 rounded-full w-9 h-9 flex items-center justify-center -mt-4 shadow-xs font-bold">3</span>
+                        <span className="bg-red-600 rounded-full w-9 h-9 flex items-center justify-center -mt-4 shadow-xs font-bold">{t('number.3')}</span>
                     </div>
                     <div className="mt-8">
-                    <h1 className="text-2xl font-bold mb-3">Explore Restaurants</h1>
-                    <p className="font-semibold">Once you place your order, track its real-time status—from preparation to delivery. 
-                        Get notified when your food is on the way so you’re ready to enjoy it hot and fresh!</p>
+                    <h1 className="text-2xl font-bold mb-3">{t('easyOrder.title3')}</h1>
+                    <p className="font-semibold">{t('easyOrder.desc3')}</p>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,11 @@
     "title2" : "Our Products",
     "desc2" : "We have a lot of international cuisine",
     "title3" : "Popular Collection",
-    "desc3" : "Discover our top-rated dishes loved by customers.Discover our top-rated dishes loved by customers."
+    "desc3" : "Discover our top-rated dishes loved by customers.Discover our top-rated dishes loved by customers.",
+    "title4": "Easy Order",
+    "desc4" : "You can place your order in three steps." ,
+    "title5": "Our Clients",
+    "desc5" : "Our restaurant serves a diverse clientele, offering them delicious, quality meals"
   },
   "leftSide":{
     "title1":"Bangladeshi Cuisines",
@@ -82,6 +86,26 @@
     "Starts @5.99" : "Starts @5.99",
     "Starts @4.50" : "Starts @4.50",
     "Starts @3.75" : "Starts @3.75"
+  },
+  "easyOrder":{
+    "title1": "Explore Restaurants",
+    "desc1" : "Browse through a variety of top-rated restaurants near you. Use filters to find cuisine, price range, and customer ratings to make the best choice.",
+    "title2": "Choose a Tasty Dish",
+    "desc2" : "Craving something special? Select from a wide range of mouth-watering dishes. Add your favorite items to the cart and customize them as needed.",
+    "title3": "Explore Restaurants",
+    "desc3" : "Once you place your order, track its real-time status—from preparation to delivery. Get notified when your food is on the way so you’re ready to enjoy it hot and fresh!"  
+  },
+  "number":{
+    "1" : "1",
+    "2" : "2",
+    "3" : "3",
+    "4" : "4",
+    "5" : "5",
+    "6" : "6",
+    "7" : "7",
+    "8" : "8",
+    "9" : "9",
+    "0" : "0"
   }
 }
 
