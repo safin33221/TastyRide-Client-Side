@@ -9,13 +9,13 @@ import PrimaryButton from '../Shared/PrimaryButton';
 
 const Sliders = () => {
   const axiosPublic = useAxiosPublic()
-  const images = [
-    'https://i.ibb.co.com/qhLq8rg/slide1-1.png',
-    'https://i.ibb.co.com/XZVg57d1/slide2.png',
-    'https://i.ibb.co.com/Qv6HNSB3/slider3-1.png',
-    'https://i.ibb.co.com/bjf6n01j/slider3-2.png',
-    'https://i.ibb.co.com/Kt0LydF/slider3-3.png',
-  ];
+  // const images = [
+  //   'https://i.ibb.co.com/qhLq8rg/slide1-1.png',
+  //   'https://i.ibb.co.com/XZVg57d1/slide2.png',
+  //   'https://i.ibb.co.com/Qv6HNSB3/slider3-1.png',
+  //   'https://i.ibb.co.com/bjf6n01j/slider3-2.png',
+  //   'https://i.ibb.co.com/Kt0LydF/slider3-3.png',
+  // ];
 
   const {data: sliders=[]} = useQuery({
     queryKey: ["slider"],
@@ -24,6 +24,10 @@ const Sliders = () => {
       return res.data.data
     }
   })
+
+  // filter by accepted banner ad 
+  const acceptedAds = sliders.filter(prev => prev.status === "accepted")
+  // console.log(acceptedAds)
 
   return (
     <div className="w-full z-0">
@@ -37,17 +41,11 @@ const Sliders = () => {
         className="w-full md:h-[600px] h-[400px]"
         style={{ zIndex: "0" }}
       >
-        {sliders.map((slider, index) => (
+        {acceptedAds.map((slider, index) => (
           <SwiperSlide key={index}>
             <div style={{backgroundImage: `url(${slider.image})`}} className='w-full h-full relative bg-cover bg-center flex justify-center items-center'>
-            {/* <img
-              src={slider.image}
-              alt={`Food ${index + 1}`}
-              className="w-full h-full object-cover"
-            /> */}
-
             <div className='bg-[rgba(0,0,0,0.5)] backdrop-blur-sm p-10 flex items-center justify-center flex-col gap-3'>
-              <h1 className='text-white text-3xl font-semibold text-center'>{slider.title}gg</h1>
+              <h1 className='text-white text-3xl font-semibold text-center'>{slider.title}</h1>
               <p className='text-gray-400 text-center font-semibold'>{slider.description}</p>
               <div className='inline-flex'><PrimaryButton text={"Order Now"}/></div>
             </div>
