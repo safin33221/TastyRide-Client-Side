@@ -12,5 +12,27 @@
     "Dashboard":"Dashboard",
     "Logout":"Logout",
     "Login":"Login"
+  },
+  "sectionTitle":{
+    "title": "International Cuisines",
+    "desc" : "Incredibly Tasty International Dish"
+  },
+  "leftSide":{
+    "title1":"Bangladeshi Cuisines",
+    "desc1" : "Traditional Bangladeshi cuisine consists of rice, lentils, fish, and meat dishes, often rich in spices. Example: Shutki Bhuna – A flavorful dry fish curry cooked with onions, garlic, and mustard oil.",
+    "title2":"Thai Cuisines",
+    "desc2" : "Thai cuisine is known for its balance of sweet, sour, spicy, and savory flavors. Example: Green Curry – A spicy coconut milk-based curry with chicken, eggplant, and Thai basil.",
+    "title3":"Indian Cuisines",
+    "desc3" : "Indian dishes are often packed with aromatic spices, gravies, and a variety of breads and rice. Example: Paneer Tikka – Grilled cottage cheese marinated with yogurt and Indian spices."
+  },
+  "rightSide":{
+    "title1":"Chinese Cuisines",
+    "desc1" : "Chinese food features a variety of stir-fried dishes, dumplings, and noodle-based recipes. Example: Sweet and Sour Chicken – A tangy, crispy chicken dish tossed in a flavorful sauce.",
+    "title2":"Arabian Cuisines",
+    "desc2" : "Arabian cuisine is rich in grilled meats, rice dishes, and flavorful dips. Example: Mandi – A traditional Yemeni rice dish with slow-cooked meat and aromatic spices.",
+    "title3":"Bangladeshi Cuisines",
+    "desc3" : "Traditional Bangladeshi cuisine consists of rice, lentils, fish, and meat dishes, often rich in spices. Example: Beef Tehari – Fragrant spiced rice cooked with marinated beef, yogurt, and aromatic spices."
   }
 }
+
+
