@@ -10,7 +10,7 @@ const AboutRestaurant = () => {
     console.log(userData);
     const axiosPublic = useAxiosPublic()
     const [isEditing, setIsEditing] = useState(false)
-    const [description, setDescription] = useState(userData?.restaurantDetails?.description )
+    const [description, setDescription] = useState(userData?.restaurantDetails?.description)
 
 
     const handleEditClick = () => {
@@ -60,11 +60,11 @@ const AboutRestaurant = () => {
                 }
             </div>
             <div className='  min-h-52 w-11/12 mx-auto'>
-                <h1 className='text-3xl font-bold '>Owner information</h1>
-                <h2 className='text-2xl font-bold'>Name: <span className='text-gray-500 font-normal'>N/A</span></h2>
-                <h2 className='text-2xl font-bold'>Email: <span className='text-gray-500 font-normal'>N/A</span></h2>
-                <h2 className='text-2xl font-bold'>Phone: <span className='text-gray-500 font-normal'>N/A</span></h2>
-                <h2 className='text-2xl font-bold'>Address: <span className='text-gray-500 font-normal'>N/A</span></h2>
+                <h1 className='text-3xl font-bold '>Others information</h1>
+                <h2 className='text-2xl font-bold'>Name: <span className='text-gray-500 font-normal'>{userData?.username || ' N/A'}</span></h2>
+                <h2 className='text-2xl font-bold'>Email: <span className='text-gray-500 font-normal'>{userData?.email}</span></h2>
+                <h2 className='text-2xl font-bold'>Phone: <span className='text-gray-500 font-normal'>{userData?.phoneNumber || ' N/A'}</span></h2>
+                <h2 className='text-2xl font-bold'>Address: <span className='text-gray-500 font-normal'>{userData?.address || ' N/A'}</span></h2>
 
             </div>
         </div>

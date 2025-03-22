@@ -1,19 +1,50 @@
 import React, { useState } from 'react';
 import useAuth from '../../../Hooks/useAuth';
-import { FaCheck, FaRegEdit } from 'react-icons/fa';
+import { FaCheck, FaRegEdit, FaUser } from 'react-icons/fa';
 import AboutRestaurant from './AboutRestaurant';
 import useAxiosPublic from '../../../Hooks/useAxiosPublic';
 import useUserData from '../../../Hooks/useUserData';
 import Swal from 'sweetalert2';
+import { IoIosReverseCamera } from "react-icons/io";
+import { imageUpload } from '../../../Utils/Utils';
 
 
 const RestaurantProfile = () => {
     const { user } = useAuth()
     const [userData, isPending, refetch] = useUserData()
     const axiosPublic = useAxiosPublic()
+    const [selectPhoto, setSelectedPhoto] = useState(null)
+    const [photoFile, setPhotoFile] = useState(null)
     const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
-    console.log(userData);
+ 
+
+    const handleFileInputClick = () => {
+        document.getElementById('fileInput').click()
+    }
+    const handleProfileSelcet = (e) => {
+        const file = (e.target.files[0]);
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setSelectedPhoto(reader.result)
+            }
+            reader.readAsDataURL(file)
+            setPhotoFile(file)
+        }
+    }
+
+    const handleProfileChange = async () => {
+        if (photoFile) {
+            const profilePhoto = await imageUpload(photoFile)
+            await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { profilePhoto })
+            refetch()
+            setPhotoFile(null)
+            setSelectedPhoto(null)
+
+        }
+    }
+
 
 
     const handleEditClick = () => {
@@ -52,7 +83,31 @@ const RestaurantProfile = () => {
 
 
                     <div className='left-10 -bottom-50 absolute md:flex gap-10 items-center '>
-                        <img src={user?.photoURL} className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
+                        <div className='relative'>
+                            
+                            <img src={  selectPhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'  } className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
+
+                            <label className=' absolute bottom-10 right-1' >
+                                <input
+                                    type="file"
+                                    accept='image'
+                                    className='hidden'
+                                    onChange={handleProfileSelcet}
+                                    id="fileInput" />
+                                <button
+
+                                ><IoIosReverseCamera
+                                        onClick={handleFileInputClick}
+                                        className='text-5xl bg-white border rounded-full' />
+                                </button>
+                            </label>
+                            {
+                                photoFile &&
+                                <button
+                                    onClick={handleProfileChange}
+                                    className="btn btn-outline">save</button>
+                            }
+                        </div>
 
                         <div>
                             {/* Toggle between input and text */}
@@ -60,7 +115,7 @@ const RestaurantProfile = () => {
                                 <div className="flex items-center gap-4">
                                     <input
                                         type="text"
-                                        defaultValue={userData?.restaurantDetails?.restaurantName || "N/A"}
+                                        defaultValue={userData?.restaurantDetails?.restaurantName}
                                         placeholder='Restarunt Name'
                                         onChange={(e) => setRestaurantName(e.target.value)}
                                         className="text-4xl font-bold border-b-2 outline-none focus:border-blue-500"
@@ -70,6 +125,12 @@ const RestaurantProfile = () => {
                                         className="text-green-500 text-2xl btn"
                                     >
                                         save
+                                    </button>
+                                    <button
+                                        onClick={() => handleEditClick(setIsEditing(false))}
+                                        className="text-red-500 text-2xl btn"
+                                    >
+                                        cancel
                                     </button>
                                 </div>
                             ) : (

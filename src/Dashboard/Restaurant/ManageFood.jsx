@@ -12,11 +12,11 @@ const ManageFood = () => {
 
   // Fetch food items by email using useQuery
   const { data: foods = [], isLoading } = useQuery({
-    queryKey: ["foods", user.email],
+    queryKey: ["foods", user?.email],
     queryFn: async () => {
-      const response = await axiosPublic.get(`/api/foods/by-email?email=${user.email}`);
-      if (response.data.success) {
-        return response.data.data;
+      const response = await axiosPublic.get(`/api/foods/by-email?email=${user?.email}`);
+      if (response?.data?.success) {
+        return response?.data?.data;
       }
       throw new Error("Failed to fetch food items");
     },
@@ -26,12 +26,12 @@ const ManageFood = () => {
   const deleteFoodMutation = useMutation({
     mutationFn: async (id) => {
       const response = await axiosPublic.delete(`/api/foods/${id}`);
-      if (!response.data.success) {
+      if (!response?.data?.success) {
         throw new Error("Failed to delete food item");
       }
     },
     onSuccess: (_, id) => {
-      queryClient.invalidateQueries(["foods", user.email]); // Refetch after delete
+      queryClient.invalidateQueries(["foods", user?.email]); // Refetch after delete
       Swal.fire("Deleted!", "Your food item has been deleted.", "success");
     },
     onError: (error) => {
