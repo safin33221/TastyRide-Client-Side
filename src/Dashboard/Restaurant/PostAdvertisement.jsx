@@ -9,6 +9,7 @@ const PostAdvertisement = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const [loading, setLoading] = useState(false);
 
   const [ad, setAd] = useState({
     title: "",
@@ -37,6 +38,7 @@ const PostAdvertisement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!ad.image) {
       Swal.fire({
@@ -96,6 +98,8 @@ const PostAdvertisement = () => {
         title: "Error",
         text: "Failed to add ad item. Please try again.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -158,11 +162,12 @@ const PostAdvertisement = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="w-full"
-          >
-            <PrimaryButton text={"Post Ad"}/>
+          <button disabled={loading} type="submit" className="w-full">
+            {loading ? (
+              <PrimaryButton text={"Posting..."} />
+            ) : (
+              <PrimaryButton text={"Post Ad"} />
+            )}
           </button>
         </form>
       </div>
