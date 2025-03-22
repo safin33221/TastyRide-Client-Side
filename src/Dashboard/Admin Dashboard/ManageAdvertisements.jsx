@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const ManageAdvertisements = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const ManageAdvertisements = () => {
       const res = await axiosPublic.patch(`/api/ad/${id}`, {status:status})
       if(res.data.success){
         refetch()
+        toast.success("Status Changed")
       }
     } catch (error) {
       console.log("Error in update status", error)
