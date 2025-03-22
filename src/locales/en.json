@@ -17,7 +17,9 @@
     "title": "International Cuisines",
     "desc" : "Incredibly Tasty International Dish",
     "title2" : "Our Products",
-    "desc2" : "We have a lot of international cuisine"
+    "desc2" : "We have a lot of international cuisine",
+    "title3" : "Popular Collection",
+    "desc3" : "Discover our top-rated dishes loved by customers.Discover our top-rated dishes loved by customers."
   },
   "leftSide":{
     "title1":"Bangladeshi Cuisines",
@@ -69,8 +71,17 @@
     "8.99" : "8.99",
     "6.99" : "6.99",
     "7.49" : "7.49",
-    "5.99" : "5.99"
-    
+    "5.99" : "5.99"   
+  },
+  "ourItem":{
+    "Indian Curry Meals":"Indian Curry Meals",
+    "Grilled Chicken" : "Grilled Chicken",
+    "Pasta Delight" : "Pasta Delight",
+    "Veggie Special" :"Veggie Special",
+    "Starts @3.99" : "Starts @3.99",
+    "Starts @5.99" : "Starts @5.99",
+    "Starts @4.50" : "Starts @4.50",
+    "Starts @3.75" : "Starts @3.75"
   }
 }
 
