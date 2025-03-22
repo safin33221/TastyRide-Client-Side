@@ -11,7 +11,7 @@ const RestaurantProfile = () => {
     const { user } = useAuth()
     const [userData, isPending, refetch] = useUserData()
     const axiosPublic = useAxiosPublic()
-    const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName);
+    const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
     console.log(userData);
 
@@ -24,7 +24,7 @@ const RestaurantProfile = () => {
         // Here you can add logic to save the updated name to the server if needed
         console.log("Updated Restaurant Name:", restaurantName);
         try {
-            const { res } = await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { restaurantName })
+            await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { restaurantName })
             refetch()
             Swal.fire({
                 icon: "success",
@@ -60,7 +60,8 @@ const RestaurantProfile = () => {
                                 <div className="flex items-center gap-4">
                                     <input
                                         type="text"
-                                        defaultValue={userData?.restaurantDetails?.restaurantName}
+                                        defaultValue={userData?.restaurantDetails?.restaurantName || "N/A"}
+                                        placeholder='Restarunt Name'
                                         onChange={(e) => setRestaurantName(e.target.value)}
                                         className="text-4xl font-bold border-b-2 outline-none focus:border-blue-500"
                                     />
@@ -73,7 +74,7 @@ const RestaurantProfile = () => {
                                 </div>
                             ) : (
                                 <h1 className="text-4xl font-bold flex gap-4">
-                                    {userData?.restaurantDetails?.restaurantName}
+                                    {userData?.restaurantDetails?.restaurantName || "N/A"}
                                     <span
                                         onClick={handleEditClick}
                                         className="cursor-pointer text-gray-500"
