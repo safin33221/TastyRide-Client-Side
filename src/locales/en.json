@@ -4,7 +4,8 @@
     "menu1": "Home",
     "menu2": "All Food",
     "menu3": "Gallery",
-    "menu4": "Contact Us"
+    "menu4": "Contact Us",
+    "menu5": "About us"
   },
   "userMenu": {
     "profile":"Profile",
@@ -106,7 +107,25 @@
     "8" : "8",
     "9" : "9",
     "0" : "0"
+  },
+  "login":{
+    "Don't Have Account?": "Don't Have Account?",
+    "Register Now" : "Register Now",
+    "Email" : "Email",
+    "Password" : "Password",
+    "Or" : "Or",
+    "Login With Google": "Login With Google"
+  },
+  "register":{
+    "Name":"Name",
+    "Upload Image" : "Upload Image",
+    "Customer" : "Customer",
+    "Reasturant" : "Reasturant",
+    "Register" : "Register",
+    "Have an Account?" : "Have an Account?",
+    "Login Now" : "Login Now"
   }
+
 }
 
 

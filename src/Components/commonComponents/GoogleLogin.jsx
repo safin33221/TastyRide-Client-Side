@@ -3,9 +3,11 @@ import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useTranslation } from "react-i18next";
 
 const GoogleLogin = () => {
   const { SignInWithGoogle, UpdateUserProfile } = useAuth()
+  const { t } = useTranslation();
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
 
@@ -46,7 +48,7 @@ const GoogleLogin = () => {
         <span className="text-2xl">
           <FcGoogle />
         </span>
-        <span className="">Login With Google</span>
+        <span className="">{t('login.Login With Google')}</span>
       </button>
     </div>
   );

@@ -2,10 +2,12 @@ import React from "react";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = () => {
   const { LoginUser } = useAuth()
   const navigate = useNavigate()
+  const { t } = useTranslation();
   const {
       register,
       handleSubmit,
@@ -25,7 +27,7 @@ const LoginForm = () => {
     <div>
       <form className="" onSubmit={handleSubmit(onsubmit)}>
         <div className="mb-8">
-          <label className=" uppercase">Email</label>
+          <label className=" uppercase">{t('login.Email')}</label>
 
           <input
             type="email"
@@ -35,7 +37,7 @@ const LoginForm = () => {
           />
         </div>
         <div className="mb-10">
-          <label className=" uppercase">Password</label>
+          <label className=" uppercase">{t('login.Password')}</label>
 
           <input
             type="password"
@@ -46,7 +48,7 @@ const LoginForm = () => {
         </div>
         <input
           type="submit"
-          value={"Login"}
+          value={t('userMenu.Login')}
           className=" w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6"
         />
       </form>

@@ -1,14 +1,16 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     // remove mt-20 
     <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10 "> 
       <nav className="grid grid-flow-col gap-4">
-        <a className="link link-hover">Home</a>
-        <a className="link link-hover">All Food</a>
-        <a className="link link-hover">Gallery</a>
-        <a className="link link-hover">About Us</a>
+        <a className="link link-hover">{t('navMenu.menu1')}</a>
+        <a className="link link-hover">{t('navMenu.menu2')}</a>
+        <a className="link link-hover">{t('navMenu.menu3')}</a>
+        <a className="link link-hover">{t('navMenu.menu5')}</a>
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
