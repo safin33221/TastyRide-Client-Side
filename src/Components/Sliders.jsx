@@ -3,8 +3,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosPublic from '../Hooks/useAxiosPublic';
 
 const Sliders = () => {
+  const axiosPublic = useAxiosPublic()
   const images = [
     'https://i.ibb.co.com/qhLq8rg/slide1-1.png',
     'https://i.ibb.co.com/XZVg57d1/slide2.png',
@@ -12,6 +15,14 @@ const Sliders = () => {
     'https://i.ibb.co.com/bjf6n01j/slider3-2.png',
     'https://i.ibb.co.com/Kt0LydF/slider3-3.png',
   ];
+
+  const {data: sliders=[]} = useQuery({
+    queryKey: ["slider"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/api/ad")
+      return res.data.data
+    }
+  })
 
   return (
     <div className="w-full z-0">
@@ -25,10 +36,10 @@ const Sliders = () => {
         className="w-full md:h-[500px] h-[400px]"
         style={{ zIndex: "0" }}
       >
-        {images.map((img, index) => (
+        {sliders.map((slider, index) => (
           <SwiperSlide key={index}>
             <img
-              src={img}
+              src={slider.image}
               alt={`Food ${index + 1}`}
               className="w-full h-full bg-cover -z-10"
             />
