@@ -1,0 +1,16 @@
+
+{
+  "navMenu": {
+    "menu1": "Home",
+    "menu2": "All Food",
+    "menu3": "Gallery",
+    "menu4": "Contact Us"
+  },
+  "userMenu": {
+    "profile":"Profile",
+    "span1": "New",
+    "Dashboard":"Dashboard",
+    "Logout":"Logout",
+    "Login":"Login"
+  }
+}
