@@ -1,7 +1,28 @@
 import React from "react";
 import PrimaryButton from "../../Shared/PrimaryButton";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 function SingleFood() {
+  const {id} = useParams();
+  const axiosPublic = useAxiosPublic();
+
+  const { data: food, isLoading, isError } = useQuery({
+    queryKey: ["food", id],
+    enabled: !!id, // Only fetch when ID exists
+    queryFn: async ()=> {
+      const res = await axiosPublic.get(`/api/foods/${id}`);
+      return res.data;
+    }
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+
+  if (isError) return <p>Error fetching food details!</p>;
+
+  
+
   return (
     <section className="max-w-5xl mx-auto flex justify-center items-center h-screen">
       <div className="card lg:card-side w-full shadow-sm">
