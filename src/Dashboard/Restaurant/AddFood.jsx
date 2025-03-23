@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { imageUpload } from "../../Utils/Utils";
 
 const AddFood = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const [selectPhoto, setSelectedPhoto] = useState(null)
+  const [photoFile, setPhotoFile] = useState(null)
+
+
 
   const [food, setFood] = useState({
     foodName: "",
@@ -23,6 +28,8 @@ const AddFood = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
+
+
     if (type === "file") {
       setFood({ ...food, image: files[0] });
       Swal.fire({
@@ -42,6 +49,16 @@ const AddFood = () => {
     } else {
       setFood({ ...food, [name]: value });
     }
+
+    const photo = files[0]
+    if (photo) {
+      const reader = new FileReader()
+      reader.onload = () => {
+        setSelectedPhoto(reader.result)
+      }
+      reader.readAsDataURL(photo)
+    }
+    setPhotoFile(photo)
   };
 
   const handleSubmit = async (e) => {
@@ -61,15 +78,10 @@ const AddFood = () => {
       const imgData = new FormData();
       imgData.append("image", food.image);
 
-      const image_hosting_key = import.meta.env.VITE_IMGBB_API;
+      const imageUrl = await imageUpload(photoFile)
 
-      const imgBBRes = await axiosPublic.post(
-        `https://api.imgbb.com/1/upload?key=${image_hosting_key}`,
-        imgData
-      );
-
-      if (imgBBRes.data.success) {
-        const imageUrl = imgBBRes.data.data.url;
+      if (imageUrl) {
+        
 
         // 2️⃣ Send data to backend
         const newFood = {
@@ -146,51 +158,74 @@ const AddFood = () => {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Category</label>
-                <select
-                  name="category"
-                  value={food.category}
-                  onChange={handleChange}
-                  required
-                  className="mt-1 block w-full px-3 py-2 border rounded-md"
-                >
-                  <option value="" disabled>
-                    Select category
-                  </option>
-                  <option value="Veg">Veg</option>
-                  <option value="Non-Veg">Non-Veg</option>
-                  <option value="Desserts">Desserts</option>
-                  <option value="Beverages">Beverages</option>
-                </select>
+              <div className="md:flex w-full gap-4">
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-700 ">Category</label>
+                  <select
+                    name="category"
+                    value={food.category}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full px-3 py-2 border rounded-md"
+                  >
+                    <option value="" disabled>
+                      Select category
+                    </option>
+                    <option value="Veg">Veg</option>
+                    <option value="Non-Veg">Non-Veg</option>
+                    <option value="Desserts">Desserts</option>
+                    <option value="Beverages">Beverages</option>
+                  </select>
+                </div>
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-700">Price</label>
+                  <input
+                    type="number"
+                    name="price"
+                    value={food.price}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter price"
+                    className="mt-1 block w-full px-3 py-2 border rounded-md"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Right Column */}
             <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Price</label>
-                <input
-                  type="number"
-                  name="price"
-                  value={food.price}
-                  onChange={handleChange}
-                  required
-                  placeholder="Enter price"
-                  className="mt-1 block w-full px-3 py-2 border rounded-md"
-                />
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Food Image</label>
-                <input
-                  type="file"
-                  name="image"
-                  onChange={handleChange}
-                  required
-                  className="mt-1 block w-full text-sm text-gray-500"
-                />
-              </div>
+
+              {
+                selectPhoto ?
+                  <div className="flex flex-row-reverse ">
+                    <img src={selectPhoto} className="w-42 border border-dashed h-28 mx-auto" alt="" />
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Food Image</label>
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={handleChange}
+                        required
+                        className="  mt-1 input file-input border-none focus:outline-none block w-full text-sm text-gray-500"
+                      />
+                    </div>
+
+                  </div>
+                  :
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">Food Image</label>
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={handleChange}
+                        required
+                        className="mt-1 file-input block w-full text-sm text-gray-500"
+                      />
+                    </div>
+                  </>
+              }
 
               <div>
                 <label className="block text-sm font-medium text-gray-700">Ingredients</label>
