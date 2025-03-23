@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import { useParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
+import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaHeart, FaRegHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import useUserData from "../../Hooks/useUserData";
 
 function SingleFood() {
   const {id} = useParams();
+  const [userData] = useUserData();
   const axiosPublic = useAxiosPublic();
-  const [isFavorited, setIsFavorited] = useState(false);
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
+  const queryClient = useQueryClient();
 
   const { data: food, isLoading, isError } = useQuery({
     queryKey: ["food", id],
@@ -21,13 +21,27 @@ function SingleFood() {
     }
   });
 
+   // get the total likes and dislikes
+   const {mutate: reactToFood} = useMutation({
+    mutationFn : async ({reaction}) =>{
+      const res = await axiosPublic.post(`/api/foods/reaction/${id}`, 
+        {userId: userData?._id, reaction});
+        return res.data;
+    },
+    onSuccess: () =>{
+      queryClient.invalidateQueries('food', food._id);
+    }
+   })
+
+  // manage the add to favorite functionality state
+  const [isFavorited, setIsFavorited] = useState(false);
+
   if (isLoading) return <p>Loading...</p>;
 
   if (isError) return <p>Error fetching food details!</p>;
 
   const toggleFavorite = () => setIsFavorited(!isFavorited);
-  const handleLike = () => setLikes((prev) => prev + 1);
-  const handleDislike = () => setDislikes((prev) => prev + 1);
+ 
 
   return (
     <section className="max-w-5xl mx-auto flex justify-center items-center h-screen">
@@ -113,11 +127,13 @@ function SingleFood() {
 
             {/* Like & Dislike Buttons */}
             <div className="mt-6 flex items-center gap-4">
-              <button className="btn btn-sm btn-outline btn-success flex items-center gap-2" onClick={handleLike}>
-                <FaThumbsUp /> {likes}
+              <button className="btn btn-sm btn-outline btn-success flex items-center gap-2" 
+              onClick={()=>{reactToFood({reaction: 'like'})}}>
+                <FaThumbsUp /> {food?.likes.length}
               </button>
-              <button className="btn btn-sm btn-outline btn-error flex items-center gap-2" onClick={handleDislike}>
-                <FaThumbsDown /> {dislikes}
+              <button className="btn btn-sm btn-outline btn-error flex items-center gap-2" 
+              onClick={()=>{reactToFood({reaction: 'dislike'})}}>
+                <FaThumbsDown /> {food?.dislikes.length}
               </button>
             </div>
 
