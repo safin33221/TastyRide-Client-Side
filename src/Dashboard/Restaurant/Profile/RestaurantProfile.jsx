@@ -158,7 +158,8 @@ const RestaurantProfile = () => {
                     <div className='left-10 -bottom-50 absolute md:flex gap-10 items-center '>
                         <div className='relative'>
                             {/* Profile Image */}
-                            <img src={selectProfilePhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'} className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
+                            <img src={selectProfilePhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'} 
+                            className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
 
                             <label className=' absolute bottom-10 right-1' >
                                 <input
