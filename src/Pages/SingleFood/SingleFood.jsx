@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { FaHeart, FaRegHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 
 function SingleFood() {
   const {id} = useParams();
   const axiosPublic = useAxiosPublic();
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
 
   const { data: food, isLoading, isError } = useQuery({
     queryKey: ["food", id],
@@ -21,11 +25,22 @@ function SingleFood() {
 
   if (isError) return <p>Error fetching food details!</p>;
 
-  
+  const toggleFavorite = () => setIsFavorited(!isFavorited);
+  const handleLike = () => setLikes((prev) => prev + 1);
+  const handleDislike = () => setDislikes((prev) => prev + 1);
 
   return (
     <section className="max-w-5xl mx-auto flex justify-center items-center h-screen">
       <div className="card lg:card-side w-full bg-white shadow-sm">
+        {/* Love Icon */}
+        <button 
+          className="absolute top-4 right-4 text-red-500 text-2xl cursor-pointer" 
+          onClick={toggleFavorite}
+        >
+          {isFavorited ? <FaHeart /> : <FaRegHeart />}
+        </button>
+
+        {/* food image */}
         <div className="w-1/2 flex justify-center items-center p-6 md:p-8 lg:p-10">
           <div className="w-[350px] h-[350px] overflow-hidden rounded-lg">
             <img
@@ -35,6 +50,7 @@ function SingleFood() {
             />
           </div>
         </div>
+        {/* food details */}
         <div className="card-body">
           <div className="card-body">
             <span className="badge badge-xs badge-warning">{food?.availability ? "Available" : "Not Available"}</span>
@@ -94,6 +110,18 @@ function SingleFood() {
                 )
               }
             </div>
+
+            {/* Like & Dislike Buttons */}
+            <div className="mt-6 flex items-center gap-4">
+              <button className="btn btn-sm btn-outline btn-success flex items-center gap-2" onClick={handleLike}>
+                <FaThumbsUp /> {likes}
+              </button>
+              <button className="btn btn-sm btn-outline btn-error flex items-center gap-2" onClick={handleDislike}>
+                <FaThumbsDown /> {dislikes}
+              </button>
+            </div>
+
+            {/* order now button */}
             <div className="mt-6">
              <PrimaryButton text={"Order Now"} />
             </div>
