@@ -42,9 +42,9 @@ const RestaurantProfile = () => {
         if (profilePhotoFile) {
             const profilePhoto = await imageUpload(profilePhotoFile)
             await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { profilePhoto })
+            refetch()
             setProfilePhotoFile(null)
             setSelectedProfilePhoto(null)
-            refetch()
 
         }
     }
@@ -69,9 +69,9 @@ const RestaurantProfile = () => {
         if (CoverPhotoFile) {
             const coverPhoto = await imageUpload(CoverPhotoFile)
             await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { coverPhoto })
+            refetch()
             setCoverPhotoFile(null)
             setSelectedCoverPhoto(null)
-            refetch()
 
         }
     }
