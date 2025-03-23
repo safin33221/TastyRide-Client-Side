@@ -32,13 +32,7 @@ const AddFood = () => {
 
     if (type === "file") {
       setFood({ ...food, image: files[0] });
-      Swal.fire({
-        icon: "success",
-        title: "Image Added!",
-        text: "Your food image has been successfully selected.",
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      
     } else if (type === "checkbox" && name === "tags") {
       setFood({
         ...food,
@@ -81,7 +75,7 @@ const AddFood = () => {
       const imageUrl = await imageUpload(photoFile)
 
       if (imageUrl) {
-        
+
 
         // 2️⃣ Send data to backend
         const newFood = {
@@ -196,36 +190,23 @@ const AddFood = () => {
             <div className="space-y-6">
 
 
-              {
-                selectPhoto ?
-                  <div className="flex flex-row-reverse ">
-                    <img src={selectPhoto} className="w-42 border border-dashed h-28 mx-auto" alt="" />
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Food Image</label>
-                      <input
-                        type="file"
-                        name="image"
-                        onChange={handleChange}
-                        required
-                        className="  mt-1 input file-input border-none focus:outline-none block w-full text-sm text-gray-500"
-                      />
-                    </div>
 
-                  </div>
-                  :
-                  <>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">Food Image</label>
-                      <input
-                        type="file"
-                        name="image"
-                        onChange={handleChange}
-                        required
-                        className="mt-1 file-input block w-full text-sm text-gray-500"
-                      />
-                    </div>
-                  </>
-              }
+              <div className="flex gap-10  ">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Food Image</label>
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={handleChange}
+                    required
+                    className="  mt-1 input file-input border-none focus:outline-none block w-full text-sm text-gray-500"
+                  />
+                </div>
+
+                {selectPhoto && <img src={selectPhoto} className="w-42 border border-dashed h-28 mx-auto" alt="" />}
+              </div>
+
+
 
               <div>
                 <label className="block text-sm font-medium text-gray-700">Ingredients</label>

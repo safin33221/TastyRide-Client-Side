@@ -78,7 +78,7 @@ const RestaurantProfile = () => {
     // Change Cover Photo functionality End-----------------------------------------------------
 
 
-    // Change Restarant Name Functionality Start---------------------------------------------------
+    // Change Restaurant Name Functionality Start---------------------------------------------------
     const handleEditClick = () => {
         setIsEditing(true); // Enable edit mode
     };
