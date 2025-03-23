@@ -1,4 +1,5 @@
 import React from "react";
+import PrimaryButton from "../../Shared/PrimaryButton";
 
 function SingleFood() {
   return (
@@ -112,7 +113,7 @@ function SingleFood() {
               <div className="badge badge-outline badge-info">Gluten Free</div>
             </div>
             <div className="mt-6">
-              <button className="btn btn-primary btn-block">Add To Card</button>
+             <PrimaryButton text={"Order Now"} />
             </div>
           </div>
         </div>

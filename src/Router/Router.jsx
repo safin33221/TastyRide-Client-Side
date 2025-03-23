@@ -20,6 +20,7 @@ import RestaurantProfile from '../Dashboard/Restaurant/Profile/RestaurantProfile
 import Advertisement from '../Dashboard/Restaurant/Advertisement';
 import PostAdvertisement from '../Dashboard/Restaurant/PostAdvertisement';
 import CustomerProfile from '../Dashboard/Customer/Profile/CustomerProfile';
+import SingleFood from '../Pages/SingleFood/SingleFood';
 const Router = () => {
   return (
     <BrowserRouter>
@@ -29,6 +30,7 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="all-food" element={<AllFood />} />
+          <Route path="all-food/:id" element={<SingleFood />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path='userProfile' element={<CustomerProfile />} />
