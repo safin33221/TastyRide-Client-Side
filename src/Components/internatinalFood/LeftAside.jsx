@@ -2,32 +2,31 @@ import InterFoodCard from "./InterFoodCard";
 import logo1 from "../../assets/images/icon-1.webp";
 import logo2 from "../../assets/images/icon-2.webp";
 import logo3 from "../../assets/images/icon-3.webp";
+import { useTranslation } from "react-i18next";
 
 const LeftAside = () => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-6">
       <InterFoodCard
-        title={"Bangladeshi Cuisines"}
-        desc={`Traditional Bangladeshi cuisine consists of rice, lentils, fish, and meat dishes, often rich in spices.
-               Example: Shutki Bhuna – A flavorful dry fish curry cooked with onions, garlic, and mustard oil.`}
+        title={t('leftSide.title1')}
+        desc={t('leftSide.desc1')}
         logo={logo1}
         conClass={''}
         textClass={'right'}
       ></InterFoodCard>
 
       <InterFoodCard
-        title={"Thai Cuisines"}
-        desc={`Thai cuisine is known for its balance of sweet, sour, spicy, and savory flavors.
-               Example: Green Curry – A spicy coconut milk-based curry with chicken, eggplant, and Thai basil.`}
+        title={t('leftSide.title2')}
+        desc={t('leftSide.desc2')}
         logo={logo2}
         conClass={''}
         textClass={'right'}
       ></InterFoodCard>
 
       <InterFoodCard
-        title={"Indian Cuisines"}
-        desc={`Indian dishes are often packed with aromatic spices, gravies, and a variety of breads and rice.
-               Example: Paneer Tikka – Grilled cottage cheese marinated with yogurt and Indian spices.`}
+        title={t('leftSide.title3')}
+        desc={t('leftSide.desc3')}
         logo={logo3}
         conClass={''}
         textClass={'right'}

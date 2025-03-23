@@ -14,17 +14,17 @@ import logo10 from '../../assets/brand/nanna.png'
 import logo11 from '../../assets/brand/logo.jpg'
 import logo12 from '../../assets/brand/Pizza-Hut.png'
 import logo13 from '../../assets/brand/sultanDine.png'
+import { useTranslation } from "react-i18next";
 
 
 const OurClient = () => {
+  const { t } = useTranslation();
   return (
     <div className="">
       {/* title */}
       <SectionTitle
-        title={"Our Clients"}
-        desc={
-          "Our restaurant serves a diverse clientele, offering them delicious, quality meals"
-        }
+        title={t('sectionTitle.title5')}
+        desc={t('sectionTitle.desc5')}
       />
       {/* slider */}
       <div className="pt-6">
