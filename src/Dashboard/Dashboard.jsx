@@ -139,7 +139,7 @@ const Sidebar = () => {
             />
             <Option
               Icon={FiUser}
-              title="Profile"
+              title="Restaurant Profile"
               links="/dashboard/restaurantProfile"
               selected={selected}
               setSelected={setSelected}
