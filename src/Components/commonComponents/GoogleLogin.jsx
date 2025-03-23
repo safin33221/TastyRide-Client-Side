@@ -25,10 +25,11 @@ const GoogleLogin = () => {
         username: result.user.displayName,
         email: result.user.email,
         photo: result.user.photoURL,
+        role: 'customer'
       }
 
       //Request for Stored User Data
-      await axiosPublic.post(`/auth/register`, user)
+      await axiosPublic.post(`/api/register`, user)
       navigate('/')
 
 

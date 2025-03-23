@@ -26,20 +26,22 @@ const RegisterForm = () => {
     try {
       await CreateUserWithEmail(data.email, data.password)
       await UpdateUserProfile(data.name, imgUrl)
-      
+
 
       const user = {
         username: data.name,
         photo: imgUrl,
-        email: data.email
+        email: data.email,
+        role: data.role
       }
 
-      const { result } = await axiosPublic.post(`/auth/register`, user)
+
+      const { result } = await axiosPublic.post(`/api/register`, user)
       console.log(result);
       setIsLoading(false)
       navigate('/')
 
-      
+
     } catch (error) {
       console.log(error);
       setIsLoading(false)
@@ -101,6 +103,36 @@ const RegisterForm = () => {
               Upload Image
             </div>
           </label>
+        </div>
+        {/* User Role */}
+        <div className="mb-6 flex w-full gap-4">
+          <label className="w-full  uppercase flex ">
+
+            <div className=" font-semibold flex w-full  bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
+              <input
+                type="radio"
+                name="role"
+                className=""
+                value='customer'
+                {...register('role',{required:true})}
+              />
+              Customer
+            </div>
+          </label>
+          <label className=" w-full uppercase flex ">
+
+            <div className=" font-semibold w-full flex bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
+              <input
+                type="radio"
+                name="role"
+                value='restaurant'
+                className=""
+                {...register('role',{required:true})}
+              />
+              Reasturant
+            </div>
+          </label>
+
         </div>
         {/* submit button */}
         <button className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6" type="submit">
