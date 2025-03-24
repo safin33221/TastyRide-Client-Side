@@ -52,6 +52,8 @@ function CustomerProfile() {
       ...userData,
       username: updatedName,
       photo: profilePhoto,
+      phone: updatedPhoneNumber,
+      address: updatedAddress,
     };
 
     try {
@@ -115,7 +117,7 @@ function CustomerProfile() {
               defaultValue={userData?.username}
               placeholder="Write Your Name"
               onChange={(e) => setUpdatedName(e.target.value)}
-              className="text-xl font-bold border-b-2 outline-none focus:border-blue-500"
+              className="text-xl font-bold border-b-2 outline-none focus:border-red-500"
             />
           ) : (
             <h2 className="text-xl font-bold">
@@ -135,7 +137,7 @@ function CustomerProfile() {
               defaultValue={userData?.phone}
               placeholder="Write Your Phone Number"
               onChange={(e) => setUpdatedPhoneNumber(e.target.value)}
-              className="text-sm mt-2 border-b-2 outline-none focus:border-blue-500"
+              className="text-sm mt-2 border-b-2 outline-none focus:border-red-500"
             />
           ) : (
             <p className="text-gray-600">
@@ -157,7 +159,7 @@ function CustomerProfile() {
                 defaultValue={userData?.phone}
                 placeholder="Write Your Address"
                 onChange={(e) => setUpdatedAddress(e.target.value)}
-                className="text-lg border-b-2 outline-none focus:border-blue-500"
+                className="text-lg border-b-2 outline-none focus:border-red-500"
               />
             ) : (
               <span>
