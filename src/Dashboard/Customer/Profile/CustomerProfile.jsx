@@ -6,8 +6,10 @@ import { imageUpload } from "../../../Utils/Utils";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import PrimaryButton from "../../../Shared/PrimaryButton";
+import useAuth from "../../../Hooks/useAuth";
 
 function CustomerProfile() {
+  const { UpdateUserProfile } = useAuth()
   const [userData, isPending, refetch] = useUserData();
   const axiosPublic = useAxiosPublic();
   const [isEditing, setIsEditing] = useState(false);
@@ -57,6 +59,10 @@ function CustomerProfile() {
     };
 
     try {
+      // update username and image in firebase
+      await UpdateUserProfile(updatedName, profilePhoto);
+
+      // update user data in database
       await axiosPublic.patch(`/api/users/${userData?.email}`, updatedUser);
 
       refetch();
