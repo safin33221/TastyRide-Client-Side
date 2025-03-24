@@ -18,6 +18,7 @@ function CustomerProfile() {
   const [updatedProfilePic, setUpdatedProfilePic] = useState(userData?.photo);
   const [profilePhotoFile, setProfilePhotoFile] = useState(null);
 
+
   //   profile photo change functionality start --------------------------------------
   const handleFileInputClick = () => {
     document.getElementById("fileInput").click();
