@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PrimaryButton from "../../Shared/PrimaryButton";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { FaHeart, FaRegHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import { FaArrowLeft, FaHeart, FaRegHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import useUserData from "../../Hooks/useUserData";
 
 function SingleFood() {
@@ -11,6 +11,7 @@ function SingleFood() {
   const [userData] = useUserData();
   const axiosPublic = useAxiosPublic();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const {
     data: food,
@@ -53,6 +54,14 @@ function SingleFood() {
   return (
     <section className="max-w-5xl mx-auto flex justify-center items-center h-screen">
       <div className="card lg:card-side w-full bg-white shadow-sm">
+       {/* Back Button */}
+       <button
+          className="absolute top-4 left-4 text-gray-600 hover:text-gray-800 text-xl flex items-center gap-2 cursor-pointer"
+          onClick={() => navigate("/all-food")}
+        >
+          <FaArrowLeft /> 
+        </button>
+
         {/* Love Icon */}
         <button
           className="absolute top-4 right-4 text-red-500 text-2xl cursor-pointer"
