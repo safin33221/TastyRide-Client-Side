@@ -8,13 +8,16 @@ import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 
 function CustomerProfile() {
+  const { UpdateUserProfile } = useAuth()
   const [userData, isPending, refetch] = useUserData();
   const axiosPublic = useAxiosPublic();
   const [isEditing, setIsEditing] = useState(false);
   const [updatedName, setUpdatedName] = useState(userData?.username);
+  const [updatedPhoneNumber, setUpdatedPhoneNumber] = useState(userData?.phone);
+  const [updatedAddress, setUpdatedAddress] = useState(userData?.address);
   const [updatedProfilePic, setUpdatedProfilePic] = useState(userData?.photo);
   const [profilePhotoFile, setProfilePhotoFile] = useState(null);
-  const { UpdateUserProfile } = useAuth()
+
 
   //   profile photo change functionality start --------------------------------------
   const handleFileInputClick = () => {
@@ -51,12 +54,15 @@ function CustomerProfile() {
       ...userData,
       username: updatedName,
       photo: profilePhoto,
+      phone: updatedPhoneNumber,
+      address: updatedAddress,
     };
 
     try {
-      await UpdateUserProfile(updatedName, profilePhoto)
+      // update username and image in firebase
+      await UpdateUserProfile(updatedName, profilePhoto);
 
-
+      // update user data in database
       await axiosPublic.patch(`/api/users/${userData?.email}`, updatedUser);
 
       refetch();
@@ -86,7 +92,7 @@ function CustomerProfile() {
             <img
               src={updatedProfilePic || userData?.photo}
               alt="Profile"
-              className="w-24 h-24 rounded-full border-4 border-primary"
+              className="w-24 h-24 rounded-full border-4 border-red-500"
             />
             {isEditing && (
               <label className="absolute -bottom-4 -right-2">
@@ -107,46 +113,75 @@ function CustomerProfile() {
             )}
           </div>
         </div>
+
         {/* user informations */}
         <div className="flex flex-col items-center mt-4">
+          {/* ------------------------ user name start ------------------------ */}
           {isEditing ? (
             <input
               type="text"
               defaultValue={userData?.username}
               placeholder="Write Your Name"
               onChange={(e) => setUpdatedName(e.target.value)}
-              className="text-xl font-bold border-b-2 outline-none focus:border-blue-500"
+              className="text-xl font-bold border-b-2 outline-none focus:border-red-500"
             />
           ) : (
             <h2 className="text-xl font-bold">
               {updatedName || userData?.username}
             </h2>
           )}
+          {/* ------------------------ user name end ------------------------ */}
 
+          {/* ------------------------ user email start ------------------------ */}
           <p className="text-gray-600">{userData?.email}</p>
-          <p className="text-gray-600">
-            {userData?.phone ? userData?.phone : "+8801 *********"}
-          </p>
+          {/* ------------------------ user email end ------------------------ */}
+
+          {/* ------------------------ user phone number start ------------------------ */}
+          {isEditing ? (
+            <input
+              type="text"
+              defaultValue={userData?.phone}
+              placeholder="Write Your Phone Number"
+              onChange={(e) => setUpdatedPhoneNumber(e.target.value)}
+              className="text-sm mt-2 border-b-2 outline-none focus:border-red-500"
+            />
+          ) : (
+            <p className="text-gray-600">
+              {updatedPhoneNumber || userData?.phone || "+8801 *********"}
+            </p>
+          )}
         </div>
+        {/* ------------------------ user phone number end ------------------------ */}
 
         <div className="divider"></div>
 
         <div className="space-y-3">
+          {/* ------------------------ user address start ------------------------ */}
           <div className="flex items-center gap-3 text-lg">
-            <FaMapMarkerAlt className="text-primary" />
-            <span>
-              {userData?.address ? userData?.address : "Add your address"}
-            </span>
-            {/* <FaEdit className="text-gray-500 cursor-pointer" /> */}
+            <FaMapMarkerAlt className="text-red-500" />
+            {isEditing ? (
+              <input
+                type="text"
+                defaultValue={userData?.phone}
+                placeholder="Write Your Address"
+                onChange={(e) => setUpdatedAddress(e.target.value)}
+                className="text-lg border-b-2 outline-none focus:border-red-500"
+              />
+            ) : (
+              <span>
+                { updatedAddress || userData?.address || "Add your address"}
+              </span>
+            )}
           </div>
+          {/* ------------------------ user address end ------------------------ */}
 
           <div className="flex items-center gap-3 text-lg">
-            <FaHistory className="text-primary" />
+            <FaHistory className="text-red-500" />
             <span>Order History</span>
           </div>
 
           <div className="flex items-center gap-3 text-lg">
-            <FaCog className="text-primary" />
+            <FaCog className="text-red-500" />
             <span>Settings</span>
           </div>
         </div>
@@ -155,14 +190,14 @@ function CustomerProfile() {
           {isEditing ? (
             <button
               onClick={handleUpdateUserData}
-              className="btn btn-primary w-full"
+              className="btn hover:bg-red-600 hover:text-white w-full"
             >
               Save Profile Update
             </button>
           ) : (
             <button
               onClick={handleEditClick}
-              className="btn btn-primary w-full"
+              className="w-full text-center py-2 px-5 bg-red-500  text-white font-semibold cursor-pointer select-none hover:bg-red-600 border-2 border-red-500 hover:border-red-600 transition-all scale-100 active:scale-90"
             >
               Edit Profile
             </button>
