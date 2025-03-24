@@ -5,16 +5,19 @@ import { imageUpload } from "../../Utils/Utils";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router";
 import { LuLoaderPinwheel } from "react-icons/lu"
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useTranslation } from "react-i18next";
 const RegisterForm = () => {
   const { CreateUserWithEmail, UpdateUserProfile } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+  const axiosPublic = useAxiosPublic()
+  const { t } = useTranslation();
 
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
 
@@ -25,8 +28,22 @@ const RegisterForm = () => {
     try {
       await CreateUserWithEmail(data.email, data.password)
       await UpdateUserProfile(data.name, imgUrl)
+
+
+      const user = {
+        username: data.name,
+        photo: imgUrl,
+        email: data.email,
+        role: data.role
+      }
+
+
+      const { result } = await axiosPublic.post(`/api/register`, user)
+      console.log(result);
       setIsLoading(false)
       navigate('/')
+
+
     } catch (error) {
       console.log(error);
       setIsLoading(false)
@@ -41,7 +58,7 @@ const RegisterForm = () => {
         className="">
         {/* name */}
         <div className="mb-8">
-          <label className=" uppercase">Name</label>
+          <label className=" uppercase">{t('register.Name')}</label>
 
           <input
             type="text"
@@ -52,7 +69,7 @@ const RegisterForm = () => {
         </div>
         {/* email */}
         <div className="mb-8">
-          <label className=" uppercase">Email</label>
+          <label className=" uppercase">{t('login.Email')}</label>
 
           <input
             type="email"
@@ -63,7 +80,7 @@ const RegisterForm = () => {
         </div>
         {/* password */}
         <div className="mb-10">
-          <label className=" uppercase">Password</label>
+          <label className=" uppercase">{t('login.Password')}</label>
 
           <input
             type="password"
@@ -85,15 +102,45 @@ const RegisterForm = () => {
               <span className="text-2xl">
                 <FaImage />
               </span>{" "}
-              Upload Image
+              {t('register.Upload Image')}
             </div>
           </label>
+        </div>
+        {/* User Role */}
+        <div className="mb-6 flex w-full gap-4">
+          <label className="w-full  uppercase flex ">
+
+            <div className=" font-semibold flex w-full  bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
+              <input
+                type="radio"
+                name="role"
+                className=""
+                value='customer'
+                {...register('role',{required:true})}
+              />
+              {t('register.Customer')}
+            </div>
+          </label>
+          <label className=" w-full uppercase flex ">
+
+            <div className=" font-semibold w-full flex bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
+              <input
+                type="radio"
+                name="role"
+                value='restaurant'
+                className=""
+                {...register('role',{required:true})}
+              />
+             {t('register.Reasturant')}
+            </div>
+          </label>
+
         </div>
         {/* submit button */}
         <button className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6" type="submit">
           {
             isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" />
-            : "Register"
+              : t('register.Register')
           }
         </button>
       </form>

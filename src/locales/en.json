@@ -1,0 +1,131 @@
+
+{
+  "navMenu": {
+    "menu1": "Home",
+    "menu2": "All Food",
+    "menu3": "Gallery",
+    "menu4": "Contact Us",
+    "menu5": "About us"
+  },
+  "userMenu": {
+    "profile":"Profile",
+    "span1": "New",
+    "Dashboard":"Dashboard",
+    "Logout":"Logout",
+    "Login":"Login"
+  },
+  "sectionTitle":{
+    "title": "International Cuisines",
+    "desc" : "Incredibly Tasty International Dish",
+    "title2" : "Our Products",
+    "desc2" : "We have a lot of international cuisine",
+    "title3" : "Popular Collection",
+    "desc3" : "Discover our top-rated dishes loved by customers.Discover our top-rated dishes loved by customers.",
+    "title4": "Easy Order",
+    "desc4" : "You can place your order in three steps." ,
+    "title5": "Our Clients",
+    "desc5" : "Our restaurant serves a diverse clientele, offering them delicious, quality meals"
+  },
+  "leftSide":{
+    "title1":"Bangladeshi Cuisines",
+    "desc1" : "Traditional Bangladeshi cuisine consists of rice, lentils, fish, and meat dishes, often rich in spices. Example: Shutki Bhuna – A flavorful dry fish curry cooked with onions, garlic, and mustard oil.",
+    "title2":"Thai Cuisines",
+    "desc2" : "Thai cuisine is known for its balance of sweet, sour, spicy, and savory flavors. Example: Green Curry – A spicy coconut milk-based curry with chicken, eggplant, and Thai basil.",
+    "title3":"Indian Cuisines",
+    "desc3" : "Indian dishes are often packed with aromatic spices, gravies, and a variety of breads and rice. Example: Paneer Tikka – Grilled cottage cheese marinated with yogurt and Indian spices."
+  },
+  "rightSide":{
+    "title1":"Chinese Cuisines",
+    "desc1" : "Chinese food features a variety of stir-fried dishes, dumplings, and noodle-based recipes. Example: Sweet and Sour Chicken – A tangy, crispy chicken dish tossed in a flavorful sauce.",
+    "title2":"Arabian Cuisines",
+    "desc2" : "Arabian cuisine is rich in grilled meats, rice dishes, and flavorful dips. Example: Mandi – A traditional Yemeni rice dish with slow-cooked meat and aromatic spices.",
+    "title3":"Bangladeshi Cuisines",
+    "desc3" : "Traditional Bangladeshi cuisine consists of rice, lentils, fish, and meat dishes, often rich in spices. Example: Beef Tehari – Fragrant spiced rice cooked with marinated beef, yogurt, and aromatic spices."
+  },
+  "categoryFood":{
+    "btn1" : "All",
+    "btn2" : "Breakfast",
+    "btn3" : "Lunch",
+    "btn4" : "Dinner"
+
+  },
+  "food":{
+    "Margherita Pizza": "Margherita Pizza",
+    "Cheeseburger": "Cheeseburger",
+    "Sushi Platter": "Sushi Platter",
+    "Pasta Carbonara": "Pasta Carbonara",
+    "Grilled Salmon": "Grilled Salmon",
+    "Chicken Biryani": "Chicken Biryani",
+    "Tacos al Pastor": "Tacos al Pastor",
+    "Chocolate Lava Cake": "Chocolate Lava Cake",
+    "Caesar Salad": "Caesar Salad",
+    "Mango Smoothie": "Mango Smoothie",
+    "4.7": "4.7",
+    "4.5": "4.5",
+    "4.8": "4.8",
+    "4.6": "4.6",
+    "4.9": "4.9",
+    "4.4": "4.4",
+    "4.3": "4.3",
+    "12.99": "12.99",
+    "9.49" : "9.49",
+    "18.99" : "18.99",
+    "14.25" : "14.25",
+    "20.99" : "20.99",
+    "11.99" : "11.99",
+    "8.99" : "8.99",
+    "6.99" : "6.99",
+    "7.49" : "7.49",
+    "5.99" : "5.99"   
+  },
+  "ourItem":{
+    "Indian Curry Meals":"Indian Curry Meals",
+    "Grilled Chicken" : "Grilled Chicken",
+    "Pasta Delight" : "Pasta Delight",
+    "Veggie Special" :"Veggie Special",
+    "Starts @3.99" : "Starts @3.99",
+    "Starts @5.99" : "Starts @5.99",
+    "Starts @4.50" : "Starts @4.50",
+    "Starts @3.75" : "Starts @3.75"
+  },
+  "easyOrder":{
+    "title1": "Explore Restaurants",
+    "desc1" : "Browse through a variety of top-rated restaurants near you. Use filters to find cuisine, price range, and customer ratings to make the best choice.",
+    "title2": "Choose a Tasty Dish",
+    "desc2" : "Craving something special? Select from a wide range of mouth-watering dishes. Add your favorite items to the cart and customize them as needed.",
+    "title3": "Explore Restaurants",
+    "desc3" : "Once you place your order, track its real-time status—from preparation to delivery. Get notified when your food is on the way so you’re ready to enjoy it hot and fresh!"  
+  },
+  "number":{
+    "1" : "1",
+    "2" : "2",
+    "3" : "3",
+    "4" : "4",
+    "5" : "5",
+    "6" : "6",
+    "7" : "7",
+    "8" : "8",
+    "9" : "9",
+    "0" : "0"
+  },
+  "login":{
+    "Don't Have Account?": "Don't Have Account?",
+    "Register Now" : "Register Now",
+    "Email" : "Email",
+    "Password" : "Password",
+    "Or" : "Or",
+    "Login With Google": "Login With Google"
+  },
+  "register":{
+    "Name":"Name",
+    "Upload Image" : "Upload Image",
+    "Customer" : "Customer",
+    "Reasturant" : "Reasturant",
+    "Register" : "Register",
+    "Have an Account?" : "Have an Account?",
+    "Login Now" : "Login Now"
+  }
+
+}
+
+

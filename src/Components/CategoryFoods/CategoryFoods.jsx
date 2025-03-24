@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import FoodCard from "../../Shared/FoodCard";
+import { useTranslation } from "react-i18next";
 
 const foods = [
   {
@@ -89,13 +90,14 @@ const CategoryFoods = () => {
   const prevButtonRef = useRef(null);
   const nextButtonRef = useRef(null);
   const [category, setCategory] = useState("All");
+  const { t } = useTranslation();
 
   const filteredFoods = foods.filter((prev) => prev.category === category);
   return (
     <div className="px-3 md:px-0">
       <SectionTitle
-        title={"Our Products"}
-        desc={"We have a lot of international cuisine"}  
+        title={t('sectionTitle.title2')}
+        desc={t('sectionTitle.desc2')}  
       />
       <div className="flex flex-col md:flex-row justify-between items-center m-5 xl:m-0">
         <div className="space-x-2">
@@ -105,7 +107,7 @@ const CategoryFoods = () => {
               category === "All" ? "bg-red-700" : "bg-yellow-500"
             } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
-            All
+            {t('categoryFood.btn1')}
           </button>
           <button
             onClick={() => setCategory("Breakfast")}
@@ -113,7 +115,7 @@ const CategoryFoods = () => {
               category === "Breakfast" ? "bg-red-700" : "bg-yellow-500"
             } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
-            Breakfast
+           {t('categoryFood.btn2')}
           </button>
           <button
             onClick={() => setCategory("Lunch")}
@@ -121,7 +123,7 @@ const CategoryFoods = () => {
               category === "Lunch" ? "bg-red-700" : "bg-yellow-500"
             } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
-            Lunch
+            {t('categoryFood.btn3')}
           </button>
           <button
             onClick={() => setCategory("Dinner")}
@@ -129,7 +131,7 @@ const CategoryFoods = () => {
               category === "Dinner" ? "bg-red-700" : "bg-yellow-500"
             } font-semibold text-white uppercase cursor-pointer select-none text-sm md:text-lg`}
           >
-            Dinner
+           {t('categoryFood.btn4')}
           </button>
         </div>
         <div className="space-x-2 flex text-white font-semibold text-xl md:text-2xl mt-4 md:mt-0">
