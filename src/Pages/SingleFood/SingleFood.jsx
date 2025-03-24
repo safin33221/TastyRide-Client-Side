@@ -28,7 +28,7 @@ function SingleFood() {
   // get the total likes and dislikes
   const { mutate: reactToFood } = useMutation({
     mutationFn: async ({ reaction }) => {
-      const res = await axiosPublic.post(`/api/foods/reaction/${id}`, {
+      const res = await axiosPublic.patch(`/api/foods/reaction/${id}`, {
         userId: userData?._id,
         reaction,
       });
