@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import PrimaryButton from "../../Shared/PrimaryButton";
-<<<<<<< HEAD
-import { useNavigate, useParams } from "react-router";
-=======
-import { Link, useParams } from "react-router";
->>>>>>> 6601090f8ffbda3c48d8f41eff2630bffbe7194e
+import { useNavigate, useParams, Link } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaArrowLeft, FaHeart, FaRegHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";

@@ -5,7 +5,6 @@ import { IoIosReverseCamera } from "react-icons/io";
 import { imageUpload } from "../../../Utils/Utils";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
-import PrimaryButton from "../../../Shared/PrimaryButton";
 import useAuth from "../../../Hooks/useAuth";
 
 function CustomerProfile() {
