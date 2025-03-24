@@ -21,13 +21,12 @@ const RestaurantProfile = () => {
     const [CoverPhotoFile, setCoverPhotoFile] = useState(null)
 
     const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
-    const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
+    const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode 
 
+
+    
 
     // Change Profile Photo functionality Start-----------------------------------------------------
-    const handleFileInputClick = () => {
-        document.getElementById('fileInput').click()
-    }
     const handleProfileSelcet = (e) => {
         const file = (e.target.files[0]);
         if (file) {
@@ -43,9 +42,9 @@ const RestaurantProfile = () => {
         if (profilePhotoFile) {
             const profilePhoto = await imageUpload(profilePhotoFile)
             await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { profilePhoto })
+            refetch()
             setProfilePhotoFile(null)
             setSelectedProfilePhoto(null)
-            refetch()
 
         }
     }
@@ -55,9 +54,6 @@ const RestaurantProfile = () => {
 
 
     // Change Cover Photo functionality Start-----------------------------------------------------
-    const handleCoverFileInputClick = () => {
-        document.getElementById('CoverfileInput').click()
-    }
     const handleCoverSelcet = (e) => {
         const file = (e.target.files[0]);
         if (file) {
@@ -73,16 +69,16 @@ const RestaurantProfile = () => {
         if (CoverPhotoFile) {
             const coverPhoto = await imageUpload(CoverPhotoFile)
             await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { coverPhoto })
+            refetch()
             setCoverPhotoFile(null)
             setSelectedCoverPhoto(null)
-            refetch()
 
         }
     }
     // Change Cover Photo functionality End-----------------------------------------------------
 
 
-    // Change Restarant Name Functionality Start---------------------------------------------------
+    // Change Restaurant Name Functionality Start---------------------------------------------------
     const handleEditClick = () => {
         setIsEditing(true); // Enable edit mode
     };
@@ -126,9 +122,23 @@ const RestaurantProfile = () => {
 
                         {
                             CoverPhotoFile ?
-                                <button
-                                    onClick={handleCoverPhotoChange}
-                                    className="btn btn-outline">save</button>
+                                <>
+                                    <button
+                                        onClick={handleCoverPhotoChange}
+                                        className="text-green-500 text-2xl btn">
+                                        save
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedCoverPhoto(null)
+                                            setCoverPhotoFile(null)
+                                        }
+                                        }
+                                        className="text-red-500 mx-3 text-2xl btn">
+                                        Cancel
+                                    </button>
+
+                                </>
                                 :
                                 <>
                                     <input
@@ -140,9 +150,9 @@ const RestaurantProfile = () => {
 
 
                                     <button
-                                        onClick={handleCoverFileInputClick}
-                                        className='text-2xl bg-white border rounded-full btn' >
-                                        Edit photo
+                                        onClick={() => document.getElementById('CoverfileInput').click()}
+                                        className='text-2xl bg-white  rounded-full btn' >
+                                        <FaRegEdit />
                                     </button>
                                 </>
                         }
@@ -158,8 +168,8 @@ const RestaurantProfile = () => {
                     <div className='left-10 -bottom-50 absolute md:flex gap-10 items-center '>
                         <div className='relative'>
                             {/* Profile Image */}
-                            <img src={selectProfilePhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'} 
-                            className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
+                            <img src={selectProfilePhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'}
+                                className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
 
                             <label className=' absolute bottom-10 right-1' >
                                 <input
@@ -171,24 +181,37 @@ const RestaurantProfile = () => {
                                 <button
 
                                 ><IoIosReverseCamera
-                                        onClick={handleFileInputClick}
+                                        onClick={()=>document.getElementById('fileInput').click()}
                                         className='text-5xl bg-white border rounded-full' />
                                 </button>
                             </label>
                             {
                                 profilePhotoFile &&
-                                <button
-                                    onClick={handleProfileChange}
-                                    className="btn btn-outline">save</button>
+                                <div className='flex mx-auto items-center justify-center mt-5'>
+                                    <button
+                                        onClick={handleProfileChange}
+                                        className="text-green-500 text-2xl btn">
+                                        save
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedProfilePhoto(null)
+                                            setProfilePhotoFile(null)
+                                        }
+                                        }
+                                        className="text-red-500 mx-3 text-2xl btn">
+                                        Cancel
+                                    </button>
+                                </div>
                             }
                         </div>
 
 
                         {/* Restarant Name */}
-                        <div>
+                        <div className='mt-5'>
                             {/* Toggle between input and text */}
                             {isEditing ? (
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-4 ">
                                     <input
                                         type="text"
                                         defaultValue={userData?.restaurantDetails?.restaurantName}
@@ -203,7 +226,7 @@ const RestaurantProfile = () => {
                                         save
                                     </button>
                                     <button
-                                        onClick={() => handleEditClick(setIsEditing(false))}
+                                        onClick={() => setIsEditing(false)}
                                         className="text-red-500 text-2xl btn"
                                     >
                                         cancel

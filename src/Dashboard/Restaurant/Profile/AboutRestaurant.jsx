@@ -37,20 +37,19 @@ const AboutRestaurant = () => {
             <div className='border-b  min-h-32 p-10 relative'>
                 {
                     isEditing ?
-                        <>
+                        <div className='md:flex'>
                             <textarea
                                 onChange={(e) => setDescription(e.target.value)}
-                                cols={100}
-                                rows={5}
+
                                 type="text"
-                                className='text-xl font-medium p-4'
+                                className='text-xl w-full md:w-11/12 border border-dashed font-medium p-4'
                                 defaultValue={description}
                                 placeholder='Description'
                             />
                             <button
                                 onClick={handleSaveClick}
                                 className='btn m-5'> Save</button>
-                        </>
+                        </div>
                         :
                         <>
                             <p className='text-xl font-medium'>{userData?.restaurantDetails?.description || 'N/A'} </p>

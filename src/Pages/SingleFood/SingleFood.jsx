@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import PrimaryButton from "../../Shared/PrimaryButton";
+<<<<<<< HEAD
 import { useNavigate, useParams } from "react-router";
+=======
+import { Link, useParams } from "react-router";
+>>>>>>> 6601090f8ffbda3c48d8f41eff2630bffbe7194e
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaArrowLeft, FaHeart, FaRegHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
@@ -143,13 +147,13 @@ function SingleFood() {
             <div className="mt-6 flex items-center gap-4">
               <button
                 className={`btn btn-sm btn-success btn-outline flex items-center gap-2`}
-                onClick={() => {reactToFood({ reaction: "like" })}}
+                onClick={() => { reactToFood({ reaction: "like" }) }}
               >
                 <FaThumbsUp /> {food?.likes.length}
               </button>
               <button
                 className={`btn btn-sm btn-error btn-outline flex items-center gap-2`}
-                onClick={() => {reactToFood({ reaction: "dislike" })}}
+                onClick={() => { reactToFood({ reaction: "dislike" }) }}
               >
                 <FaThumbsDown /> {food?.dislikes.length}
               </button>
@@ -158,6 +162,13 @@ function SingleFood() {
             {/* order now button */}
             <div className="mt-6">
               <PrimaryButton text={"Order Now"} />
+            </div>
+            <div className="mt-6 flex gap-2 items-center ">
+            <Link to={`/profile/${userData?._id}`}><img src={userData?.restaurantDetails?.profilePhoto} className="w-12 h-12 rounded-full" alt="" /></Link>
+              <Link to={`/profile/${userData?._id}`}>
+                <h1 className="text-2xl font-bold hover:underline hover:cursor-pointer">{userData?.restaurantDetails?.restaurantName}</h1>
+                <h1>1k Followers</h1>
+              </Link>
             </div>
           </div>
         </div>
