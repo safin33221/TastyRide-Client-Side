@@ -150,13 +150,13 @@ function SingleFood() {
             <div className="mt-6">
               <PrimaryButton text={"Order Now"} />
             </div>
-            <div className="mt-6 flex gap-2 items-center ">
-            <Link to={`/profile/${userData?._id}`}><img src={userData?.restaurantDetails?.profilePhoto} className="w-12 h-12 rounded-full" alt="" /></Link>
+            {/* <div className="mt-6 flex gap-2 items-center ">
+              <Link to={`/profile/${userData?._id}`}><img src={userData?.restaurantDetails?.profilePhoto} className="w-12 h-12 rounded-full" alt="" /></Link>
               <Link to={`/profile/${userData?._id}`}>
                 <h1 className="text-2xl font-bold hover:underline hover:cursor-pointer">{userData?.restaurantDetails?.restaurantName}</h1>
                 <h1>1k Followers</h1>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

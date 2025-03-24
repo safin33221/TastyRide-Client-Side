@@ -5,6 +5,7 @@ import { IoIosReverseCamera } from "react-icons/io";
 import { imageUpload } from "../../../Utils/Utils";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 function CustomerProfile() {
   const [userData, isPending, refetch] = useUserData();
@@ -13,6 +14,7 @@ function CustomerProfile() {
   const [updatedName, setUpdatedName] = useState(userData?.username);
   const [updatedProfilePic, setUpdatedProfilePic] = useState(userData?.photo);
   const [profilePhotoFile, setProfilePhotoFile] = useState(null);
+  const { UpdateUserProfile } = useAuth()
 
   //   profile photo change functionality start --------------------------------------
   const handleFileInputClick = () => {
@@ -52,6 +54,9 @@ function CustomerProfile() {
     };
 
     try {
+      await UpdateUserProfile(updatedName, profilePhoto)
+
+
       await axiosPublic.patch(`/api/users/${userData?.email}`, updatedUser);
 
       refetch();
