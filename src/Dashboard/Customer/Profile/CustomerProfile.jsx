@@ -5,6 +5,7 @@ import { IoIosReverseCamera } from "react-icons/io";
 import { imageUpload } from "../../../Utils/Utils";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import PrimaryButton from "../../../Shared/PrimaryButton";
 
 function CustomerProfile() {
   const [userData, isPending, refetch] = useUserData();
@@ -81,7 +82,7 @@ function CustomerProfile() {
             <img
               src={updatedProfilePic || userData?.photo}
               alt="Profile"
-              className="w-24 h-24 rounded-full border-4 border-primary"
+              className="w-24 h-24 rounded-full border-4 border-red-500"
             />
             {isEditing && (
               <label className="absolute -bottom-4 -right-2">
@@ -128,20 +129,19 @@ function CustomerProfile() {
 
         <div className="space-y-3">
           <div className="flex items-center gap-3 text-lg">
-            <FaMapMarkerAlt className="text-primary" />
+            <FaMapMarkerAlt className="text-red-500" />
             <span>
               {userData?.address ? userData?.address : "Add your address"}
             </span>
-            {/* <FaEdit className="text-gray-500 cursor-pointer" /> */}
           </div>
 
           <div className="flex items-center gap-3 text-lg">
-            <FaHistory className="text-primary" />
+            <FaHistory className="text-red-500" />
             <span>Order History</span>
           </div>
 
           <div className="flex items-center gap-3 text-lg">
-            <FaCog className="text-primary" />
+            <FaCog className="text-red-500" />
             <span>Settings</span>
           </div>
         </div>
@@ -150,17 +150,12 @@ function CustomerProfile() {
           {isEditing ? (
             <button
               onClick={handleUpdateUserData}
-              className="btn btn-primary w-full"
+              className="btn btn-red-500 w-full"
             >
               Save Profile Update
             </button>
           ) : (
-            <button
-              onClick={handleEditClick}
-              className="btn btn-primary w-full"
-            >
-              Edit Profile
-            </button>
+            <PrimaryButton text="Edit Profile" onClick={handleEditClick} />
           )}
         </div>
       </div>
