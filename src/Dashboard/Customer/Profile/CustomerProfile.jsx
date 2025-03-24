@@ -12,6 +12,8 @@ function CustomerProfile() {
   const axiosPublic = useAxiosPublic();
   const [isEditing, setIsEditing] = useState(false);
   const [updatedName, setUpdatedName] = useState(userData?.username);
+  const [updatedPhoneNumber, setUpdatedPhoneNumber] = useState(userData?.phone);
+  const [updatedAddress, setUpdatedAddress] = useState(userData?.address);
   const [updatedProfilePic, setUpdatedProfilePic] = useState(userData?.photo);
   const [profilePhotoFile, setProfilePhotoFile] = useState(null);
 
@@ -103,8 +105,10 @@ function CustomerProfile() {
             )}
           </div>
         </div>
+
         {/* user informations */}
         <div className="flex flex-col items-center mt-4">
+          {/* ------------------------ user name start ------------------------ */}
           {isEditing ? (
             <input
               type="text"
@@ -118,22 +122,50 @@ function CustomerProfile() {
               {updatedName || userData?.username}
             </h2>
           )}
+          {/* ------------------------ user name end ------------------------ */}
 
+          {/* ------------------------ user email start ------------------------ */}
           <p className="text-gray-600">{userData?.email}</p>
-          <p className="text-gray-600">
-            {userData?.phone ? userData?.phone : "+8801 *********"}
-          </p>
+          {/* ------------------------ user email end ------------------------ */}
+
+          {/* ------------------------ user phone number start ------------------------ */}
+          {isEditing ? (
+            <input
+              type="text"
+              defaultValue={userData?.phone}
+              placeholder="Write Your Phone Number"
+              onChange={(e) => setUpdatedPhoneNumber(e.target.value)}
+              className="text-sm mt-2 border-b-2 outline-none focus:border-blue-500"
+            />
+          ) : (
+            <p className="text-gray-600">
+              {updatedPhoneNumber || userData?.phone || "+8801 *********"}
+            </p>
+          )}
         </div>
+        {/* ------------------------ user phone number end ------------------------ */}
 
         <div className="divider"></div>
 
         <div className="space-y-3">
+          {/* ------------------------ user address start ------------------------ */}
           <div className="flex items-center gap-3 text-lg">
             <FaMapMarkerAlt className="text-red-500" />
-            <span>
-              {userData?.address ? userData?.address : "Add your address"}
-            </span>
+            {isEditing ? (
+              <input
+                type="text"
+                defaultValue={userData?.phone}
+                placeholder="Write Your Address"
+                onChange={(e) => setUpdatedAddress(e.target.value)}
+                className="text-lg border-b-2 outline-none focus:border-blue-500"
+              />
+            ) : (
+              <span>
+                { updatedAddress || userData?.address || "Add your address"}
+              </span>
+            )}
           </div>
+          {/* ------------------------ user address end ------------------------ */}
 
           <div className="flex items-center gap-3 text-lg">
             <FaHistory className="text-red-500" />
@@ -150,12 +182,17 @@ function CustomerProfile() {
           {isEditing ? (
             <button
               onClick={handleUpdateUserData}
-              className="btn btn-red-500 w-full"
+              className="btn hover:bg-red-600 hover:text-white w-full"
             >
               Save Profile Update
             </button>
           ) : (
-            <PrimaryButton text="Edit Profile" onClick={handleEditClick} />
+            <button
+              onClick={handleEditClick}
+              className="w-full text-center py-2 px-5 bg-red-500  text-white font-semibold cursor-pointer select-none hover:bg-red-600 border-2 border-red-500 hover:border-red-600 transition-all scale-100 active:scale-90"
+            >
+              Edit Profile
+            </button>
           )}
         </div>
       </div>
