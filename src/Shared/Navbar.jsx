@@ -134,7 +134,7 @@ const Navbar = () => {
           ) : (
             <div className="px-4">
               <Link to={"/login"}>
-                <button className="border px-4 py-1 cursor-pointer flex items-center gap-2 rounded-md">
+                <button className="border px-5 py-3 cursor-pointer flex items-center gap-2 bg-red-500 border-none text-white">
                   <span>
                     <FiLogIn />
                   </span>{" "}
