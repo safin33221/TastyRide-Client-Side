@@ -4,11 +4,13 @@ import InterNationalFood from "../../Components/internatinalFood/InterNationalFo
 import OurClient from "../../Components/OurClient/OurClient";
 import PopularCollection from "../../Components/PopularCollection/PopularCollection";
 import Sliders from "../../Components/Sliders";
+import CountDown from "../../EidFeatures/CountDown";
 import SectionDivider from "../../Shared/SectionDivider";
 
 const Home = () => {
   return (
     <div>
+
       <Sliders></Sliders>
       <div className="container mx-auto">
         <SectionDivider></SectionDivider>
