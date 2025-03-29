@@ -57,7 +57,7 @@ function SingleFood() {
        {/* Back Button */}
        <button
           className="absolute top-4 left-4 text-gray-600 hover:text-gray-800 text-xl flex items-center gap-2 cursor-pointer"
-          onClick={() => navigate("/all-food")}
+          onClick={() => navigate(-1)}
         >
           <FaArrowLeft /> 
         </button>
