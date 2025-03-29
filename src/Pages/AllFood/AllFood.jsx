@@ -7,6 +7,7 @@ import {
   FaSortAmountUp,
 } from "react-icons/fa";
 import { Link } from "react-router";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const AllFood = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,18 +18,19 @@ const AllFood = () => {
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState(["All"]); // Initialize with 'All'
 
+  const axiosPublic = useAxiosPublic()
+
   useEffect(() => {
-    fetch("http://localhost:8000/api/foods")
-      .then((response) => response.json())
+    axiosPublic.get("/api/foods")
       .then((response) => {
-        console.log("API Response:", response); // Debugging
-        if (response.success && Array.isArray(response.data)) {
-          setFoods(response.data);
+        console.log("API Response:", response.data.data); // Debugging
+        if (response?.data?.success && Array.isArray(response?.data?.data)) {
+          setFoods(response.data.data);
 
           // Extract unique categories from the data
           const uniqueCategories = [
             "All",
-            ...new Set(response.data.map((food) => food.category)),
+            ...new Set(response?.data?.data.map((food) => food.category)),
           ];
           setCategories(uniqueCategories); // Update categories state
         } else {
@@ -41,6 +43,7 @@ const AllFood = () => {
         console.error("Fetch Error:", err);
         setError(err.message);
         setLoading(false);
+
       });
   }, []);
 
