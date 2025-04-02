@@ -71,7 +71,7 @@ const Navbar = () => {
           <a className="btn btn-ghost text-xl">TastyRide</a>
         </div>
 
-        <div className="flex-none navbar-end">
+        <div className="flex-none navbar-end space-x-4">
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
