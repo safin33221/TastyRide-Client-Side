@@ -3,6 +3,14 @@ import { IoClose } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 
+
+const customQs = [
+  "What is TastyRide?",
+  "How can I track my order?",
+  "Is there any veggie food available?",
+  "Is there any veggie food available?",
+]
+
 const ChatBot = ({ setOpenChat }) => {
   const axiosPublic = useAxiosPublic();
   const [chats, setChats] = useState([
@@ -35,6 +43,22 @@ const ChatBot = ({ setOpenChat }) => {
     }
   };
 
+  // handle custom qs to
+  const handleCustomQs = async(qs) => {
+    setChats((prev) => [...prev, {sender: "user", message: qs}])
+    setLoading(true);
+
+    try {
+      const res = await axiosPublic.post("/api/chat", { message: qs });
+      console.log(res.data)
+      setChats((prev) => [...prev, { sender: "bot", message: res.data.reply }]);
+    } catch (error) {
+      setChats((prev) => [...prev, { sender: "bot", message: "Error fetching response!" }]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const formatText = (str) => {
     // Convert **text** to <h1 className="text-2xl font-bold">
     str = str.replace(/\*\*(.*?)\*\*/g, '<h1 class="text-xl font-semibold">$1</h1>');
@@ -49,7 +73,7 @@ const ChatBot = ({ setOpenChat }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border-2 border-red-500 fixed bottom-0 right-0 py-5 m-5 w-[450px] h-[550px] overflow-hidden">
+    <div className="bg-white rounded-xl shadow-lg border-2 border-red-500 fixed bottom-0 right-0 py-5 m-5 w-[450px] h-[550px] overflow-hidden z-[500]">
       {/* Chat Header */}
       <div className="flex justify-between items-center px-5 mb-3">
         <div
@@ -118,7 +142,13 @@ const ChatBot = ({ setOpenChat }) => {
         </div>
 
         {/* Input Field */}
-        <form onSubmit={handleSendChat} className="relative">
+        <form onSubmit={handleSendChat} >
+          <div className=" flex gap-1 text-xs overflow-x-scroll scroll-smooth mb-1">
+          {customQs?.map((qs, i) => (
+            <p onClick={() => handleCustomQs(qs)} className="bg-white rounded-3xl py-1 px-2 font-semibold text-gray-400 cursor-pointer text-nowrap">{qs}</p>
+          ))}
+          </div>
+          <div className="relative">
           <input
             type="text"
             className="py-3 pl-5 pr-12 bg-white w-full rounded-full outline-none border border-gray-300 focus:border-red-500"
@@ -126,7 +156,7 @@ const ChatBot = ({ setOpenChat }) => {
             placeholder="Type a message..."
           />
           <button
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 focus:outline-none cursor-pointer"
+            className="absolute right-2 top-[14%]  bg-red-500 text-white p-2 rounded-full hover:bg-red-600 focus:outline-none cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -141,6 +171,7 @@ const ChatBot = ({ setOpenChat }) => {
               />
             </svg>
           </button>
+          </div>
         </form>
       </div>
     </div>
