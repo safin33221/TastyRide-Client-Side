@@ -12,7 +12,7 @@ const CountDown = () => {
 
 
         if (difference <= 0) {
-            return { day: 0, hours: 0, minutes: 0, second: 0, eid: true }
+            return { day: 0, hours: 0, minutes: 0, second: 0, isEid: true }
         }
         return {
             days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -36,11 +36,12 @@ const CountDown = () => {
                 <Lottie className='w-full  rounded-full   h-52 ' animationData={eid} ></Lottie>
             </div> */}
             <div className='flex items-center '>
-                <h2 className="text-xl font-bold text-red-500 ">🕌 Eid-ul-Fitr is Almost Here!:</h2>
+
                 {timeLeft.isEid ? (
-                    <p className="text-xl font-semibold text-red-300 ">🎉 Eid Mubarak! 🎉</p>
+                    <p className="text-xl font-semibold text-red-500 ">🎉 Eid Mubarak! 🎉</p>
                 ) : (
                     <div className="flex justify-center gap-4 text-xl font-semibold black">
+                        <h2 className="text-xl font-bold text-red-500 ">🕌 Eid-ul-Fitr is Almost Here!:</h2>
                         <div className=" px-1 py-2  ">{timeLeft.days} <span className="text-sm">Days</span></div>
                         <div className=" px-1 py-2  ">{timeLeft.hours} <span className="text-sm">Hours</span></div>
                         <div className=" px-1 py-2  ">{timeLeft.minutes} <span className="text-sm">Minutes</span></div>
