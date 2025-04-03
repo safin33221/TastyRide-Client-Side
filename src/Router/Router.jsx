@@ -14,6 +14,10 @@ import CustomerDashboard from '../Dashboard/Customer/CustomerDashboard';
 import AddFood from '../Dashboard/Restaurant/AddFood';
 import AdminDashboard from '../Dashboard/Admin Dashboard/AdminDashboard';
 import ManageUsers from '../Dashboard/Admin Dashboard/ManageUsers';
+import Advertisement from '../Dashboard/Restaurant/Advertisement';
+import RestaurantProfile from '../Dashboard/Restaurant/Profile/RestaurantProfile'
+import ManageFood from '../Dashboard/Restaurant/ManageFood';
+
 
 const Router = () => {
   return (
@@ -31,11 +35,14 @@ const Router = () => {
         <Route path='/dashboard' element={<Dashboard />}>
           {/* Admin Routes */}
           <Route path='admin' element={<AdminDashboard />} />
-          <Route path='manage-user' element={<ManageUsers/>} />
+          <Route path='manage-user' element={<ManageUsers />} />
 
           {/* Restaurant routes  */}
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
           <Route path='add-foods' element={<AddFood />} />
+          <Route path='manage-food' element={<ManageFood/>} />
+          <Route path='restaurantProfile' element={<RestaurantProfile />} />
+          <Route path='ad' element={<Advertisement />} />
 
 
           {/* Customer Routes */}
