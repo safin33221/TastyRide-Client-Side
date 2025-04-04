@@ -5,6 +5,7 @@ import bd from "../assets/logo/bd.png";
 import uk from "../assets/logo/uk.png";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import CountDown from "../EidFeatures/CountDown";
 
 const Navbar = () => {
   const { user, LogoutUser } = useAuth();
@@ -70,8 +71,16 @@ const Navbar = () => {
           </div>
           <a className="btn btn-ghost text-xl">TastyRide</a>
         </div>
+            <div className="hidden md:flex navbar-center mx-auto ">
+              <CountDown/>
+
 
         <div className="flex-none navbar-end space-x-4">
+
+            </div>
+
+        <div className=" navbar-end">
+
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
