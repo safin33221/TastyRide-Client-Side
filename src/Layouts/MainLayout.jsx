@@ -27,9 +27,9 @@ const MainLayout = () => {
         {openChat ? (
           <ChatBot setOpenChat={setOpenChat}/>
         ) : (
-          <div onClick={() => setOpenChat(true)} className="z-[9999999] fixed bottom-0 right-0 bg-red-500 p-3 rounded-xl flex gap-2 items-center text-white m-5 active:scale-95 cursor-pointer select-none">
-            <MdMessage />
-            Chat
+          <div onClick={() => setOpenChat(true)} className="z-[9999999] fixed bottom-0 right-0 bg-red-500 py-3 px-4 rounded-full flex gap-2 items-center text-white m-5 active:scale-95 cursor-pointer select-none">
+            <MdMessage className="text-4xl"/>
+            {/* Chat */}
           </div>
         )}
       </div>

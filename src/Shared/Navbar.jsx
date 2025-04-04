@@ -74,9 +74,13 @@ const Navbar = () => {
             <div className="hidden md:flex navbar-center mx-auto ">
               <CountDown/>
 
+
+        <div className="flex-none navbar-end space-x-4">
+
             </div>
 
         <div className=" navbar-end">
+
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
