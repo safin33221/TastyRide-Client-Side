@@ -70,6 +70,14 @@ const Sidebar = () => {
               setSelected={setSelected}
               open={open}
             />
+            <Option
+              Icon={FaBuysellads}
+              title="Manage Ads"
+              links="/dashboard/manage-ad"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
           </>
         }
 
@@ -131,7 +139,7 @@ const Sidebar = () => {
             />
             <Option
               Icon={FiUser}
-              title="Profile"
+              title="Restaurant Profile"
               links="/dashboard/restaurantProfile"
               selected={selected}
               setSelected={setSelected}

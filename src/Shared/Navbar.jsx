@@ -1,30 +1,42 @@
-import React from 'react';
-import { FiLogIn } from 'react-icons/fi';
-import { Link, Links, NavLink, useNavigate } from 'react-router';
-import useAuth from '../Hooks/useAuth';
+import { FiLogIn } from "react-icons/fi";
+import { Link, Links, NavLink, useNavigate } from "react-router";
+import useAuth from "../Hooks/useAuth";
+import bd from "../assets/logo/bd.png";
+import uk from "../assets/logo/uk.png";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import CountDown from "../EidFeatures/CountDown";
 
 const Navbar = () => {
-  
   const { user, LogoutUser } = useAuth();
   const navigate = useNavigate();
   const handleLogOut = () => {
     LogoutUser();
-    navigate('/');
+    navigate("/");
+  };
+
+  // for MultiLaguge
+  const [lang, setLang] = useState(true);
+  const { t, i18n } = useTranslation();
+  const changeLanguage = async (language) => {
+    setLang(!lang);
+    // localStorage.setItem("lang", language);
+    await i18n.changeLanguage(language);
   };
 
   const links = (
     <>
       <li>
-        <NavLink  to={'/'}>Home</NavLink>
+        <NavLink to={"/"}>{t('navMenu.menu1')}</NavLink>
       </li>
       <li>
-        <NavLink to={'/all-food'}>All Food</NavLink>
+        <NavLink to={"/all-food"}>{t('navMenu.menu2')}</NavLink>
       </li>
       <li>
-        <NavLink to={'/gallery'}>Gallery</NavLink>
+        <NavLink to={"/gallery"}>{t('navMenu.menu3')}</NavLink>
       </li>
       <li>
-        <NavLink to={'/contact'}>Contact Us</NavLink>
+        <NavLink to={"/contact"}>{t('navMenu.menu4')}</NavLink>
       </li>
     </>
   );
@@ -41,13 +53,13 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {' '}
+                {" "}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{' '}
+                />{" "}
               </svg>
             </div>
             <ul
@@ -59,8 +71,12 @@ const Navbar = () => {
           </div>
           <a className="btn btn-ghost text-xl">TastyRide</a>
         </div>
+            <div className="hidden md:flex navbar-center mx-auto ">
+              <CountDown/>
 
-        <div className="flex-none navbar-end">
+            </div>
+
+        <div className=" navbar-end">
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
@@ -78,13 +94,13 @@ const Navbar = () => {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  {' '}
+                  {" "}
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                  />{' '}
+                  />{" "}
                 </svg>
                 <span className="badge badge-sm indicator-item">8</span>
               </div>
@@ -107,29 +123,43 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-20 mt-3 w-52 p-2 shadow "
               >
                 <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
+                  <Link to={'/userProfile'} className="justify-between">
+                    {t('userMenu.profile')}
+                    <span className="badge">{t('userMenu.span1')}</span>
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard">{t('userMenu.Dashboard')}</Link>
                 </li>
                 <li>
-                  <button onClick={handleLogOut}>Logout</button>
+                  <button onClick={handleLogOut}>{t('userMenu.Logout')}</button>
                 </li>
               </ul>
             </div>
           ) : (
             <div className="px-4">
-              <Link to={'/login'}>
-                <button className="border px-4 py-1 cursor-pointer flex items-center gap-2 rounded-md">
+              <Link to={"/login"}>
+                <button className="border px-5 py-3 cursor-pointer flex items-center gap-2 bg-red-500 border-none text-white">
                   <span>
                     <FiLogIn />
-                  </span>{' '}
-                  Login
+                  </span>{" "}
+                  {t('userMenu.Login')}
                 </button>
               </Link>
+            </div>
+          )}
+        </div>
+
+        {/* langues Menu */}
+        <div className="cursor-pointer">
+          {lang && (
+            <div onClick={() => changeLanguage("bn")} className="">
+              <img src={uk} alt="" className="w-12 h-12 rounded-full" />
+            </div>
+          )}
+          {!lang && (
+            <div onClick={() => changeLanguage("en")} className="">
+              <img src={bd} alt="" className="w-12 h-12 rounded-full" />
             </div>
           )}
         </div>

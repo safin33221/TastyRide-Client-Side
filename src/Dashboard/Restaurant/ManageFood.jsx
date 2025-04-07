@@ -12,11 +12,11 @@ const ManageFood = () => {
 
   // Fetch food items by email using useQuery
   const { data: foods = [], isLoading } = useQuery({
-    queryKey: ["foods", user.email],
+    queryKey: ["foods", user?.email],
     queryFn: async () => {
-      const response = await axiosPublic.get(`/api/foods/by-email?email=${user.email}`);
-      if (response.data.success) {
-        return response.data.data;
+      const response = await axiosPublic.get(`/api/food/by-email/${user?.email}`);
+      if (response?.data?.success) {
+        return response?.data?.data;
       }
       throw new Error("Failed to fetch food items");
     },
@@ -26,12 +26,12 @@ const ManageFood = () => {
   const deleteFoodMutation = useMutation({
     mutationFn: async (id) => {
       const response = await axiosPublic.delete(`/api/foods/${id}`);
-      if (!response.data.success) {
+      if (!response?.data?.success) {
         throw new Error("Failed to delete food item");
       }
     },
     onSuccess: (_, id) => {
-      queryClient.invalidateQueries(["foods", user.email]); // Refetch after delete
+      queryClient.invalidateQueries(["foods", user?.email]); // Refetch after delete
       Swal.fire("Deleted!", "Your food item has been deleted.", "success");
     },
     onError: (error) => {
@@ -202,7 +202,71 @@ const ManageFood = () => {
         )}
 
         {/* Food Table */}
-        <div className="overflow-x-auto">
+
+        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+          <table className="table">
+            {/* head */}
+            <thead>
+
+
+              <tr>
+                <th></th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Category</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              {foods.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="py-4 text-center">
+                    No food items found.
+                  </td>
+                </tr>
+              ) : (
+                foods.map((food,idx) => (
+                  <tr key={food._id} className="hover:bg-gray-100">
+                    <td>{idx+1}</td>
+                    <td>
+                      <img src={food.image} alt={food.foodName} className="h-12 w-12 object-cover" />
+                    </td>
+                    <td>{food.foodName}</td>
+                    <td>${food.price}</td>
+                    <td>
+                      {food.availability ? "Yes" : "No"}
+                    </td>
+                    <td>{food.category}</td>
+                    <td >
+                      <button
+                        onClick={() => handleEdit(food)}
+                        className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        disabled={deleteFoodMutation.isLoading}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(food._id)}
+                        className="px-3 py-1 mx-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                        disabled={deleteFoodMutation.isLoading}
+                      >
+                        {deleteFoodMutation.isLoading && deleteFoodMutation.variables === food._id
+                          ? "Deleting..."
+                          : "Delete"}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+              
+
+            </tbody>
+          </table>
+        </div>
+        {/* <div className="overflow-x-auto">
           <table className="min-w-full bg-white border">
             <thead>
               <tr className="bg-gray-200">
@@ -258,7 +322,7 @@ const ManageFood = () => {
               )}
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     </div>
   );
