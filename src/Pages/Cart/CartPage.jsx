@@ -1,8 +1,11 @@
 import React from "react";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import PrimaryButton from "../../Shared/PrimaryButton";
+import { useCart } from "../../Hooks/useCart";
 
 const CartPage = () => {
+  const {cart} = useCart()
+  
   return (
     <div className=" container mx-auto pt-20">
       <h1 className="font-bold text-5xl text-center mb-10">Cart</h1>
