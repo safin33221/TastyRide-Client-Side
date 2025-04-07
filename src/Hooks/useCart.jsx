@@ -3,17 +3,23 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from "./useAxiosPublic";
 
 export const useCart = () => {
-    const {user} = useAuth()
-    
-    const axiosPublic = useAxiosPublic()
-    const {data:cart=[], refetch} = useQuery({
-        queryKey: ["cart"],
-        queryFn: async () => {
-            const res = await axiosPublic.get("/api/cart", {email:user.email})
-            console.log(res.data)
-            return res.data
-        }
-    })
+  const { user } = useAuth();
+  const userEmail = user?.email;
+  const axiosPublic = useAxiosPublic();
 
-    return {cart, refetch}
-}
+  const {
+    data: cart = [],
+    refetch,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ["cart", userEmail],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/api/cart/${userEmail}`);
+      return res.data.data;
+    },
+    enabled: !!userEmail // ✅ Only runs when userEmail is available
+  });
+
+  return { cart, refetch, isLoading, isError };
+};
