@@ -3,7 +3,6 @@ import { RiDeleteBin4Fill } from "react-icons/ri";
 import PrimaryButton from "../../Shared/PrimaryButton";
 
 const CartPage = () => {
-    console.log(window.location.pathname.includes("/cart"))
   return (
     <div className=" container mx-auto pt-20">
       <h1 className="font-bold text-5xl text-center mb-10">Cart</h1>
