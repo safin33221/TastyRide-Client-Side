@@ -2,13 +2,14 @@ import React from "react";
 import { RiDeleteBin4Fill } from "react-icons/ri";
 import PrimaryButton from "../../Shared/PrimaryButton";
 import { useCart } from "../../Hooks/useCart";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 
 const CartPage = () => {
   const { cart, refetch, isLoading, isError } = useCart();
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate()
 
   const subtotal = cart?.reduce((acc, item) => {
     return acc + item.price * item.quantity;
@@ -21,6 +22,14 @@ const CartPage = () => {
       toast.success("Deleted");
     }
   };
+
+  const handlePayment = () => {
+    if(cart?.length){
+      return navigate("/checkout")
+    }else{
+      toast.error("Please add some foods")
+    }
+  }
 
   // ✅ Early return if loading
   if (isLoading) {
@@ -125,7 +134,7 @@ const CartPage = () => {
               </tr>
             </tbody>
           </table>
-          <PrimaryButton text={"Proceed to Payment"} />
+          <button className="w-full" onClick={() => handlePayment()}><PrimaryButton text={"Proceed to Payment"} /></button>
         </div>
       </div>
     </div>

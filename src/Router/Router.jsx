@@ -23,6 +23,9 @@ import CustomerProfile from '../Dashboard/Customer/Profile/CustomerProfile';
 import SingleFood from '../Pages/SingleFood/SingleFood';
 import Restaurants from '../Pages/Profiles/Restaurants';
 import CartPage from '../Pages/Cart/CartPage';
+import CheckoutPage from '../Pages/Checkout/CheckoutPage';
+import SuccessPage from '../Pages/Success/SuccessPage';
+import FailPage from '../Pages/Fail/FailPage';
 
 const Router = () => {
   return (
@@ -39,6 +42,9 @@ const Router = () => {
           <Route path='userProfile' element={<CustomerProfile />} />
           <Route path='profile/:id' element={<Restaurants />} />
           <Route path='cart' element={<CartPage/>}/>
+          <Route path='checkout' element={<CheckoutPage/>}/>
+          <Route path='success' element={<SuccessPage/>}/>
+          <Route path='fail' element={<FailPage/>}/>
         </Route>
 
         <Route path='/dashboard' element={<Dashboard />}>
