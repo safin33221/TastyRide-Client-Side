@@ -85,6 +85,7 @@ const Navbar = () => {
             </div>
 
             <div className="dropdown dropdown-end ">
+              <Link to={"/cart"}>
               <div
                 tabIndex={0}
                 role="button"
@@ -108,7 +109,7 @@ const Navbar = () => {
                   </svg>
                   <span className="badge badge-sm indicator-item">8</span>
                 </div>
-              </div>
+              </div></Link>
 
             </div>
             <button className="btn btn-ghost btn-circle ">
