@@ -34,6 +34,7 @@ const RegisterForm = () => {
         username: data.name,
         photo: imgUrl,
         email: data.email,
+        password: data.password,
         role: data.role
       }
 
@@ -116,7 +117,7 @@ const RegisterForm = () => {
                 name="role"
                 className=""
                 value='customer'
-                {...register('role',{required:true})}
+                {...register('role', { required: true })}
               />
               {t('register.Customer')}
             </div>
@@ -129,9 +130,9 @@ const RegisterForm = () => {
                 name="role"
                 value='restaurant'
                 className=""
-                {...register('role',{required:true})}
+                {...register('role', { required: true })}
               />
-             {t('register.Reasturant')}
+              {t('register.Reasturant')}
             </div>
           </label>
 
