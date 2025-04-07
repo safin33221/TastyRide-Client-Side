@@ -18,7 +18,7 @@ const DiscountsProduct = () => {
     return (
         <div className='mb-16'>
             <SectionTitle title={`Eid Feast Specials – Indulge in Festive Flavors!` } desc={`Savor the joy of Eid with exclusive discounts on your favorite festive dishes!`} />
-            <div className='grid grid-cols-5 gap-5'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5'>
                 {
                     foods?.map((food) => <>
                         <FoodCard food={food} />

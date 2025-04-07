@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { FaArrowLeft, FaHeart, FaRegHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import useUserData from "../../Hooks/useUserData";
+import { useAddToCart } from "../../Hooks/userAddToCart";
 
 function SingleFood() {
   const { id } = useParams();
@@ -12,6 +13,7 @@ function SingleFood() {
   const axiosPublic = useAxiosPublic();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const addToCart = useAddToCart()
 
   const {
     data: food,
@@ -40,8 +42,15 @@ function SingleFood() {
     },
   });
 
+  // console.log("Food", food)
+
   // manage the add to favorite functionality state
   const [isFavorited, setIsFavorited] = useState(false);
+
+  // add to cart function 
+  const handleAddToCart = (food) => {
+    addToCart(food)
+  }
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -156,7 +165,7 @@ function SingleFood() {
             </div>
 
             {/* order now button */}
-            <div className="mt-6">
+            <div onClick={() => handleAddToCart(food)} className="mt-6">
               <PrimaryButton text={"Order Now"} />
             </div>
             {/* <div className="mt-6 flex gap-2 items-center ">
