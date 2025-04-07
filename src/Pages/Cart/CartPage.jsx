@@ -8,15 +8,19 @@ import toast from "react-hot-toast";
 
 const CartPage = () => {
   const { cart, refetch, isLoading, isError } = useCart();
-  const axiosPublic = useAxiosPublic()
+  const axiosPublic = useAxiosPublic();
+
+  const subtotal = cart?.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
 
   const handleDeleteCartFood = async (id) => {
-    const res = await axiosPublic.delete(`/api/cart/${id}`)
-    if(res.status === 200){
-      refetch()
-      toast.success("Deleted")
+    const res = await axiosPublic.delete(`/api/cart/${id}`);
+    if (res.status === 200) {
+      refetch();
+      toast.success("Deleted");
     }
-  }
+  };
 
   // ✅ Early return if loading
   if (isLoading) {
@@ -59,6 +63,7 @@ const CartPage = () => {
                   <th>Name</th>
                   <th>Price</th>
                   <th>Quantity</th>
+                  <th>Total Price</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -70,10 +75,7 @@ const CartPage = () => {
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
-                            <img
-                              src={item.image}
-                              alt={item.name}
-                            />
+                            <img src={item.image} alt={item.name} />
                           </div>
                         </div>
                         <div>
@@ -83,8 +85,12 @@ const CartPage = () => {
                     </td>
                     <td>{item.price}$</td>
                     <td>{item.quantity}</td>
+                    <td>{item.totalPrice}</td>
                     <th>
-                      <button onClick={() => handleDeleteCartFood(item._id)} className="btn btn-ghost btn-md">
+                      <button
+                        onClick={() => handleDeleteCartFood(item._id)}
+                        className="btn btn-ghost btn-md"
+                      >
                         <RiDeleteBin4Fill className="text-xl text-red-500" />
                       </button>
                     </th>
@@ -107,7 +113,7 @@ const CartPage = () => {
             <tbody>
               <tr>
                 <td>Subtotal</td>
-                <td>100</td>
+                <td>{subtotal}$</td>
               </tr>
               <tr>
                 <td>Delivery Charge</td>
@@ -115,7 +121,7 @@ const CartPage = () => {
               </tr>
               <tr>
                 <td>Total</td>
-                <td>130</td>
+                <td>{subtotal + 30}$</td>
               </tr>
             </tbody>
           </table>

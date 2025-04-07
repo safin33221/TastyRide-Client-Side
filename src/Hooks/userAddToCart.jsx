@@ -20,7 +20,7 @@ export const useAddToCart = () => {
     };
 
     try {
-      const res = await axiosPublic.post("/api/cart", { food: foodWithEmail });
+      const res = await axiosPublic.post(`/api/cart`, { food: foodWithEmail });
       if (res.status == 200) {
         refetch()
         toast.success("Added to cart");
