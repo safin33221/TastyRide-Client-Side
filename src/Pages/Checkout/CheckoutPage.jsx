@@ -3,9 +3,12 @@ import { Link, useNavigate } from "react-router";
 import { useCart } from "../../Hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAuth from "../../Hooks/useAuth";
 
 const CheckoutComponent = () => {
-  const { cart } = useCart();
+  const { cart, refetch, isLoading, isError } = useCart();
+  const { user } = useAuth();
+
   const [shippingMethods, setShippingMethods] = useState("cod")
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
@@ -24,6 +27,8 @@ const CheckoutComponent = () => {
       }, 0);
     const info = {cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount}
     if(shippingMethods === "cod"){
+        const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
+        refetch()
         Swal.fire({
             title: "Your Order is Confirmed",
             showDenyButton: true,
