@@ -11,7 +11,6 @@ const Restaurants = () => {
   const [loading, setLoading] = useState(true);
   const [menus, setMenus] = useState([]);
 
-
   useEffect(() => {
     const fetchRestaurantProfile = async () => {
       try {
@@ -21,13 +20,13 @@ const Restaurants = () => {
         setProfile(res.data);
 
         // fetch menu by email
-        const menuData = await axiosPublic.get(`/api/food/by-email/${email}`);
-        if (menuData?.data?.success && Array.isArray(menuData?.data?.data)) {
-          setMenus(menuData.data.data);
-        } else {
-          console.error("Expected an array but got:", menuData);
-          setMenus([]);
-        }
+        // const menuData = await axiosPublic.get(`/api/food/by-email/${email}`);
+        // if (menuData?.data?.success && Array.isArray(menuData?.data?.data)) {
+        //   setMenus(menuData.data.data);
+        // } else {
+        //   console.error("Expected an array but got:", menuData);
+        //   setMenus([]);
+        // }
       } catch (err) {
         setError(err?.response?.data?.message || "Error fetching profile");
       } finally {
@@ -37,7 +36,24 @@ const Restaurants = () => {
     fetchRestaurantProfile();
   }, [email]);
 
-  //   console.log(menus);
+  useEffect(() => {
+    const fetchMenus = async () => {
+        try {
+            const res = await axiosPublic.get(`/api/food/by-email/${email}`);
+            if (res?.data?.success && Array.isArray(res?.data?.data)) {
+            setMenus(res.data.data);
+            } else {
+            console.error("Expected an array but got:", res);
+            setMenus([]);
+            }
+        } catch (err) {
+            console.log(err?.response?.data?.message || "Error fetching menus");
+        }
+    }
+    fetchMenus();
+  }, [])
+
+    console.log(menus);
 
   // Loading State
   if (loading) {
@@ -49,8 +65,8 @@ const Restaurants = () => {
   }
 
   //  error state
-  if (error) {
-    return error === "Restaurant not found" ? (
+  if (error === "Restaurant not found") {
+    return (
       <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
         <div className="card w-full max-w-md bg-base-100 shadow-xl border border-error">
           <div className="card-body text-center items-center">
@@ -77,86 +93,88 @@ const Restaurants = () => {
           </div>
         </div>
       </div>
-    ) : (
-      <div className="min-h-screen bg-base-100">
-        {/* banner section */}
-        <div className="relative h-64 md:h-80 w-full">
-          <img
-            src="https://placehold.co/1200x400?text=Cover+Page&font=poppins"
-            alt="Cover"
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Profile Section */}
-        <div className="max-w-5xl mx-auto -mt-16 px-4">
-          <div className="flex flex-col items-center  gap-6">
-            <div className="avatar">
-              <div className="w-32 md:w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img
-                  src="https://placehold.co/150?text=profile"
-                  alt="Profile"
-                  className="rounded-full"
-                />
-              </div>
-            </div>
-            <div className="text-center">
-              <p className="text-neutral mt-1 text-red-500">
-                Restaurant profile does not set up yet.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-base-100">
-      {/* banner section */}
-      <div className="relative h-64 md:h-80 w-full">
-        <img
-          src={
-            profile?.coverPhoto ||
-            "https://placehold.co/1200x400/transparent/red/?text=Cover+Page&font=poppins"
-          }
-          alt="Cover"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-          {/* <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
-            {profile?.restaurantName}
-          </h1> */}
-        </div>
-      </div>
+      {error ? (
+        <>
+          {/* banner section */}
+          <div className="relative h-64 md:h-80 w-full">
+            <img
+              src="https://placehold.co/1200x400?text=Cover+Page&font=poppins"
+              alt="Cover"
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-      {/* Profile Section -mt-16 */}
-      <div className="max-w-5xl mx-auto -mt-16 px-4">
-        <div className="flex flex-col items-center  gap-6">
-          <div className="avatar">
-            <div className="w-32 md:w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img
-                src={
-                  profile?.profilePhoto ||
-                  "https://placehold.co/150?text=profile"
-                }
-                alt="Profile"
-                className="rounded-full"
-              />
+          {/* Profile Section */}
+          <div className="max-w-5xl mx-auto -mt-16 px-4">
+            <div className="flex flex-col items-center  gap-6">
+              <div className="avatar">
+                <div className="w-32 md:w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img
+                    src="https://placehold.co/150?text=profile"
+                    alt="Profile"
+                    className="rounded-full"
+                  />
+                </div>
+              </div>
+              <div className="text-center">
+                <p className="mt-1 text-red-500">
+                  Restaurant profile does not set up yet.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-red-600">
-              {profile?.restaurantName}
-            </h2>
-            <p className="text-neutral mt-1">
-              {profile.description || "A place for delicious meals"}
-            </p>
+        </>
+      ) : (
+        <>
+          {/* banner section */}
+          <div className="relative h-64 md:h-80 w-full">
+            <img
+              src={
+                profile?.coverPhoto ||
+                "https://placehold.co/1200x400/transparent/red/?text=Cover+Page&font=poppins"
+              }
+              alt="Cover"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              {/* <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
+            {profile?.restaurantName}
+          </h1> */}
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* menu section */}
+          {/* Profile Section -mt-16 */}
+          <div className="max-w-5xl mx-auto -mt-16 px-4">
+            <div className="flex flex-col items-center  gap-6">
+              <div className="avatar">
+                <div className="w-32 md:w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img
+                    src={
+                      profile?.profilePhoto ||
+                      "https://placehold.co/150?text=profile"
+                    }
+                    alt="Profile"
+                    className="rounded-full"
+                  />
+                </div>
+              </div>
+              <div className="text-center">
+                <h2 className="text-3xl md:text-5xl font-bold text-red-600">
+                  {profile?.restaurantName}
+                </h2>
+                <p className="text-neutral mt-1">
+                  {profile.description || "A place for delicious meals"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       {/* Menu Section */}
       <div className="max-w-5xl mx-auto mt-10 px-4">
         <h3 className="text-2xl font-bold text-red-500">Our Menu</h3>
@@ -183,9 +201,9 @@ const Restaurants = () => {
                     ${menu.price.toFixed(2)}
                   </span>
                   <Link to={`/all-food/${menu._id}`}>
-                  <button className="btn btn-sm bg-red-500 hover:bg-red-600 text-white">
-                    Details
-                  </button>
+                    <button className="btn btn-sm bg-red-500 hover:bg-red-600 text-white">
+                      Details
+                    </button>
                   </Link>
                 </div>
               </div>
