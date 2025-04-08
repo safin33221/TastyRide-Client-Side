@@ -1,10 +1,10 @@
-import React from "react";
-import { RiDeleteBin4Fill } from "react-icons/ri";
-import PrimaryButton from "../../Shared/PrimaryButton";
-import { useCart } from "../../Hooks/useCart";
-import { Link } from "react-router";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import toast from "react-hot-toast";
+import React from 'react';
+import { RiDeleteBin4Fill } from 'react-icons/ri';
+import PrimaryButton from '../../Shared/PrimaryButton';
+import { useCart } from '../../Hooks/useCart';
+import { Link } from 'react-router';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
 
 const CartPage = () => {
   const { cart, refetch, isLoading, isError } = useCart();
@@ -14,11 +14,11 @@ const CartPage = () => {
     return acc + item.price * item.quantity;
   }, 0);
 
-  const handleDeleteCartFood = async (id) => {
+  const handleDeleteCartFood = async id => {
     const res = await axiosPublic.delete(`/api/cart/${id}`);
     if (res.status === 200) {
       refetch();
-      toast.success("Deleted");
+      toast.success('Deleted');
     }
   };
 
@@ -51,8 +51,8 @@ const CartPage = () => {
               <p className="text-xl text-red-500 my-5 font-semibold">
                 No food added to cart
               </p>
-              <Link to={"/all-food"}>
-                <PrimaryButton text={"Add Food"} />
+              <Link to={'/all-food'}>
+                <PrimaryButton text={'Add Food'} />
               </Link>
             </div>
           ) : (
@@ -125,7 +125,7 @@ const CartPage = () => {
               </tr>
             </tbody>
           </table>
-          <PrimaryButton text={"Proceed to Payment"} />
+          <PrimaryButton text={'Proceed to Payment'} />
         </div>
       </div>
     </div>
