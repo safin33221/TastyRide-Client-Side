@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Restaurants = () => {
@@ -11,22 +11,23 @@ const Restaurants = () => {
   const [loading, setLoading] = useState(true);
   const [menus, setMenus] = useState([]);
 
-//   fetch restaurant profile by email
+
   useEffect(() => {
     const fetchRestaurantProfile = async () => {
       try {
         setLoading(true);
+        // fetch restaurant profile by email
         const res = await axiosPublic.get(`/api/restaurantProfile/${email}`);
         setProfile(res.data);
-        
-        const menuData = await axiosPublic.get(`/api//food/by-email/${email}`);
+
+        // fetch menu by email
+        const menuData = await axiosPublic.get(`/api/food/by-email/${email}`);
         if (menuData?.data?.success && Array.isArray(menuData?.data?.data)) {
           setMenus(menuData.data.data);
         } else {
           console.error("Expected an array but got:", menuData);
           setMenus([]);
         }
-
       } catch (err) {
         setError(err?.response?.data?.message || "Error fetching profile");
       } finally {
@@ -36,8 +37,7 @@ const Restaurants = () => {
     fetchRestaurantProfile();
   }, [email]);
 
-//   console.log(menus);
-  
+  //   console.log(menus);
 
   // Loading State
   if (loading) {
@@ -101,7 +101,9 @@ const Restaurants = () => {
               </div>
             </div>
             <div className="text-center">
-              <p className="text-neutral mt-1 text-red-500">Restaurant profile does not set up yet.</p>
+              <p className="text-neutral mt-1 text-red-500">
+                Restaurant profile does not set up yet.
+              </p>
             </div>
           </div>
         </div>
@@ -151,6 +153,44 @@ const Restaurants = () => {
               {profile.description || "A place for delicious meals"}
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* menu section */}
+      {/* Menu Section */}
+      <div className="max-w-5xl mx-auto mt-10 px-4">
+        <h3 className="text-2xl font-bold text-red-500">Our Menu</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
+          {menus.map((menu) => (
+            <div
+              key={menu._id}
+              className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200"
+            >
+              <figure>
+                <img
+                  src={menu.image}
+                  alt={menu.foodName}
+                  className="w-full h-48 object-cover rounded-t-lg"
+                />
+              </figure>
+              <div className="card-body">
+                <h4 className="card-title text-lg font-semibold text-neutral">
+                  {menu.foodName}
+                </h4>
+                <p className="text-sm text-gray-600">{menu.description}</p>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-red-500 font-bold">
+                    ${menu.price.toFixed(2)}
+                  </span>
+                  <Link to={`/all-food/${menu._id}`}>
+                  <button className="btn btn-sm bg-red-500 hover:bg-red-600 text-white">
+                    Details
+                  </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
