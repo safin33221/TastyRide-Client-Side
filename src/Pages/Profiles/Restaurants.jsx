@@ -9,21 +9,24 @@ const Restaurants = () => {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [menus, setMenus] = useState([]);
 
-  // const { data: restaurant, isPending } = useQuery({
-  //     queryKey: ['restaurant', email],
-
-  //     queryFn: async () => {
-  //         const res = await axiosPublic.get(`/api/restaurantProfile/${email}`)
-  //         return res.data
-  //     }
-  // })
-
+//   fetch restaurant profile by email
   useEffect(() => {
     const fetchRestaurantProfile = async () => {
       try {
+        setLoading(true);
         const res = await axiosPublic.get(`/api/restaurantProfile/${email}`);
         setProfile(res.data);
+        
+        const menuData = await axiosPublic.get(`/api//food/by-email/${email}`);
+        if (menuData?.data?.success && Array.isArray(menuData?.data?.data)) {
+          setMenus(menuData.data.data);
+        } else {
+          console.error("Expected an array but got:", menuData);
+          setMenus([]);
+        }
+
       } catch (err) {
         setError(err?.response?.data?.message || "Error fetching profile");
       } finally {
@@ -32,6 +35,9 @@ const Restaurants = () => {
     };
     fetchRestaurantProfile();
   }, [email]);
+
+//   console.log(menus);
+  
 
   // Loading State
   if (loading) {
