@@ -31,6 +31,9 @@ const CartPage = () => {
     }
   }
 
+  const restaurantLink = cart.map((item, index) => item.foodOwner)
+  // console.log("res link", restaurantLink[0])
+
   // ✅ Early return if loading
   if (isLoading) {
     return (
@@ -108,6 +111,7 @@ const CartPage = () => {
               </tbody>
             </table>
           )}
+          <Link to={`/restaurantProfile/${restaurantLink[0]}`}><PrimaryButton text={"Add more from this restaurant"}/></Link>
         </div>
 
         {/* total amount */}

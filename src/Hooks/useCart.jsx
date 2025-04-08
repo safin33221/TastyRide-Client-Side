@@ -16,6 +16,7 @@ export const useCart = () => {
     queryKey: ["cart", userEmail],
     queryFn: async () => {
       const res = await axiosPublic.get(`/api/cart/${userEmail}`);
+      console.log(res.data.data)
       return res.data.data;
     },
     enabled: !!userEmail // ✅ Only runs when userEmail is available
