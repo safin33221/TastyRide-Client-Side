@@ -1,5 +1,6 @@
 import CategoryFoods from "../../Components/CategoryFoods/CategoryFoods";
 import EasyOrder from "../../Components/EasyOrder/EasyOrder";
+import ExploreRestaurant from "../../Components/ExploreRestaurant/ExploreRestaurant";
 import InterNationalFood from "../../Components/internatinalFood/InterNationalFood";
 import OurClient from "../../Components/OurClient/OurClient";
 import PopularCollection from "../../Components/PopularCollection/PopularCollection";
@@ -15,11 +16,12 @@ const Home = () => {
       <Sliders></Sliders>
       <div className="container mx-auto">
         <SectionDivider></SectionDivider>
-        <DiscountsProduct/>
+        {/* <DiscountsProduct /> */}
+        <ExploreRestaurant />
         <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
         <section>
-          <CategoryFoods/>
+          <CategoryFoods />
         </section>
         <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
