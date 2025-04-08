@@ -41,7 +41,8 @@ const Restaurants = () => {
       </div>
     );
   }
-  //   console.log("error: ",error);
+
+  //  error state
   if (error) {
     return error === "Restaurant not found" ? (
       <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
@@ -75,7 +76,7 @@ const Restaurants = () => {
         {/* banner section */}
         <div className="relative h-64 md:h-80 w-full">
           <img
-            src="https://placehold.co/1200x400/transparent/red/?text=Cover+Page&font=poppins"
+            src="https://placehold.co/1200x400?text=Cover+Page&font=poppins"
             alt="Cover"
             className="w-full h-full object-cover"
           />
@@ -94,7 +95,7 @@ const Restaurants = () => {
               </div>
             </div>
             <div className="text-center">
-              <p className="text-neutral mt-1">Restaurant profile does not set up yet.</p>
+              <p className="text-neutral mt-1 text-red-500">Restaurant profile does not set up yet.</p>
             </div>
           </div>
         </div>
