@@ -19,14 +19,7 @@ const Restaurants = () => {
         const res = await axiosPublic.get(`/api/restaurantProfile/${email}`);
         setProfile(res.data);
 
-        // fetch menu by email
-        // const menuData = await axiosPublic.get(`/api/food/by-email/${email}`);
-        // if (menuData?.data?.success && Array.isArray(menuData?.data?.data)) {
-        //   setMenus(menuData.data.data);
-        // } else {
-        //   console.error("Expected an array but got:", menuData);
-        //   setMenus([]);
-        // }
+        
       } catch (err) {
         setError(err?.response?.data?.message || "Error fetching profile");
       } finally {
