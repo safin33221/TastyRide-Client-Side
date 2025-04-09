@@ -6,16 +6,34 @@ import { MdMessage } from "react-icons/md";
 import { useEffect, useState } from "react";
 import ChatBot from "../Components/ChatBot";
 import NewLetterModal from "../Components/NewLetterModal/NewLetterModal";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const MainLayout = () => {
+  const axiosPublic = useAxiosPublic();
   const [openChat, setOpenChat] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowModal(true);
-    }, 5000); // Show modal after 5 seconds
-    return () => clearTimeout(timer); // Cleanup the timer on unmount
+    // Check if the user is already subscribed
+    const checkSubscription = async () => {
+      try {
+        const response = await axiosPublic.get('/api/check-subscription');
+        setIsSubscribed(response.data.isSubscribed);
+      } catch (error) {
+        console.error('Error checking subscription:', error);
+      }
+    };
+
+    checkSubscription();
+
+    if (!isSubscribed){
+      const timer = setTimeout(() => {
+        setShowModal(true);
+      }, 5000); // Show modal after 5 seconds
+      return () => clearTimeout(timer); // Cleanup the timer on unmount
+    }
+    
   }, []);
 
   const handleOnClose = () => {
