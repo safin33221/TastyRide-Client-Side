@@ -12,8 +12,9 @@ export const useAddToCart = () => {
   const restaurant = cart.map((item) => item.foodOwner);
 
   const addToCart = async (food) => {
+    // console.log(food);
     if (!user) {
-      console.log("User not logged in");
+      toast.error("User not logged in");
       return;
     }
 
@@ -21,6 +22,8 @@ export const useAddToCart = () => {
       ...food,
       userEmail: user.email,
     };
+    console.log('foodDetails:',foodWithEmail);
+   
 
     console.log("res", restaurant[0], "addedFood", food.addedBy);
 

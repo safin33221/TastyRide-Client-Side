@@ -56,6 +56,7 @@ function SingleFood() {
   // add to cart function
   const handleAddToCart = (food) => {
     addToCart(food);
+    
   };
 
   if (isLoading) return <p>Loading...</p>;
