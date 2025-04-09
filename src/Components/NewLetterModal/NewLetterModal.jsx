@@ -1,16 +1,35 @@
 import { useEffect, useState } from "react";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 
 function NewLetterModal({onClose}) {
+    const axiosPublic = useAxiosPublic();
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-    
-
-   
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        try {
+            const res = await axiosPublic.patch(`/api/subscribe`, {email});
+            setMessage(res.data.message);
+            await Swal.fire({
+                title: 'Subscribed!',
+                text: 'You’ve successfully subscribed to our newsletter!',
+                icon: 'success',
+                confirmButtonText: 'Great!',
+                confirmButtonColor: '#ef4444',
+                timer: 3000, 
+                timerProgressBar: true,
+              });
+            setEmail('');
+            onClose();
+        } catch (error) {
+            setMessage(error?.response?.data?.message  ||'Something went wrong! Please try again.');
+        }finally {
+            setLoading(false);
+        }
     }
 
     
@@ -22,8 +41,8 @@ function NewLetterModal({onClose}) {
         <p className="py-4 text-neutral">
           Subscribe to our newsletter for exclusive offers, new menu items, and more!
         </p>
-        {message && (
-          <div className={`alert ${message.includes('Successfully') ? 'alert-success' : 'alert-error'} mb-4`}>
+        {message && !message.includes('Successfully') && (
+          <div className="alert alert-error mb-4 text-white bg-red-500">
             <span>{message}</span>
           </div>
         )}
