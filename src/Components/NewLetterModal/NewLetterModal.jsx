@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 function NewLetterModal({onClose}) {
+    const {user} = useAuth();
     const axiosPublic = useAxiosPublic();
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('' || user?.email);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+    
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
