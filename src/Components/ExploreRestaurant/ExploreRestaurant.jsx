@@ -32,28 +32,28 @@ const ExploreRestaurant = () => {
                         restaurant?.map(data => (
                             data.restaurantDetails != null && (
 
-                                <Link to={`/restaurantProfile/${data.email}`}>
-                                    <div class=" bg-gray-100 hover:shadow-2xl hover:cursor-pointer rounded-xl shadow-md overflow-hidden border border-gray-200">
-                                        <img class="w-full h-48 object-cover" src={data.restaurantDetails.coverPhoto} alt="Best Indian Biryani" />
+                                <Link key={data._id} to={`/restaurantProfile/${data.email}`}>
+                                    <div className=" bg-gray-100 hover:shadow-2xl hover:cursor-pointer rounded-xl shadow-md overflow-hidden border border-gray-200 mx-2 md:mx-0 ">
+                                        <img className="w-full h-48 object-cover" src={data.restaurantDetails.coverPhoto} alt="Best Indian Biryani" />
                                         <div class="p-4 space-y-2">
                                             <div className='flex items-center gap-2'>
                                                 <img className='w-8 rounded-full ' src={data.restaurantDetails.profilePhoto} alt="" />
-                                                <h3 class="text-lg font-semibold text-gray-800">{data.restaurantDetails.restaurantName}</h3>
+                                                <h3 className="text-lg font-semibold text-gray-800">{data.restaurantDetails.restaurantName}</h3>
                                             </div>
-                                            <div class="flex items-center text-sm text-gray-500 gap-2">
+                                            <div className="flex items-center text-sm text-gray-500 gap-2">
                                                 <span>৳৳</span>
                                                 <span>•</span>
                                                 <span>Fast Food</span>
                                             </div>
-                                            <div class="flex justify-between items-center text-sm text-gray-600">
-                                                <div class="flex items-center gap-1">
-                                                    <span class="text-yellow-500 text-base">★</span>
+                                            <div className="flex justify-between items-center text-sm text-gray-600">
+                                                <div className="flex items-center gap-1">
+                                                    <span className="text-yellow-500 text-base">★</span>
                                                     <span>3.4</span>
-                                                    <span class="text-gray-400">(100+)</span>
+                                                    <span className="text-gray-400">(100+)</span>
                                                 </div>
-                                                <div class="flex items-center gap-2">
+                                                <div className="flex items-center gap-2">
                                                     <span>⏱️ 45–70 min</span>
-                                                    <span class="text-pink-500 font-medium">• Free</span>
+                                                    <span className="text-pink-500 font-medium">• Free</span>
                                                 </div>
                                             </div>
                                         </div>
