@@ -54,6 +54,10 @@ const LoginForm = () => {
 
   }
 
+  const handleResetPassword = () => {
+
+  }
+
   return (
     <div>
       <form className="" onSubmit={handleSubmit(onsubmit)}>
@@ -89,7 +93,8 @@ const LoginForm = () => {
           value={t('userMenu.Login')}
           className=" w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6"
         />
-        <p className="text-blue-500 underline cursor-pointer hover:text-blue-700">Forget Password?</p>
+        <p onClick={handleResetPassword}
+          className="text-blue-500 underline cursor-pointer hover:text-blue-700">Forget Password?</p>
       </form>
     </div>
   );

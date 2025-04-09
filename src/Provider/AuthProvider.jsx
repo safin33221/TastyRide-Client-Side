@@ -34,10 +34,15 @@ const AuthProvider = ({ children }) => {
     }
 
     // Sign in user with google
-    const SignInWithGoogle = ()=>{
+    const SignInWithGoogle = () => {
         setLoading(true)
         const provider = new GoogleAuthProvider();
         return signInWithPopup(auth, provider);
+    }
+
+    //Reset Passwords
+    const resetPassword = () => {
+
     }
 
 

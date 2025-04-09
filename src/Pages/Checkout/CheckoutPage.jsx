@@ -13,7 +13,7 @@ const CheckoutComponent = () => {
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
 
-  console.log(cart);
+  const restaurantEmail = cart?.map(data => data.foodOwner)
   const handlePlaceOrder = async (e) => {
     e.preventDefault()
     const form = e.target
@@ -27,25 +27,22 @@ const CheckoutComponent = () => {
       return acc + item.price * item.quantity;
     }, 0);
     const info = { cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount }
+
+    // console.log(cart);
     if (shippingMethods === "cod") {
       //Order Details
       const orderDetails = {
         info,
-        foods: cart.map(food => ({
-          name: food.name,
-          image: food.image,
-          price: food.price,
-          userEmail: food.userEmail,
-          foodOwner: food.foodOwner,
-          quantity: food.quantity,
-          foodId: food.foodId
-        })),
+        cart,
+        restaurantEmail: restaurantEmail[0],
+        paymentMethod: 'cod',
         total_amount: total_amount,
         status: 'pending',
         createdAt: new Date()
 
       }
-      
+      console.log(orderDetails);
+
       const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
       refetch()
       Swal.fire({
