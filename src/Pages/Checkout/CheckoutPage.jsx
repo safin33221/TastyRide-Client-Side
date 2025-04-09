@@ -13,7 +13,8 @@ const CheckoutComponent = () => {
   const navigate = useNavigate()
   const axiosPublic = useAxiosPublic()
 
-  const handlePlaceOrder = async(e) => {
+  console.log(cart);
+  const handlePlaceOrder = async (e) => {
     e.preventDefault()
     const form = e.target
     const cus_name = form.name.value
@@ -23,40 +24,58 @@ const CheckoutComponent = () => {
     const cus_city = form.city.value
     const cus_country = form.country.value
     const total_amount = cart?.reduce((acc, item) => {
-        return acc + item.price * item.quantity;
-      }, 0);
-    const info = {cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount}
-    if(shippingMethods === "cod"){
-        const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
-        refetch()
-        Swal.fire({
-            title: "Your Order is Confirmed",
-            showDenyButton: true,
-            // showCancelButton: true,
-            confirmButtonText: "Track Order",
-            denyButtonText: `Return Home`,
-            icon: "success"
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              navigate("/order-tracking")
-            } else if (result.isDenied) {
-              navigate("/")
-            }
-          });
-    }else{
-        try {
-            const response = await axiosPublic.post('/init-payment', info);
-            const { GatewayPageURL } = response.data;
-            if (GatewayPageURL) {
-              window.location.href = GatewayPageURL; // Redirect to SSLCommerz payment page
-            } else {
-              alert('Failed to initiate payment');
-            }
-          } catch (error) {
-            console.error('Payment error:', error);
-            alert('An error occurred while initiating payment');
-          }
+      return acc + item.price * item.quantity;
+    }, 0);
+    const info = { cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount }
+    if (shippingMethods === "cod") {
+      //Order Details
+      const orderDetails = {
+        info,
+        foods: cart.map(food => ({
+          name: food.name,
+          image: food.image,
+          price: food.price,
+          userEmail: food.userEmail,
+          foodOwner: food.foodOwner,
+          quantity: food.quantity,
+          foodId: food.foodId
+        })),
+        total_amount: total_amount,
+        status: 'pending',
+        createdAt: new Date()
+
+      }
+      
+      const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
+      refetch()
+      Swal.fire({
+        title: "Your Order is Confirmed",
+        showDenyButton: true,
+        // showCancelButton: true,
+        confirmButtonText: "Track Order",
+        denyButtonText: `Return Home`,
+        icon: "success"
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          navigate("/order-tracking")
+        } else if (result.isDenied) {
+          navigate("/")
+        }
+      });
+    } else {
+      try {
+        const response = await axiosPublic.post('/init-payment', info);
+        const { GatewayPageURL } = response.data;
+        if (GatewayPageURL) {
+          window.location.href = GatewayPageURL; // Redirect to SSLCommerz payment page
+        } else {
+          alert('Failed to initiate payment');
+        }
+      } catch (error) {
+        console.error('Payment error:', error);
+        alert('An error occurred while initiating payment');
+      }
     }
   }
   return (
@@ -231,112 +250,112 @@ const CheckoutComponent = () => {
           </p>
           <div>
             <form onSubmit={handlePlaceOrder}>
-                {/* full name  */}
-            <div className="relative">
-              <label
-                htmlFor="name"
-                className="mt-4 mb-2 block text-sm font-medium"
-              >
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                required
-                name="name"
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="type here"
-              />
-            </div>
-            {/* email  */}
-            <div className="relative">
-              <label
-                htmlFor="email"
-                className="mt-4 mb-2 block text-sm font-medium"
-              >
-                Email
-              </label>
-              <input
-                type="text"
-                id="email"
-                required
-                name="email"
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="your.email@gmail.com"
-              />
-            </div>
-            {/* phone number  */}
-            <div className="relative">
-              <label
-                htmlFor="number"
-                className="mt-4 mb-2 block text-sm font-medium"
-              >
-                Phone Number
-              </label>
-              <input
-                type="text"
-                id="number"
-                name="number"
-                required
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="type here"
-              />
-            </div>
-            {/* full address  */}
-            <div className="relative">
-              <label
-                htmlFor="address"
-                className="mt-4 mb-2 block text-sm font-medium"
-              >
-                Full Address
-              </label>
-              <input
-                type="text"
-                id="address"
-                required
-                name="address"
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="type here"
-              />
-            </div>
-            {/* city  */}
-            <div className="relative">
-              <label
-                htmlFor="city"
-                className="mt-4 mb-2 block text-sm font-medium"
-              >
-                City
-              </label>
-              <input
-                type="text"
-                id="city"
-                required
-                name="city"
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="type here"
-              />
-            </div>
-            {/* Country  */}
-            <div className="relative">
-              <label
-                htmlFor="country"
-                className="mt-4 mb-2 block text-sm font-medium"
-              >
-                Country
-              </label>
-              <input
-                type="text"
-                id="country"
-                required
-                name="country"
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="type here"
-              />
-            </div>
-            {/* Rest of the payment form fields would follow similar pattern */}
-            <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white cursor-pointer">
-              Place Order
-            </button>
+              {/* full name  */}
+              <div className="relative">
+                <label
+                  htmlFor="name"
+                  className="mt-4 mb-2 block text-sm font-medium"
+                >
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  name="name"
+                  className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="type here"
+                />
+              </div>
+              {/* email  */}
+              <div className="relative">
+                <label
+                  htmlFor="email"
+                  className="mt-4 mb-2 block text-sm font-medium"
+                >
+                  Email
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  required
+                  name="email"
+                  className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="your.email@gmail.com"
+                />
+              </div>
+              {/* phone number  */}
+              <div className="relative">
+                <label
+                  htmlFor="number"
+                  className="mt-4 mb-2 block text-sm font-medium"
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  id="number"
+                  name="number"
+                  required
+                  className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="type here"
+                />
+              </div>
+              {/* full address  */}
+              <div className="relative">
+                <label
+                  htmlFor="address"
+                  className="mt-4 mb-2 block text-sm font-medium"
+                >
+                  Full Address
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  required
+                  name="address"
+                  className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="type here"
+                />
+              </div>
+              {/* city  */}
+              <div className="relative">
+                <label
+                  htmlFor="city"
+                  className="mt-4 mb-2 block text-sm font-medium"
+                >
+                  City
+                </label>
+                <input
+                  type="text"
+                  id="city"
+                  required
+                  name="city"
+                  className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="type here"
+                />
+              </div>
+              {/* Country  */}
+              <div className="relative">
+                <label
+                  htmlFor="country"
+                  className="mt-4 mb-2 block text-sm font-medium"
+                >
+                  Country
+                </label>
+                <input
+                  type="text"
+                  id="country"
+                  required
+                  name="country"
+                  className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="type here"
+                />
+              </div>
+              {/* Rest of the payment form fields would follow similar pattern */}
+              <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white cursor-pointer">
+                Place Order
+              </button>
             </form>
           </div>
         </div>

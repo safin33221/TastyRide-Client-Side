@@ -7,6 +7,9 @@ import useUserData from '../../../Hooks/useUserData';
 import Swal from 'sweetalert2';
 import { IoIosReverseCamera } from "react-icons/io";
 import { imageUpload } from '../../../Utils/Utils';
+import { useQuery } from '@tanstack/react-query';
+import Foods from './Foods';
+
 
 
 const RestaurantProfile = () => {
@@ -24,7 +27,7 @@ const RestaurantProfile = () => {
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode 
 
 
-    
+
 
     // Change Profile Photo functionality Start-----------------------------------------------------
     const handleProfileSelcet = (e) => {
@@ -99,6 +102,8 @@ const RestaurantProfile = () => {
         }
     };
     // Change Restarant Name Functionality End-------------------------------------------------------
+
+
 
 
 
@@ -181,7 +186,7 @@ const RestaurantProfile = () => {
                                 <button
 
                                 ><IoIosReverseCamera
-                                        onClick={()=>document.getElementById('fileInput').click()}
+                                        onClick={() => document.getElementById('fileInput').click()}
                                         className='text-5xl bg-white border rounded-full' />
                                 </button>
                             </label>
@@ -260,7 +265,9 @@ const RestaurantProfile = () => {
                 {/* name of each tab group should be unique */}
                 <div className="tabs tabs-border">
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="Foods" />
-                    <div className="tab-content border-base-300  p-10">Tab content 1</div>
+                    <div className="tab-content border-base-300  p-10">
+                        <Foods />
+                    </div>
 
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="About" defaultChecked />
                     <div className="tab-content border-base-300  p-10">
