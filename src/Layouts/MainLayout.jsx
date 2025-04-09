@@ -3,11 +3,25 @@ import Navbar from "../Shared/Navbar";
 import Headroom from "react-headroom";
 import Footer from "../Shared/Footer";
 import { MdMessage } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatBot from "../Components/ChatBot";
+import NewLetterModal from "../Components/NewLetterModal/NewLetterModal";
 
 const MainLayout = () => {
   const [openChat, setOpenChat] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 5000); // Show modal after 5 seconds
+    return () => clearTimeout(timer); // Cleanup the timer on unmount
+  }, []);
+
+  const handleOnClose = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="relative">
       <nav>
@@ -17,6 +31,10 @@ const MainLayout = () => {
       </nav>
       <main className=" min-h-[calc(100vh-65px)] mx-auto">
         <Outlet />
+        {/* newletter modal */}
+        {
+          showModal && <NewLetterModal onClose={handleOnClose} />
+        }
       </main>
       <footer>
         <Footer />
