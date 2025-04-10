@@ -2,14 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const Restaurants = () => {
+  const {user} = useAuth();
   const { email } = useParams();
   const axiosPublic = useAxiosPublic();
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [menus, setMenus] = useState([]);
+  const [following, setFollowing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const fetchRestaurantProfile = async () => {
@@ -18,8 +23,6 @@ const Restaurants = () => {
         // fetch restaurant profile by email
         const res = await axiosPublic.get(`/api/restaurantProfile/${email}`);
         setProfile(res.data);
-
-        
       } catch (err) {
         setError(err?.response?.data?.message || "Error fetching profile");
       } finally {
@@ -31,22 +34,22 @@ const Restaurants = () => {
 
   useEffect(() => {
     const fetchMenus = async () => {
-        try {
-            const res = await axiosPublic.get(`/api/food/by-email/${email}`);
-            if (res?.data?.success && Array.isArray(res?.data?.data)) {
-            setMenus(res.data.data);
-            } else {
-            console.error("Expected an array but got:", res);
-            setMenus([]);
-            }
-        } catch (err) {
-            console.log(err?.response?.data?.message || "Error fetching menus");
+      try {
+        const res = await axiosPublic.get(`/api/food/by-email/${email}`);
+        if (res?.data?.success && Array.isArray(res?.data?.data)) {
+          setMenus(res.data.data);
+        } else {
+          console.error("Expected an array but got:", res);
+          setMenus([]);
         }
-    }
+      } catch (err) {
+        console.log(err?.response?.data?.message || "Error fetching menus");
+      }
+    };
     fetchMenus();
-  }, [])
+  }, []);
 
-    console.log(menus);
+  console.log(menus);
 
   // Loading State
   if (loading) {
@@ -89,6 +92,54 @@ const Restaurants = () => {
     );
   }
 
+  // follow the restaurant
+  const handleFollowRestaurant = async () => {
+    let message;
+    try {
+      const res = await axiosPublic.patch(`/api/restaurant/follow`, {userEmail: user?.email, restaurantEmail: email});
+      console.log(res?.data);
+      
+      setFollowing(res?.data?.isFollowing);
+      if(res?.data?.isFollowing){
+        message = "Followed restaurant successfully!";
+      }else{
+        message = "Unfollowed restaurant successfully!";
+      }
+      await Swal.fire({
+        title: "Followed!",
+        text: message,
+        icon: "success",
+        confirmButtonText: "Great!",
+        confirmButtonColor: "#ef4444",
+        timer: 3000,
+        timerProgressBar: true,
+      });
+    } catch (err) {
+      console.log(err?.response?.data?.message || "Error following restaurant");
+      setErrorMessage(err?.response?.data?.message || "Error following restaurant");
+    } 
+  };
+
+  // follow button
+  const followButton = (
+    <>
+      <div
+        onClick={handleFollowRestaurant}
+        className={`btn btn-md text-sm mt-4 
+        ${
+          following
+            ? "border-black bg-white"
+            : "border-red-500 bg-red-500 hover:bg-red-600 text-white"
+        }`}
+      >
+        {following ? "Following" : "Follow"}
+      </div>
+        {
+          errorMessage && <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
+        }
+    </>
+  );
+
   return (
     <div className="min-h-screen bg-base-100">
       {error ? (
@@ -118,6 +169,8 @@ const Restaurants = () => {
                 <p className="mt-1 text-red-500">
                   Restaurant profile does not set up yet.
                 </p>
+                {/* follow button */}
+                {followButton}
               </div>
             </div>
           </div>
@@ -163,6 +216,8 @@ const Restaurants = () => {
                 <p className="text-neutral mt-1">
                   {profile.description || "A place for delicious meals"}
                 </p>
+                {/* follow button */}
+                {followButton}
               </div>
             </div>
           </div>
