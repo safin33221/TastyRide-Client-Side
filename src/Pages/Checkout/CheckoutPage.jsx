@@ -1,5 +1,6 @@
+
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
@@ -8,78 +9,82 @@ import useAuth from "../../Hooks/useAuth";
 const CheckoutComponent = () => {
   const { cart, refetch, isLoading, isError } = useCart();
   const { user } = useAuth();
+  const [shippingMethods, setShippingMethods] = useState("cod");
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
-  const [shippingMethods, setShippingMethods] = useState("cod")
-  const navigate = useNavigate()
-  const axiosPublic = useAxiosPublic()
+  const restaurantEmail = cart?.map(data => data.foodOwner);
 
-  const restaurantEmail = cart?.map(data => data.foodOwner)
   const handlePlaceOrder = async (e) => {
-    e.preventDefault()
-    const form = e.target
-    const cus_name = form.name.value
-    const cus_email = form.email.value
-    const cus_phone = form.number.value
-    const cus_add1 = form.address.value
-    const cus_city = form.city.value
-    const cus_country = form.country.value
+    e.preventDefault();
+    const form = e.target;
+    const cus_name = form.name.value;
+    const cus_email = form.email.value;
+    const cus_phone = form.number.value;
+    const cus_add1 = form.address.value;
+    const cus_city = form.city.value;
+    const cus_country = form.country.value;
     const total_amount = cart?.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
-    const info = { cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount }
+    const info = { cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount };
 
-    // console.log(cart);
-    if (shippingMethods === "cod") {
-      //Order Details
-      const orderDetails = {
-        info,
-        cart,
-        restaurantEmail: restaurantEmail[0],
-        paymentMethod: 'cod',
-        total_amount: total_amount,
-        status: 'pending',
-        createdAt: new Date()
+    try {
+      if (shippingMethods === "cod") {
+        const orderDetails = {
+          info,
+          cart,
+          restaurantEmail: restaurantEmail[0],
+          paymentMethod: 'cod',
+          total_amount: total_amount,
+          status: 'Pending', // Updated to match new enum
+          createdAt: new Date(),
+        };
 
-      }
-      console.log(orderDetails);
-      const result = await axiosPublic.post('/api/orders', orderDetails)
-      console.log(result.data);
+        console.log("Order Details:", orderDetails);
+        const result = await axiosPublic.post('/api/orders', orderDetails);
+        console.log("Server Response:", result.data);
 
-      const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
-      refetch()
-      Swal.fire({
-        title: "Your Order is Confirmed",
-        showDenyButton: true,
-        // showCancelButton: true,
-        confirmButtonText: "Track Order",
-        denyButtonText: `Return Home`,
-        icon: "success"
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          navigate("/order-tracking")
-        } else if (result.isDenied) {
-          navigate("/")
+        if (result.data.success) {
+          await axiosPublic.delete(`/api/clear-cart/${user.email}`);
+          refetch();
+          Swal.fire({
+            title: "Your Order is Confirmed",
+            showDenyButton: true,
+            confirmButtonText: "Track Order",
+            denyButtonText: "Return Home",
+            icon: "success",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate("/order-tracking");
+            } else if (result.isDenied) {
+              navigate("/");
+            }
+          });
+        } else {
+          Swal.fire("Error", result.data.message || "Failed to place order", "error");
         }
-      });
-    } else {
-      try {
+      } else {
         const response = await axiosPublic.post('/init-payment', info);
         const { GatewayPageURL } = response.data;
         if (GatewayPageURL) {
-          window.location.href = GatewayPageURL; // Redirect to SSLCommerz payment page
+          window.location.href = GatewayPageURL;
         } else {
-          alert('Failed to initiate payment');
+          Swal.fire("Error", "Failed to initiate payment", "error");
         }
-      } catch (error) {
-        console.error('Payment error:', error);
-        alert('An error occurred while initiating payment');
       }
+    } catch (error) {
+      console.error("Error in handlePlaceOrder:", error);
+      Swal.fire("Error", "An error occurred while processing your order", "error");
     }
-  }
+  };
+
+  if (isLoading) return <div>Loading cart...</div>;
+  if (isError) return <div>Error loading cart</div>;
+
   return (
+    // Your existing JSX remains unchanged
     <>
-      {/* header  */}
       <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
         <div className="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
           <div className="relative">
@@ -166,8 +171,6 @@ const CheckoutComponent = () => {
             Check your items. And select a suitable shipping method.
           </p>
           <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-            {/* individual item  */}
-
             {cart?.map((item, index) => (
               <div key={index} className="flex flex-col rounded-lg bg-white sm:flex-row">
                 <img
@@ -249,7 +252,6 @@ const CheckoutComponent = () => {
           </p>
           <div>
             <form onSubmit={handlePlaceOrder}>
-              {/* full name  */}
               <div className="relative">
                 <label
                   htmlFor="name"
@@ -266,7 +268,6 @@ const CheckoutComponent = () => {
                   placeholder="type here"
                 />
               </div>
-              {/* email  */}
               <div className="relative">
                 <label
                   htmlFor="email"
@@ -283,7 +284,6 @@ const CheckoutComponent = () => {
                   placeholder="your.email@gmail.com"
                 />
               </div>
-              {/* phone number  */}
               <div className="relative">
                 <label
                   htmlFor="number"
@@ -300,7 +300,6 @@ const CheckoutComponent = () => {
                   placeholder="type here"
                 />
               </div>
-              {/* full address  */}
               <div className="relative">
                 <label
                   htmlFor="address"
@@ -317,7 +316,6 @@ const CheckoutComponent = () => {
                   placeholder="type here"
                 />
               </div>
-              {/* city  */}
               <div className="relative">
                 <label
                   htmlFor="city"
@@ -334,7 +332,6 @@ const CheckoutComponent = () => {
                   placeholder="type here"
                 />
               </div>
-              {/* Country  */}
               <div className="relative">
                 <label
                   htmlFor="country"
@@ -351,7 +348,6 @@ const CheckoutComponent = () => {
                   placeholder="type here"
                 />
               </div>
-              {/* Rest of the payment form fields would follow similar pattern */}
               <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white cursor-pointer">
                 Place Order
               </button>

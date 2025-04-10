@@ -181,6 +181,14 @@ const Sidebar = () => {
               setSelected={setSelected}
               open={open}
             />
+            <Option
+              Icon={FiHome}
+              title="My Order"
+              links="/dashboard/my-order"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
           </>
         }
 
