@@ -11,34 +11,7 @@ import useAxiosPublic from "../Hooks/useAxiosPublic";
 const MainLayout = () => {
   const axiosPublic = useAxiosPublic();
   const [openChat, setOpenChat] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
 
-  useEffect(() => {
-    // Check if the user is already subscribed
-    const checkSubscription = async () => {
-      try {
-        const response = await axiosPublic.get('/api/check-subscription');
-        setIsSubscribed(response.data.isSubscribed);
-      } catch (error) {
-        console.error('Error checking subscription:', error);
-      }
-    };
-
-    checkSubscription();
-
-    if (!isSubscribed){
-      const timer = setTimeout(() => {
-        setShowModal(true);
-      }, 5000); // Show modal after 5 seconds
-      return () => clearTimeout(timer); // Cleanup the timer on unmount
-    }
-    
-  }, []);
-
-  const handleOnClose = () => {
-    setShowModal(false);
-  };
 
   return (
     <div className="relative">
@@ -49,10 +22,6 @@ const MainLayout = () => {
       </nav>
       <main className=" min-h-[calc(100vh-65px)] mx-auto">
         <Outlet />
-        {/* newletter modal */}
-        {
-          showModal && <NewLetterModal onClose={handleOnClose} />
-        }
       </main>
       <footer>
         <Footer />
