@@ -101,13 +101,13 @@ const Restaurants = () => {
       
       setFollowing(res?.data?.isFollowing);
       if(res?.data?.isFollowing){
-        message = "Followed restaurant successfully!";
+        message = "Followed!";
       }else{
-        message = "Unfollowed restaurant successfully!";
+        message = "Unfollowed!";
       }
       await Swal.fire({
-        title: "Followed!",
-        text: message,
+        title: message,
+        text: message + "the restarunt successfully!",
         icon: "success",
         confirmButtonText: "Great!",
         confirmButtonColor: "#ef4444",
