@@ -95,17 +95,15 @@ const MyOrder = () => {
                   <td className="py-2 px-4 border whitespace-nowrap">Tk {order.total_amount}</td>
                   <td className="py-2 px-4 border whitespace-nowrap">{order.status}</td>
                   <td className="py-2 px-4 border space-x-2 whitespace-nowrap">
-                    {order.status === "Pending" && (
+                   
                       <button
                         onClick={() => handleCancel(order._id)}
-                        className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                        disabled={cancelOrderMutation.isLoading}
+                        className={`btn px-3 py-1 bg-red-500 text-white  rounded-md hover:bg-red-600 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-red-500 `}
+                        disabled={order.status != "Pending" }
                       >
-                        {cancelOrderMutation.isLoading && cancelOrderMutation.variables === order._id
-                          ? "Cancelling..."
-                          : "Cancel"}
+                        cancel
                       </button>
-                    )}
+                    
                   </td>
                 </tr>
               ))

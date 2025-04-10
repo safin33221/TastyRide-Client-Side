@@ -28,7 +28,7 @@ import SuccessPage from '../Pages/Success/SuccessPage';
 import FailPage from '../Pages/Fail/FailPage';
 import ManageOrders from '../Dashboard/Restaurant/Manageorders';
 import OrderTracking from '../Components/orderTracking/orderTracking';
-// import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
+import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
 
 const Router = () => {
   return (
@@ -69,7 +69,7 @@ const Router = () => {
 
           {/* Customer Routes */}
           <Route path='customerDashboard' element={<CustomerDashboard />} />
-          {/* <Route path="my-order" element={<MyOrder />} /> */}
+          <Route path="my-order" element={<MyOrder />} />
 
 
         </Route>
