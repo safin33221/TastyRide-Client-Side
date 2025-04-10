@@ -10,6 +10,7 @@ const Restaurants = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [menus, setMenus] = useState([]);
+  const [following, setFollowing] = useState(false);
 
   useEffect(() => {
     const fetchRestaurantProfile = async () => {
@@ -18,8 +19,6 @@ const Restaurants = () => {
         // fetch restaurant profile by email
         const res = await axiosPublic.get(`/api/restaurantProfile/${email}`);
         setProfile(res.data);
-
-        
       } catch (err) {
         setError(err?.response?.data?.message || "Error fetching profile");
       } finally {
@@ -31,22 +30,22 @@ const Restaurants = () => {
 
   useEffect(() => {
     const fetchMenus = async () => {
-        try {
-            const res = await axiosPublic.get(`/api/food/by-email/${email}`);
-            if (res?.data?.success && Array.isArray(res?.data?.data)) {
-            setMenus(res.data.data);
-            } else {
-            console.error("Expected an array but got:", res);
-            setMenus([]);
-            }
-        } catch (err) {
-            console.log(err?.response?.data?.message || "Error fetching menus");
+      try {
+        const res = await axiosPublic.get(`/api/food/by-email/${email}`);
+        if (res?.data?.success && Array.isArray(res?.data?.data)) {
+          setMenus(res.data.data);
+        } else {
+          console.error("Expected an array but got:", res);
+          setMenus([]);
         }
-    }
+      } catch (err) {
+        console.log(err?.response?.data?.message || "Error fetching menus");
+      }
+    };
     fetchMenus();
-  }, [])
+  }, []);
 
-    console.log(menus);
+  console.log(menus);
 
   // Loading State
   if (loading) {
@@ -89,6 +88,24 @@ const Restaurants = () => {
     );
   }
 
+  // follow button
+  const followButton = (
+    <>
+      <div onClick={() => setFollowing(!following)}
+        className={`btn btn-md text-sm mt-4 
+        ${
+          following
+            ? "border-black bg-white"
+            : "border-red-500 bg-red-500 hover:bg-red-600 text-white"
+        }`}
+      >
+        {
+          following ? "Following" : "Follow"
+        }
+      </div>
+    </>
+  );
+
   return (
     <div className="min-h-screen bg-base-100">
       {error ? (
@@ -118,6 +135,8 @@ const Restaurants = () => {
                 <p className="mt-1 text-red-500">
                   Restaurant profile does not set up yet.
                 </p>
+                {/* follow button */}
+                {followButton}
               </div>
             </div>
           </div>
@@ -163,6 +182,8 @@ const Restaurants = () => {
                 <p className="text-neutral mt-1">
                   {profile.description || "A place for delicious meals"}
                 </p>
+                {/* follow button */}
+                {followButton}
               </div>
             </div>
           </div>
