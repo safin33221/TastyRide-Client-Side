@@ -66,7 +66,7 @@ function SingleFood() {
   const toggleFavorite = () => setIsFavorited(!isFavorited);
 
   return (
-    <section className="max-w-5xl mx-auto flex justify-center items-center h-screen">
+    <section className="max-w-5xl mx-auto flex justify-center items-center min-h-screen my-6">
       <div className="card lg:card-side w-full bg-white shadow-sm">
         {/* Back Button */}
         <button
@@ -85,7 +85,7 @@ function SingleFood() {
         </button>
 
         {/* food image */}
-        <div className="w-1/2 flex justify-center items-center p-6 md:p-8 lg:p-10">
+        <div className="lg:w-1/2 flex justify-center items-center p-6 md:p-8 lg:p-10 lg:mx-0 mx-auto">
           <div className="w-[350px] h-[350px] overflow-hidden rounded-lg">
             <img
               src={food?.food?.image}
