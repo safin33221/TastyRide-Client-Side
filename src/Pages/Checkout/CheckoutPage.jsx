@@ -42,6 +42,8 @@ const CheckoutComponent = () => {
 
       }
       console.log(orderDetails);
+      const result = await axiosPublic.post('/api/orders', orderDetails)
+      console.log(result.data);
 
       const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
       refetch()
