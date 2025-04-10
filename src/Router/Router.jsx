@@ -26,6 +26,9 @@ import CartPage from '../Pages/Cart/CartPage';
 import CheckoutPage from '../Pages/Checkout/CheckoutPage';
 import SuccessPage from '../Pages/Success/SuccessPage';
 import FailPage from '../Pages/Fail/FailPage';
+import ManageOrders from '../Dashboard/Restaurant/Manageorders';
+import OrderTracking from '../Components/orderTracking/orderTracking';
+import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
 
 const Router = () => {
   return (
@@ -45,6 +48,7 @@ const Router = () => {
           <Route path='checkout' element={<CheckoutPage/>}/>
           <Route path='success' element={<SuccessPage/>}/>
           <Route path='fail' element={<FailPage/>}/>
+          <Route path="/order-tracking" element={<OrderTracking />} />
         </Route>
 
         <Route path='/dashboard' element={<Dashboard />}>
@@ -57,6 +61,7 @@ const Router = () => {
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
           <Route path='add-foods' element={<AddFood />} />
           <Route path='manage-food' element={<ManageFood />} />
+          <Route path='manage-orders' element={<ManageOrders />} />
           <Route path='restaurantProfile' element={<RestaurantProfile />} />
           <Route path='ad' element={<Advertisement />} />
           <Route path='ad/post' element={<PostAdvertisement />} />
@@ -64,6 +69,7 @@ const Router = () => {
 
           {/* Customer Routes */}
           <Route path='customerDashboard' element={<CustomerDashboard />} />
+          <Route path="my-order" element={<MyOrder />} />
 
 
         </Route>
