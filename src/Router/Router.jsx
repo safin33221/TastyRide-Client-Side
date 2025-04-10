@@ -26,6 +26,7 @@ import CartPage from '../Pages/Cart/CartPage';
 import CheckoutPage from '../Pages/Checkout/CheckoutPage';
 import SuccessPage from '../Pages/Success/SuccessPage';
 import FailPage from '../Pages/Fail/FailPage';
+import ManageOrders from '../Dashboard/Restaurant/Manageorders';
 
 const Router = () => {
   return (
@@ -57,6 +58,7 @@ const Router = () => {
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
           <Route path='add-foods' element={<AddFood />} />
           <Route path='manage-food' element={<ManageFood />} />
+          <Route path='manage-orders' element={<ManageOrders />} />
           <Route path='restaurantProfile' element={<RestaurantProfile />} />
           <Route path='ad' element={<Advertisement />} />
           <Route path='ad/post' element={<PostAdvertisement />} />

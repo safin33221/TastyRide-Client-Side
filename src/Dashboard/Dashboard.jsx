@@ -122,6 +122,15 @@ const Sidebar = () => {
               open={open}
             />
             <Option
+              Icon={FiShoppingCart}
+              title="Manage Orders"
+              links="/dashboard/manage-orders"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+
+            <Option
               Icon={FiTag}
               title="Tags"
               links=""
