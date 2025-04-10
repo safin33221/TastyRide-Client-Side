@@ -3,6 +3,7 @@ import CategoryFoods from "../../Components/CategoryFoods/CategoryFoods";
 import EasyOrder from "../../Components/EasyOrder/EasyOrder";
 import ExploreRestaurant from "../../Components/ExploreRestaurant/ExploreRestaurant";
 import InterNationalFood from "../../Components/internatinalFood/InterNationalFood";
+import LocationModal from "../../Components/Location/LocationModal";
 import OurClient from "../../Components/OurClient/OurClient";
 import PopularCollection from "../../Components/PopularCollection/PopularCollection";
 import Sliders from "../../Components/Sliders";
@@ -63,6 +64,7 @@ const Home = () => {
     <div>
 
       <Sliders></Sliders>
+      {/* {showModal && <LocationModal onClose={() => setShowModal(false)} />} */}
       <div className="container mx-auto">
         <SectionDivider></SectionDivider>
         {/* <DiscountsProduct /> */}
