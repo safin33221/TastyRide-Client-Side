@@ -2,8 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const Restaurants = () => {
+  const {user} = useAuth();
   const { email } = useParams();
   const axiosPublic = useAxiosPublic();
   const [profile, setProfile] = useState(null);
@@ -11,6 +14,7 @@ const Restaurants = () => {
   const [loading, setLoading] = useState(true);
   const [menus, setMenus] = useState([]);
   const [following, setFollowing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const fetchRestaurantProfile = async () => {
@@ -88,10 +92,39 @@ const Restaurants = () => {
     );
   }
 
+  // follow the restaurant
+  const handleFollowRestaurant = async () => {
+    let message;
+    try {
+      const res = await axiosPublic.patch(`/api/restaurant/follow`, {userEmail: user?.email, restaurantEmail: email});
+      console.log(res?.data);
+      
+      setFollowing(res?.data?.isFollowing);
+      if(res?.data?.isFollowing){
+        message = "Followed restaurant successfully!";
+      }else{
+        message = "Unfollowed restaurant successfully!";
+      }
+      await Swal.fire({
+        title: "Followed!",
+        text: message,
+        icon: "success",
+        confirmButtonText: "Great!",
+        confirmButtonColor: "#ef4444",
+        timer: 3000,
+        timerProgressBar: true,
+      });
+    } catch (err) {
+      console.log(err?.response?.data?.message || "Error following restaurant");
+      setErrorMessage(err?.response?.data?.message || "Error following restaurant");
+    } 
+  };
+
   // follow button
   const followButton = (
     <>
-      <div onClick={() => setFollowing(!following)}
+      <div
+        onClick={handleFollowRestaurant}
         className={`btn btn-md text-sm mt-4 
         ${
           following
@@ -99,10 +132,11 @@ const Restaurants = () => {
             : "border-red-500 bg-red-500 hover:bg-red-600 text-white"
         }`}
       >
-        {
-          following ? "Following" : "Follow"
-        }
+        {following ? "Following" : "Follow"}
       </div>
+        {
+          errorMessage && <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
+        }
     </>
   );
 
