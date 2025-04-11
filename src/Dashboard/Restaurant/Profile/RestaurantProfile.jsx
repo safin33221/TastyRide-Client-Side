@@ -9,6 +9,7 @@ import { IoIosReverseCamera } from "react-icons/io";
 import { imageUpload } from '../../../Utils/Utils';
 import { useQuery } from '@tanstack/react-query';
 import Foods from './Foods';
+import ManageFollowers from './ManageFollowers';
 
 
 
@@ -277,7 +278,9 @@ const RestaurantProfile = () => {
                     </div>
 
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="Followers" />
-                    <div className="tab-content border-base-300  p-10">Tab content 3</div>
+                    <div className="tab-content border-base-300  p-10">
+                        <ManageFollowers/>
+                    </div>
                 </div>
 
 
