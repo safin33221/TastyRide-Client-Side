@@ -7,6 +7,8 @@ import {
   FaSortAmountUp,
 } from "react-icons/fa";
 import { Link } from "react-router";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useAddToCart } from "../../Hooks/userAddToCart";
 
 const AllFood = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,18 +19,19 @@ const AllFood = () => {
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState(["All"]); // Initialize with 'All'
 
+  const axiosPublic = useAxiosPublic()
+
   useEffect(() => {
-    fetch("http://localhost:8000/api/foods")
-      .then((response) => response.json())
+    axiosPublic.get("/api/foods")
       .then((response) => {
-        console.log("API Response:", response); // Debugging
-        if (response.success && Array.isArray(response.data)) {
-          setFoods(response.data);
+        console.log("API Response:", response.data.data); // Debugging
+        if (response?.data?.success && Array.isArray(response?.data?.data)) {
+          setFoods(response.data.data);
 
           // Extract unique categories from the data
           const uniqueCategories = [
             "All",
-            ...new Set(response.data.map((food) => food.category)),
+            ...new Set(response?.data?.data.map((food) => food.category)),
           ];
           setCategories(uniqueCategories); // Update categories state
         } else {
@@ -41,6 +44,7 @@ const AllFood = () => {
         console.error("Fetch Error:", err);
         setError(err.message);
         setLoading(false);
+
       });
   }, []);
 
@@ -56,6 +60,9 @@ const AllFood = () => {
         sortOrder === "asc" ? a.price - b.price : b.price - a.price
       );
   }, [foods, selectedCategory, searchTerm, sortOrder]);
+
+  // add to cart function 
+  
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -117,7 +124,7 @@ const AllFood = () => {
         {/* Food Items Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
           {filteredFoods.map(
-            ({ _id, image, foodName, category, availability, price }) => (
+            ({ _id, image, foodName, category, availability, price, addedBy }) => (
               <div
                 key={_id}
                 className="bg-white p-4 rounded-lg shadow-lg relative transition-all duration-300 group hover:bg-yellow-500 hover:shadow-xl"
@@ -139,7 +146,7 @@ const AllFood = () => {
                 </p>
                 <p className="text-red-500 font-bold">${price}</p>
                 <Link to={`/all-food/${_id}`}>
-                  <button className="bg-black text-white w-full mt-3 py-2 flex items-center justify-center gap-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                  <button  className="bg-black text-white w-full mt-3 py-2 flex items-center justify-center gap-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
                     <FaShoppingCart /> Add to Cart
                   </button>
                 </Link>
