@@ -3,11 +3,16 @@ import Navbar from "../Shared/Navbar";
 import Headroom from "react-headroom";
 import Footer from "../Shared/Footer";
 import { MdMessage } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatBot from "../Components/ChatBot";
+import NewLetterModal from "../Components/NewLetterModal/NewLetterModal";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 const MainLayout = () => {
+  const axiosPublic = useAxiosPublic();
   const [openChat, setOpenChat] = useState(false);
+
+
   return (
     <div className="relative">
       <nav>

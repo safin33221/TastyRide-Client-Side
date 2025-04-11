@@ -23,6 +23,15 @@ import CustomerProfile from '../Dashboard/Customer/Profile/CustomerProfile';
 import SingleFood from '../Pages/SingleFood/SingleFood';
 import Restaurants from '../Pages/Profiles/Restaurants';
 import CartPage from '../Pages/Cart/CartPage';
+<<<<<<< HEAD
+=======
+import CheckoutPage from '../Pages/Checkout/CheckoutPage';
+import SuccessPage from '../Pages/Success/SuccessPage';
+import FailPage from '../Pages/Fail/FailPage';
+import ManageOrders from '../Dashboard/Restaurant/Manageorders';
+import OrderTracking from '../Components/orderTracking/orderTracking';
+import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
+>>>>>>> c222cd29f68ff773716fd80ea83928e255ee3ea4
 
 const Router = () => {
   return (
@@ -37,8 +46,15 @@ const Router = () => {
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path='userProfile' element={<CustomerProfile />} />
-          <Route path='profile/:id' element={<Restaurants />} />
+          <Route path='restaurantProfile/:email' element={<Restaurants />} />
           <Route path='cart' element={<CartPage/>}/>
+<<<<<<< HEAD
+=======
+          <Route path='checkout' element={<CheckoutPage/>}/>
+          <Route path='success' element={<SuccessPage/>}/>
+          <Route path='fail' element={<FailPage/>}/>
+          <Route path="/order-tracking" element={<OrderTracking />} />
+>>>>>>> c222cd29f68ff773716fd80ea83928e255ee3ea4
         </Route>
 
         <Route path='/dashboard' element={<Dashboard />}>
@@ -51,6 +67,7 @@ const Router = () => {
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
           <Route path='add-foods' element={<AddFood />} />
           <Route path='manage-food' element={<ManageFood />} />
+          <Route path='manage-orders' element={<ManageOrders />} />
           <Route path='restaurantProfile' element={<RestaurantProfile />} />
           <Route path='ad' element={<Advertisement />} />
           <Route path='ad/post' element={<PostAdvertisement />} />
@@ -58,6 +75,7 @@ const Router = () => {
 
           {/* Customer Routes */}
           <Route path='customerDashboard' element={<CustomerDashboard />} />
+          <Route path="my-order" element={<MyOrder />} />
 
 
         </Route>

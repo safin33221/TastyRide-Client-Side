@@ -7,12 +7,19 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CountDown from "../EidFeatures/CountDown";
 import { useCart } from "../Hooks/useCart";
+import useNotification from "../Hooks/useNotification";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+  const [notificationData, refetch] = useNotification()
   const { user, LogoutUser } = useAuth();
+  const axiosPublic = useAxiosPublic()
   const navigate = useNavigate();
-  const { cart, refetch, isLoading, isError } = useCart();
 
+  console.log(notificationData);
+  const { cart } = useCart();
   const handleLogOut = () => {
     LogoutUser();
     navigate("/");
@@ -43,6 +50,13 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleClearNotification = async (email) => {
+    await axiosPublic.delete(`/api/delete-notification/${email}`)
+    refetch()
+
+
+  }
   return (
     <div className="bg-base-100 shadow-2xl z-50">
       <div className="navbar container w-full mx-auto">
@@ -113,23 +127,62 @@ const Navbar = () => {
               </Link>
             </div>
             <button className="btn btn-ghost btn-circle ">
-              <div className="indicator">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+              {/* Notification Icon */}
+              <div className="relative">
+                <button
+                  className="btn btn-ghost btn-circle"
+                  onClick={() => setIsNotificationOpen(!isNotificationOpen)} // Toggle dropdown
                 >
-                  {" "}
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                  />{" "}
-                </svg>
-                <span className="badge badge-xs badge- indicator-item">12</span>
+                  <div className="indicator">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                      />
+                    </svg>
+                    <span className="badge badge-xs badge- indicator-item">
+                      {notificationData?.length || 0}
+                    </span>
+                  </div>
+                </button>
+
+                {/* Notification Dropdown */}
+                {isNotificationOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg z-50">
+                    <div className="p-4 flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-left">Notifications</h3>
+                      <button onClick={() => handleClearNotification(user?.email)}
+                        className="btn btn-sm">clear all</button>
+                    </div>
+                    <div className="max-h-64 overflow-y-auto">
+                      {notificationData?.length > 0 ? (
+                        notificationData.map((notification) => (
+                          <div
+                            key={notification._id}
+                            className="p-4 border-b hover:bg-gray-100"
+                          >
+                            <h4 className="font-medium">{notification.title}</h4>
+                            <p className="text-sm text-gray-600">
+                              {notification.type.replace("_", " ")}
+                            </p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="p-4 text-center text-gray-500">
+                          No notifications
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </button>
             {/* user Login& Logout */}
