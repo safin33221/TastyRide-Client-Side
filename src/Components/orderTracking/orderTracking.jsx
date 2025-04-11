@@ -20,13 +20,13 @@ const OrderTracking = () => {
       if (response.data.success) {
         return response.data.data;
       }
-      throw new Error("Failed to fetch orders");
+      throw new Error("Failed to fetch orders ....");
     },
   });
 
   // Function to map status to messages and estimated time
   const getStatusDetails = (status) => {
-    switch (status) {
+    switch (status) { 
       case "Pending":
         return {
           message: "Order placed",
