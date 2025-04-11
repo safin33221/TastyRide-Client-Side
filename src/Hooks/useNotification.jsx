@@ -7,7 +7,7 @@ const useNotification = () => {
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
 
-    const { data: notificationData, isPending } = useQuery({
+    const { data: notificationData, refetch } = useQuery({
         queryKey: ['notificationData', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -18,7 +18,7 @@ const useNotification = () => {
 
     })
 
-    return [notificationData, isPending]
+    return [notificationData, refetch]
 };
 
 export default useNotification;

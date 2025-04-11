@@ -8,15 +8,18 @@ import { useTranslation } from "react-i18next";
 import CountDown from "../EidFeatures/CountDown";
 import { useCart } from "../Hooks/useCart";
 import useNotification from "../Hooks/useNotification";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+  const [notificationData, refetch] = useNotification()
   const { user, LogoutUser } = useAuth();
-  const [notificationData] = useNotification()
+  const axiosPublic = useAxiosPublic()
   const navigate = useNavigate();
-  const [isNotificationOpen,setIsNotificationOpen] = useState(false)
 
   console.log(notificationData);
-  const { cart, refetch, isLoading, isError } = useCart();
+  const { cart } = useCart();
   const handleLogOut = () => {
     LogoutUser();
     navigate("/");
@@ -47,6 +50,13 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleClearNotification = async (email) => {
+    await axiosPublic.delete(`/api/delete-notification/${email}`)
+    refetch()
+
+
+  }
   return (
     <div className="bg-base-100 shadow-2xl z-50">
       <div className="navbar container w-full mx-auto">
@@ -147,8 +157,10 @@ const Navbar = () => {
                 {/* Notification Dropdown */}
                 {isNotificationOpen && (
                   <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg z-50">
-                    <div className="p-4">
-                      <h3 className="text-lg font-semibold">Notifications</h3>
+                    <div className="p-4 flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-left">Notifications</h3>
+                      <button onClick={() => handleClearNotification(user?.email)}
+                        className="btn btn-sm">clear all</button>
                     </div>
                     <div className="max-h-64 overflow-y-auto">
                       {notificationData?.length > 0 ? (
