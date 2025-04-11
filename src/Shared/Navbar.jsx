@@ -11,13 +11,12 @@ import useNotification from "../Hooks/useNotification";
 
 const Navbar = () => {
   const { user, LogoutUser } = useAuth();
-  const [notificationData, isPending] = useNotification()
+  const [notificationData] = useNotification()
   const navigate = useNavigate();
-  const { cart, refetch, isLoading, isError } = useCart();
+  const [isNotificationOpen,setIsNotificationOpen] = useState(false)
+
   console.log(notificationData);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false); // State to toggle notification dropdown
-
-
+  const { cart, refetch, isLoading, isError } = useCart();
   const handleLogOut = () => {
     LogoutUser();
     navigate("/");
@@ -48,7 +47,6 @@ const Navbar = () => {
       </li>
     </>
   );
-  if (isPending) return
   return (
     <div className="bg-base-100 shadow-2xl z-50">
       <div className="navbar container w-full mx-auto">
