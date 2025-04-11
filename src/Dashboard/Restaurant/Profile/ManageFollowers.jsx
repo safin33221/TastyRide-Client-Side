@@ -6,14 +6,14 @@ const ManageFollowers = () => {
     const [userData, isPending, refetch] = useUserData()
     return (
 
-        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-            <table className="table">
+        <div className="overflow-x-auto rounded-box mx-auto md:w-11/12 border border-base-content/5 bg-base-100 w-full">
+            <table className="table overflow-x-auto">
                 {/* head */}
                 <thead>
 
 
                     <tr>
-                        <th>No</th>
+                        
                         <th>Email</th>
                        
                     </tr>
@@ -28,8 +28,8 @@ const ManageFollowers = () => {
                         </tr>
                     ) : (
                         userData?.restaurantDetails?.followers.map((user, idx) => (
-                            <tr key={user._id} className="hover:bg-gray-100 text-2xl font-bold">
-                                <td>{idx + 1} </td>
+                            <tr key={user._id} className="bg-gray-100 md:text-xl ">
+                                {/* <td>{idx + 1} </td> */}
 
                                 <td className='text-2xl font-bold'>{user}</td>
                                
