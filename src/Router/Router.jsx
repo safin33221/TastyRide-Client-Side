@@ -48,7 +48,7 @@ const Router = () => {
           <Route path='checkout' element={<CheckoutPage/>}/>
           <Route path='success' element={<SuccessPage/>}/>
           <Route path='fail' element={<FailPage/>}/>
-          <Route path="/order-tracking" element={<OrderTracking />} />
+          <Route path="/order-tracking/:orderId" element={<OrderTracking />} />
         </Route>
 
         <Route path='/dashboard' element={<Dashboard />}>
