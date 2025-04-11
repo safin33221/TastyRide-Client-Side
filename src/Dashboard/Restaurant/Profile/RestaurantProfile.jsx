@@ -9,6 +9,7 @@ import { IoIosReverseCamera } from "react-icons/io";
 import { imageUpload } from '../../../Utils/Utils';
 import { useQuery } from '@tanstack/react-query';
 import Foods from './Foods';
+import ManageFollowers from './ManageFollowers';
 
 
 
@@ -25,6 +26,8 @@ const RestaurantProfile = () => {
 
     const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode 
+
+
 
 
 
@@ -250,7 +253,7 @@ const RestaurantProfile = () => {
                             )}
                             {/* Others Infomation */}
                             <div className="flex gap-5">
-                                <h1 className="text-2xl text-gray-500">1k Follower</h1>
+                                <h1 className="text-2xl text-gray-500">{userData?.restaurantDetails?.followers?.length} Follower</h1>
                                 <h1 className="text-2xl text-gray-500">3.4 Review</h1>
                             </div>
                         </div>
@@ -275,7 +278,9 @@ const RestaurantProfile = () => {
                     </div>
 
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="Followers" />
-                    <div className="tab-content border-base-300  p-10">Tab content 3</div>
+                    <div className="tab-content border-base-300  p-10">
+                        <ManageFollowers/>
+                    </div>
                 </div>
 
 

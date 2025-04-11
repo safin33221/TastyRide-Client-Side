@@ -8,12 +8,13 @@ import toast from "react-hot-toast";
 import Countdown from "../../Components/CountDownTimer/Countdown";
 
 const LoginForm = () => {
-  const { LoginUser } = useAuth()
+  const { LoginUser, resetPassword, user } = useAuth()
   const navigate = useNavigate()
   const { t } = useTranslation();
   const axiosPublic = useAxiosPublic()
   const [lock, setLock] = useState(null)
   const [error, setError] = useState('')
+  const [email, setEmail] = useState('')
 
   const {
     register,
@@ -54,9 +55,11 @@ const LoginForm = () => {
 
   }
 
-  const handleResetPassword = () => {
-
+  const handleResetPassword = async () => {
+    await resetPassword(email)
+    toast.success('Password reset email sent!')
   }
+  console.log('email sent', email);
 
   return (
     <div>
@@ -69,6 +72,7 @@ const LoginForm = () => {
             {...register('email')}
             required
             className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 px-4 shadow-sm"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-10">
@@ -93,8 +97,9 @@ const LoginForm = () => {
           value={t('userMenu.Login')}
           className=" w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6"
         />
-        <p onClick={handleResetPassword}
-          className="text-blue-500 underline cursor-pointer hover:text-blue-700">Forget Password?</p>
+        <button type="button" onClick={handleResetPassword}
+          className="text-blue-500 underline cursor-pointer hover:text-blue-700">Forget Password?
+        </button>
       </form>
     </div>
   );
