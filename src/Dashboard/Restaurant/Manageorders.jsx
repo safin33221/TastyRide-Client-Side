@@ -56,16 +56,20 @@ const ManageOrders = () => {
     },
   });
 
-  const handleStatusChange = async (orderId, newStatus, cus_email) => {
+  const handleStatusChange = async (orderId, newStatus, order) => {
+    console.log(order);
     const notification = {
-      cus_email,
+      to_email: order.info.cus_email,
+      from_email: order?.restaurantEmail,
       title: `Your order is now ${newStatus}!`,
       type: "order_update",       // or "promotion", "message", etc.
       read: false,
+      data: order,
       createdAt: new Date()
     }
+
     await updateOrderMutation.mutate({ orderId, status: newStatus })
-    // console.log(notification);
+    console.log(notification);
     const { res } = await axiosPublic.post('/api/notifications', notification)
     console.log(res);
 
@@ -125,7 +129,7 @@ const ManageOrders = () => {
                   <td className="py-2 px-4 border whitespace-nowrap">
                     <select
                       value={order.status}
-                      onChange={(e) => handleStatusChange(order._id, e.target.value, order.info.cus_email)}
+                      onChange={(e) => handleStatusChange(order._id, e.target.value, order)}
                       className="border rounded-md p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       disabled={updateOrderMutation.isLoading}
                     >
