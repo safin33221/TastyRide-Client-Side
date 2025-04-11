@@ -282,6 +282,8 @@ const CheckoutComponent = () => {
                   name="email"
                   className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                   placeholder="your.email@gmail.com"
+                  defaultValue={user?.email}
+                  readOnly
                 />
               </div>
               <div className="relative">
