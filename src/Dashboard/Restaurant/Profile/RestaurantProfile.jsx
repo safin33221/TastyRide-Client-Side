@@ -29,6 +29,8 @@ const RestaurantProfile = () => {
 
 
 
+
+
     // Change Profile Photo functionality Start-----------------------------------------------------
     const handleProfileSelcet = (e) => {
         const file = (e.target.files[0]);
@@ -250,7 +252,7 @@ const RestaurantProfile = () => {
                             )}
                             {/* Others Infomation */}
                             <div className="flex gap-5">
-                                <h1 className="text-2xl text-gray-500">1k Follower</h1>
+                                <h1 className="text-2xl text-gray-500">{userData?.restaurantDetails?.followers?.length} Follower</h1>
                                 <h1 className="text-2xl text-gray-500">3.4 Review</h1>
                             </div>
                         </div>
