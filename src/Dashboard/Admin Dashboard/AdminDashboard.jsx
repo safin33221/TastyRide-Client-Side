@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import {
+    PieChart, Pie, Cell, Legend, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer
+} from 'recharts';
 import moment from 'moment/moment';
 
 const AdminDashboard = () => {
@@ -45,11 +47,18 @@ const AdminDashboard = () => {
 
     // Format orders to use in chart
     const chartData = orders?.map(order => ({
-        date: moment(order.createdAt).format("MMM D, h:mm A"),
+        date: moment(order?.createdAt).format("MMM D, h:mm A"),
         amount: order.info.total_amount
     }));
 
-    // const TotalSales = orders?.map(order =>)
+    const orderStatuses = ["Pending", "Cooking", "On The Way", "Delivered", "Canceled"];
+
+    const statusSummary = orderStatuses.map((status) => ({
+        name: status,
+        value: orders.filter((order) => order.status === status).length,
+    }));
+
+    const COLORS = ["#facc15", "#60a5fa", "#38bdf8", "#22c55e", "#ef4444"];
 
     return (
         <div className='mt-4 px-3 space-y-2'>
@@ -84,8 +93,8 @@ const AdminDashboard = () => {
                 <div className='border  rounded-xl flex items-center justify-center'>
 
                     <div className="p-6  rounded-xl shadow-lg w-full max-w-4xl mx-auto">
-                        <h2 className="text-xl font-bold mb-4">📈 Sales Overview</h2>
-                        <ResponsiveContainer width="100%" >
+                        <h2 className="text-2xl font-semibold mb-4 text-center">📈 Sales Overview</h2>
+                        <ResponsiveContainer width="100%" height={300} >
                             <LineChart data={chartData}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" angle={-45} textAnchor="end" height={80} />
@@ -96,7 +105,36 @@ const AdminDashboard = () => {
                         </ResponsiveContainer>
                     </div>
                 </div>
-                <div className='border h-80 rounded-xl flex items-center justify-center'> Pi cahrt Order Status Summary Pending Cooking On The Way Delivered Canceled</div>
+                <div className='border  rounded-xl flex items-center justify-center'>
+                    <div className="p-6  rounded-xl shadow-md w-full max-w-3xl mx-auto">
+                        <h2 className="text-2xl font-semibold mb-4 text-center">
+                            🚀 Order Status Summary
+                        </h2>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <PieChart>
+                                <Pie
+                                    data={statusSummary}
+                                    dataKey="value"
+                                    nameKey="name"
+                                    cx="50%"
+                                    cy="50%"
+                                    outerRadius={100}
+                                    innerRadius={40} // donut style
+                                    label
+                                >
+                                    {statusSummary.map((entry, index) => (
+                                        <Cell
+                                            key={`cell-${index}`}
+                                            fill={COLORS[index % COLORS.length]}
+                                        />
+                                    ))}
+                                </Pie>
+                                <Tooltip formatter={(value) => `${value} Orders`} />
+                                <Legend verticalAlign="bottom" />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
             </div>
 
 
