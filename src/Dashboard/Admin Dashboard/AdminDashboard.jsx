@@ -10,7 +10,7 @@ const AdminDashboard = () => {
     const axiosPublic = useAxiosPublic()
 
     // -----------------------------------------Fetch Users Data
-    const { data: users } = useQuery({
+    const { data: users = [] } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const userRes = await axiosPublic.get(`/api/users`)
@@ -19,7 +19,7 @@ const AdminDashboard = () => {
 
     })
     //-------------------------------------------Fetch Orders Data
-    const { data: foods } = useQuery({
+    const { data: foods = [] } = useQuery({
         queryKey: ['foods'],
         queryFn: async () => {
             const foodRes = await axiosPublic.get('/api/foods')
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
         }
     })
     //-------------------------------------------Fetch Orders Data
-    const { data: orders } = useQuery({
+    const { data: orders = [] } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
             const ordersRes = await axiosPublic.get('/api/allOrders')
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
 
     const statusSummary = orderStatuses.map((status) => ({
         name: status,
-        value: orders.filter((order) => order.status === status).length,
+        value: orders?.filter((order) => order.status === status).length,
     }));
 
     const COLORS = ["#facc15", "#60a5fa", "#38bdf8", "#22c55e", "#ef4444"];
@@ -65,17 +65,17 @@ const AdminDashboard = () => {
 
 
             <div className='grid grid-cols-2 md:grid-cols-4 gap-2 '>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    {TotalAdmin?.length || 0} <br /> Admin
+                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
+                    "{TotalAdmin?.length || 0}" <br /> Admin
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    {TotalCustomers?.length} <br /> Customers
+                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
+                    "{TotalCustomers?.length}" <br /> Customers
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    {TotalRestaurant?.length} <br /> Restaurants
+                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
+                    "{TotalRestaurant?.length}" <br /> Restaurants
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    {TotalRiders?.length} <br /> Riders
+                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
+                    "{TotalRiders?.length}" <br /> Riders
                 </div>
             </div>
 
@@ -90,11 +90,11 @@ const AdminDashboard = () => {
 
 
             <div className='grid md:grid-cols-2 gap-2'>
-                <div className='border  rounded-xl flex items-center justify-center'>
+                <div className='  rounded-xl flex items-center justify-center'>
 
                     <div className="p-6  rounded-xl shadow-lg w-full max-w-4xl mx-auto">
                         <h2 className="text-2xl font-semibold mb-4 text-center">📈 Sales Overview</h2>
-                        <ResponsiveContainer width="100%" height={300} >
+                        <ResponsiveContainer width="100%" height={400} >
                             <LineChart data={chartData}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" angle={-45} textAnchor="end" height={80} />
@@ -105,12 +105,12 @@ const AdminDashboard = () => {
                         </ResponsiveContainer>
                     </div>
                 </div>
-                <div className='border  rounded-xl flex items-center justify-center'>
+                <div className='  rounded-xl flex items-center justify-center'>
                     <div className="p-6  rounded-xl shadow-md w-full max-w-3xl mx-auto">
                         <h2 className="text-2xl font-semibold mb-4 text-center">
                             🚀 Order Status Summary
                         </h2>
-                        <ResponsiveContainer width="100%" height={300}>
+                        <ResponsiveContainer width="100%" height={400}>
                             <PieChart>
                                 <Pie
                                     data={statusSummary}
