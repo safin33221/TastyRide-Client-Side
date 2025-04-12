@@ -4,6 +4,8 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic';
 
 const AdminDashboard = () => {
     const axiosPublic = useAxiosPublic()
+
+    // -----------------------------------------Fetch Users Data
     const { data: users } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -12,6 +14,17 @@ const AdminDashboard = () => {
         }
 
     })
+
+    const { data: foods } = useQuery({
+        queryKey: ['foods'],
+        queryFn: async () => {
+            const foodRes = await axiosPublic.get('/api/foods')
+            return foodRes.data.data
+        }
+    })
+
+
+
     const TotalAdmin = users?.filter(user => user.role === 'admin')
     const TotalCustomers = users?.filter(user => user.role === 'customer')
     const TotalRestaurant = users?.filter(user => user.role === 'restaurant')
@@ -21,21 +34,23 @@ const AdminDashboard = () => {
         <div className='mt-4 px-3 space-y-2'>
             <div className='grid grid-cols-2 md:grid-cols-4 gap-2 '>
                 <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
-                     {TotalAdmin.length || 0} <br /> Admin
+                    {TotalAdmin.length || 0} <br /> Admin
                 </div>
                 <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
-                      {TotalCustomers?.length} <br /> Customers
+                    {TotalCustomers?.length} <br /> Customers
                 </div>
                 <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
-                     {TotalRestaurant?.length} <br /> Restaurants
+                    {TotalRestaurant?.length} <br /> Restaurants
                 </div>
                 <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
-                     {TotalRiders?.length} <br /> Riders
+                    {TotalRiders?.length} <br /> Riders
                 </div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-                <div className='border h-28 rounded-xl flex items-center justify-center'>Total Foods</div>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                    {foods?.length} <br /> Total Foods
+                </div>
                 <div className='border h-28 rounded-xl flex items-center justify-center'> Total Sales</div>
             </div>
             <div className='grid md:grid-cols-2 gap-2'>
