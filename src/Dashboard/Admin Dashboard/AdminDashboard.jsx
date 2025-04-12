@@ -14,7 +14,7 @@ const AdminDashboard = () => {
         }
 
     })
-
+    //-------------------------------------------Fetch Orders Data
     const { data: foods } = useQuery({
         queryKey: ['foods'],
         queryFn: async () => {
@@ -22,6 +22,15 @@ const AdminDashboard = () => {
             return foodRes.data.data
         }
     })
+    //-------------------------------------------Fetch Orders Data
+    const { data: orders } = useQuery({
+        queryKey: ['orders'],
+        queryFn: async () => {
+            const ordersRes = await axiosPublic.get('/api/allOrders')
+            return ordersRes.data
+        }
+    })
+    console.log(orders);
 
 
 
@@ -30,11 +39,14 @@ const AdminDashboard = () => {
     const TotalRestaurant = users?.filter(user => user.role === 'restaurant')
     const TotalRiders = users?.filter(user => user.role === 'riders')
 
+
+    // const TotalSales = orders?.map(order =>)
+
     return (
         <div className='mt-4 px-3 space-y-2'>
             <div className='grid grid-cols-2 md:grid-cols-4 gap-2 '>
                 <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
-                    {TotalAdmin.length || 0} <br /> Admin
+                    {TotalAdmin?.length || 0} <br /> Admin
                 </div>
                 <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
                     {TotalCustomers?.length} <br /> Customers
@@ -51,7 +63,10 @@ const AdminDashboard = () => {
                 <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
                     {foods?.length} <br /> Total Foods
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center'> Total Sales</div>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                    {orders?.length} <br /> Total Sales
+                </div>
+                
             </div>
             <div className='grid md:grid-cols-2 gap-2'>
                 <div className='border h-80 rounded-xl flex items-center justify-center'>Sales Overview by Date</div>
