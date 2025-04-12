@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import moment from 'moment/moment';
 
 const AdminDashboard = () => {
     const axiosPublic = useAxiosPublic()
@@ -40,47 +42,77 @@ const AdminDashboard = () => {
     const TotalRiders = users?.filter(user => user.role === 'riders')
 
 
+
+    // Format orders to use in chart
+    const chartData = orders?.map(order => ({
+        date: moment(order.createdAt).format("MMM D, h:mm A"),
+        amount: order.info.total_amount
+    }));
+
     // const TotalSales = orders?.map(order =>)
 
     return (
         <div className='mt-4 px-3 space-y-2'>
+
+
             <div className='grid grid-cols-2 md:grid-cols-4 gap-2 '>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
                     {TotalAdmin?.length || 0} <br /> Admin
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
                     {TotalCustomers?.length} <br /> Customers
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
                     {TotalRestaurant?.length} <br /> Restaurants
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
                     {TotalRiders?.length} <br /> Riders
                 </div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
                     {foods?.length} <br /> Total Foods
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl bg-indigo-200 uppercase  font-bold text-center '>
+                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
                     {orders?.length} <br /> Total Sales
                 </div>
-                
             </div>
+
+
             <div className='grid md:grid-cols-2 gap-2'>
-                <div className='border h-80 rounded-xl flex items-center justify-center'>Sales Overview by Date</div>
+                <div className='border  rounded-xl flex items-center justify-center'>
+
+                    <div className="p-6  rounded-xl shadow-lg w-full max-w-4xl mx-auto">
+                        <h2 className="text-xl font-bold mb-4">📈 Sales Overview</h2>
+                        <ResponsiveContainer width="100%" >
+                            <LineChart data={chartData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="date" angle={-45} textAnchor="end" height={80} />
+                                <YAxis />
+                                <Tooltip formatter={(value) => `৳${value}`} />
+                                <Line type="monotone" dataKey="amount" stroke="#4f46e5" strokeWidth={3} />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
                 <div className='border h-80 rounded-xl flex items-center justify-center'> Pi cahrt Order Status Summary Pending Cooking On The Way Delivered Canceled</div>
             </div>
+
+
             <div className='grid grid-cols-2 gap-2'>
                 <div className='border h-28 rounded-xl flex items-center justify-center'>Positive Review</div>
                 <div className='border h-28 rounded-xl flex items-center justify-center'> Negative Review</div>
             </div>
+
+
             <div>
                 <div className='border mb-2 h-28 rounded-xl flex items-center justify-center'> Top 5 Selling Foods</div>
                 <div className='border h-28 rounded-xl flex items-center justify-center'> Food Data</div>
 
             </div>
+
+
             <div className=' gap-2'>
                 <div className='border h-80 rounded-xl flex items-center justify-center'>Recent orders details</div>
 
