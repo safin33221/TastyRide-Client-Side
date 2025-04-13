@@ -29,36 +29,45 @@ import FailPage from '../Pages/Fail/FailPage';
 import ManageOrders from '../Dashboard/Restaurant/Manageorders';
 import OrderTracking from '../Components/orderTracking/orderTracking';
 import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
+import PrivetRoute from './PrivetRoute/PrivetRoute';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* --------------------------------------------------------------------------Main Layout */}
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />}></Route>
+          <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="all-food" element={<AllFood />} />
           <Route path="all-food/:id" element={<SingleFood />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
-          <Route path='userProfile' element={<CustomerProfile />} />
           <Route path='restaurantProfile/:email' element={<Restaurants />} />
-          <Route path='cart' element={<CartPage/>}/>
-          <Route path='checkout' element={<CheckoutPage/>}/>
-          <Route path='success' element={<SuccessPage/>}/>
-          <Route path='fail' element={<FailPage/>}/>
+
+
+          {/* -----------------------------------------------------------Privet Routes */}
+          <Route path='userProfile' element={<PrivetRoute><CustomerProfile /></PrivetRoute>} />
           <Route path="order-tracking" element={<OrderTracking />} />
-          <Route path="my-order" element={<MyOrder />} />
+          <Route path="my-order" element={<PrivetRoute><MyOrder /></PrivetRoute>} />
+          <Route path='success' element={<PrivetRoute><SuccessPage /></PrivetRoute>} />
+          <Route path='fail' element={<PrivetRoute><FailPage /></PrivetRoute>} />
+          <Route path='cart' element={<PrivetRoute><CartPage /></PrivetRoute>} />
+          <Route path='checkout' element={<PrivetRoute><CheckoutPage /></PrivetRoute>} />
         </Route>
 
+
+        {/* -----------------------------------------------------------------------Dashboard Layout */}
         <Route path='/dashboard' element={<Dashboard />}>
-          {/* Admin Routes */}
+
+
+          {/* --------------------------------------------------------------Admin Routes*/}
           <Route path='admin' element={<AdminDashboard />} />
           <Route path='manage-user' element={<ManageUsers />} />
           <Route path='manage-ad' element={<ManageAdvertisements />} />
 
-          {/* Restaurant routes  */}
+          {/* ----------------------------------------------------------Restaurant routes*/}
           <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
           <Route path='add-foods' element={<AddFood />} />
           <Route path='manage-food' element={<ManageFood />} />
@@ -66,12 +75,6 @@ const Router = () => {
           <Route path='restaurantProfile' element={<RestaurantProfile />} />
           <Route path='ad' element={<Advertisement />} />
           <Route path='ad/post' element={<PostAdvertisement />} />
-
-
-          {/* Customer Routes */}
-          {/* <Route path='customerDashboard' element={<CustomerDashboard />} /> */}
-          
-
 
         </Route>
       </Routes>
