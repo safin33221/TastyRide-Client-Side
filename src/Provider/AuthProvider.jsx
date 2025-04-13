@@ -4,24 +4,24 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 export const authContext = createContext(null)
 import { auth } from '../Firebase/firebase.config.js';
 const AuthProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false)
     const [user, setUser] = useState(null)
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     // Register User
     const CreateUserWithEmail = (email, password) => {
-        setLoading(true)
+        setIsLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     //LogIn user
     const LoginUser = (email, password) => {
-        setLoading(true)
+        setIsLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
     }
 
     //SignOut user
     const LogoutUser = () => {
-
         return signOut(auth)
     }
 
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
 
     // Sign in user with google
     const SignInWithGoogle = () => {
-        setLoading(true)
+        setIsLoading(true)
         const provider = new GoogleAuthProvider();
         return signInWithPopup(auth, provider);
     }
@@ -47,9 +47,9 @@ const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-        const unsubcribe = onAuthStateChanged(auth, (currentUser => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser => {
             setUser(currentUser)
-            setLoading(false)
+            setIsLoading(false)
             console.log(currentUser);
 
 
@@ -57,21 +57,23 @@ const AuthProvider = ({ children }) => {
 
         }))
         return () => {
-            unsubcribe()
+            unsubscribe()
         }
     }, [])
 
 
 
     const authValue = {
+        isNotificationOpen,
+        isLoading,
+        user,
         CreateUserWithEmail,
         LoginUser,
         LogoutUser,
         UpdateUserProfile,
         resetPassword,
-        user,
         SignInWithGoogle,
-        loading
+        setIsNotificationOpen,
     }
     return (
         <authContext.Provider value={authValue}>

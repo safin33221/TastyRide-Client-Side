@@ -360,7 +360,7 @@ const ToggleClose = ({ open, setOpen }) => {
 };
 
 const MainContent = () => (
-  <div className="h-[200vh] w-full">
+  <div className=" w-full">
     <Outlet />
   </div>
 );
