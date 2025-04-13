@@ -219,7 +219,18 @@ const Navbar = () => {
 
                       </>
                     )}
-                  <li><NavLink to={"/dashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
+                  {
+                    userData?.role === 'admin' && (
+
+                      <li><NavLink to={"/dashboard/admin"}>{t("userMenu.Dashboard")}</NavLink></li>
+                    )
+                  }
+                  {
+                    userData?.role === 'restaurant' && (
+
+                      <li><NavLink to={"/dashboard/restaurantDashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
+                    )
+                  }
                   <li>
                     <button onClick={handleLogOut}>
                       {t("userMenu.Logout")}

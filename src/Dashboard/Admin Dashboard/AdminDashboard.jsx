@@ -5,6 +5,7 @@ import {
     PieChart, Pie, Cell, Legend, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer
 } from 'recharts';
 import moment from 'moment/moment';
+import CountUp from 'react-countup';
 
 const AdminDashboard = () => {
     const axiosPublic = useAxiosPublic()
@@ -64,27 +65,71 @@ const AdminDashboard = () => {
         <div className='mt-4 px-3 space-y-2'>
 
 
-            <div className='grid grid-cols-2 md:grid-cols-4 gap-2 '>
-                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    "{TotalAdmin?.length || 0}" <br /> Admin
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                <div className="shadow hover:shadow-xl transition-all duration-200 bg-white h-28 rounded-xl flex items-center justify-center text-xl uppercase font-bold text-center">
+                    <div>
+                        <CountUp
+                            className="text-red-500 text-4xl"
+                            start={0}
+                            end={TotalAdmin?.length}
+                            duration={2}
+                        />
+                        <br /> Admin
+                    </div>
                 </div>
-                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    "{TotalCustomers?.length}" <br /> Customers
+                <div className="shadow hover:shadow-xl transition-all duration-200 bg-white h-28 rounded-xl flex items-center justify-center text-xl uppercase font-bold text-center">
+                    <div>
+                        <CountUp
+                            className="text-blue-500 text-4xl"
+                            start={0}
+                            end={TotalCustomers?.length}
+                            duration={2}
+                        />
+                        <br /> Customers
+                    </div>
                 </div>
-                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    "{TotalRestaurant?.length}" <br /> Restaurants
+                <div className="shadow hover:shadow-xl transition-all duration-200 bg-white h-28 rounded-xl flex items-center justify-center text-xl uppercase font-bold text-center">
+                    <div>
+                        <CountUp
+                            className="text-green-500 text-4xl"
+                            start={0}
+                            end={TotalRestaurant?.length}
+                            duration={2}
+                        />
+                        <br /> Restaurants
+                    </div>
                 </div>
-                <div className='shadow hover:shadow-xl transition-all duration-200 hover:bg-indigo-100 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    "{TotalRiders?.length}" <br /> Riders
+                <div className="shadow hover:shadow-xl transition-all duration-200 bg-white h-28 rounded-xl flex items-center justify-center text-xl uppercase font-bold text-center">
+                    <div>
+                        <CountUp
+                            className="text-yellow-500 text-4xl"
+                            start={0}
+                            end={TotalRiders?.length}
+                            duration={2}
+                        />
+                        <br /> Riders
+                    </div>
                 </div>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    {foods?.length} <br /> Total Foods
+                <div className='bg-white shadow hover:shadow-2xl transition-all duration-300 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
+                    <CountUp
+                        className="text-black text-4xl"
+                        start={0}
+                        end={foods?.length}
+                        duration={2}
+                    />
+                    <br /> Total Foods
                 </div>
-                <div className='border h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
-                    {orders?.length} <br /> Total Sales
+                <div className='bg-white shadow hover:shadow-2xl transition-all duration-300 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
+                    <CountUp
+                        className="text-black text-4xl"
+                        start={0}
+                        end={orders?.length}
+                        duration={2}
+                    />
+                    <br /> Total Sales
                 </div>
             </div>
 
