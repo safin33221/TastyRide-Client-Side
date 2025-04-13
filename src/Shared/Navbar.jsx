@@ -10,11 +10,13 @@ import { useCart } from "../Hooks/useCart";
 import useNotification from "../Hooks/useNotification";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import useUserData from "../Hooks/useUserData";
 
 const Navbar = () => {
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+
   const [notificationData, refetch] = useNotification()
-  const { user, LogoutUser } = useAuth();
+  const { user, LogoutUser, isNotificationOpen, setIsNotificationOpen } = useAuth();
+  const [userData] = useUserData()
   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate();
 
@@ -48,6 +50,7 @@ const Navbar = () => {
       <li>
         <NavLink to={"/contact"}>{t("navMenu.menu4")}</NavLink>
       </li>
+
     </>
   );
 
@@ -202,14 +205,32 @@ const Navbar = () => {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-20 mt-3 w-52 p-2 shadow "
                 >
                   <li>
-                    <Link to={"/userProfile"} className="justify-between">
+                    <NavLink to={"/userProfile"} className="justify-between">
                       {t("userMenu.profile")}
                       <span className="badge">{t("userMenu.span1")}</span>
-                    </Link>
+                    </NavLink>
                   </li>
-                  <li>
-                    <Link to="/dashboard">{t("userMenu.Dashboard")}</Link>
-                  </li>
+                  {
+                    userData?.role === 'customer' && (
+                      <>
+                        <li><NavLink to={"/my-order"}>{t("userMenu.My Order")}</NavLink></li>
+                        <li><NavLink to={"/dashboard/my-order"}>{t("userMenu.Apply for Restaurant")}</NavLink></li>
+                        <li><NavLink to={"/dashboard/my-order"}>{t("userMenu.Apply for Rider")}</NavLink></li>
+
+                      </>
+                    )}
+                  {
+                    userData?.role === 'admin' && (
+
+                      <li><NavLink to={"/dashboard/admin"}>{t("userMenu.Dashboard")}</NavLink></li>
+                    )
+                  }
+                  {
+                    userData?.role === 'restaurant' && (
+
+                      <li><NavLink to={"/dashboard/restaurantDashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
+                    )
+                  }
                   <li>
                     <button onClick={handleLogOut}>
                       {t("userMenu.Logout")}
