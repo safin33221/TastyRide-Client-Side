@@ -16,7 +16,15 @@ const useAxiosSecure = () => {
         return Promise.reject(error)
     })
 
-    
+    axiosSecure.interceptors.response.use(function (response) {
+        return response
+    }, function (error) {
+        const status = error.response.status
+        if (status === 401 || 403) {
+            LogoutUser()
+            navigate('/login')
+        }
+    })
 
     return axiosSecure
 }
