@@ -6,6 +6,7 @@ import { auth } from '../Firebase/firebase.config.js';
 const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(false)
     const [user, setUser] = useState(null)
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false)
 
     // Register User
     const CreateUserWithEmail = (email, password) => {
@@ -71,7 +72,9 @@ const AuthProvider = ({ children }) => {
         resetPassword,
         user,
         SignInWithGoogle,
-        loading
+        loading,
+        isNotificationOpen,
+        setIsNotificationOpen
     }
     return (
         <authContext.Provider value={authValue}>

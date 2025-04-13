@@ -7,14 +7,17 @@ import { useEffect, useState } from "react";
 import ChatBot from "../Components/ChatBot";
 import NewLetterModal from "../Components/NewLetterModal/NewLetterModal";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import useAuth from "../Hooks/useAuth";
 
 const MainLayout = () => {
   const axiosPublic = useAxiosPublic();
   const [openChat, setOpenChat] = useState(false);
+  const { isNotificationOpen, setIsNotificationOpen } = useAuth()
 
 
   return (
-    <div className="relative">
+    < div onClick={() => isNotificationOpen && setIsNotificationOpen(false)}
+      className="relative" >
       <nav>
         <Headroom>
           <Navbar />
@@ -37,7 +40,7 @@ const MainLayout = () => {
           </div>
         )}
       </div> */}
-    </div>
+    </div >
   );
 };
 
