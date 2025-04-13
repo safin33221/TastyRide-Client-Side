@@ -15,7 +15,7 @@ const ExploreRestaurant = () => {
         }
     })
     if (isPending) return <p>loading</p>
-    console.log(restaurant);
+    // console.log(restaurant);
     return (
         <div className='pb-10'>
             <SectionTitle

@@ -81,25 +81,25 @@ const OrderTracking = () => {
   const getStatusDetails = (status, createdAt) => {
     const timeRange = calculateTimeRange(createdAt, status);
     switch (status) {
-      case "Pending":
+      case 'Pending':
         return {
           message: "Order placed",
           subMessage: "We have received your order",
           timeRange,
         };
-      case "Cooking":
+      case 'Cooking':
         return {
           message: "Preparing your order",
           subMessage: "The rider is waiting at the restaurant",
           timeRange,
         };
-      case "On the Way":
+      case 'On the Way':
         return {
           message: "On the way",
           subMessage: "Your order is on its way",
           timeRange,
         };
-      case "Delivered":
+      case 'Delivered':
         return {
           message: "Delivered",
           subMessage: "Your order has been delivered",
@@ -113,9 +113,9 @@ const OrderTracking = () => {
         };
       default:
         return {
-          message: "Unknown status",
-          subMessage: "",
-          timeRange: "",
+          message: 'Unknown status',
+          subMessage: '',
+          timeRange: '',
         };
     }
   };

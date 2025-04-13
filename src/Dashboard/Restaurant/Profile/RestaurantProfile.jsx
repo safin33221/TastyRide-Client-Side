@@ -9,6 +9,8 @@ import { IoIosReverseCamera } from "react-icons/io";
 import { imageUpload } from '../../../Utils/Utils';
 import { useQuery } from '@tanstack/react-query';
 import Foods from './Foods';
+import ManageFollowers from './ManageFollowers';
+import toast from 'react-hot-toast';
 
 
 
@@ -94,11 +96,7 @@ const RestaurantProfile = () => {
         try {
             await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { restaurantName })
             refetch()
-            Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "Restaurant name change successfully",
-            });
+            toast.success('Restaurant name change successfully')
         } catch (error) {
             console.log(error);
         }
@@ -117,22 +115,22 @@ const RestaurantProfile = () => {
 
                 {/* Cover Photo in background */}
                 <div
-                    className="relative  z-0 w-full mb-52  min-h-96 bg-cover bg-center flex items-center justify-center "
+                    className="relative  z-0 w-full mb-52   bg-cover bg-center flex items-center justify-center "
 
                 >
                     <img
-                        className='h-[350px] w-full bg-contain bg-center flex items-center'
+                            className=' w-full object-cover h-[200px]  md:h-[400px] bg-center flex items-center'
                         src={selectCoverPhoto || userData?.restaurantDetails?.coverPhoto || 'https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp'} alt="" />
 
 
-                    <label className=' absolute top-10 right-10' >
+                    <label className=' absolute top-2 right-5' >
 
                         {
                             CoverPhotoFile ?
                                 <>
                                     <button
                                         onClick={handleCoverPhotoChange}
-                                        className="text-green-500 text-2xl btn">
+                                        className="text-green-500 text-xl md:text-2xl btn">
                                         save
                                     </button>
                                     <button
@@ -141,7 +139,7 @@ const RestaurantProfile = () => {
                                             setCoverPhotoFile(null)
                                         }
                                         }
-                                        className="text-red-500 mx-3 text-2xl btn">
+                                        className="text-red-500 mx-3 text-xl md:text-2xl btn">
                                         Cancel
                                     </button>
 
@@ -176,7 +174,7 @@ const RestaurantProfile = () => {
                         <div className='relative'>
                             {/* Profile Image */}
                             <img src={selectProfilePhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'}
-                                className='  border-2  h-72 w-72  flex items-center justify-center  rounded-full z-20' alt="" />
+                                className='  border-2 w-52 mx-auto  md:h-72 md:w-72  flex items-center justify-center  rounded-full z-20' alt="" />
 
                             <label className=' absolute bottom-10 right-1' >
                                 <input
@@ -189,7 +187,7 @@ const RestaurantProfile = () => {
 
                                 ><IoIosReverseCamera
                                         onClick={() => document.getElementById('fileInput').click()}
-                                        className='text-5xl bg-white border rounded-full' />
+                                        className=' text-4xl md:text-5xl bg-white border rounded-full' />
                                 </button>
                             </label>
                             {
@@ -218,29 +216,31 @@ const RestaurantProfile = () => {
                         <div className='mt-5'>
                             {/* Toggle between input and text */}
                             {isEditing ? (
-                                <div className="flex items-center gap-4 ">
+                                <div className="flex items-center gap-4 flex-col md:flex-row ">
                                     <input
                                         type="text"
                                         defaultValue={userData?.restaurantDetails?.restaurantName}
                                         placeholder='Restarunt Name'
                                         onChange={(e) => setRestaurantName(e.target.value)}
-                                        className="text-4xl font-bold border-b-2 outline-none focus:border-blue-500"
+                                        className=" text-xl md:text-4xl font-bold border-b-2 outline-none focus:border-blue-500"
                                     />
-                                    <button
-                                        onClick={handleSaveClick}
-                                        className="text-green-500 text-2xl btn"
-                                    >
-                                        save
-                                    </button>
-                                    <button
-                                        onClick={() => setIsEditing(false)}
-                                        className="text-red-500 text-2xl btn"
-                                    >
-                                        cancel
-                                    </button>
+                                    <div className='flex gap-3'>
+                                        <button
+                                            onClick={handleSaveClick}
+                                            className="text-green-500 text-lg md:text-2xl btn"
+                                        >
+                                            save
+                                        </button>
+                                        <button
+                                            onClick={() => setIsEditing(false)}
+                                            className="text-red-500 text-lg md:text-2xl btn"
+                                        >
+                                            cancel
+                                        </button>
+                                    </div>
                                 </div>
                             ) : (
-                                <h1 className="text-4xl font-bold flex gap-4">
+                                <h1 className="text-xl md:text-4xl  font-bold flex gap-4">
                                     {userData?.restaurantDetails?.restaurantName || "N/A"}
                                     <span
                                         onClick={handleEditClick}
@@ -265,19 +265,21 @@ const RestaurantProfile = () => {
 
                 {/* Tabs Content */}
                 {/* name of each tab group should be unique */}
-                <div className="tabs tabs-border">
+                <div className="tabs tabs-border w-full">
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="Foods" />
-                    <div className="tab-content border-base-300  p-10">
+                    <div className="tab-content border-base-300  p-2">
                         <Foods />
                     </div>
 
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="About" defaultChecked />
-                    <div className="tab-content border-base-300  p-10">
+                    <div className="tab-content border-base-300  p-2">
                         <AboutRestaurant />
                     </div>
 
                     <input type="radio" name="my_tabs_2" className="tab text-xl" aria-label="Followers" />
-                    <div className="tab-content border-base-300  p-10">Tab content 3</div>
+                    <div className="tab-content border-base-300  p-2 overflow-x-auto">
+                        <ManageFollowers />
+                    </div>
                 </div>
 
 
