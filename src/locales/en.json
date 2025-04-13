@@ -12,7 +12,10 @@
     "span1": "New",
     "Dashboard":"Dashboard",
     "Logout":"Logout",
-    "Login":"Login"
+    "Login":"Login",
+    "My Order": "My Order",
+    "Apply for Restaurant": "Apply for Restaurant",
+    "Apply for Rider": "Apply for Rider"
   },
   "sectionTitle":{
     "title": "International Cuisines",
