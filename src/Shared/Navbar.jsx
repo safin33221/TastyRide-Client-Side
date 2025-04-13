@@ -13,9 +13,9 @@ import toast from "react-hot-toast";
 import useUserData from "../Hooks/useUserData";
 
 const Navbar = () => {
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+
   const [notificationData, refetch] = useNotification()
-  const { user, LogoutUser } = useAuth();
+  const { user, LogoutUser, isNotificationOpen, setIsNotificationOpen } = useAuth();
   const [userData] = useUserData()
   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate();
