@@ -48,7 +48,8 @@ const Router = () => {
           <Route path='checkout' element={<CheckoutPage/>}/>
           <Route path='success' element={<SuccessPage/>}/>
           <Route path='fail' element={<FailPage/>}/>
-          <Route path="/order-tracking" element={<OrderTracking />} />
+          <Route path="order-tracking" element={<OrderTracking />} />
+          <Route path="my-order" element={<MyOrder />} />
         </Route>
 
         <Route path='/dashboard' element={<Dashboard />}>
@@ -68,8 +69,8 @@ const Router = () => {
 
 
           {/* Customer Routes */}
-          <Route path='customerDashboard' element={<CustomerDashboard />} />
-          <Route path="my-order" element={<MyOrder />} />
+          {/* <Route path='customerDashboard' element={<CustomerDashboard />} /> */}
+          
 
 
         </Route>

@@ -11,7 +11,10 @@
     "span1": "নতুন",
     "Dashboard": "ড্যাশবোর্ড",
     "Logout": "লগআউট",
-    "Login": "লগইন"
+    "Login": "লগইন",
+    "My Order": "আমার অর্ডার",
+    "Apply for Restaurant": "রেস্তোরাঁর জন্য আবেদন করুন",
+    "Apply for Rider": "রাইডারের জন্য আবেদন করুন"
   },
   "sectionTitle": {
     "title": "আন্তর্জাতিক রান্না",
