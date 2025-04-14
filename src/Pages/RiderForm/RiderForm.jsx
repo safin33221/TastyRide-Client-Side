@@ -82,6 +82,8 @@ function RiderForm() {
             <div className="card-body">
               <h2 className="card-title">Personal Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                {/* full name */}
                 <div>
                   <label className="label">
                     <span className="label-text">
@@ -104,6 +106,8 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
+
+                {/* date of birth */}
                 <div>
                   <label className="label">
                     <span className="label-text">
@@ -125,6 +129,8 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
+
+                {/* phone number */}
                 <div>
                   <label className="label">
                     <span className="label-text">
@@ -146,6 +152,8 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
+
+                {/* email address */}
                 <div>
                   <label className="label">
                     <span className="label-text">
@@ -171,35 +179,45 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
-                <div className="md:col-span-2">
-                  <label className="label">
-                    <span className="label-text">
-                      Present Address <span className="text-error">*</span>
-                    </span>
-                  </label>
-                  <textarea
-                    {...register("presentAddress", {
-                      required: "Present Address is required",
-                    })}
-                    className={`textarea textarea-bordered w-full ${
-                      errors.presentAddress ? "textarea-error" : ""
-                    }`}
-                  />
-                  {errors.presentAddress && (
-                    <p className="text-error text-sm mt-1">
-                      {errors.presentAddress.message}
-                    </p>
-                  )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  {/* present address */}
+                  <div className="md:col-span-2">
+                    <label className="label">
+                      <span className="label-text">
+                        Present Address <span className="text-error">*</span>
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      {...register("presentAddress", {
+                        required: "Present Address is required",
+                      })}
+                      className={`input input-bordered w-full ${
+                        errors.presentAddress ? "input-error" : ""
+                      }`}
+                    />
+                    {errors.presentAddress && (
+                      <p className="text-error text-sm mt-1">
+                        {errors.presentAddress.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* parmanent address */}
+                  <div className="md:col-span-2">
+                    <label className="label">
+                      <span className="label-text">Permanent Address</span>
+                    </label>
+                    <input
+                      type="text"
+                      {...register("permanentAddress")}
+                      className="input input-bordered w-full"
+                    />
+                  </div>
                 </div>
-                <div className="md:col-span-2">
-                  <label className="label">
-                    <span className="label-text">Permanent Address</span>
-                  </label>
-                  <textarea
-                    {...register("permanentAddress")}
-                    className="textarea textarea-bordered w-full"
-                  />
-                </div>
+
+                {/* profile photo */}
                 <div>
                   <label className="label">
                     <span className="label-text">
@@ -222,10 +240,11 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
+                {/* national id no */}
                 <div>
                   <label className="label">
                     <span className="label-text">
-                      National ID <span className="text-error">*</span>
+                      National ID No <span className="text-error">*</span>
                     </span>
                   </label>
                   <input
@@ -243,6 +262,8 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
+
+                {/* Nid image */}
                 <div>
                   <label className="label">
                     <span className="label-text">
@@ -265,6 +286,7 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
+
               </div>
             </div>
           </div>
@@ -274,6 +296,7 @@ function RiderForm() {
             <div className="card-body">
               <h2 className="card-title">Other Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* vehicle type */}
                 <div>
                   <label className="label">
                     <span className="label-text">
@@ -300,77 +323,88 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
+
+
                 {vehicleType !== "bicycle" && vehicleType && (
-                  <div>
-                    <label className="label">
-                      <span className="label-text">
-                        Vehicle Number Plate{" "}
-                        <span className="text-error">*</span>
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      {...register("vehicleNumberPlate", {
-                        required:
-                          vehicleType !== "bicycle"
-                            ? "Vehicle Number Plate is required"
-                            : false,
-                      })}
-                      className={`input input-bordered w-full ${
-                        errors.vehicleNumberPlate ? "input-error" : ""
-                      }`}
-                    />
-                    {errors.vehicleNumberPlate && (
-                      <p className="text-error text-sm mt-1">
-                        {errors.vehicleNumberPlate.message}
-                      </p>
-                    )}
-                  </div>
+                  <>
+                  {/* vehicle number plate */}
+                    <div>
+                      <label className="label">
+                        <span className="label-text">
+                          Vehicle Number Plate{" "}
+                          <span className="text-error">*</span>
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        {...register("vehicleNumberPlate", {
+                          required:
+                            vehicleType !== "bicycle"
+                              ? "Vehicle Number Plate is required"
+                              : false,
+                        })}
+                        className={`input input-bordered w-full ${
+                          errors.vehicleNumberPlate ? "input-error" : ""
+                        }`}
+                      />
+                      {errors.vehicleNumberPlate && (
+                        <p className="text-error text-sm mt-1">
+                          {errors.vehicleNumberPlate.message}
+                        </p>
+                      )}
+                    </div>
+
+                      {/* driving licence number */}
+                    <div>
+                      <label className="label">
+                        <span className="label-text">
+                          Driving License Number <span className="text-error">*</span>
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        {...register("drivingLicense", {
+                          required: "Driving License is required",
+                        })}
+                        className={`input input-bordered w-full ${
+                          errors.drivingLicense ? "input-error" : ""
+                        }`}
+                      />
+                      {errors.drivingLicense && (
+                        <p className="text-error text-sm mt-1">
+                          {errors.drivingLicense.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* driving licence image */}
+                    <div>
+                      <label className="label">
+                        <span className="label-text">
+                          Driving License Image{" "}
+                          <span className="text-error">*</span>
+                        </span>
+                      </label>
+                      <input
+                        type="file"
+                        {...register("drivingLicenseImage", {
+                          required: "Driving License Image is required",
+                        })}
+                        className={`file-input file-input-bordered w-full ${
+                          errors.drivingLicenseImage ? "file-input-error" : ""
+                        }`}
+                        accept="image/*"
+                      />
+                      {errors.drivingLicenseImage && (
+                        <p className="text-error text-sm mt-1">
+                          {errors.drivingLicenseImage.message}
+                        </p>
+                      )}
+                    </div>
+                  </>
                 )}
-                <div>
-                  <label className="label">
-                    <span className="label-text">
-                      Driving License <span className="text-error">*</span>
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    {...register("drivingLicense", {
-                      required: "Driving License is required",
-                    })}
-                    className={`input input-bordered w-full ${
-                      errors.drivingLicense ? "input-error" : ""
-                    }`}
-                  />
-                  {errors.drivingLicense && (
-                    <p className="text-error text-sm mt-1">
-                      {errors.drivingLicense.message}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className="label">
-                    <span className="label-text">
-                      Driving License Image{" "}
-                      <span className="text-error">*</span>
-                    </span>
-                  </label>
-                  <input
-                    type="file"
-                    {...register("drivingLicenseImage", {
-                      required: "Driving License Image is required",
-                    })}
-                    className={`file-input file-input-bordered w-full ${
-                      errors.drivingLicenseImage ? "file-input-error" : ""
-                    }`}
-                    accept="image/*"
-                  />
-                  {errors.drivingLicenseImage && (
-                    <p className="text-error text-sm mt-1">
-                      {errors.drivingLicenseImage.message}
-                    </p>
-                  )}
-                </div>
+
+                {/* preferred work area */}
                 <div>
                   <label className="label">
                     <span className="label-text">Preferred Work Area</span>
@@ -386,6 +420,8 @@ function RiderForm() {
                     ))}
                   </select>
                 </div>
+
+                {/* work availability */}
                 <div className="md:col-span-2">
                   <label className="label">
                     <span className="label-text">Work Availability</span>
@@ -434,6 +470,8 @@ function RiderForm() {
                     </div>
                   </div>
                 </div>
+
+                {/* have smartphone? */}
                 <div>
                   <label className="label cursor-pointer">
                     <input
@@ -453,6 +491,8 @@ function RiderForm() {
             <div className="card-body">
               <h2 className="card-title">Banking/Payment Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                {/* payment methiod */}
                 <div className="md:col-span-2">
                   <label className="label">
                     <span className="label-text">Payment Method</span>
@@ -478,7 +518,9 @@ function RiderForm() {
                     </label>
                   </div>
                 </div>
+
                 {paymentMethod === "bank" && (
+                    // Bank Account Number
                   <div>
                     <label className="label">
                       <span className="label-text">Bank Account Number</span>
@@ -492,6 +534,7 @@ function RiderForm() {
                 )}
                 {paymentMethod === "wallet" && (
                   <>
+                  {/* mobile wallet provider */}
                     <div>
                       <label className="label">
                         <span className="label-text">
@@ -513,6 +556,8 @@ function RiderForm() {
                         ))}
                       </select>
                     </div>
+
+                    {/* mobile wallet number */}
                     <div>
                       <label className="label">
                         <span className="label-text">Mobile Wallet Number</span>
