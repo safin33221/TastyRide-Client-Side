@@ -150,11 +150,12 @@ const OrderTracking = () => {
   const { message, subMessage, timeRange } = getStatusDetails(order.status, order.createdAt);
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Track Your Order</h1>
-      <div className="border rounded-lg shadow-sm bg-white">
+    <div className="bg-gray-100 min-h-screen ">
+      <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto ">
+      <h1 className="text-2xl font-bold mb-12 text-center text-gray-800">Track Your Order</h1>
+      
         {/* Header Section */}
-        <div className="bg-gray-50 p-4 rounded-t-lg flex justify-between items-center">
+        <div className=" bg-white p-4 rounded-md shadow-md  flex justify-between items-center">
           <div>
             <p className="text-sm text-gray-500 uppercase">Arriving by</p>
             <p className="text-lg font-semibold text-gray-800">{timeRange}</p>
@@ -165,24 +166,12 @@ const OrderTracking = () => {
         </div>
 
         {/* Order Details Section */}
-        <div className="p-4">
+        <div className="p-4 bg-white mt-6 rounded-md shadow-md">
           <h2 className="text-lg font-semibold text-gray-800 uppercase mb-4">Order Details</h2>
           <div className="space-y-1">
-            <p className="text-sm text-gray-500">
-              Order number #{order._id.slice(-8)}
-            </p>
-            <p className="text-sm text-gray-500 mt-1">Customer Name:</p>
-            <p className="text-sm text-gray-700">{order.info.cus_name}</p>
-            <p className="text-sm text-gray-500 mt-1">Customer Email:</p>
-            <p className="text-sm text-gray-700">{order.info.cus_email}</p>
-            <p className="text-sm text-gray-500 mt-1">Customer Phone:</p>
-            <p className="text-sm text-gray-700">{order.info.cus_phone}</p>
-            <p className="text-sm text-gray-500 mt-1">Delivery Address:</p>
-            <p className="text-sm text-gray-700">
-              {order.info.cus_add1}, {order.info.cus_city}, {order.info.cus_country}
-            </p>
-            <p className="text-sm text-gray-500 mt-1">Order Status:</p>
-            <p className="text-sm text-gray-700">{order.status}</p>
+            
+           
+          
             <p className="text-sm text-gray-500 mt-1">Order Items:</p>
             {order.cart.map((item, index) => (
               <div key={index} className="flex items-center space-x-2 py-2">
@@ -199,6 +188,13 @@ const OrderTracking = () => {
                 </div>
               </div>
             ))}
+            <p className="text-sm text-gray-500">
+              Order number #{order._id.slice(-8)}
+            </p>
+            <p className="text-sm text-gray-500 mt-1">Delivery Address:</p>
+            <p className="text-sm text-gray-700">
+              {order.info.cus_add1}, {order.info.cus_city}, {order.info.cus_country}
+            </p>
           </div>
 
           {/* Total and Item Count */}
@@ -209,7 +205,8 @@ const OrderTracking = () => {
             <p className="text-lg font-semibold text-pink-600">Tk {order.total_amount}</p>
           </div>
         </div>
-      </div>
+      
+    </div>
     </div>
   );
 };

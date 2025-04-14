@@ -45,24 +45,16 @@ const Router = () => {
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path='restaurantProfile/:email' element={<Restaurants />} />
-<<<<<<< HEAD
-          <Route path='cart' element={<CartPage/>}/>
-          <Route path='checkout' element={<CheckoutPage/>}/>
-          <Route path='success' element={<SuccessPage/>}/>
-          <Route path='fail' element={<FailPage/>}/>
-          <Route path="/order-tracking/:orderId" element={<OrderTracking />} />
-=======
 
 
           {/* -----------------------------------------------------------Privet Routes */}
           <Route path='userProfile' element={<PrivetRoute><CustomerProfile /></PrivetRoute>} />
-          <Route path="order-tracking" element={<OrderTracking />} />
+          <Route path="order-tracking/:orderId" element={<OrderTracking />} />
           <Route path="my-order" element={<PrivetRoute><MyOrder /></PrivetRoute>} />
           <Route path='success' element={<PrivetRoute><SuccessPage /></PrivetRoute>} />
           <Route path='fail' element={<PrivetRoute><FailPage /></PrivetRoute>} />
           <Route path='cart' element={<PrivetRoute><CartPage /></PrivetRoute>} />
           <Route path='checkout' element={<PrivetRoute><CheckoutPage /></PrivetRoute>} />
->>>>>>> f1cd379282b4bb2f686565fbd0e426c2ed94df70
         </Route>
 
 
