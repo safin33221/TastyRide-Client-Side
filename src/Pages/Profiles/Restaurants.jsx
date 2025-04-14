@@ -16,6 +16,21 @@ const Restaurants = () => {
   const [following, setFollowing] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // find if the user already follow the restaurant
+  useEffect ( ()=>{
+    const fetchFollowStatus = async () =>{
+      try {
+        const res = await axiosPublic.get(`/api/restaurant/follow?userEmail=${user?.email}&restaurantEmail=${email}`);
+        setFollowing(res?.data?.isFollowing);
+      } catch (error) {
+        console.log(error?.response?.data?.message || "Error fetching follow status");
+      }
+    }
+    if(user?.email){
+      fetchFollowStatus();
+    }
+  }, [user?.email, email])
+
   useEffect(() => {
     const fetchRestaurantProfile = async () => {
       try {
@@ -92,6 +107,8 @@ const Restaurants = () => {
     );
   }
 
+  
+
   // follow the restaurant
   const handleFollowRestaurant = async () => {
     let message;
@@ -110,7 +127,7 @@ const Restaurants = () => {
         title: message,
         text: message + "the restarunt successfully!",
         icon: "success",
-        confirmButtonText: "Great!",
+        confirmButtonText: "Ok",
         confirmButtonColor: "#ef4444",
         timer: 3000,
         timerProgressBar: true,
