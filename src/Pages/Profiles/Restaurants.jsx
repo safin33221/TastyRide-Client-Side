@@ -96,6 +96,7 @@ const Restaurants = () => {
   const handleFollowRestaurant = async () => {
     let message;
     try {
+      if(user?.email){ 
       const res = await axiosPublic.patch(`/api/restaurant/follow`, {userEmail: user?.email, restaurantEmail: email});
       console.log(res?.data);
       
@@ -114,6 +115,9 @@ const Restaurants = () => {
         timer: 3000,
         timerProgressBar: true,
       });
+    }else{
+      setErrorMessage("Please login first to follow the restaurant.");
+    }
     } catch (err) {
       console.log(err?.response?.data?.message || "Error following restaurant");
       setErrorMessage(err?.response?.data?.message || "Error following restaurant");
