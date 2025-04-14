@@ -1,14 +1,19 @@
 
 
-
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 
-// Placeholder status icon (replace with actual icon if needed)
-const statusIcon = "https://i.ibb.co.com/99VXqJQq/3640086.webp";
+// Status-specific images (replace with actual image URLs)
+const statusImages = {
+  Pending: "https://i.ibb.co/5G4Fz0X/pending.png", // Placeholder for Pending (e.g., shopping bag)
+  Cooking: "https://i.ibb.co/99VXqJQ/3640086.webp", // Cooking image (as provided)
+  On_the_Way: "https://i.ibb.co/8gWv5Yk/delivery.png", // Placeholder for On the Way (e.g., rider)
+  Delivered: "https://i.ibb.co/5T3pWvS/delivered.png", // Placeholder for Delivered (e.g., checkmark)
+  Cancelled: "https://i.ibb.co/5YbL4mT/cancelled.png", // Placeholder for Cancelled (e.g., cross)
+};
 
 const OrderTracking = () => {
   const { orderId } = useParams();
@@ -72,52 +77,57 @@ const OrderTracking = () => {
       default:
         minutesToAdd = 0;
     }
+    if (status === "On the Way" && minutesToAdd <= 15) {
+      return "Anytime now"; // Match the "Anytime now" text
+    }
     const start = new Date(created.getTime() + minutesToAdd * 60000);
     const end = new Date(start.getTime() + 15 * 60000);
     return `${start.getHours()}:${start.getMinutes().toString().padStart(2, '0')} – ${end.getHours()}:${end.getMinutes().toString().padStart(2, '0')}`;
   };
 
-  // Map status to messages and estimated time
+  // Map status to messages, estimated time, and progress
   const getStatusDetails = (status, createdAt) => {
     const timeRange = calculateTimeRange(createdAt, status);
+    let progress = 0;
+    let message = "";
+    let subMessage = "";
+
     switch (status) {
-      case 'Pending':
-        return {
-          message: "Order placed",
-          subMessage: "We have received your order",
-          timeRange,
-        };
-      case 'Cooking':
-        return {
-          message: "Preparing your order",
-          subMessage: "The rider is waiting at the restaurant",
-          timeRange,
-        };
-      case 'On the Way':
-        return {
-          message: "On the way",
-          subMessage: "Your order is on its way",
-          timeRange,
-        };
-      case 'Delivered':
-        return {
-          message: "Delivered",
-          subMessage: "Your order has been delivered",
-          timeRange,
-        };
+      case "Pending":
+        progress = 25; // First bar filled
+        message = "Order placed";
+        subMessage = "We have received your order";
+        break;
+      case "Cooking":
+        progress = 50; // First and second bars filled
+        message = "Preparing your order";
+        subMessage = "The rider is waiting at the restaurant";
+        break;
+      case "On the Way":
+        progress = 75; // First, second, and third bars filled
+        message = "On the way";
+        subMessage =
+          timeRange === "Anytime now"
+            ? "Get ready, the rider will be there anytime now"
+            : "Your order is on its way";
+        break;
+      case "Delivered":
+        progress = 100; // All bars filled
+        message = "Delivered";
+        subMessage = "Your order has been delivered";
+        break;
       case "Cancelled":
-        return {
-          message: "Cancelled",
-          subMessage: "Your order has been cancelled",
-          timeRange,
-        };
+        progress = 0; // No bars filled
+        message = "Cancelled";
+        subMessage = "Your order has been cancelled";
+        break;
       default:
-        return {
-          message: 'Unknown status',
-          subMessage: '',
-          timeRange: '',
-        };
+        progress = 0;
+        message = "Unknown status";
+        subMessage = "";
     }
+
+    return { message, subMessage, timeRange, progress };
   };
 
   // Handle loading and error states
@@ -147,31 +157,38 @@ const OrderTracking = () => {
   // Additional check to ensure order exists
   if (!order) return <div className="text-center py-10 text-red-600">Error: Order not found</div>;
 
-  const { message, subMessage, timeRange } = getStatusDetails(order.status, order.createdAt);
+  const { message, subMessage, timeRange, progress } = getStatusDetails(order.status, order.createdAt);
+
+  // Determine the image based on the status
+  const statusImage = statusImages[order.status.replace(" ", "_")] || statusImages.Pending;
 
   return (
-    <div className="bg-gray-100 min-h-screen ">
-      <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto ">
-      <h1 className="text-2xl font-bold mb-12 text-center text-gray-800">Track Your Order</h1>
-      
+    <div className="bg-gray-100 min-h-screen">
+      <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+        <h1 className="text-2xl font-bold mb-12 text-center text-gray-800">Track Your Order</h1>
+
         {/* Header Section */}
-        <div className=" bg-white p-4 rounded-md shadow-md  flex justify-between items-center">
-          <div>
+        <div className="bg-white p-4 rounded-md shadow-md flex justify-between items-center">
+          <div className="flex-1">
             <p className="text-sm text-gray-500 uppercase">Arriving by</p>
             <p className="text-lg font-semibold text-gray-800">{timeRange}</p>
-            <p className="text-md font-medium text-gray-700 mt-1">{message}</p>
+            {/* Progress Bar */}
+            <div className="flex mt-2 space-x-1">
+              <div className={`h-2 rounded-full flex-1 ${progress >= 25 ? "bg-red-500" : "bg-gray-200"}`}></div>
+              <div className={`h-2 rounded-full flex-1 ${progress >= 50 ? "bg-red-500" : "bg-gray-200"}`}></div>
+              <div className={`h-2 rounded-full flex-1 ${progress >= 75 ? "bg-red-500" : "bg-gray-200"}`}></div>
+              <div className={`h-2 rounded-full flex-1 ${progress >= 100 ? "bg-red-500" : "bg-gray-200"}`}></div>
+            </div>
+            <p className="text-md font-medium text-gray-700 mt-2">{message}</p>
             <p className="text-sm text-gray-500">{subMessage}</p>
           </div>
-          <img src={statusIcon} alt="Status Icon" className="w-16 h-16" />
+          <img src={statusImage} alt={`${order.status} Icon`} className="w-28 h-20 ml-6" />
         </div>
 
         {/* Order Details Section */}
         <div className="p-4 bg-white mt-6 rounded-md shadow-md">
           <h2 className="text-lg font-semibold text-gray-800 uppercase mb-4">Order Details</h2>
           <div className="space-y-1">
-            
-           
-          
             <p className="text-sm text-gray-500 mt-1">Order Items:</p>
             {order.cart.map((item, index) => (
               <div key={index} className="flex items-center space-x-2 py-2">
@@ -188,9 +205,7 @@ const OrderTracking = () => {
                 </div>
               </div>
             ))}
-            <p className="text-sm text-gray-500">
-              Order number #{order._id.slice(-8)}
-            </p>
+            <p className="text-sm text-gray-500">Order number #{order._id.slice(-8)}</p>
             <p className="text-sm text-gray-500 mt-1">Delivery Address:</p>
             <p className="text-sm text-gray-700">
               {order.info.cus_add1}, {order.info.cus_city}, {order.info.cus_country}
@@ -205,8 +220,7 @@ const OrderTracking = () => {
             <p className="text-lg font-semibold text-pink-600">Tk {order.total_amount}</p>
           </div>
         </div>
-      
-    </div>
+      </div>
     </div>
   );
 };
