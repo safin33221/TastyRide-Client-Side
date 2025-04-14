@@ -48,15 +48,6 @@ const Router = () => {
           <Route path="restaurantProfile/:email" element={<Restaurants />} />
 
           {/* -----------------------------------------------------------Privet Routes */}
-<<<<<<< HEAD
-          <Route path='userProfile' element={<PrivetRoute><CustomerProfile /></PrivetRoute>} />
-          <Route path="order-tracking/:orderId" element={<OrderTracking />} />
-          <Route path="my-order" element={<PrivetRoute><MyOrder /></PrivetRoute>} />
-          <Route path='success' element={<PrivetRoute><SuccessPage /></PrivetRoute>} />
-          <Route path='fail' element={<PrivetRoute><FailPage /></PrivetRoute>} />
-          <Route path='cart' element={<PrivetRoute><CartPage /></PrivetRoute>} />
-          <Route path='checkout' element={<PrivetRoute><CheckoutPage /></PrivetRoute>} />
-=======
           <Route
             path="userProfile"
             element={
@@ -114,7 +105,6 @@ const Router = () => {
               </PrivetRoute>
             }
           />
->>>>>>> d3d5ebed71193f0bc4b92a6079cf8cbf9651ad96
         </Route>
 
         {/* -----------------------------------------------------------------------Dashboard Layout */}
