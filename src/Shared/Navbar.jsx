@@ -225,7 +225,7 @@ const Navbar = () => {
                         </NavLink>
                       </li>
                       <li>
-                        <NavLink to={'/dashboard/apply-restaurent'}>
+                        <NavLink to={'/apply-restaurent'}>
                           {t('userMenu.Apply for Restaurant')}
                         </NavLink>
                       </li>
