@@ -59,7 +59,7 @@ const LoginForm = () => {
     await resetPassword(email)
     toast.success('Password reset email sent!')
   }
-  console.log('email sent', email);
+  // console.log('email sent', email);
 
   return (
     <div>

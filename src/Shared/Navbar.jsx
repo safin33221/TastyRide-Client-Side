@@ -20,7 +20,7 @@ const Navbar = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
-  console.log(notificationData);
+  
   const { cart } = useCart();
   const handleLogOut = () => {
     LogoutUser();
