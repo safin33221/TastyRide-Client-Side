@@ -20,7 +20,7 @@ const Navbar = () => {
   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate();
 
-  
+
   const { cart } = useCart();
   const handleLogOut = () => {
     LogoutUser();
@@ -87,6 +87,18 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {links}
+              <div className="cursor-pointer  ">
+                {lang && (
+                  <div onClick={() => changeLanguage("bn")} className="flex items-center mx-2 text-sm gap-2  ">
+                    Language<img src={uk} alt="" className="w-9 h-9 rounded-full object-center bg-cover" />
+                  </div>
+                )}
+                {!lang && (
+                  <div onClick={() => changeLanguage("en")} className="flex items-center mx-2 text-sm gap-2  ">
+                    Language<img src={bd} alt="" className="w-9 h-9 rounded-full object-center bg-cover" />
+                  </div>
+                )}
+              </div>
             </ul>
           </div>
           <a className="text-xl">TastyRide</a>
@@ -101,93 +113,99 @@ const Navbar = () => {
               <ul className="menu menu-horizontal px-1">{links}</ul>
             </div>
 
-            <div className="dropdown dropdown-end ">
-              <Link to={"/cart"}>
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost btn-circle"
-                >
-                  <div className="indicator">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      {" "}
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                      />{" "}
-                    </svg>
-                    <span className="badge badge-sm indicator-item">{cart?.length}</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <button className="btn btn-ghost btn-circle ">
-              {/* Notification Icon */}
-              <div className="relative">
-                <button
-                  className="btn btn-ghost btn-circle"
-                  onClick={() => setIsNotificationOpen(!isNotificationOpen)} // Toggle dropdown
-                >
-                  <div className="indicator">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                      />
-                    </svg>
-                    <span className="badge badge-xs badge- indicator-item">
-                      {notificationData?.length || 0}
-                    </span>
-                  </div>
-                </button>
-
-                {/* Notification Dropdown */}
-                {isNotificationOpen && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg z-50">
-                    <div className="p-4 flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-left">Notifications</h3>
-                      <button onClick={() => handleClearNotification(user?.email)}
-                        className="btn btn-sm">clear all</button>
-                    </div>
-                    <div className="max-h-64 overflow-y-auto">
-                      {notificationData?.length > 0 ? (
-                        notificationData.map((notification) => (
-                          <div
-                            key={notification._id}
-                            className="p-4 border-b hover:bg-gray-100"
+            {
+              user && (
+                <div className="flex">
+                  <div className="dropdown dropdown-end ">
+                    <Link to={"/cart"}>
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn btn-ghost btn-circle"
+                      >
+                        <div className="indicator">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
                           >
-                            <h4 className="font-medium">{notification.title}</h4>
-                            <p className="text-sm text-gray-600">
-                              {notification.type.replace("_", " ")}
-                            </p>
+                            {" "}
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                            />{" "}
+                          </svg>
+                          <span className="badge badge-sm indicator-item">{cart?.length}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <button className="btn btn-ghost btn-circle ">
+                    {/* Notification Icon */}
+                    <div className="relative">
+                      <button
+                        className="btn btn-ghost btn-circle"
+                        onClick={() => setIsNotificationOpen(!isNotificationOpen)} // Toggle dropdown
+                      >
+                        <div className="indicator">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                            />
+                          </svg>
+                          <span className="badge badge-xs badge- indicator-item">
+                            {notificationData?.length || 0}
+                          </span>
+                        </div>
+                      </button>
+
+                      {/* Notification Dropdown */}
+                      {isNotificationOpen && (
+                        <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg z-50">
+                          <div className="p-4 flex items-center justify-between">
+                            <h3 className="text-lg font-semibold text-left">Notifications</h3>
+                            <button onClick={() => handleClearNotification(user?.email)}
+                              className="btn btn-sm">clear all</button>
                           </div>
-                        ))
-                      ) : (
-                        <div className="p-4 text-center text-gray-500">
-                          No notifications
+                          <div className="max-h-64 overflow-y-auto">
+                            {notificationData?.length > 0 ? (
+                              notificationData.map((notification) => (
+                                <div
+                                  key={notification._id}
+                                  className="p-4 border-b hover:bg-gray-100"
+                                >
+                                  <h4 className="font-medium">{notification.title}</h4>
+                                  <p className="text-sm text-gray-600">
+                                    {notification.type.replace("_", " ")}
+                                  </p>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="p-4 text-center text-gray-500">
+                                No notifications
+                              </div>
+                            )}
+                          </div>
                         </div>
                       )}
                     </div>
-                  </div>
-                )}
-              </div>
-            </button>
+                  </button>
+                </div>
+              )
+            }
             {/* user Login& Logout */}
             {user ? (
               <div className="dropdown dropdown-end ">
@@ -239,7 +257,7 @@ const Navbar = () => {
                 </ul>
               </div>
             ) : (
-              <div className="px-4">
+              <div className="">
                 <Link to={"/login"}>
                   <button className="border px-5 py-3 cursor-pointer flex items-center gap-2 bg-red-500 border-none text-white">
                     <span>
@@ -253,7 +271,7 @@ const Navbar = () => {
           </div>
 
           {/* langues Menu */}
-          <div className="cursor-pointer">
+          <div className="cursor-pointer hidden md:flex ">
             {lang && (
               <div onClick={() => changeLanguage("bn")} className="">
                 <img src={uk} alt="" className="w-12 h-12 rounded-full" />
