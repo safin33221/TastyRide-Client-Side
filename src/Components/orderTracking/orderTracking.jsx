@@ -8,11 +8,11 @@ import { useQuery } from "@tanstack/react-query";
 
 // Status-specific images (replace with actual image URLs)
 const statusImages = {
-  Pending: "https://i.ibb.co/5G4Fz0X/pending.png", // Placeholder for Pending (e.g., shopping bag)
-  Cooking: "https://i.ibb.co/99VXqJQ/3640086.webp", // Cooking image (as provided)
-  On_the_Way: "https://i.ibb.co/8gWv5Yk/delivery.png", // Placeholder for On the Way (e.g., rider)
-  Delivered: "https://i.ibb.co/5T3pWvS/delivered.png", // Placeholder for Delivered (e.g., checkmark)
-  Cancelled: "https://i.ibb.co/5YbL4mT/cancelled.png", // Placeholder for Cancelled (e.g., cross)
+  Pending: "https://i.ibb.co.com/WWSc9jCv/3581435.webp", // Placeholder for Pending (e.g., shopping bag)
+  Cooking: "https://i.ibb.co.com/S4Z67Jvc/cooking-pan-3d-icon-download-in-png-blend-fbx-gltf-file-formats-frying-pack-food-drink-icons-5379604.webp", // Cooking image (as provided)
+  On_the_Way: "https://i.ibb.co.com/21BVwsDf/What-is-a-delivery-service-1024x536.webp", // Placeholder for On the Way (e.g., rider)
+  Delivered: "https://i.ibb.co.com/yFcBxFMg/download-1.webp", // Placeholder for Delivered (e.g., checkmark)
+  Cancelled: "https://i.ibb.co.com/zhF2PqJD/images.png", // Placeholder for Cancelled (e.g., cross)
 };
 
 const OrderTracking = () => {
