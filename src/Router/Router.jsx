@@ -74,6 +74,14 @@ const Router = () => {
             }
           />
           <Route
+            path="apply-restaurent"
+            element={
+              <PrivetRoute>
+                <ApplyRestaurent></ApplyRestaurent>
+              </PrivetRoute>
+            }
+          />
+          <Route
             path="success"
             element={
               <PrivetRoute>
@@ -113,14 +121,6 @@ const Router = () => {
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="manage-user" element={<ManageUsers />} />
           <Route path="manage-ad" element={<ManageAdvertisements />} />
-          <Route
-            path="apply-restaurent"
-            element={
-              <PrivetRoute>
-                <ApplyRestaurent></ApplyRestaurent>
-              </PrivetRoute>
-            }
-          />
 
           {/* ----------------------------------------------------------Restaurant routes*/}
           <Route path="restaurantDashboard" element={<RestaurantDashboard />} />

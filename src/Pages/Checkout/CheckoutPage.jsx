@@ -1,4 +1,5 @@
 
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
@@ -30,6 +31,16 @@ const CheckoutComponent = () => {
     const info = { cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount };
 
     try {
+      // Validate cart and restaurantEmail
+      if (!cart || cart.length === 0) {
+        Swal.fire("Error", "Your cart is empty. Please add items to place an order.", "error");
+        return;
+      }
+      if (!restaurantEmail || !restaurantEmail[0]) {
+        Swal.fire("Error", "Restaurant email is missing. Please try again.", "error");
+        return;
+      }
+
       if (shippingMethods === "cod") {
         const orderDetails = {
           info,
@@ -37,7 +48,7 @@ const CheckoutComponent = () => {
           restaurantEmail: restaurantEmail[0],
           paymentMethod: 'cod',
           total_amount: total_amount,
-          status: 'Pending', // Updated to match new enum
+          status: 'Pending',
           createdAt: new Date(),
         };
 
@@ -46,8 +57,14 @@ const CheckoutComponent = () => {
         console.log("Server Response:", result.data);
 
         if (result.data.success) {
+          // Get the orderId from the response
+          const orderId = result.data.data._id;
+          console.log("Order ID for Redirect:", orderId); // Log the orderId
+
+          // Clear the cart
           await axiosPublic.delete(`/api/clear-cart/${user.email}`);
           refetch();
+
           Swal.fire({
             title: "Your Order is Confirmed",
             showDenyButton: true,
@@ -56,7 +73,7 @@ const CheckoutComponent = () => {
             icon: "success",
           }).then((result) => {
             if (result.isConfirmed) {
-              navigate("/order-tracking");
+              navigate(`/order-tracking/${orderId}`); // Include the orderId in the redirect
             } else if (result.isDenied) {
               navigate("/");
             }
@@ -83,7 +100,7 @@ const CheckoutComponent = () => {
   if (isError) return <div>Error loading cart</div>;
 
   return (
-    // Your existing JSX remains unchanged
+    // JSX remains unchanged
     <>
       <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
         <div className="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">

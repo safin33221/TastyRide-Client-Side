@@ -107,7 +107,7 @@ const MyOrder = () => {
 
                                     </td>
                                     <td className="py-2 px-4 border whitespace-nowrap">
-                                        <Link to={`/order-tracking`}>
+                                        <Link to={`/order-tracking/${order._id}`}>
                                             <button className="px-3 py-1 bg-green-500 rounded-md">Track Order</button>
                                         </Link>
                                     </td>
