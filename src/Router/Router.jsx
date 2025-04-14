@@ -56,15 +56,7 @@ const Router = () => {
               </PrivetRoute>
             }
           />
-          <Route path="order-tracking" element={<OrderTracking />} />
-          <Route
-            path="my-order"
-            element={
-              <PrivetRoute>
-                <MyOrder />
-              </PrivetRoute>
-            }
-          />
+          <Route path="order-tracking/:orderId" element={<OrderTracking />} />
           <Route
             path="my-order"
             element={
