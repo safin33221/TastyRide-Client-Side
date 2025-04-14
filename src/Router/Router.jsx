@@ -30,6 +30,7 @@ import ManageOrders from '../Dashboard/Restaurant/Manageorders';
 import OrderTracking from '../Components/orderTracking/orderTracking';
 import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
 import PrivetRoute from './PrivetRoute/PrivetRoute';
+import RiderForm from '../Pages/RiderForm/RiderForm';
 
 const Router = () => {
   return (
@@ -45,6 +46,7 @@ const Router = () => {
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path='restaurantProfile/:email' element={<Restaurants />} />
+          <Route path='rider-register-form' element={<RiderForm />} />
 
 
           {/* -----------------------------------------------------------Privet Routes */}
