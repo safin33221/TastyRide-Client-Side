@@ -51,19 +51,27 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser => {
             if (currentUser) {
-                const email = { email: currentUser?.email }
-                axiosPublic.post('/jwt', email)
+                setUser(currentUser)
+                setIsLoading(false)
+                console.log(currentUser);
+                const userinfo = { email: currentUser?.email }
+                axiosPublic.post('/jwt', userinfo)
                     .then(res => {
-                        if (res?.data?.token) {
-                            const token = res?.data?.token
+                        console.log(res);
+                        if (res?.data) {
+                            const token = res?.data
                             localStorage.setItem('token', token)
-                            console.log(token);
                         }
                     })
+            } else {
+                setUser(currentUser)
+                setIsLoading(false)
+                localStorage.removeItem('token')
             }
-            setUser(currentUser)
-            setIsLoading(false)
-            console.log(currentUser);
+
+
+
+
 
 
 
