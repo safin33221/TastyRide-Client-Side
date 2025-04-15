@@ -217,39 +217,27 @@ const Navbar = () => {
                       <span className="badge">{t('userMenu.span1')}</span>
                     </NavLink>
                   </li>
-                  {userData?.role === 'customer' && (
-                    <>
-                      <li>
-                        <NavLink to={'/my-order'}>
-                          {t('userMenu.My Order')}
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to={'/apply-restaurent'}>
-                          {t('userMenu.Apply for Restaurant')}
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to={'/dashboard/my-order'}>
-                          {t('userMenu.Apply for Rider')}
-                        </NavLink>
-                      </li>
-                    </>
-                  )}
-                  {userData?.role === 'admin' && (
-                    <li>
-                      <NavLink to={'/dashboard/admin'}>
-                        {t('userMenu.Dashboard')}
-                      </NavLink>
-                    </li>
-                  )}
-                  {userData?.role === 'restaurant' && (
-                    <li>
-                      <NavLink to={'/dashboard/restaurantDashboard'}>
-                        {t('userMenu.Dashboard')}
-                      </NavLink>
-                    </li>
-                  )}
+                  {
+                    userData?.role === 'customer' && (
+                      <>
+                        <li><NavLink to={"/my-order"}>{t("userMenu.My Order")}</NavLink></li>
+                        <li><NavLink to={"/dashboard/my-order"}>{t("userMenu.Apply for Restaurant")}</NavLink></li>
+                        <li><NavLink to={"/rider-register-form"}>{t("userMenu.Apply for Rider")}</NavLink></li>
+
+                      </>
+                    )}
+                  {
+                    userData?.role === 'admin' && (
+
+                      <li><NavLink to={"/dashboard/admin"}>{t("userMenu.Dashboard")}</NavLink></li>
+                    )
+                  }
+                  {
+                    userData?.role === 'restaurant' && (
+
+                      <li><NavLink to={"/dashboard/restaurantDashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
+                    )
+                  }
                   <li>
                     <button onClick={handleLogOut}>
                       {t('userMenu.Logout')}
