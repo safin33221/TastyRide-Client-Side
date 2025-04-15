@@ -38,7 +38,7 @@ const Sidebar = () => {
   return (
     <motion.nav
       layout
-      className="sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
+      className={`sticky z-10 top-0 h-screen  shrink-0 border-r border-slate-300 bg-white p-2 w-full   `}
       style={{
         width: open ? '225px' : 'fit-content',
       }}
@@ -344,7 +344,7 @@ const ToggleClose = ({ open, setOpen }) => {
 };
 
 const MainContent = () => (
-  <div className=" w-full">
+  <div className=" w-full bg-indigo-50   ">
     <Outlet />
   </div>
 );
