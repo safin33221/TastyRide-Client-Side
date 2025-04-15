@@ -6,3 +6,35 @@
 a.active {
   color: red;
 }
+
+/* Custom styles for select and time inputs */
+.select-bordered:focus,
+.input-bordered:focus,
+.file-input-bordered:focus {
+  border-color: #ef4444; /* red-500 */
+  outline-color: #ef4444; /* red-500 */
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3); /* red-500 with opacity */
+}
+
+.select-bordered:hover,
+.input-bordered:hover,
+.file-input-bordered:hover {
+  border-color: #ef4444; /* red-500 */
+}
+
+.checkbox:checked,
+.radio:checked {
+  background-color: #ef4444; /* red-500 */
+  border-color: #ef4444; /* red-500 */
+}
+
+.checkbox:focus,
+.radio:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3); /* red-500 with opacity */
+}
+
+/* Custom dropdown menu styles */
+.dropdown .menu li:hover {
+  background-color: #ef4444; /* red-500 */
+  color: #ffffff; /* white text on hover */
+}
