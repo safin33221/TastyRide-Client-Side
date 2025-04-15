@@ -59,13 +59,23 @@ function RiderForm() {
       nidPicture: nidPictureUrl,
       drivingLicenseImage: drivingLicenseImageUrl,
     };
-    console.log(newData);
+
+    // const newData = {
+    //     ...data,
+    //     profilePhoto: data.profilePhoto[0].name,
+    //     nidPicture: data.nidPicture[0].name,
+    //     drivingLicenseImage: data.drivingLicenseImage[0].name,
+    //   };
+    // console.log(newData);
     try {
       // Add backend API call here
       const res = await axiosPublic.post(
         `/api/rider/application/${user?.email}`,
         newData
       );
+
+    //   console.log(res?.data);
+      
 
       if (res?.data?.success) {
         await Swal.fire({
@@ -106,9 +116,9 @@ function RiderForm() {
   ];
 
   const walletOptions = [
-    { value: "bkash", label: "bKash" },
-    { value: "nagad", label: "Nagad" },
-    { value: "rocket", label: "Rocket" },
+    { value: "bKash", label: "bKash" },
+    { value: "Nagad", label: "Nagad" },
+    { value: "Rocket", label: "Rocket" },
   ];
 
   return (
