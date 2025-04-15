@@ -1,8 +1,14 @@
 import { useForm } from "react-hook-form";
+import { imageUpload } from "../../Utils/Utils";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 function RiderForm() {
   // const [vehicleType, setVehicleType] = useState("");
   // const [paymentMethod, setPaymentMethod] = useState("");
+  const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -41,9 +47,45 @@ function RiderForm() {
   const vehicleType = watch("vehicleType");
   const paymentMethod = watch("paymentMethod");
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Add backend API call here
+  const onSubmit = async (data) => {
+    const profilePhotoUrl = await imageUpload(data.profilePhoto[0]);
+    const nidPictureUrl = await imageUpload(data.nidPicture[0]);
+    const drivingLicenseImageUrl = await imageUpload(
+      data.drivingLicenseImage[0]
+    );
+    const newData = {
+      ...data,
+      profilePhoto: profilePhotoUrl,
+      nidPicture: nidPictureUrl,
+      drivingLicenseImage: drivingLicenseImageUrl,
+    };
+    console.log(newData);
+    try {
+      // Add backend API call here
+      const res = await axiosPublic.post(
+        `/api/rider/application/${user?.email}`,
+        newData
+      );
+
+      if (res?.data?.success) {
+        await Swal.fire({
+          title: "Success!",
+          text: "Your registration has been submitted successfully.",
+          icon: "success",
+          confirmButtonText: "Great!",
+          confirmButtonColor: "#ef4444",
+          timer: 3000,
+          timerProgressBar: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error uploading data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to upload data",
+      });
+    }
   };
 
   const vehicleOptions = [
@@ -82,7 +124,6 @@ function RiderForm() {
             <div className="card-body">
               <h2 className="card-title">Personal Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                 {/* full name */}
                 <div>
                   <label className="label">
@@ -286,7 +327,6 @@ function RiderForm() {
                     </p>
                   )}
                 </div>
-
               </div>
             </div>
           </div>
@@ -324,10 +364,9 @@ function RiderForm() {
                   )}
                 </div>
 
-
                 {vehicleType !== "bicycle" && vehicleType && (
                   <>
-                  {/* vehicle number plate */}
+                    {/* vehicle number plate */}
                     <div>
                       <label className="label">
                         <span className="label-text">
@@ -354,11 +393,12 @@ function RiderForm() {
                       )}
                     </div>
 
-                      {/* driving licence number */}
+                    {/* driving licence number */}
                     <div>
                       <label className="label">
                         <span className="label-text">
-                          Driving License Number <span className="text-error">*</span>
+                          Driving License Number{" "}
+                          <span className="text-error">*</span>
                         </span>
                       </label>
                       <input
@@ -491,7 +531,6 @@ function RiderForm() {
             <div className="card-body">
               <h2 className="card-title">Banking/Payment Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                 {/* payment methiod */}
                 <div className="md:col-span-2">
                   <label className="label">
@@ -520,7 +559,7 @@ function RiderForm() {
                 </div>
 
                 {paymentMethod === "bank" && (
-                    // Bank Account Number
+                  // Bank Account Number
                   <div>
                     <label className="label">
                       <span className="label-text">Bank Account Number</span>
@@ -534,7 +573,7 @@ function RiderForm() {
                 )}
                 {paymentMethod === "wallet" && (
                   <>
-                  {/* mobile wallet provider */}
+                    {/* mobile wallet provider */}
                     <div>
                       <label className="label">
                         <span className="label-text">
