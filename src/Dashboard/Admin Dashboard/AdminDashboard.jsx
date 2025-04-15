@@ -144,10 +144,10 @@ const AdminDashboard = () => {
                         className="text-black text-4xl"
                         start={0}
                         end={TotalSalesAmount}
-                        suffix='tk'
+                        suffix=' tk'
                         duration={2}
                     />
-                    <br /> Total Revenue
+                    <br />  Revenue
                 </div>
             </div>
 
