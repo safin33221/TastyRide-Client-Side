@@ -11,7 +11,7 @@ import {
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
-import { FaBuysellads } from "react-icons/fa6";
+import { FaBuysellads } from 'react-icons/fa6';
 
 import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
@@ -32,10 +32,8 @@ export const Dashboard = () => {
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState('Dashboard');
-  const [userData, isPending] = useUserData()
-  if (isPending) return
-
-
+  const [userData, isPending] = useUserData();
+  if (isPending) return;
 
   return (
     <motion.nav
@@ -49,10 +47,8 @@ const Sidebar = () => {
 
       {/* All type of Sidebar links goes here  */}
       <div className="space-y-1">
-
         {/* Admin Realted Links */}
-        {
-          userData?.role === 'admin' &&
+        {userData?.role === 'admin' && (
           <>
             <Option
               Icon={FiHome}
@@ -79,14 +75,11 @@ const Sidebar = () => {
               open={open}
             />
           </>
-        }
-
+        )}
 
         {/* restaurant Related Links */}
-        {
-          userData?.role === 'restaurant' &&
+        {userData?.role === 'restaurant' && (
           <>
-
             <Option
               Icon={FiHome}
               title="Dashboard"
@@ -163,15 +156,11 @@ const Sidebar = () => {
               open={open}
             />
           </>
-        }
-
-
-
+        )}
 
         {/* customers Realted Links */}
 
-        {
-          userData?.role === 'customer' &&
+        {userData?.role === 'customer' && (
           <>
             <Option
               Icon={FiHome}
@@ -189,14 +178,8 @@ const Sidebar = () => {
               setSelected={setSelected}
               open={open}
             />
-          
           </>
-        }
-
-
-
-
-
+        )}
 
         <hr className="text-gray-200" />
         <Option
@@ -231,10 +214,11 @@ const Option = ({
         setSelected(title);
         navigate(links);
       }}
-      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title
-        ? 'bg-indigo-100 text-indigo-800'
-        : 'text-slate-500 hover:bg-slate-100'
-        }`}
+      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
+        selected === title
+          ? 'bg-indigo-100 text-indigo-800'
+          : 'text-slate-500 hover:bg-slate-100'
+      }`}
     >
       <motion.div
         layout

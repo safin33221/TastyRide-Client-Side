@@ -1,36 +1,36 @@
-import { FiLogIn } from "react-icons/fi";
-import { Link, Links, NavLink, useNavigate } from "react-router-dom";
-import useAuth from "../Hooks/useAuth";
-import bd from "../assets/logo/bd.png";
-import uk from "../assets/logo/uk.png";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import CountDown from "../EidFeatures/CountDown";
-import { useCart } from "../Hooks/useCart";
-import useNotification from "../Hooks/useNotification";
-import useAxiosPublic from "../Hooks/useAxiosPublic";
-import toast from "react-hot-toast";
-import useUserData from "../Hooks/useUserData";
+import { FiLogIn } from 'react-icons/fi';
+import { Link, Links, NavLink, useNavigate } from 'react-router-dom';
+import useAuth from '../Hooks/useAuth';
+import bd from '../assets/logo/bd.png';
+import uk from '../assets/logo/uk.png';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import CountDown from '../EidFeatures/CountDown';
+import { useCart } from '../Hooks/useCart';
+import useNotification from '../Hooks/useNotification';
+import useAxiosPublic from '../Hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
+import useUserData from '../Hooks/useUserData';
 
 const Navbar = () => {
-
-  const [notificationData, refetch] = useNotification()
-  const { user, LogoutUser, isNotificationOpen, setIsNotificationOpen } = useAuth();
-  const [userData] = useUserData()
-  const axiosPublic = useAxiosPublic()
+  const [notificationData, refetch] = useNotification();
+  const { user, LogoutUser, isNotificationOpen, setIsNotificationOpen } =
+    useAuth();
+  const [userData] = useUserData();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
 
-  console.log(notificationData);
+  
   const { cart } = useCart();
   const handleLogOut = () => {
     LogoutUser();
-    navigate("/");
+    navigate('/');
   };
 
   // for MultiLaguge
   const [lang, setLang] = useState(true);
   const { t, i18n } = useTranslation();
-  const changeLanguage = async (language) => {
+  const changeLanguage = async language => {
     setLang(!lang);
     // localStorage.setItem("lang", language);
     await i18n.changeLanguage(language);
@@ -39,27 +39,24 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>{t("navMenu.menu1")}</NavLink>
+        <NavLink to={'/'}>{t('navMenu.menu1')}</NavLink>
       </li>
       <li>
-        <NavLink to={"/all-food"}>{t("navMenu.menu2")}</NavLink>
+        <NavLink to={'/all-food'}>{t('navMenu.menu2')}</NavLink>
       </li>
       <li>
-        <NavLink to={"/gallery"}>{t("navMenu.menu3")}</NavLink>
+        <NavLink to={'/gallery'}>{t('navMenu.menu3')}</NavLink>
       </li>
       <li>
-        <NavLink to={"/contact"}>{t("navMenu.menu4")}</NavLink>
+        <NavLink to={'/contact'}>{t('navMenu.menu4')}</NavLink>
       </li>
-
     </>
   );
 
-  const handleClearNotification = async (email) => {
-    await axiosPublic.delete(`/api/delete-notification/${email}`)
-    refetch()
-
-
-  }
+  const handleClearNotification = async email => {
+    await axiosPublic.delete(`/api/delete-notification/${email}`);
+    refetch();
+  };
   return (
     <div className="bg-base-100 shadow-2xl z-50">
       <div className="navbar container w-full mx-auto">
@@ -73,13 +70,13 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
+                {' '}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
+                />{' '}
               </svg>
             </div>
             <ul
@@ -102,7 +99,7 @@ const Navbar = () => {
             </div>
 
             <div className="dropdown dropdown-end ">
-              <Link to={"/cart"}>
+              <Link to={'/cart'}>
                 <div
                   tabIndex={0}
                   role="button"
@@ -116,15 +113,17 @@ const Navbar = () => {
                       viewBox="0 0 24 24"
                       stroke="currentColor"
                     >
-                      {" "}
+                      {' '}
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                      />{" "}
+                      />{' '}
                     </svg>
-                    <span className="badge badge-sm indicator-item">{cart?.length}</span>
+                    <span className="badge badge-sm indicator-item">
+                      {cart?.length}
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -161,20 +160,28 @@ const Navbar = () => {
                 {isNotificationOpen && (
                   <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-lg z-50">
                     <div className="p-4 flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-left">Notifications</h3>
-                      <button onClick={() => handleClearNotification(user?.email)}
-                        className="btn btn-sm">clear all</button>
+                      <h3 className="text-lg font-semibold text-left">
+                        Notifications
+                      </h3>
+                      <button
+                        onClick={() => handleClearNotification(user?.email)}
+                        className="btn btn-sm"
+                      >
+                        clear all
+                      </button>
                     </div>
                     <div className="max-h-64 overflow-y-auto">
                       {notificationData?.length > 0 ? (
-                        notificationData.map((notification) => (
+                        notificationData.map(notification => (
                           <div
                             key={notification._id}
                             className="p-4 border-b hover:bg-gray-100"
                           >
-                            <h4 className="font-medium">{notification.title}</h4>
+                            <h4 className="font-medium">
+                              {notification.title}
+                            </h4>
                             <p className="text-sm text-gray-600">
-                              {notification.type.replace("_", " ")}
+                              {notification.type.replace('_', ' ')}
                             </p>
                           </div>
                         ))
@@ -205,9 +212,9 @@ const Navbar = () => {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-20 mt-3 w-52 p-2 shadow "
                 >
                   <li>
-                    <NavLink to={"/userProfile"} className="justify-between">
-                      {t("userMenu.profile")}
-                      <span className="badge">{t("userMenu.span1")}</span>
+                    <NavLink to={'/userProfile'} className="justify-between">
+                      {t('userMenu.profile')}
+                      <span className="badge">{t('userMenu.span1')}</span>
                     </NavLink>
                   </li>
                   {
@@ -233,19 +240,19 @@ const Navbar = () => {
                   }
                   <li>
                     <button onClick={handleLogOut}>
-                      {t("userMenu.Logout")}
+                      {t('userMenu.Logout')}
                     </button>
                   </li>
                 </ul>
               </div>
             ) : (
               <div className="px-4">
-                <Link to={"/login"}>
+                <Link to={'/login'}>
                   <button className="border px-5 py-3 cursor-pointer flex items-center gap-2 bg-red-500 border-none text-white">
                     <span>
                       <FiLogIn />
-                    </span>{" "}
-                    {t("userMenu.Login")}
+                    </span>{' '}
+                    {t('userMenu.Login')}
                   </button>
                 </Link>
               </div>
@@ -255,12 +262,12 @@ const Navbar = () => {
           {/* langues Menu */}
           <div className="cursor-pointer">
             {lang && (
-              <div onClick={() => changeLanguage("bn")} className="">
+              <div onClick={() => changeLanguage('bn')} className="">
                 <img src={uk} alt="" className="w-12 h-12 rounded-full" />
               </div>
             )}
             {!lang && (
-              <div onClick={() => changeLanguage("en")} className="">
+              <div onClick={() => changeLanguage('en')} className="">
                 <img src={bd} alt="" className="w-12 h-12 rounded-full" />
               </div>
             )}
