@@ -48,6 +48,7 @@ const Router = () => {
           <Route path="contact" element={<ContactUs />} />
           <Route path='restaurantProfile/:email' element={<Restaurants />} />
           <Route path='rider-register-form' element={<RiderForm />} />
+          <Route path='restaurant-register-form' element={<ApplyRestaurent />} />
 
           <Route path="restaurantProfile/:email" element={<Restaurants />} />
 
