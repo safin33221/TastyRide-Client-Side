@@ -4,8 +4,11 @@
 }
 
 a.active {
-  color: red;
+  background-color: #ef4444; /* red-500 */
+  color: #ffffff; /* white text on hover */
 }
+
+
 
 /* Custom styles for select and time inputs */
 .select-bordered:focus,

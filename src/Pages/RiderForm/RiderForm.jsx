@@ -19,7 +19,7 @@ function RiderForm() {
       fullName: "",
       dateOfBirth: "",
       phoneNumber: "",
-      email: "",
+      email: user?.email,
       presentAddress: "",
       permanentAddress: "",
       profilePhoto: null,
@@ -74,8 +74,8 @@ function RiderForm() {
         newData
       );
 
-    //   console.log(res?.data);
-      
+      //   console.log(res?.data);
+
 
       if (res?.data?.success) {
         await Swal.fire({
@@ -89,11 +89,11 @@ function RiderForm() {
         });
       }
     } catch (error) {
-      console.error("Error uploading data:", error);
+      // console.error("Error uploading data:", error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Failed to upload data",
+        text: error?.response?.data?.message,
       });
     }
   };
@@ -147,9 +147,8 @@ function RiderForm() {
                     {...register("fullName", {
                       required: "Full Name is required",
                     })}
-                    className={`input input-bordered w-full ${
-                      errors.fullName ? "input-error" : ""
-                    }`}
+                    className={`input input-bordered w-full ${errors.fullName ? "input-error" : ""
+                      }`}
                   />
                   {errors.fullName && (
                     <p className="text-error text-sm mt-1">
@@ -170,9 +169,8 @@ function RiderForm() {
                     {...register("dateOfBirth", {
                       required: "Date of Birth is required",
                     })}
-                    className={`input input-bordered w-full ${
-                      errors.dateOfBirth ? "input-error" : ""
-                    }`}
+                    className={`input input-bordered w-full ${errors.dateOfBirth ? "input-error" : ""
+                      }`}
                   />
                   {errors.dateOfBirth && (
                     <p className="text-error text-sm mt-1">
@@ -193,9 +191,8 @@ function RiderForm() {
                     {...register("phoneNumber", {
                       required: "Phone Number is required",
                     })}
-                    className={`input input-bordered w-full ${
-                      errors.phoneNumber ? "input-error" : ""
-                    }`}
+                    className={`input input-bordered w-full ${errors.phoneNumber ? "input-error" : ""
+                      }`}
                   />
                   {errors.phoneNumber && (
                     <p className="text-error text-sm mt-1">
@@ -213,6 +210,8 @@ function RiderForm() {
                   </label>
                   <input
                     type="email"
+                    value={user?.email}
+                    readOnly
                     {...register("email", {
                       required: "Email is required",
                       pattern: {
@@ -220,9 +219,8 @@ function RiderForm() {
                         message: "Invalid email address",
                       },
                     })}
-                    className={`input input-bordered w-full ${
-                      errors.email ? "input-error" : ""
-                    }`}
+                    className={`input input-bordered w-full ${errors.email ? "input-error" : ""
+                      }`}
                   />
                   {errors.email && (
                     <p className="text-error text-sm mt-1">
@@ -244,9 +242,8 @@ function RiderForm() {
                       {...register("presentAddress", {
                         required: "Present Address is required",
                       })}
-                      className={`input input-bordered w-full ${
-                        errors.presentAddress ? "input-error" : ""
-                      }`}
+                      className={`input input-bordered w-full ${errors.presentAddress ? "input-error" : ""
+                        }`}
                     />
                     {errors.presentAddress && (
                       <p className="text-error text-sm mt-1">
@@ -280,9 +277,8 @@ function RiderForm() {
                     {...register("profilePhoto", {
                       required: "Profile Photo is required",
                     })}
-                    className={`file-input file-input-bordered w-full ${
-                      errors.profilePhoto ? "file-input-error" : ""
-                    }`}
+                    className={`file-input file-input-bordered w-full ${errors.profilePhoto ? "file-input-error" : ""
+                      }`}
                     accept="image/*"
                   />
                   {errors.profilePhoto && (
@@ -303,9 +299,8 @@ function RiderForm() {
                     {...register("nationalId", {
                       required: "National ID is required",
                     })}
-                    className={`input input-bordered w-full ${
-                      errors.nationalId ? "input-error" : ""
-                    }`}
+                    className={`input input-bordered w-full ${errors.nationalId ? "input-error" : ""
+                      }`}
                   />
                   {errors.nationalId && (
                     <p className="text-error text-sm mt-1">
@@ -326,9 +321,8 @@ function RiderForm() {
                     {...register("nidPicture", {
                       required: "NID Picture is required",
                     })}
-                    className={`file-input file-input-bordered w-full ${
-                      errors.nidPicture ? "file-input-error" : ""
-                    }`}
+                    className={`file-input file-input-bordered w-full ${errors.nidPicture ? "file-input-error" : ""
+                      }`}
                     accept="image/*"
                   />
                   {errors.nidPicture && (
@@ -357,9 +351,8 @@ function RiderForm() {
                     {...register("vehicleType", {
                       required: "Vehicle Type is required",
                     })}
-                    className={`select select-bordered w-full ${
-                      errors.vehicleType ? "select-error" : ""
-                    }`}
+                    className={`select select-bordered w-full ${errors.vehicleType ? "select-error" : ""
+                      }`}
                   >
                     {vehicleOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -392,9 +385,8 @@ function RiderForm() {
                               ? "Vehicle Number Plate is required"
                               : false,
                         })}
-                        className={`input input-bordered w-full ${
-                          errors.vehicleNumberPlate ? "input-error" : ""
-                        }`}
+                        className={`input input-bordered w-full ${errors.vehicleNumberPlate ? "input-error" : ""
+                          }`}
                       />
                       {errors.vehicleNumberPlate && (
                         <p className="text-error text-sm mt-1">
@@ -416,9 +408,8 @@ function RiderForm() {
                         {...register("drivingLicense", {
                           required: "Driving License is required",
                         })}
-                        className={`input input-bordered w-full ${
-                          errors.drivingLicense ? "input-error" : ""
-                        }`}
+                        className={`input input-bordered w-full ${errors.drivingLicense ? "input-error" : ""
+                          }`}
                       />
                       {errors.drivingLicense && (
                         <p className="text-error text-sm mt-1">
@@ -440,9 +431,8 @@ function RiderForm() {
                         {...register("drivingLicenseImage", {
                           required: "Driving License Image is required",
                         })}
-                        className={`file-input file-input-bordered w-full ${
-                          errors.drivingLicenseImage ? "file-input-error" : ""
-                        }`}
+                        className={`file-input file-input-bordered w-full ${errors.drivingLicenseImage ? "file-input-error" : ""
+                          }`}
                         accept="image/*"
                       />
                       {errors.drivingLicenseImage && (

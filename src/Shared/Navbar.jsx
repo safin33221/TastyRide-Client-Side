@@ -38,16 +38,16 @@ const Navbar = () => {
 
   const links = (
     <>
-      <li>
+      <li className='mx-1'>
         <NavLink to={'/'}>{t('navMenu.menu1')}</NavLink>
       </li>
-      <li>
+      <li className='mx-1'>
         <NavLink to={'/all-food'}>{t('navMenu.menu2')}</NavLink>
       </li>
-      <li>
+      <li className='mx-1'>
         <NavLink to={'/gallery'}>{t('navMenu.menu3')}</NavLink>
       </li>
-      <li>
+      <li className='mx-1'>
         <NavLink to={'/contact'}>{t('navMenu.menu4')}</NavLink>
       </li>
     </>

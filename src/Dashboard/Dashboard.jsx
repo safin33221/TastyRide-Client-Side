@@ -12,7 +12,7 @@ import {
   FiUsers,
 } from 'react-icons/fi';
 import { FaBuysellads } from 'react-icons/fa6';
-
+import { GrRestaurant } from "react-icons/gr";
 import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
@@ -62,6 +62,14 @@ const Sidebar = () => {
               Icon={FiUsers}
               title="Manage Users"
               links="/dashboard/manage-user"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={GrRestaurant }
+              title="Riders Application"
+              links="/dashboard/rider-application"
               selected={selected}
               setSelected={setSelected}
               open={open}
