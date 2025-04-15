@@ -32,6 +32,7 @@ import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
 import PrivetRoute from './PrivetRoute/PrivetRoute';
 import RiderForm from '../Pages/RiderForm/RiderForm';
 import ApplyRestaurent from '../Pages/ApplyRestaurent/ApplyRestaurent';
+import RidersApplication from '../Dashboard/Admin Dashboard/RidersApplication';
 
 const Router = () => {
   return (
@@ -118,6 +119,7 @@ const Router = () => {
           <Route path="admin" element={<AdminDashboard />} />
           <Route path="manage-user" element={<ManageUsers />} />
           <Route path="manage-ad" element={<ManageAdvertisements />} />
+          <Route path="rider-application" element={<RidersApplication />} />
 
           {/* ----------------------------------------------------------Restaurant routes*/}
           <Route path="restaurantDashboard" element={<RestaurantDashboard />} />
