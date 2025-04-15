@@ -70,18 +70,34 @@ const RidersApplication = () => {
                                         </div>
                                     </td>
                                     <td className="border border-gray-300 p-2 space-y-2">
-                                        <button
-                                            onClick={() => handleStatus(user.userId, 'approved')}
-                                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 block w-full"
-                                        >
-                                            Approve
-                                        </button>
-                                        <button
-                                            onClick={() => handleStatus(user.userId, 'rejected')}
-                                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 block w-full"
-                                        >
-                                            Reject
-                                        </button>
+                                        {
+                                            user?.status === 'pending' ?
+                                                <>
+
+
+                                                    <button
+                                                        onClick={() => handleStatus(user.userId, 'approved')}
+                                                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 block w-full"
+                                                    >
+                                                        Approve
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleStatus(user.userId, 'rejected')}
+                                                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 block w-full"
+                                                    >
+                                                        Reject
+                                                    </button>
+                                                </>
+                                                : (
+                                                    <button
+                                                        onClick={() => handleStatus(user.userId, 'rejected')}
+                                                        className=" text-black px-3 py-1 rounded btn  block w-full"
+                                                        disabled
+                                                    >
+                                                        {user?.status}
+                                                    </button>
+                                                )
+                                        }
                                     </td>
                                 </tr>
                             ))
