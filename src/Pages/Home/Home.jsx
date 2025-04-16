@@ -68,7 +68,7 @@ const Home = () => {
         <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
         <section>
-          <CategoryFoods />
+          {/* <CategoryFoods /> */}
         </section>
         <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
