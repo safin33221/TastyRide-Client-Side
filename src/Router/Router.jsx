@@ -33,6 +33,7 @@ import PrivetRoute from './PrivetRoute/PrivetRoute';
 import RiderForm from '../Pages/RiderForm/RiderForm';
 import ApplyRestaurent from '../Pages/ApplyRestaurent/ApplyRestaurent';
 import RidersApplication from '../Dashboard/Admin Dashboard/RidersApplication';
+import RestaurantApplication from '../Dashboard/Admin Dashboard/RestaurantApplication';
 
 const Router = () => {
   return (
@@ -47,9 +48,12 @@ const Router = () => {
           <Route path="all-food/:id" element={<SingleFood />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
-          <Route path='restaurantProfile/:email' element={<Restaurants />} />
-          <Route path='rider-register-form' element={<RiderForm />} />
-          <Route path='restaurant-register-form' element={<ApplyRestaurent />} />
+          <Route path="restaurantProfile/:email" element={<Restaurants />} />
+          <Route path="rider-register-form" element={<RiderForm />} />
+          <Route
+            path="restaurant-register-form"
+            element={<ApplyRestaurent />}
+          />
 
           <Route path="restaurantProfile/:email" element={<Restaurants />} />
 
@@ -120,6 +124,10 @@ const Router = () => {
           <Route path="manage-user" element={<ManageUsers />} />
           <Route path="manage-ad" element={<ManageAdvertisements />} />
           <Route path="rider-application" element={<RidersApplication />} />
+          <Route
+            path="restaurant-application"
+            element={<RestaurantApplication />}
+          />
 
           {/* ----------------------------------------------------------Restaurant routes*/}
           <Route path="restaurantDashboard" element={<RestaurantDashboard />} />
