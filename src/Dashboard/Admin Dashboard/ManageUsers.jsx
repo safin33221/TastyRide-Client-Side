@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Loading from "../../Pages/Loader/Loading";
 
 const ManageUsers = () => {
   const axiosPublic = useAxiosPublic();
@@ -25,21 +26,21 @@ const ManageUsers = () => {
   }, []); // Empty dependency array is fine for initial fetch
 
 
-const handleRoleChange = async (id, newRole) => {
+  const handleRoleChange = async (id, newRole) => {
     console.log("Changing role for user ID:", id, "New role:", newRole);
-  
+
     const previousUsers = [...users];
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
         user._id === id ? { ...user, role: newRole } : user
       )
     );
-  
+
     try {
       setLoading(true);
       const res = await axiosPublic.put(`/api/users/${id}`, { role: newRole });
       console.log("Role change response:", res);
-  
+
       Swal.fire("Success!", "User role updated successfully", "success");
       // No need to check modifiedCount; assume success if no error
     } catch (error) {
@@ -88,7 +89,7 @@ const handleRoleChange = async (id, newRole) => {
     return (
       <div className="flex justify-center items-center h-screen">
         <span className="spinner-border animate-spin"></span>
-        <p>Loading users...</p>
+        <Loading></Loading>
       </div>
     );
   }
@@ -137,6 +138,7 @@ const handleRoleChange = async (id, newRole) => {
                       <option value="admin">Admin</option>
                       <option value="restaurant">Restaurant</option>
                       <option value="customer">Customer</option>
+                      <option value="rider">Rider</option>
                     </select>
                   </td>
                   <td className="border border-gray-300 p-2">

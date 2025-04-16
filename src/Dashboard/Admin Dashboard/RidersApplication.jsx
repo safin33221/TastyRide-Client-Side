@@ -12,8 +12,8 @@ const RidersApplication = () => {
         }
     })
     console.log(application);
-    const handleStatus = async (userId, status) => {
-        const res = await axiosPublic.patch(`/api/update-applications-status`, { userId, status })
+    const handleStatus = async (email, status) => {
+        const res = await axiosPublic.patch(`/api/update-applications-status`, { email, status })
         console.log(res);
     }
     return (
@@ -76,16 +76,16 @@ const RidersApplication = () => {
 
 
                                                     <button
-                                                        onClick={() => handleStatus(user.userId, 'approved')}
+                                                        onClick={() => handleStatus(user.email, 'approved')}
                                                         className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 block w-full"
                                                     >
                                                         Approve
                                                     </button>
                                                     <button
-                                                        onClick={() => handleStatus(user.userId, 'rejected')}
+                                                        onClick={() => handleStatus(user.email, 'rejected')}
                                                         className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 block w-full"
                                                     >
-                                                        Reject
+                                                        Rejected
                                                     </button>
                                                 </>
                                                 : (
