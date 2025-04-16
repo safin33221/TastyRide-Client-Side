@@ -246,6 +246,12 @@ const Navbar = () => {
                       <li><NavLink to={"/dashboard/restaurantDashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
                     )
                   }
+                  {
+                    userData?.role === 'rider' && (
+
+                      <li><NavLink to={"/dashboard/riderDashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
+                    )
+                  }
                   <li>
                     <button onClick={handleLogOut}>
                       {t('userMenu.Logout')}

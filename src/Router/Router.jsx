@@ -33,6 +33,7 @@ import PrivetRoute from './PrivetRoute/PrivetRoute';
 import RiderForm from '../Pages/RiderForm/RiderForm';
 import ApplyRestaurent from '../Pages/ApplyRestaurent/ApplyRestaurent';
 import RidersApplication from '../Dashboard/Admin Dashboard/RidersApplication';
+import RiderDashboard from '../Dashboard/Rider/RiderDashboard';
 
 const Router = () => {
   return (
@@ -129,6 +130,10 @@ const Router = () => {
           <Route path="restaurantProfile" element={<RestaurantProfile />} />
           <Route path="ad" element={<Advertisement />} />
           <Route path="ad/post" element={<PostAdvertisement />} />
+
+          {/* -----------------------------------------------------------Rider DashBoard */}
+          <Route path="riderDashboard" element={<RiderDashboard />} />
+
         </Route>
       </Routes>
     </BrowserRouter>
