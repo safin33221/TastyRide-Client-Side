@@ -58,7 +58,7 @@ const RegisterForm = () => {
       <form onSubmit={handleSubmit(onsubmit)}
         className="">
         {/* name */}
-        <div className="mb-8">
+        <div className="mb-4">
           <label className=" uppercase">{t('register.Name')}</label>
 
           <input
@@ -69,7 +69,7 @@ const RegisterForm = () => {
           />
         </div>
         {/* email */}
-        <div className="mb-8">
+        <div className="mb-4">
           <label className=" uppercase">{t('login.Email')}</label>
 
           <input
@@ -80,7 +80,7 @@ const RegisterForm = () => {
           />
         </div>
         {/* password */}
-        <div className="mb-10">
+        <div className="mb-5">
           <label className=" uppercase">{t('login.Password')}</label>
 
           <input

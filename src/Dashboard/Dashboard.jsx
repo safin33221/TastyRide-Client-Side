@@ -21,6 +21,7 @@ import useAuth from '../Hooks/useAuth';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 import useUserData from '../Hooks/useUserData';
+import { MdDashboard } from 'react-icons/md';
 
 export const Dashboard = () => {
   return (
@@ -69,7 +70,7 @@ const Sidebar = () => {
               open={open}
             />
             <Option
-              Icon={GrRestaurant }
+              Icon={GrRestaurant}
               title="Riders Application"
               links="/dashboard/rider-application"
               selected={selected}
@@ -191,21 +192,12 @@ const Sidebar = () => {
           </>
         )}
 
-        {/* rider related field  */}
         {userData?.role === 'rider' && (
           <>
             <Option
-              Icon={FiHome}
-              title="Dashboard"
-              links="/dashboard/rider-dashboard"
-              selected={selected}
-              setSelected={setSelected}
-              open={open}
-            />
-            <Option
-              Icon={MdDeliveryDining }
-              title="Delivery Request"
-              links="/dashboard/delivery-request"
+              Icon={MdDashboard}
+              title="Overview"
+              links="/dashboard/riderDashboard"
               selected={selected}
               setSelected={setSelected}
               open={open}
@@ -254,11 +246,10 @@ const Option = ({
         setSelected(title);
         navigate(links);
       }}
-      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
-        selected === title
-          ? 'bg-indigo-100 text-indigo-800'
-          : 'text-slate-500 hover:bg-slate-100'
-      }`}
+      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title
+        ? 'bg-indigo-100 text-indigo-800'
+        : 'text-slate-500 hover:bg-slate-100'
+        }`}
     >
       <motion.div
         layout
