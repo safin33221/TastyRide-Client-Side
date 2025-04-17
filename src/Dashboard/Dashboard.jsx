@@ -12,6 +12,7 @@ import {
   FiUsers,
 } from 'react-icons/fi';
 import { MdDeliveryDining } from "react-icons/md";
+import { CiDeliveryTruck } from "react-icons/ci";
 import { FcAcceptDatabase } from "react-icons/fc";
 import { FaBuysellads } from 'react-icons/fa6';
 import { GrRestaurant } from "react-icons/gr";
@@ -198,6 +199,14 @@ const Sidebar = () => {
               Icon={MdDashboard}
               title="Overview"
               links="/dashboard/riderDashboard"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={CiDeliveryTruck}
+              title="Delivery Request"
+              links="/dashboard/delivery-request"
               selected={selected}
               setSelected={setSelected}
               open={open}
