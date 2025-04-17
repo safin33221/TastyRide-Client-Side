@@ -43,7 +43,7 @@ const AdminDashboard = () => {
     const TotalAdmin = users?.filter(user => user.role === 'admin')
     const TotalCustomers = users?.filter(user => user.role === 'customer')
     const TotalRestaurant = users?.filter(user => user.role === 'restaurant')
-    const TotalRiders = users?.filter(user => user.role === 'riders')
+    const TotalRiders = users?.filter(user => user.role === 'rider')
 
     const TotalSalesAmount = orders?.reduce((a, b) => a + b.total_amount, 0)
     console.log(TotalSalesAmount);
