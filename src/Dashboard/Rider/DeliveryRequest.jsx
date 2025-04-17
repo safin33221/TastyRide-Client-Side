@@ -2,13 +2,14 @@ import React from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function DeliveryRequest() {
   const axiosPublic = useAxiosPublic();
   const {user} = useAuth()
   // console.log(user)
 
-  const { data: orders = [] } = useQuery({
+  const { data: orders = [], refetch } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
       const res = await axiosPublic.get("/api/allOrders");
@@ -24,6 +25,10 @@ export default function DeliveryRequest() {
     console.log(res.data)
     const statusRes = await axiosPublic.put(`/api/orders/${id}`, {status: "Accepted"})
     console.log(statusRes.data)
+    if(statusRes.data.success){
+      toast.success("Order accepted")
+      refetch()
+    }
   }
   return (
     <div className="md:m-5 xl:m-10 bg-white md:p-5 xl:p-10 md:rounded-xl">

@@ -2,22 +2,36 @@ import React from "react";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function AcceptedRequest() {
-    const axiosPublic = useAxiosPublic();
-    const {user} = useAuth()
-    // console.log(user)
-  
-    const { data: orders = [] } = useQuery({
-      queryKey: ["orders"],
-      queryFn: async () => {
-        const res = await axiosPublic.get("/api/allOrders");
-        console.log(res.data);
-        return res.data;
-      },
-    });
+  const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
+  // console.log(user)
 
-    const filteredOrders = orders?.filter(prev => prev.acceptedBy === user?.email)
+  const { data: orders = [], refetch } = useQuery({
+    queryKey: ["orders"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/api/allOrders");
+      console.log(res.data);
+      return res.data;
+    },
+  });
+
+  const handleDelivered = async (id) => {
+    const res = await axiosPublic.put(`/api/orders/${id}`, {
+      status: "Delivered",
+    });
+    console.log(res.data)
+    if(res.data.success){
+        toast.success("Order Delivered")
+        refetch()
+    }
+  };
+
+  const filteredOrders = orders?.filter(
+    (prev) => prev.acceptedBy === user?.email
+  );
   return (
     <div className="md:m-5 xl:m-10 bg-white md:p-5 xl:p-10 md:rounded-xl">
       <h1 className="font-semibold text-2xl mb-5">Delivery Request</h1>
@@ -51,7 +65,12 @@ export default function AcceptedRequest() {
                 <td>{order?.restaurantEmail}</td>
                 <td>{order?.info?.cus_add1}</td>
                 <th>
-                    <button onClick={() => handleAcceptRequest(order?._id)} className="btn btn-xs btn-success text-white">Accept</button>
+                  <button
+                    onClick={() => handleDelivered(order?._id)}
+                    className="btn btn-xs btn-success text-white"
+                  >
+                    {order?.status === 'Accepted' ? "Deliver" : "Delivered"}
+                  </button>
                 </th>
               </tr>
             ))}
@@ -59,5 +78,5 @@ export default function AcceptedRequest() {
         </table>
       </div>
     </div>
-  )
+  );
 }
