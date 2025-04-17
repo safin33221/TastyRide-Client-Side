@@ -4,9 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 
-export default function DeliveryRequest() {
+export default function AcceptedRequest() {
   const axiosPublic = useAxiosPublic();
-  const {user} = useAuth()
+  const { user } = useAuth();
   // console.log(user)
 
   const { data: orders = [], refetch } = useQuery({
@@ -18,18 +18,20 @@ export default function DeliveryRequest() {
     },
   });
 
-  const filteredOrders = orders?.filter(prev => prev.status === "On-the-Way")
-
-  const handleAcceptRequest = async(id) => {
-    const res = await axiosPublic.patch(`/api/accepted-rider/${id}`, {acceptedBy:user?.email})
+  const handleDelivered = async (id) => {
+    const res = await axiosPublic.put(`/api/orders/${id}`, {
+      status: "Delivered",
+    });
     console.log(res.data)
-    const statusRes = await axiosPublic.put(`/api/orders/${id}`, {status: "Accepted"})
-    console.log(statusRes.data)
-    if(statusRes.data.success){
-      toast.success("Order accepted")
-      refetch()
+    if(res.data.success){
+        toast.success("Order Delivered")
+        refetch()
     }
-  }
+  };
+
+  const filteredOrders = orders?.filter(
+    (prev) => prev.acceptedBy === user?.email
+  );
   return (
     <div className="md:m-5 xl:m-10 bg-white md:p-5 xl:p-10 md:rounded-xl">
       <h1 className="font-semibold text-2xl mb-5">Delivery Request</h1>
@@ -63,7 +65,12 @@ export default function DeliveryRequest() {
                 <td>{order?.restaurantEmail}</td>
                 <td>{order?.info?.cus_add1}</td>
                 <th>
-                    <button onClick={() => handleAcceptRequest(order?._id)} className="btn btn-xs btn-success text-white">Accept</button>
+                  <button
+                    onClick={() => handleDelivered(order?._id)}
+                    className="btn btn-xs btn-success text-white"
+                  >
+                    {order?.status === 'Accepted' ? "Deliver" : "Delivered"}
+                  </button>
                 </th>
               </tr>
             ))}
