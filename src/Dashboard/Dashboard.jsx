@@ -11,6 +11,8 @@ import {
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
+import { MdDeliveryDining } from "react-icons/md";
+
 import { FaBuysellads } from 'react-icons/fa6';
 import { GrRestaurant } from "react-icons/gr";
 import { motion } from 'framer-motion';
@@ -182,6 +184,28 @@ const Sidebar = () => {
               Icon={FiHome}
               title="My Order"
               links="/dashboard/my-order"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+          </>
+        )}
+
+        {/* rider related field  */}
+        {userData?.role === 'rider' && (
+          <>
+            <Option
+              Icon={FiHome}
+              title="Dashboard"
+              links="/dashboard/rider-dashboard"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={MdDeliveryDining }
+              title="Delivery Request"
+              links="/dashboard/delivery-request"
               selected={selected}
               setSelected={setSelected}
               open={open}

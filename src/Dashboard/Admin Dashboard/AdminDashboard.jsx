@@ -56,7 +56,7 @@ const AdminDashboard = () => {
         amount: order.info.total_amount
     }));
 
-    const orderStatuses = ["Pending", "Cooking", "On the Way", "Delivered", "Cancelled"];
+    const orderStatuses = ["Pending", "Cooking", "On-the-Way", "Delivered", "Cancelled"];
 
     const statusSummary = orderStatuses.map((status) => ({
         name: status,

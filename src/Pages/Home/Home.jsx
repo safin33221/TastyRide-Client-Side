@@ -14,7 +14,6 @@ import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import Reviews from '../../Components/Reviews/Reviews';
 import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
-import RandomFood from '../../Components/RandomFood/RandomFood';
 
 const Home = () => {
   const { user } = useAuth();
