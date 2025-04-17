@@ -141,9 +141,9 @@ const Router = () => {
 
           {/* ----------------------------------------------------------Rider routes*/}
 
-            <Route path='rider-dashboard' element={<RiderDashboard/>}/>
-            <Route path='delivery-request' element={<DeliveryRequest/>}/>
-            <Route path='accepted-request' element={<AcceptedRequest/>}/>
+          <Route path='rider-dashboard' element={<RiderDashboard />} />
+          <Route path='delivery-request' element={<DeliveryRequest />} />
+          <Route path='accepted-request' element={<AcceptedRequest />} />
 
           <Route path='rider-dashboard' element={<RiderDashboard />} />
           <Route path='delivery-request' element={<DeliveryRequest />} />
