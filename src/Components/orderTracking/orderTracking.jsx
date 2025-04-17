@@ -76,7 +76,7 @@ const OrderTracking = () => {
       case 'Cooking':
         minutesToAdd = 30;
         break;
-      case 'On the Way':
+      case 'On-the-Way':
         minutesToAdd = 15;
         break;
       case 'Delivered':
@@ -86,7 +86,7 @@ const OrderTracking = () => {
       default:
         minutesToAdd = 0;
     }
-    if (status === 'On the Way' && minutesToAdd <= 15) {
+    if (status === 'On-the-Way' && minutesToAdd <= 15) {
       return 'Anytime now'; // Match the "Anytime now" text
     }
     const start = new Date(created.getTime() + minutesToAdd * 60000);
@@ -121,7 +121,7 @@ const OrderTracking = () => {
         subMessage = 'The rider is waiting at the restaurant';
         showReview = false;
         break;
-      case 'On the Way':
+      case 'On-the-Way':
         progress = 75; // First, second, and third bars filled
         message = 'On the way';
         subMessage =

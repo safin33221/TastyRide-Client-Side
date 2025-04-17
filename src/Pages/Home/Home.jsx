@@ -12,8 +12,8 @@ import DiscountsProduct from '../../EidFeatures/DiscountProducts/DiscountsProduc
 import SectionDivider from '../../Shared/SectionDivider';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
-import NewLetterModal from '../../Components/NewLetterModal/NewLetterModal';
 import Reviews from '../../Components/Reviews/Reviews';
+import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
 
 const Home = () => {
   const { user } = useAuth();
@@ -68,7 +68,8 @@ const Home = () => {
         <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
         <section>
-          <CategoryFoods />
+          {/* <CategoryFoods /> */}
+          {/* <RandomFood/> */}
         </section>
         <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
@@ -79,7 +80,7 @@ const Home = () => {
         <Reviews></Reviews>
         <SectionDivider></SectionDivider>
         {/* newletter modal */}
-        {showModal && <NewLetterModal onClose={handleOnClose} />}
+        {showModal && <NewsLetterModal onClose={handleOnClose} />}
       </div>
     </div>
   );

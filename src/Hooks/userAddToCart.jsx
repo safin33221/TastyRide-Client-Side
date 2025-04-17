@@ -27,7 +27,7 @@ export const useAddToCart = () => {
 
     console.log("res", restaurant[0], "addedFood", food.addedBy);
 
-    if (restaurant[0] === food.addedBy) {
+    if (restaurant[0] === food.addedBy || cart.length === 0) {
       try {
         const res = await axiosPublic.post(`/api/cart`, {
           food: foodWithEmail,
