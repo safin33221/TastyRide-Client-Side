@@ -50,9 +50,11 @@ function RiderForm() {
   const onSubmit = async (data) => {
     const profilePhotoUrl = await imageUpload(data.profilePhoto[0]);
     const nidPictureUrl = await imageUpload(data.nidPicture[0]);
-    const drivingLicenseImageUrl = await imageUpload(
-      data.drivingLicenseImage[0]
-    );
+    // Check if driving license image exists before uploading
+    let drivingLicenseImageUrl = null;
+    if (data.drivingLicenseImage?.[0]) {
+      drivingLicenseImageUrl = await imageUpload(data.drivingLicenseImage[0]);
+    }
     const newData = {
       ...data,
       profilePhoto: profilePhotoUrl,
