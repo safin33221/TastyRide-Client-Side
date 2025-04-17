@@ -132,6 +132,9 @@ const Router = () => {
           <Route path="ad" element={<Advertisement />} />
           <Route path="ad/post" element={<PostAdvertisement />} />
 
+          {/* -----------------------------------------------------------Rider DashBoard */}
+          <Route path="riderDashboard" element={<RiderDashboard />} />
+
           {/* ----------------------------------------------------------Rider routes*/}
             <Route path='rider-dashboard' element={<RiderDashboard/>}/>
             <Route path='delivery-request' element={<DeliveryRequest/>}/>

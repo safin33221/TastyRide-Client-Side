@@ -15,6 +15,7 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import Reviews from '../../Components/Reviews/Reviews';
 import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
 
+
 const Home = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
@@ -22,6 +23,7 @@ const Home = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const isShowModal = localStorage.getItem('isShowModal')
   useEffect(() => {
     const checkSubscription = async () => {
       setIsLoading(true);
@@ -42,11 +44,20 @@ const Home = () => {
   }, [user?.email]);
 
   useEffect(() => {
+
     if (!isLoading) {
-      if (!isSubscribed) {
+      if (!isSubscribed || !isShowModal) {
         const timer = setTimeout(() => {
           setShowModal(true);
-        }, 5000); // Show modal after 5 seconds
+          localStorage.setItem('isShowModal', true)
+
+          const resetTimer = setTimeout(() => {
+            localStorage.removeItem('isShowModal');
+          }, 10800000); // 3 hours in milliseconds
+
+
+          return () => clearTimeout(resetTimer); // Cleanup the timer on unmount
+        }, 10000); // Show modal after 5 seconds
         return () => clearTimeout(timer); // Cleanup the timer on unmount
       } else {
         setShowModal(false);
