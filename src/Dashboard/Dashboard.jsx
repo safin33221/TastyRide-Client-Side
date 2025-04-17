@@ -12,7 +12,7 @@ import {
   FiUsers,
 } from 'react-icons/fi';
 import { MdDeliveryDining } from "react-icons/md";
-
+import { FcAcceptDatabase } from "react-icons/fc";
 import { FaBuysellads } from 'react-icons/fa6';
 import { GrRestaurant } from "react-icons/gr";
 import { motion } from 'framer-motion';
@@ -206,6 +206,14 @@ const Sidebar = () => {
               Icon={MdDeliveryDining }
               title="Delivery Request"
               links="/dashboard/delivery-request"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FcAcceptDatabase  }
+              title="Accepted Request"
+              links="/dashboard/accepted-request"
               selected={selected}
               setSelected={setSelected}
               open={open}

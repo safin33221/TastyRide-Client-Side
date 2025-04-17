@@ -3,28 +3,21 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth";
 
-export default function DeliveryRequest() {
-  const axiosPublic = useAxiosPublic();
-  const {user} = useAuth()
-  // console.log(user)
+export default function AcceptedRequest() {
+    const axiosPublic = useAxiosPublic();
+    const {user} = useAuth()
+    // console.log(user)
+  
+    const { data: orders = [] } = useQuery({
+      queryKey: ["orders"],
+      queryFn: async () => {
+        const res = await axiosPublic.get("/api/allOrders");
+        console.log(res.data);
+        return res.data;
+      },
+    });
 
-  const { data: orders = [] } = useQuery({
-    queryKey: ["orders"],
-    queryFn: async () => {
-      const res = await axiosPublic.get("/api/allOrders");
-      console.log(res.data);
-      return res.data;
-    },
-  });
-
-  const filteredOrders = orders?.filter(prev => prev.status === "On-the-Way")
-
-  const handleAcceptRequest = async(id) => {
-    const res = await axiosPublic.patch(`/api/accepted-rider/${id}`, {acceptedBy:user?.email})
-    console.log(res.data)
-    const statusRes = await axiosPublic.put(`/api/orders/${id}`, {status: "Accepted"})
-    console.log(statusRes.data)
-  }
+    const filteredOrders = orders?.filter(prev => prev.acceptedBy === user?.email)
   return (
     <div className="md:m-5 xl:m-10 bg-white md:p-5 xl:p-10 md:rounded-xl">
       <h1 className="font-semibold text-2xl mb-5">Delivery Request</h1>
@@ -66,5 +59,5 @@ export default function DeliveryRequest() {
         </table>
       </div>
     </div>
-  );
+  )
 }
