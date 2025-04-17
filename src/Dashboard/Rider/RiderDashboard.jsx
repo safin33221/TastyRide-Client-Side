@@ -1,11 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-const RiderDashboard = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
-
-export default RiderDashboard;
+export default function RiderDashboard() {
+  return (
+    <div className='md:m-5 xl:m-10 bg-white md:p-5 xl:p-10 md:rounded-xl'>RiderDashboard</div>
+  )
+}

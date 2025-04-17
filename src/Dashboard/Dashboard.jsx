@@ -11,6 +11,8 @@ import {
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
+import { MdDeliveryDining } from "react-icons/md";
+
 import { FaBuysellads } from 'react-icons/fa6';
 import { GrRestaurant } from "react-icons/gr";
 import { motion } from 'framer-motion';

@@ -5,8 +5,7 @@ import Footer from "../Shared/Footer";
 import { MdMessage } from "react-icons/md";
 import { useEffect, useState } from "react";
 import ChatBot from "../Components/ChatBot";
-import NewLetterModal from "../Components/NewLetterModal/NewLetterModal";
-import useAxiosPublic from "../Hooks/useAxiosPublic";
+import useAxiosPublic from "../Hooks/useAxiosPublic"; 
 import useAuth from "../Hooks/useAuth";
 
 const MainLayout = () => {

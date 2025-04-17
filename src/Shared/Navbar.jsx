@@ -249,7 +249,7 @@ const Navbar = () => {
                   {
                     userData?.role === 'rider' && (
 
-                      <li><NavLink to={"/dashboard/riderDashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
+                      <li><NavLink to={"/dashboard/rider-dashboard"}>{t("userMenu.Dashboard")}</NavLink></li>
                     )
                   }
                   <li>
