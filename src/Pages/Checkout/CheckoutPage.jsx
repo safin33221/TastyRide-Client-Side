@@ -6,6 +6,7 @@ import { useCart } from "../../Hooks/useCart";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
+import Loading from "../Loader/Loading";
 
 const CheckoutComponent = () => {
   const { cart, refetch, isLoading, isError } = useCart();
@@ -82,7 +83,16 @@ const CheckoutComponent = () => {
           Swal.fire("Error", result.data.message || "Failed to place order", "error");
         }
       } else {
-        const response = await axiosPublic.post('/init-payment', info);
+        const orderDetails = {
+          info,
+          cart,
+          restaurantEmail: restaurantEmail[0],
+          paymentMethod: 'cod',
+          total_amount: total_amount,
+          status: 'Pending',
+          createdAt: new Date(),
+        };
+        const response = await axiosPublic.post('/init-payment', orderDetails);
         const { GatewayPageURL } = response.data;
         if (GatewayPageURL) {
           window.location.href = GatewayPageURL;
@@ -96,7 +106,7 @@ const CheckoutComponent = () => {
     }
   };
 
-  if (isLoading) return <div>Loading cart...</div>;
+  if (isLoading) return <Loading />
   if (isError) return <div>Error loading cart</div>;
 
   return (

@@ -46,7 +46,7 @@ const Home = () => {
   useEffect(() => {
 
     if (!isLoading) {
-      if (!isSubscribed || !isShowModal) {
+      if (!isSubscribed && !isShowModal) {
         const timer = setTimeout(() => {
           setShowModal(true);
           localStorage.setItem('isShowModal', true)
