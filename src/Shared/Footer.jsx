@@ -42,7 +42,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/order-tracking/:orderId" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+                <a href="" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
                   Track Order
                 </a>
               </li>
