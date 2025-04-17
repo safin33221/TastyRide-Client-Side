@@ -8,9 +8,10 @@ import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router";
 import SectionDivider from "../../../Shared/SectionDivider";
+import { useQuery } from "@tanstack/react-query";
 
 function CustomerProfile() {
-  const { UpdateUserProfile } = useAuth();
+  const { UpdateUserProfile, user } = useAuth();
   const [userData, isPending, refetch] = useUserData();
   const axiosPublic = useAxiosPublic();
   const [isEditing, setIsEditing] = useState(false);
@@ -85,11 +86,28 @@ function CustomerProfile() {
   //   updating user data end ------------------------------------------------------
 
   // Mock restaurant data (replace with real data from API/hook)
-  const followedRestaurants = [
-    { id: 1, name: "Spice Haven", image: "https://via.placeholder.com/40" },
-    { id: 2, name: "Taste of Dhaka", image: "https://via.placeholder.com/40" },
-    { id: 3, name: "Grill Master", image: "https://via.placeholder.com/40" },
-  ];
+
+  const {
+    data: followedRestaurants = [],
+    refetch: reUpdate,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ["restaurants", user?.email],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/api/users/following-restaurants/${user?.email}`);
+      console.log(res.data);
+      
+      return res?.data;
+    },
+    enabled: !!user?.email // ✅ Only runs when userEmail is available
+  });
+
+  // hamdle unfollow
+  const handleUnfollow = async (restaurantEmail) => {
+    const res = await axiosPublic.patch(`/api/restaurant/follow`, {userEmail: user?.email, restaurantEmail});
+    if(!res?.data?.isFollowing) reUpdate();
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -218,29 +236,29 @@ function CustomerProfile() {
           <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-6">
             Followed Restaurants
           </h3>
-          {followedRestaurants.length > 0 ? (
+          {followedRestaurants?.isFollowing ? (
             <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {followedRestaurants.map((restaurant) => (
+              {followedRestaurants?.restaurants.map((restaurant) => (
                 <div className="p-4 border border-base-300 hover:border-red-500/20 transition min-h-full flex flex-col justify-between">
                   <div
-                    key={restaurant.id}
+                    key={restaurant._id}
                     className="restaurant-item flex items-center gap-6 lg:gap-3 justify-center mb-4"
                   >
                     {/* restaurant profile image */}
                     <div className="flex items-center">
                       <div className="avatar">
                         <div className="w-20 h-20 rounded-full border-2 border-red-500">
-                          <img src={restaurant.image} alt={restaurant.name} />
+                          <img src={restaurant?.restaurantDetails?.profilePhoto} alt={restaurant?.restaurantDetails?.restaurantName} />
                         </div>
                       </div>
                       
                     </div>
                     <div className="flex flex-col">
                       {/* restaurant name */}
-                      <span className="font-medium">{restaurant.name}</span>
+                      <span className="font-medium">{restaurant?.restaurantDetails?.restaurantName}</span>
                       {/* unfollow button */}
                     <button
-                      onClick={() => handleUnfollow(restaurant.id)}
+                      onClick={() => handleUnfollow(restaurant.email)}
                       className="btn btn-sm btn-outline mt-2 border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
                     >
                       Unfollow
@@ -248,7 +266,7 @@ function CustomerProfile() {
                     </div>
                   </div>
                   {/* go to restaurant button */}
-                  <Link>
+                  <Link to={`/restaurantProfile/${restaurant.email}`}>
                     <button className="w-full text-center py-2 px-5 bg-red-500  text-white font-semibold cursor-pointer select-none 
                     hover:bg-red-600 border-2 border-red-500 hover:border-red-600 transition-all ">
                       Go To Restaurant
@@ -259,7 +277,7 @@ function CustomerProfile() {
             </div>
           ) : (
             <p className="text-gray-500">
-              You are not following any restaurants.
+             {followedRestaurants?.message}
             </p>
           )}
         </div>

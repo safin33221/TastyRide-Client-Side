@@ -8,7 +8,7 @@ const ExploreRestaurant = () => {
     const axiosPublic = useAxiosPublic()
 
     const { data: restaurant = [], isPending, } = useQuery({
-        queryKey: 'restaurant',
+        queryKey: ['restaurant'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/api/allRestaurants`)
             return res.data
@@ -32,10 +32,10 @@ const ExploreRestaurant = () => {
                         restaurant?.map(data => (
                             data.restaurantDetails != null && (
 
-                                <Link key={data._id} to={`/restaurantProfile/${data.email}`}>
-                                    <div className=" bg-gray-100 hover:shadow-2xl hover:cursor-pointer rounded-xl shadow-md overflow-hidden border border-gray-200 mx-2 md:mx-0 ">
+                                <Link key={data?._id} to={`/restaurantProfile/${data.email}`}>
+                                    <div className=" bg-gray-100 hover:shadow-2xl h-full hover:cursor-pointer rounded-xl shadow-md overflow-hidden border border-gray-200 mx-2 md:mx-0 ">
                                         <img className="w-full h-48 object-cover" src={data.restaurantDetails.coverPhoto} alt="Best Indian Biryani" />
-                                        <div class="p-4 space-y-2">
+                                        <div className="p-4 space-y-2">
                                             <div className='flex items-center gap-2'>
                                                 <img className='w-8 rounded-full ' src={data.restaurantDetails.profilePhoto} alt="" />
                                                 <h3 className="text-lg font-semibold text-gray-800">{data.restaurantDetails.restaurantName}</h3>

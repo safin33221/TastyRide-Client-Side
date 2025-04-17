@@ -6,12 +6,13 @@ import {
 } from 'recharts';
 import moment from 'moment/moment';
 import CountUp from 'react-countup';
+import Loading from '../../Pages/Loader/Loading';
 
 const AdminDashboard = () => {
     const axiosPublic = useAxiosPublic()
 
     // -----------------------------------------Fetch Users Data
-    const { data: users = [] } = useQuery({
+    const { data: users = [], isLoading: isUserLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const userRes = await axiosPublic.get(`/api/users`)
@@ -19,8 +20,8 @@ const AdminDashboard = () => {
         }
 
     })
-    //-------------------------------------------Fetch Orders Data
-    const { data: foods = [] } = useQuery({
+    //-------------------------------------------Fetch Foods Data
+    const { data: foods = [], isLoading: isFoodLoading } = useQuery({
         queryKey: ['foods'],
         queryFn: async () => {
             const foodRes = await axiosPublic.get('/api/foods')
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
         }
     })
     //-------------------------------------------Fetch Orders Data
-    const { data: orders = [] } = useQuery({
+    const { data: orders = [], isLoading: isOrdersLoading } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
             const ordersRes = await axiosPublic.get('/api/allOrders')
@@ -44,6 +45,9 @@ const AdminDashboard = () => {
     const TotalRestaurant = users?.filter(user => user.role === 'restaurant')
     const TotalRiders = users?.filter(user => user.role === 'riders')
 
+    const TotalSalesAmount = orders?.reduce((a, b) => a + b.total_amount, 0)
+    console.log(TotalSalesAmount);
+
 
 
     // Format orders to use in chart
@@ -52,7 +56,7 @@ const AdminDashboard = () => {
         amount: order.info.total_amount
     }));
 
-    const orderStatuses = ["Pending", "Cooking", "On The Way", "Delivered", "Canceled"];
+    const orderStatuses = ["Pending", "Cooking", "On the Way", "Delivered", "Cancelled"];
 
     const statusSummary = orderStatuses.map((status) => ({
         name: status,
@@ -60,6 +64,10 @@ const AdminDashboard = () => {
     }));
 
     const COLORS = ["#facc15", "#60a5fa", "#38bdf8", "#22c55e", "#ef4444"];
+
+    const isLoadingData = isUserLoading || isFoodLoading || isOrdersLoading
+
+    if(isLoadingData) return <Loading/>
 
     return (
         <div className='mt-4 px-3 space-y-2'>
@@ -112,7 +120,7 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
                 <div className='bg-white shadow hover:shadow-2xl transition-all duration-300 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
                     <CountUp
                         className="text-black text-4xl"
@@ -130,6 +138,16 @@ const AdminDashboard = () => {
                         duration={2}
                     />
                     <br /> Total Sales
+                </div>
+                <div className='bg-white shadow hover:shadow-2xl transition-all duration-300 h-28 rounded-xl flex items-center justify-center text-xl  uppercase  font-bold text-center '>
+                    <CountUp
+                        className="text-black text-4xl"
+                        start={0}
+                        end={TotalSalesAmount}
+                        suffix=' tk'
+                        duration={2}
+                    />
+                    <br />  Revenue
                 </div>
             </div>
 
@@ -184,7 +202,7 @@ const AdminDashboard = () => {
 
 
             <div className='grid grid-cols-2 gap-2'>
-                <div className='border h-28 rounded-xl flex items-center justify-center'>Positive Review</div>
+                <div className='border h-28 rounded-xl flex items-center justify-center'>{TotalSalesAmount}</div>
                 <div className='border h-28 rounded-xl flex items-center justify-center'> Negative Review</div>
             </div>
 

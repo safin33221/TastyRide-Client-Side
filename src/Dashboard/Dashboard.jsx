@@ -12,7 +12,7 @@ import {
   FiUsers,
 } from 'react-icons/fi';
 import { FaBuysellads } from 'react-icons/fa6';
-
+import { GrRestaurant } from "react-icons/gr";
 import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
@@ -38,7 +38,7 @@ const Sidebar = () => {
   return (
     <motion.nav
       layout
-      className="sticky top-0 h-screen shrink-0 border-r border-slate-300 bg-white p-2"
+      className={`sticky z-10 top-0 h-screen  shrink-0 border-r border-slate-300 bg-white p-2 w-full   `}
       style={{
         width: open ? '225px' : 'fit-content',
       }}
@@ -62,6 +62,14 @@ const Sidebar = () => {
               Icon={FiUsers}
               title="Manage Users"
               links="/dashboard/manage-user"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={GrRestaurant }
+              title="Riders Application"
+              links="/dashboard/rider-application"
               selected={selected}
               setSelected={setSelected}
               open={open}
@@ -344,7 +352,7 @@ const ToggleClose = ({ open, setOpen }) => {
 };
 
 const MainContent = () => (
-  <div className=" w-full">
+  <div className=" w-full bg-indigo-50   ">
     <Outlet />
   </div>
 );
