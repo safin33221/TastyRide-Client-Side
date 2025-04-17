@@ -85,9 +85,9 @@ const Home = () => {
         <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
         <SectionDivider></SectionDivider>
-        <EasyOrder />
-        <SectionDivider></SectionDivider>
         <OurClient></OurClient>
+        <SectionDivider></SectionDivider>
+        <EasyOrder />
         <Reviews></Reviews>
         <SectionDivider></SectionDivider>
         {/* newletter modal */}

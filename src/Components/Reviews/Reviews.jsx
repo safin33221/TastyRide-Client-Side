@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import SectionTitle from '../../Shared/SectionTitle';
+import Marquee from 'react-fast-marquee';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -44,18 +46,23 @@ const Reviews = () => {
     );
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12">
-      <h2 className="text-2xl font-bold mb-8 text-gray-800 border-b pb-2 text-center">
-        Customer Feedback
+    <section className=" mx-auto px-4 pt-8">
+      <h2 className="text-2xl font-bold mb-8 text-gray-800   pb-2 text-center">
+        <SectionTitle title={`Customer Feedback`} desc={`Real Stories, Honest Opinions — Because Your Experience Matters Most`} />
       </h2>
 
-      <div className="overflow-hidden border rounded-lg bg-blue-50 p-4">
-        <marquee behavior="scroll" direction="left" scrollamount="6">
+      <div className="overflow-hidden  rounded-lg bg-blue-50 p-4">
+        <Marquee
+          speed={60}
+          gradient={false}
+          loop={0}
+           
+          >
           <div className="flex gap-6">
             {reviews.map(review => (
               <div
                 key={review._id}
-                className="min-w-[300px] bg-white shadow rounded-lg p-4 border border-gray-100"
+                className="min-w-[250px] bg-white shadow rounded-lg p-4 border border-gray-100"
               >
                 <div className="flex items-center mb-2">
                   <div className="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center font-bold mr-3">
@@ -69,11 +76,10 @@ const Reviews = () => {
                   {[1, 2, 3, 4, 5].map(star => (
                     <svg
                       key={star}
-                      className={`w-4 h-4 ${
-                        star <= review.rating
+                      className={`w-4 h-4 ${star <= review.rating
                           ? 'text-yellow-400'
                           : 'text-gray-300'
-                      }`}
+                        }`}
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -88,7 +94,7 @@ const Reviews = () => {
               </div>
             ))}
           </div>
-        </marquee>
+        </Marquee>
       </div>
     </section>
   );
