@@ -11,7 +11,7 @@ import {
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
-import { MdDeliveryDining } from "react-icons/md";
+import { MdDeliveryDining, MdOutlineManageHistory } from "react-icons/md";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FcAcceptDatabase } from "react-icons/fc";
 import { FaBuysellads } from 'react-icons/fa6';
@@ -127,7 +127,7 @@ const Sidebar = () => {
               open={open}
             />
             <Option
-              Icon={FiShoppingCart}
+              Icon={MdOutlineManageHistory }
               title="Manage Orders"
               links="/dashboard/manage-orders"
               selected={selected}
