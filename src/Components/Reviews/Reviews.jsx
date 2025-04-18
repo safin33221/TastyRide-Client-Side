@@ -51,7 +51,7 @@ const Reviews = () => {
         <SectionTitle title={`Customer Feedback`} desc={`Real Stories, Honest Opinions — Because Your Experience Matters Most`} />
       </h2>
 
-      <div className="overflow-hidden  rounded-lg bg-blue-50 p-4">
+      <div className="overflow-hidden  rounded-lg  p-4">
         <Marquee
           speed={60}
           gradient={false}
@@ -62,7 +62,7 @@ const Reviews = () => {
             {reviews.map(review => (
               <div
                 key={review._id}
-                className="min-w-[250px] bg-white shadow rounded-lg p-4 border border-gray-100"
+                className="min-w-[250px] bg-gray-100 font-semibold shadow rounded-lg p-4 border border-gray-100"
               >
                 <div className="flex items-center mb-2">
                   <div className="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center font-bold mr-3">
