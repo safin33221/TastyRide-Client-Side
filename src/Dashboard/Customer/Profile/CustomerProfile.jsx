@@ -236,7 +236,7 @@ function CustomerProfile() {
           <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-6">
             Followed Restaurants
           </h3>
-          {followedRestaurants?.isFollowing ? (
+          { followedRestaurants?.isFollowing ? (
             <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {followedRestaurants?.restaurants.map((restaurant) => (
                 <div className="p-4 border border-base-300 hover:border-red-500/20 transition min-h-full flex flex-col justify-between">
