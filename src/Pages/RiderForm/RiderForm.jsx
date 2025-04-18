@@ -126,13 +126,14 @@ function RiderForm() {
   return (
     <div className="min-h-screen bg-base-200 py-10">
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 text-red-500">
-          Rider Registration Form
-        </h1>
+
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* Personal Information */}
           <div className="card bg-base-100 shadow-xl">
+            <h1 className="text-2xl m-5 font-bold text-center underline text-gray-800 mb-6 ">
+              Rider Registration Form
+            </h1>
             <div className="card-body">
               <h2 className="card-title">Personal Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

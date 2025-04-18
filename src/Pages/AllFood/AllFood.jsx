@@ -92,10 +92,10 @@ const AllFood = () => {
   };
 
   return (
-    <div>
+    <div className='bg-gray-100'>
       {/* Hero section */}
       <div
-        className="hero min-h-96"
+        className="hero min-h-96 "
         style={{
           backgroundImage:
             'url(https://lovefoodhatewaste.ca/wp-content/uploads/2020/11/FoodBackgroundNomeat.jpg)',
@@ -110,7 +110,7 @@ const AllFood = () => {
       </div>
 
       {/* Filter and Sort Controls */}
-      <div className="p-6 bg-gray-100">
+      <div className=" py-8  container mx-auto">
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex items-center bg-white p-2 rounded-lg shadow-sm flex-1">
             <FaSearch className="text-gray-500" />
@@ -166,7 +166,7 @@ const AllFood = () => {
             }) => (
               <div
                 key={_id}
-                className="bg-white p-4 rounded-lg shadow-lg relative transition-all duration-300 group hover:bg-yellow-500 hover:shadow-xl flex flex-col justify-between"
+                className="bg-white p-4 border-indigo-50 shadow-lg relative transition-all duration-300 group hover:bg-yellow-500 hover:shadow-xl flex flex-col justify-between"
               >
                 <>
                   <button className="absolute top-3 right-3 text-gray-500 hover:text-red-500">
