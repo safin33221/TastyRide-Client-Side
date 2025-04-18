@@ -9,6 +9,8 @@ import useAuth from "../../../Hooks/useAuth";
 import { Link } from "react-router";
 import SectionDivider from "../../../Shared/SectionDivider";
 import { useQuery } from "@tanstack/react-query";
+import { FaVoicemail } from "react-icons/fa6";
+import { MdCall, MdEmail, MdOutlineEmail } from "react-icons/md";
 
 function CustomerProfile() {
   const { UpdateUserProfile, user } = useAuth();
@@ -97,7 +99,7 @@ function CustomerProfile() {
     queryFn: async () => {
       const res = await axiosPublic.get(`/api/users/following-restaurants/${user?.email}`);
       console.log(res.data);
-      
+
       return res?.data;
     },
     enabled: !!user?.email // ✅ Only runs when userEmail is available
@@ -105,24 +107,24 @@ function CustomerProfile() {
 
   // hamdle unfollow
   const handleUnfollow = async (restaurantEmail) => {
-    const res = await axiosPublic.patch(`/api/restaurant/follow`, {userEmail: user?.email, restaurantEmail});
-    if(!res?.data?.isFollowing) reUpdate();
+    const res = await axiosPublic.patch(`/api/restaurant/follow`, { userEmail: user?.email, restaurantEmail });
+    if (!res?.data?.isFollowing) reUpdate();
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen py-10">
       <div className="container mx-auto px-4 my-6">
-        
+
         {/* user profile */}
-        <div className="card bg-white shadow-xl p-5 rounded-lg mt-8 md:mt-10 lg:mt-12">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-10">
+        <div className="card bg-gray-100 py-10 shadow-xl p-5  mt-8 md:mt-10 lg:mt-12">
+          <div className="flex flex-col md:flex-row justify-center items-center ">
             {/* user profile image */}
-            <div className="w-full md:w-1/2 flex flex-col items-center">
+            <div className="w-full md:w-1/2 flex flex-col justify-center  items-center">
               <div className="relative">
                 <img
                   src={updatedProfilePic || userData?.photo}
                   alt="Profile"
-                  className="w-56 h-56 rounded-full border-4 border-red-500"
+                  className="w-64 h-64 m-auto  rounded-full border-4 border-red-500"
                 />
                 {isEditing && (
                   <label className="absolute bottom-6 -right-2">
@@ -154,7 +156,7 @@ function CustomerProfile() {
                     defaultValue={userData?.username}
                     placeholder="Write Your Name"
                     onChange={(e) => setUpdatedName(e.target.value)}
-                    className="text-lg font-bold border-b-2 outline-none focus:border-red-500"
+                    className="text-2xl md:text-3xl lg:text-4xl font-bold border-b-2 outline-none focus:border-red-500 flex items-center gap-2 "
                   />
                 ) : (
                   <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
@@ -164,64 +166,79 @@ function CustomerProfile() {
                 {/* ------------------------ user name end ------------------------ */}
 
                 {/* ------------------------ user email start ------------------------ */}
-                <p className="text-gray-600 text-xl md:text-2xl">
-                  {userData?.email}
+                <p className="flex items-center gap-2  text-2xl w-full">
+                  <MdEmail className="text-red-500" /> {userData?.email}
                 </p>
                 {/* ------------------------ user email end ------------------------ */}
 
                 {/* ------------------------ user phone number start ------------------------ */}
+
                 {isEditing ? (
-                  <input
-                    type="text"
-                    defaultValue={userData?.phone}
-                    placeholder="Write Your Phone Number"
-                    onChange={(e) => setUpdatedPhoneNumber(e.target.value)}
-                    className="text-lg mt-2 border-b-2 outline-none focus:border-red-500"
-                  />
+                  <div className="flex items-center gap-2  text-2xl w-full">
+                    <MdCall className="text-red-500 " />
+                    <input
+                      type="text"
+                      defaultValue={userData?.phone}
+                      placeholder="Write Your Phone Number"
+                      onChange={(e) => setUpdatedPhoneNumber(e.target.value)}
+                      className="text-xl md:text-2xl mt-2 border-b-2 outline-none focus:border-red-500"
+                    /></div>
                 ) : (
-                  <p className="text-gray-600 text-xl md:text-2xl">
-                    {updatedPhoneNumber || userData?.phone || "+8801 *********"}
+                  <p className="text-gray-600 text-xl md:text-2xl flex items-center gap-2 w-full ">
+                    <MdCall className="text-red-500 " />{updatedPhoneNumber || userData?.phone || "+8801 *********"}
                   </p>
                 )}
               </div>
               {/* ------------------------ user phone number end ------------------------ */}
 
-              
-                {/* ------------------------ user address start ------------------------ */}
-                <div className="flex items-center gap-3 text-lg mt-2">
-                  <FaMapMarkerAlt className="text-red-500" />
-                  {isEditing ? (
+
+              {/* ------------------------ user address start ------------------------ */}
+              <div className="flex items-center gap-3 text-lg mt-2">
+                {isEditing ? (
+                  <div className="flex items-center gap-2 text-2xl w-full">
+                    <FaMapMarkerAlt className="text-red-500" />
                     <input
                       type="text"
                       defaultValue={userData?.address}
                       placeholder="Write Your Address"
                       onChange={(e) => setUpdatedAddress(e.target.value)}
-                      className="text-lg border-b-2 outline-none focus:border-red-500"
+                      className="text-xl md:text-2xl border-b-2 outline-none focus:border-red-500 "
                     />
-                  ) : (
-                    <span className="text-gray-600 text-xl md:text-2xl">
-                      {updatedAddress ||
-                        userData?.address ||
-                        "Add your address"}
-                    </span>
-                  )}
-             
+                  </div>
+                ) : (
+                  <span className="text-gray-600 text-xl md:text-2xl flex items-center gap-2">
+                    <FaMapMarkerAlt className="text-red-500" />
+                    {updatedAddress ||
+                      userData?.address ||
+                      "Add your address"}
+                  </span>
+                )}
+
                 {/* ------------------------ user address end ------------------------ */}
               </div>
             </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 flex justify-end ">
             {isEditing ? (
-              <button
-                onClick={handleUpdateUserData}
-                className="btn hover:bg-red-600 hover:text-white w-full"
-              >
-                Save Profile Update
-              </button>
+              <div className="flex gap-2 w-full md:w-1/2 items-end justify-end text-right">
+
+                <button
+                  onClick={() => {setIsEditing(false)}}
+                  className="btn bg-red-600 hover:text-white w-1/2 "
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdateUserData}
+                  className="btn bg-green-600 hover:text-white w-1/2 "
+                >
+                  Save Profile Update
+                </button>
+              </div>
             ) : (
               <button
                 onClick={handleEditClick}
-                className="w-full text-center py-2 px-5 bg-red-500  text-white font-semibold cursor-pointer select-none hover:bg-red-600 border-2 border-red-500 hover:border-red-600 transition-all scale-100 active:scale-90"
+                className="w-full md:w-1/2 text-center py-2 px-5 bg-red-500  text-white font-semibold cursor-pointer select-none hover:bg-red-600 border-2 border-red-500 hover:border-red-600 transition-all scale-100 active:scale-90"
               >
                 Edit Profile
               </button>
@@ -236,7 +253,7 @@ function CustomerProfile() {
           <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-6">
             Followed Restaurants
           </h3>
-          { followedRestaurants?.isFollowing ? (
+          {followedRestaurants?.isFollowing ? (
             <div className="space-y-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {followedRestaurants?.restaurants.map((restaurant) => (
                 <div className="p-4 border border-base-300 hover:border-red-500/20 transition min-h-full flex flex-col justify-between">
@@ -251,18 +268,18 @@ function CustomerProfile() {
                           <img src={restaurant?.restaurantDetails?.profilePhoto} alt={restaurant?.restaurantDetails?.restaurantName} />
                         </div>
                       </div>
-                      
+
                     </div>
                     <div className="flex flex-col">
                       {/* restaurant name */}
                       <span className="font-medium">{restaurant?.restaurantDetails?.restaurantName}</span>
                       {/* unfollow button */}
-                    <button
-                      onClick={() => handleUnfollow(restaurant.email)}
-                      className="btn btn-sm btn-outline mt-2 border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
-                    >
-                      Unfollow
-                    </button>
+                      <button
+                        onClick={() => handleUnfollow(restaurant.email)}
+                        className="btn btn-sm btn-outline mt-2 border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
+                      >
+                        Unfollow
+                      </button>
                     </div>
                   </div>
                   {/* go to restaurant button */}
@@ -277,7 +294,7 @@ function CustomerProfile() {
             </div>
           ) : (
             <p className="text-gray-500">
-             {followedRestaurants?.message}
+              {followedRestaurants?.message}
             </p>
           )}
         </div>
