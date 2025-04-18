@@ -14,6 +14,7 @@ import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import Reviews from '../../Components/Reviews/Reviews';
 import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
+import DeliveryCities from '../../Components/DeliveryCities/DeliveryCities';
 
 
 const Home = () => {
@@ -84,6 +85,8 @@ const Home = () => {
         </section>
         <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
+        <SectionDivider></SectionDivider>
+        <DeliveryCities></DeliveryCities>
         <SectionDivider></SectionDivider>
         <OurClient></OurClient>
         <SectionDivider></SectionDivider>
