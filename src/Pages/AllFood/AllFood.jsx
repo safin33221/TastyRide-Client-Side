@@ -166,7 +166,7 @@ const AllFood = () => {
             }) => (
               <div
                 key={_id}
-                className="bg-white p-4 rounded-lg shadow-lg relative transition-all duration-300 group hover:bg-yellow-500 hover:shadow-xl flex flex-col justify-between"
+                className="bg-white p-4 border-indigo-50 shadow-lg relative transition-all duration-300 group hover:bg-yellow-500 hover:shadow-xl flex flex-col justify-between"
               >
                 <>
                   <button className="absolute top-3 right-3 text-gray-500 hover:text-red-500">
