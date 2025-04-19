@@ -48,7 +48,7 @@ const RestaurantProfile = () => {
     const handleProfileChange = async () => {
         if (profilePhotoFile) {
             const profilePhoto = await imageUpload(profilePhotoFile)
-            await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { profilePhoto })
+            await axiosPublic.patch(`/api/restaurantProfile/${user?.email}`, { profilePhoto })
             refetch()
             setProfilePhotoFile(null)
             setSelectedProfilePhoto(null)
@@ -75,7 +75,7 @@ const RestaurantProfile = () => {
     const handleCoverPhotoChange = async () => {
         if (CoverPhotoFile) {
             const coverPhoto = await imageUpload(CoverPhotoFile)
-            await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { coverPhoto })
+            await axiosPublic.patch(`/api/restaurantProfile/${user?.email}`, { coverPhoto })
             refetch()
             setCoverPhotoFile(null)
             setSelectedCoverPhoto(null)
@@ -94,7 +94,7 @@ const RestaurantProfile = () => {
         // Here you can add logic to save the updated name to the server if needed
         console.log("Updated Restaurant Name:", restaurantName);
         try {
-            await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { restaurantName })
+            await axiosPublic.patch(`/api/restaurantProfile/${user?.email}`, { restaurantName })
             refetch()
             toast.success('Restaurant name change successfully')
         } catch (error) {

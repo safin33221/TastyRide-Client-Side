@@ -48,7 +48,7 @@ const Sidebar = () => {
 
       {/* All type of Sidebar links goes here  */}
       <div className="space-y-1">
-        {/* Admin Realted Links */}
+        {/* Admin Related Links */}
         {userData?.role === 'admin' && (
           <>
             <Option
@@ -175,7 +175,7 @@ const Sidebar = () => {
           </>
         )}
 
-        {/* customers Realted Links */}
+        {/* customers Related Links */}
 
         {userData?.role === 'customer' && (
           <>
