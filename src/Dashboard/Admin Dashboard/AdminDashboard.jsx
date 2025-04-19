@@ -43,7 +43,7 @@ const AdminDashboard = () => {
     const TotalAdmin = users?.filter(user => user.role === 'admin')
     const TotalCustomers = users?.filter(user => user.role === 'customer')
     const TotalRestaurant = users?.filter(user => user.role === 'restaurant')
-    const TotalRiders = users?.filter(user => user.role === 'rider')
+    const TotalRiders = users?.filter(user => user.role === 'riders')
 
     const TotalSalesAmount = orders?.reduce((a, b) => a + b.total_amount, 0)
     console.log(TotalSalesAmount);
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
         amount: order.info.total_amount
     }));
 
-    const orderStatuses = ["Pending", "Cooking", "On-the-Way", "Delivered", "Cancelled"];
+    const orderStatuses = ["Pending", "Cooking", "On the Way", "Delivered", "Cancelled"];
 
     const statusSummary = orderStatuses.map((status) => ({
         name: status,

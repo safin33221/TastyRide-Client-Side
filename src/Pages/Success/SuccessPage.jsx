@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
 import { useCart } from "../../Hooks/useCart";
-import { Link } from "react-router";
 
 const SuccessPage = () => {
   const location = useLocation();
@@ -49,13 +48,12 @@ const SuccessPage = () => {
             <strong>Date:</strong> {tranDate || "N/A"}
           </p>
         </div>
-        <Link
-          to={`/my-order`}
+        <a
           href="/order-tracking"
           className="mt-6 inline-block rounded-md bg-gray-900 px-4 py-2 text-white"
         >
           Track Order
-        </Link>
+        </a>
       </div>
     </div>
   );

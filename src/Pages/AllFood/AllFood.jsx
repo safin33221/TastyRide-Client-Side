@@ -92,10 +92,10 @@ const AllFood = () => {
   };
 
   return (
-    <div className='bg-gray-100'>
+    <div>
       {/* Hero section */}
       <div
-        className="hero min-h-96 "
+        className="hero min-h-96"
         style={{
           backgroundImage:
             'url(https://lovefoodhatewaste.ca/wp-content/uploads/2020/11/FoodBackgroundNomeat.jpg)',
@@ -110,7 +110,7 @@ const AllFood = () => {
       </div>
 
       {/* Filter and Sort Controls */}
-      <div className=" py-8  container mx-auto">
+      <div className="p-6 bg-gray-100">
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex items-center bg-white p-2 rounded-lg shadow-sm flex-1">
             <FaSearch className="text-gray-500" />
@@ -153,7 +153,7 @@ const AllFood = () => {
         </div>
 
         {/* Food Items Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
           {filteredFoods.map(
             ({
               _id,
@@ -166,27 +166,26 @@ const AllFood = () => {
             }) => (
               <div
                 key={_id}
-                className="bg-white p-4 border-indigo-50 shadow-lg relative transition-all duration-300 group hover:bg-yellow-500 hover:shadow-xl flex flex-col justify-between"
+                className="bg-white p-4 rounded-lg shadow-lg relative transition-all duration-300 group hover:bg-yellow-500 hover:shadow-xl"
               >
-                <>
-                  <button className="absolute top-3 right-3 text-gray-500 hover:text-red-500">
-                    <FaHeart />
-                  </button>
-                  <img
-                    src={image}
-                    alt={foodName}
-                    className="w-full h-40 object-cover rounded-md"
-                  />
-                  <h2 className="text-lg font-bold mt-3">{foodName}</h2>
-                  <div className="flex items-center mt-2">
-                    <span className=" text-gray-600">Category ({category})</span>
-                  </div>
-                  <p className="text-gray-500 line-through">
-                    Availability {availability}
-                  </p>
-                  <p className="text-red-500 font-bold">${price}</p></>
+                <button className="absolute top-3 right-3 text-gray-500 hover:text-red-500">
+                  <FaHeart />
+                </button>
+                <img
+                  src={image}
+                  alt={foodName}
+                  className="w-full h-40 object-cover rounded-md"
+                />
+                <h2 className="text-lg font-bold mt-3">{foodName}</h2>
+                <div className="flex items-center mt-2">
+                  <span className=" text-gray-600">Category ({category})</span>
+                </div>
+                <p className="text-gray-500 line-through">
+                  Availability {availability}
+                </p>
+                <p className="text-red-500 font-bold">${price}</p>
                 <Link to={`/all-food/${_id}`}>
-                  <button className="bg-red-500 text-white w-full mt-3 py-2 flex items-center  justify-center gap-2    transition-opacity duration-300 cursor-pointer">
+                  <button className="bg-black text-white w-full mt-3 py-2 flex items-center justify-center gap-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
                     <FaShoppingCart /> Add to Cart
                   </button>
                 </Link>

@@ -33,7 +33,7 @@ const ExploreRestaurant = () => {
                             data.restaurantDetails != null && (
 
                                 <Link key={data?._id} to={`/restaurantProfile/${data.email}`}>
-                                    <div className=" bg-gray-100 hover:shadow-xl h-full hover:cursor-pointer  shadow-md overflow-hidden border border-gray-200 mx-2 md:mx-0 transition-all duration-300 ease-in-out ">
+                                    <div className=" bg-gray-100 hover:shadow-2xl h-full hover:cursor-pointer rounded-xl shadow-md overflow-hidden border border-gray-200 mx-2 md:mx-0 ">
                                         <img className="w-full h-48 object-cover" src={data.restaurantDetails.coverPhoto} alt="Best Indian Biryani" />
                                         <div className="p-4 space-y-2">
                                             <div className='flex items-center gap-2'>

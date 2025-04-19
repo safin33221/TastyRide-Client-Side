@@ -12,10 +12,8 @@ import DiscountsProduct from '../../EidFeatures/DiscountProducts/DiscountsProduc
 import SectionDivider from '../../Shared/SectionDivider';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import NewLetterModal from '../../Components/NewLetterModal/NewLetterModal';
 import Reviews from '../../Components/Reviews/Reviews';
-import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
-import DeliveryCities from '../../Components/DeliveryCities/DeliveryCities';
-
 
 const Home = () => {
   const { user } = useAuth();
@@ -24,7 +22,6 @@ const Home = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isShowModal = localStorage.getItem('isShowModal')
   useEffect(() => {
     const checkSubscription = async () => {
       setIsLoading(true);
@@ -45,20 +42,11 @@ const Home = () => {
   }, [user?.email]);
 
   useEffect(() => {
-
     if (!isLoading) {
-      if (!isSubscribed && !isShowModal) {
+      if (!isSubscribed) {
         const timer = setTimeout(() => {
           setShowModal(true);
-          localStorage.setItem('isShowModal', true)
-
-          const resetTimer = setTimeout(() => {
-            localStorage.removeItem('isShowModal');
-          }, 10800000); // 3 hours in milliseconds
-
-
-          return () => clearTimeout(resetTimer); // Cleanup the timer on unmount
-        }, 10000); // Show modal after 5 seconds
+        }, 5000); // Show modal after 5 seconds
         return () => clearTimeout(timer); // Cleanup the timer on unmount
       } else {
         setShowModal(false);
@@ -80,21 +68,18 @@ const Home = () => {
         <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
         <section>
-          {/* <CategoryFoods /> */}
-          {/* <RandomFood/> */}
+          <CategoryFoods />
         </section>
         <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
         <SectionDivider></SectionDivider>
-        <DeliveryCities></DeliveryCities>
+        <EasyOrder />
         <SectionDivider></SectionDivider>
         <OurClient></OurClient>
-        <SectionDivider></SectionDivider>
-        <EasyOrder />
         <Reviews></Reviews>
         <SectionDivider></SectionDivider>
         {/* newletter modal */}
-        {showModal && <NewsLetterModal onClose={handleOnClose} />}
+        {showModal && <NewLetterModal onClose={handleOnClose} />}
       </div>
     </div>
   );

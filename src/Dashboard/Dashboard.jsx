@@ -11,18 +11,15 @@ import {
   FiUser,
   FiUsers,
 } from 'react-icons/fi';
-import { MdDeliveryDining, MdOutlineManageHistory } from "react-icons/md";
-import { CiDeliveryTruck } from "react-icons/ci";
-import { FcAcceptDatabase } from "react-icons/fc";
 import { FaBuysellads } from 'react-icons/fa6';
-import { GrRestaurant } from "react-icons/gr";
+import { GrRestaurant } from 'react-icons/gr';
 import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 import useUserData from '../Hooks/useUserData';
-import { MdDashboard } from 'react-icons/md';
+import { FaUserFriends } from 'react-icons/fa';
 
 export const Dashboard = () => {
   return (
@@ -79,6 +76,14 @@ const Sidebar = () => {
               open={open}
             />
             <Option
+              Icon={FaUserFriends}
+              title="Restaurant Application"
+              links="/dashboard/restaurant-application"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
               Icon={FaBuysellads}
               title="Manage Ads"
               links="/dashboard/manage-ad"
@@ -127,7 +132,7 @@ const Sidebar = () => {
               open={open}
             />
             <Option
-              Icon={MdOutlineManageHistory }
+              Icon={FiShoppingCart}
               title="Manage Orders"
               links="/dashboard/manage-orders"
               selected={selected}
@@ -193,35 +198,6 @@ const Sidebar = () => {
           </>
         )}
 
-        {userData?.role === 'rider' && (
-          <>
-            <Option
-              Icon={MdDashboard}
-              title="Overview"
-              links="/dashboard/riderDashboard"
-              selected={selected}
-              setSelected={setSelected}
-              open={open}
-            />
-            <Option
-              Icon={CiDeliveryTruck}
-              title="Delivery Request"
-              links="/dashboard/delivery-request"
-              selected={selected}
-              setSelected={setSelected}
-              open={open}
-            />
-            <Option
-              Icon={FcAcceptDatabase  }
-              title="Accepted Request"
-              links="/dashboard/accepted-request"
-              selected={selected}
-              setSelected={setSelected}
-              open={open}
-            />
-          </>
-        )}
-
         <hr className="text-gray-200" />
         <Option
           Icon={FiMonitor}
@@ -255,10 +231,11 @@ const Option = ({
         setSelected(title);
         navigate(links);
       }}
-      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${selected === title
-        ? 'bg-indigo-100 text-indigo-800'
-        : 'text-slate-500 hover:bg-slate-100'
-        }`}
+      className={`relative flex h-10 w-full items-center rounded-md transition-colors ${
+        selected === title
+          ? 'bg-indigo-100 text-indigo-800'
+          : 'text-slate-500 hover:bg-slate-100'
+      }`}
     >
       <motion.div
         layout

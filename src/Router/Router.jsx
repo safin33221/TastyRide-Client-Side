@@ -33,9 +33,7 @@ import PrivetRoute from './PrivetRoute/PrivetRoute';
 import RiderForm from '../Pages/RiderForm/RiderForm';
 import ApplyRestaurent from '../Pages/ApplyRestaurent/ApplyRestaurent';
 import RidersApplication from '../Dashboard/Admin Dashboard/RidersApplication';
-import RiderDashboard from '../Dashboard/Rider/RiderDashboard';
-import DeliveryRequest from '../Dashboard/Rider/DeliveryRequest';
-import AcceptedRequest from '../Dashboard/Rider/AcceptedRequest';
+import RestaurantApplication from '../Dashboard/Admin Dashboard/RestaurantApplication';
 
 const Router = () => {
   return (
@@ -44,14 +42,18 @@ const Router = () => {
         {/* --------------------------------------------------------------------------Main Layout */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
           <Route path="all-food" element={<AllFood />} />
           <Route path="all-food/:id" element={<SingleFood />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
-          <Route path='restaurantProfile/:email' element={<Restaurants />} />
-          <Route path='rider-register-form' element={<RiderForm />} />
-          <Route path='restaurant-register-form' element={<ApplyRestaurent />} />
+          <Route path="restaurantProfile/:email" element={<Restaurants />} />
+          <Route path="rider-register-form" element={<RiderForm />} />
+          <Route
+            path="restaurant-register-form"
+            element={<ApplyRestaurent />}
+          />
 
           <Route path="restaurantProfile/:email" element={<Restaurants />} />
 
@@ -114,10 +116,6 @@ const Router = () => {
             }
           />
         </Route>
-        <Route>
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
 
         {/* -----------------------------------------------------------------------Dashboard Layout */}
         <Route path="/dashboard" element={<Dashboard />}>
@@ -126,6 +124,10 @@ const Router = () => {
           <Route path="manage-user" element={<ManageUsers />} />
           <Route path="manage-ad" element={<ManageAdvertisements />} />
           <Route path="rider-application" element={<RidersApplication />} />
+          <Route
+            path="restaurant-application"
+            element={<RestaurantApplication />}
+          />
 
           {/* ----------------------------------------------------------Restaurant routes*/}
           <Route path="restaurantDashboard" element={<RestaurantDashboard />} />
@@ -135,19 +137,6 @@ const Router = () => {
           <Route path="restaurantProfile" element={<RestaurantProfile />} />
           <Route path="ad" element={<Advertisement />} />
           <Route path="ad/post" element={<PostAdvertisement />} />
-
-          {/* -----------------------------------------------------------Rider DashBoard */}
-          <Route path="riderDashboard" element={<RiderDashboard />} />
-
-          {/* ----------------------------------------------------------Rider routes*/}
-
-          <Route path='rider-dashboard' element={<RiderDashboard />} />
-          <Route path='delivery-request' element={<DeliveryRequest />} />
-          <Route path='accepted-request' element={<AcceptedRequest />} />
-
-          <Route path='rider-dashboard' element={<RiderDashboard />} />
-          <Route path='delivery-request' element={<DeliveryRequest />} />
-
         </Route>
       </Routes>
     </BrowserRouter>

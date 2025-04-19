@@ -4,7 +4,7 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
 
-function NewsLetterModal({onClose}) {
+function NewLetterModal({onClose}) {
     const {user} = useAuth();
     const axiosPublic = useAxiosPublic();
     const [email, setEmail] = useState('' || user?.email);
@@ -83,4 +83,4 @@ function NewsLetterModal({onClose}) {
   )
 }
 
-export default NewsLetterModal
+export default NewLetterModal
