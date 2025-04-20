@@ -44,9 +44,9 @@ const Sliders = () => {
         {acceptedAds.map((slider, index) => (
           <SwiperSlide key={index}>
             <div style={{backgroundImage: `url(${slider.image})`}} className='w-full h-full relative bg-cover bg-center flex justify-center items-center'>
-            <div className='bg-[rgba(0,0,0,0.5)] backdrop-blur-sm p-10 flex items-center justify-center flex-col gap-3'>
+            <div className='bg-[rgba(0,0,0,0.5)] backdrop-blur-sm p-10 flex items-center justify-center w-[500px] flex-col gap-3'>
               <h1 className='text-white text-3xl font-semibold text-center'>{slider.title}</h1>
-              <p className='text-gray-400 text-center font-semibold'>{slider.description}</p>
+              <p className='text-gray-400 text-center font-semibold  mx-auto'>{slider.description}</p>
               <div className='inline-flex'><PrimaryButton text={"Order Now"}/></div>
             </div>
             </div>
