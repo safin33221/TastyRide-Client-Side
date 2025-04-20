@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import Countdown from "../../Components/CountDownTimer/Countdown";
+import { LuLoaderPinwheel } from "react-icons/lu";
 
 const LoginForm = () => {
   const { LoginUser, resetPassword, user } = useAuth()
@@ -15,6 +16,7 @@ const LoginForm = () => {
   const [lock, setLock] = useState(null)
   const [error, setError] = useState('')
   const [email, setEmail] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -23,19 +25,19 @@ const LoginForm = () => {
   } = useForm()
 
   const onsubmit = async (data) => {
+    setIsLoading(true)
     setError('')
     setLock('')
     try {
       const { email, password } = data
 
-      const res = await axiosPublic.post(`/api/login`, { email, password })
-
-
-
+      await axiosPublic.post(`/api/login`, { email, password })
       await LoginUser(email, password)
       navigate('/')
+      setIsLoading(false)
     } catch (error) {
       console.log(error);
+      setIsLoading(false)
 
 
       if (error.response.status === 400) {
@@ -92,11 +94,14 @@ const LoginForm = () => {
             error && <p className="text-red-500"> {error} </p>
           }
         </div>
-        <input
+
+        <button
           type="submit"
-          value={t('userMenu.Login')}
-          className=" w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6"
-        />
+          className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6">
+          {
+            isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" /> :  t('userMenu.Login') 
+          }
+        </button>
         <button type="button" onClick={handleResetPassword}
           className="text-blue-500 underline cursor-pointer hover:text-blue-700">Forget Password?
         </button>
