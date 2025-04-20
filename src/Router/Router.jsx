@@ -29,48 +29,124 @@ import FailPage from '../Pages/Fail/FailPage';
 import ManageOrders from '../Dashboard/Restaurant/Manageorders';
 import OrderTracking from '../Components/orderTracking/orderTracking';
 import MyOrder from '../Dashboard/Customer/MyOrder/MyOrder';
+import PrivetRoute from './PrivetRoute/PrivetRoute';
+import RiderForm from '../Pages/RiderForm/RiderForm';
+import ApplyRestaurent from '../Pages/ApplyRestaurent/ApplyRestaurent';
+import RidersApplication from '../Dashboard/Admin Dashboard/RidersApplication';
+import RiderDashboard from '../Dashboard/Rider/RiderDashboard';
+import DeliveryRequest from '../Dashboard/Rider/DeliveryRequest';
+import AcceptedRequest from '../Dashboard/Rider/AcceptedRequest';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* --------------------------------------------------------------------------Main Layout */}
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />}></Route>
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route index element={<Home />} />
+
           <Route path="all-food" element={<AllFood />} />
           <Route path="all-food/:id" element={<SingleFood />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<ContactUs />} />
-          <Route path='userProfile' element={<CustomerProfile />} />
           <Route path='restaurantProfile/:email' element={<Restaurants />} />
-          <Route path='cart' element={<CartPage/>}/>
-          <Route path='checkout' element={<CheckoutPage/>}/>
-          <Route path='success' element={<SuccessPage/>}/>
-          <Route path='fail' element={<FailPage/>}/>
-          <Route path="/order-tracking" element={<OrderTracking />} />
+          <Route path='rider-register-form' element={<RiderForm />} />
+          <Route path='restaurant-register-form' element={<ApplyRestaurent />} />
+
+          <Route path="restaurantProfile/:email" element={<Restaurants />} />
+
+          {/* -----------------------------------------------------------Privet Routes */}
+          <Route
+            path="userProfile"
+            element={
+              <PrivetRoute>
+                <CustomerProfile />
+              </PrivetRoute>
+            }
+          />
+          <Route path="order-tracking/:orderId" element={<OrderTracking />} />
+          <Route
+            path="my-order"
+            element={
+              <PrivetRoute>
+                <MyOrder />
+              </PrivetRoute>
+            }
+          />
+          <Route
+            path="apply-restaurent"
+            element={
+              <PrivetRoute>
+                <ApplyRestaurent></ApplyRestaurent>
+              </PrivetRoute>
+            }
+          />
+          <Route
+            path="success"
+            element={
+              <PrivetRoute>
+                <SuccessPage />
+              </PrivetRoute>
+            }
+          />
+          <Route
+            path="fail"
+            element={
+              <PrivetRoute>
+                <FailPage />
+              </PrivetRoute>
+            }
+          />
+          <Route
+            path="cart"
+            element={
+              <PrivetRoute>
+                <CartPage />
+              </PrivetRoute>
+            }
+          />
+          <Route
+            path="checkout"
+            element={
+              <PrivetRoute>
+                <CheckoutPage />
+              </PrivetRoute>
+            }
+          />
+        </Route>
+        <Route>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
 
-        <Route path='/dashboard' element={<Dashboard />}>
-          {/* Admin Routes */}
-          <Route path='admin' element={<AdminDashboard />} />
-          <Route path='manage-user' element={<ManageUsers />} />
-          <Route path='manage-ad' element={<ManageAdvertisements />} />
+        {/* -----------------------------------------------------------------------Dashboard Layout */}
+        <Route path="/dashboard" element={<Dashboard />}>
+          {/* --------------------------------------------------------------Admin Routes*/}
+          <Route path="admin" element={<AdminDashboard />} />
+          <Route path="manage-user" element={<ManageUsers />} />
+          <Route path="manage-ad" element={<ManageAdvertisements />} />
+          <Route path="rider-application" element={<RidersApplication />} />
 
-          {/* Restaurant routes  */}
-          <Route path='restaurantDashboard' element={<RestaurantDashboard />} />
-          <Route path='add-foods' element={<AddFood />} />
-          <Route path='manage-food' element={<ManageFood />} />
-          <Route path='manage-orders' element={<ManageOrders />} />
-          <Route path='restaurantProfile' element={<RestaurantProfile />} />
-          <Route path='ad' element={<Advertisement />} />
-          <Route path='ad/post' element={<PostAdvertisement />} />
+          {/* ----------------------------------------------------------Restaurant routes*/}
+          <Route path="restaurantDashboard" element={<RestaurantDashboard />} />
+          <Route path="add-foods" element={<AddFood />} />
+          <Route path="manage-food" element={<ManageFood />} />
+          <Route path="manage-orders" element={<ManageOrders />} />
+          <Route path="restaurantProfile" element={<RestaurantProfile />} />
+          <Route path="ad" element={<Advertisement />} />
+          <Route path="ad/post" element={<PostAdvertisement />} />
 
+          {/* -----------------------------------------------------------Rider DashBoard */}
+          <Route path="riderDashboard" element={<RiderDashboard />} />
 
-          {/* Customer Routes */}
-          <Route path='customerDashboard' element={<CustomerDashboard />} />
-          <Route path="my-order" element={<MyOrder />} />
+          {/* ----------------------------------------------------------Rider routes*/}
 
+          <Route path='rider-dashboard' element={<RiderDashboard />} />
+          <Route path='delivery-request' element={<DeliveryRequest />} />
+          <Route path='accepted-request' element={<AcceptedRequest />} />
+
+          <Route path='rider-dashboard' element={<RiderDashboard />} />
+          <Route path='delivery-request' element={<DeliveryRequest />} />
 
         </Route>
       </Routes>

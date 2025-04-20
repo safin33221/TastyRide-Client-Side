@@ -1,59 +1,119 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
+import { FaFacebookF, FaInstagram,  FaYoutube } from "react-icons/fa"; // Using react-icons for social media icons
+import { FaXTwitter } from "react-icons/fa6";
+
 
 const Footer = () => {
-  const { t } = useTranslation();
+  // Handle newsletter subscription (placeholder function)
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    if (email) {
+      toast.success(`Thank you for subscribing with ${email}!`);
+      e.target.reset();
+    }
+  };
+
   return (
-    // remove mt-20 
-    <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10 "> 
-      <nav className="grid grid-flow-col gap-4">
-        <a className="link link-hover">{t('navMenu.menu1')}</a>
-        <a className="link link-hover">{t('navMenu.menu2')}</a>
-        <a className="link link-hover">{t('navMenu.menu3')}</a>
-        <a className="link link-hover">{t('navMenu.menu5')}</a>
-      </nav>
-      <nav>
-        <div className="grid grid-flow-col gap-4">
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-            </svg>
-          </a>
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-            </svg>
-          </a>
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              className="fill-current"
-            >
-              <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-            </svg>
-          </a>
+    <footer className="bg-black text-white py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div>
+            <h3 className="text-3xl font-bold text-red-500 mb-4">TastyRide</h3>
+            <p className="text-gray-300 text-sm">
+              TastyRide is your go-to food delivery service, bringing delicious meals from your favorite restaurants right to your doorstep. Order, track, and enjoy with ease!
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              <li>
+                <a href="/" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="/menu" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+                  Menu
+                </a>
+              </li>
+              <li>
+                <a href="" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+                  Track Order
+                </a>
+              </li>
+              <li>
+                <a href="/contact" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+                  Contact Us
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+            <p className="text-gray-300 text-sm mb-2">
+              Email: <a href="mailto:support@tastyride.com" className="hover:text-pink-500 transition-colors duration-300">support@tastyride.com</a>
+            </p>
+            <p className="text-gray-300 text-sm mb-2">
+              Phone: <a href="tel:+1234567890" className="hover:text-pink-500 transition-colors duration-300">+1 (234) 567-890</a>
+            </p>
+            <p className="text-gray-300 text-sm">
+              Address: 123 Flavor Street, Foodie City, FC 12345
+            </p>
+          </div>
+
+          {/* Newsletter Subscription */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h4>
+            <p className="text-gray-300 text-sm mb-4">
+              Stay updated with the latest offers and updates from TastyRide!
+            </p>
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                className="px-4 py-2 rounded-md text-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                required
+                style={{ backgroundColor: "#2d3748", border: "1px solid #4a5568" }}
+              />
+              <button
+                type="submit"
+                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
         </div>
-      </nav>
-      <aside>
-        <p>
-          Copyright © {new Date().getFullYear()} - All right reserved by Tasty Ride
-        </p>
-      </aside>
+
+        {/* Social Media and Copyright */}
+        <div className="mt-8 pt-8 border-t border-gray-700 flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex space-x-4 mb-4 sm:mb-0">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+              <FaFacebookF size={24} />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+              <FaInstagram size={24} />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+            <FaXTwitter size={24} />
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+            <FaYoutube size={24} />
+            </a>
+          </div>
+          <p className="text-gray-400 text-sm">
+            &copy; 2025 TastyRide. All rights reserved.
+          </p>
+        </div>
+      </div>
     </footer>
   );
 };

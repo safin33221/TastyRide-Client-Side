@@ -92,16 +92,16 @@ const Gallery = () => {
         {images.map((image, index) => (
           <div
             key={index}
-            className="relative group overflow-hidden rounded-lg cursor-pointer"
+            className="relative group overflow-hidden  cursor-pointer"
             onClick={() => openLightbox(index)}
           >
             <img
               src={image.src}
               alt={image.description}
-              className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
             />
 
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center opacity-0 group-hover:opacity-70 transition-opacity duration-300">
               <h3 className="text-white font-semibold">{image.name}</h3>
               <p className="text-white text-sm">{image.description}</p>
             </div>
