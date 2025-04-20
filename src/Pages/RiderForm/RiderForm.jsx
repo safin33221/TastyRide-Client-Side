@@ -48,11 +48,16 @@ function RiderForm() {
   const paymentMethod = watch("paymentMethod");
 
   const onSubmit = async (data) => {
+    console.log(data);
+
     const profilePhotoUrl = await imageUpload(data.profilePhoto[0]);
     const nidPictureUrl = await imageUpload(data.nidPicture[0]);
-    const drivingLicenseImageUrl = await imageUpload(
-      data.drivingLicenseImage[0]
-    );
+    let drivingLicenseImageUrl = "";
+    if (data?.vehicleType !== "bicycle") {
+      const drivingLicenseImageUrl = await imageUpload(
+        data.drivingLicenseImage[0]
+      );
+    }
     const newData = {
       ...data,
       profilePhoto: profilePhotoUrl,
@@ -67,6 +72,7 @@ function RiderForm() {
     //     drivingLicenseImage: data.drivingLicenseImage[0].name,
     //   };
     // console.log(newData);
+
     try {
       // Add backend API call here
       const res = await axiosPublic.post(
@@ -75,7 +81,6 @@ function RiderForm() {
       );
 
       //   console.log(res?.data);
-
 
       if (res?.data?.success) {
         await Swal.fire({
@@ -147,8 +152,9 @@ function RiderForm() {
                     {...register("fullName", {
                       required: "Full Name is required",
                     })}
-                    className={`input input-bordered w-full ${errors.fullName ? "input-error" : ""
-                      }`}
+                    className={`input input-bordered w-full ${
+                      errors.fullName ? "input-error" : ""
+                    }`}
                   />
                   {errors.fullName && (
                     <p className="text-error text-sm mt-1">
@@ -169,8 +175,9 @@ function RiderForm() {
                     {...register("dateOfBirth", {
                       required: "Date of Birth is required",
                     })}
-                    className={`input input-bordered w-full ${errors.dateOfBirth ? "input-error" : ""
-                      }`}
+                    className={`input input-bordered w-full ${
+                      errors.dateOfBirth ? "input-error" : ""
+                    }`}
                   />
                   {errors.dateOfBirth && (
                     <p className="text-error text-sm mt-1">
@@ -191,8 +198,9 @@ function RiderForm() {
                     {...register("phoneNumber", {
                       required: "Phone Number is required",
                     })}
-                    className={`input input-bordered w-full ${errors.phoneNumber ? "input-error" : ""
-                      }`}
+                    className={`input input-bordered w-full ${
+                      errors.phoneNumber ? "input-error" : ""
+                    }`}
                   />
                   {errors.phoneNumber && (
                     <p className="text-error text-sm mt-1">
@@ -219,8 +227,9 @@ function RiderForm() {
                         message: "Invalid email address",
                       },
                     })}
-                    className={`input input-bordered w-full ${errors.email ? "input-error" : ""
-                      }`}
+                    className={`input input-bordered w-full ${
+                      errors.email ? "input-error" : ""
+                    }`}
                   />
                   {errors.email && (
                     <p className="text-error text-sm mt-1">
@@ -242,8 +251,9 @@ function RiderForm() {
                       {...register("presentAddress", {
                         required: "Present Address is required",
                       })}
-                      className={`input input-bordered w-full ${errors.presentAddress ? "input-error" : ""
-                        }`}
+                      className={`input input-bordered w-full ${
+                        errors.presentAddress ? "input-error" : ""
+                      }`}
                     />
                     {errors.presentAddress && (
                       <p className="text-error text-sm mt-1">
@@ -277,8 +287,9 @@ function RiderForm() {
                     {...register("profilePhoto", {
                       required: "Profile Photo is required",
                     })}
-                    className={`file-input file-input-bordered w-full ${errors.profilePhoto ? "file-input-error" : ""
-                      }`}
+                    className={`file-input file-input-bordered w-full ${
+                      errors.profilePhoto ? "file-input-error" : ""
+                    }`}
                     accept="image/*"
                   />
                   {errors.profilePhoto && (
@@ -299,8 +310,9 @@ function RiderForm() {
                     {...register("nationalId", {
                       required: "National ID is required",
                     })}
-                    className={`input input-bordered w-full ${errors.nationalId ? "input-error" : ""
-                      }`}
+                    className={`input input-bordered w-full ${
+                      errors.nationalId ? "input-error" : ""
+                    }`}
                   />
                   {errors.nationalId && (
                     <p className="text-error text-sm mt-1">
@@ -321,8 +333,9 @@ function RiderForm() {
                     {...register("nidPicture", {
                       required: "NID Picture is required",
                     })}
-                    className={`file-input file-input-bordered w-full ${errors.nidPicture ? "file-input-error" : ""
-                      }`}
+                    className={`file-input file-input-bordered w-full ${
+                      errors.nidPicture ? "file-input-error" : ""
+                    }`}
                     accept="image/*"
                   />
                   {errors.nidPicture && (
@@ -351,8 +364,9 @@ function RiderForm() {
                     {...register("vehicleType", {
                       required: "Vehicle Type is required",
                     })}
-                    className={`select select-bordered w-full ${errors.vehicleType ? "select-error" : ""
-                      }`}
+                    className={`select select-bordered w-full ${
+                      errors.vehicleType ? "select-error" : ""
+                    }`}
                   >
                     {vehicleOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -385,8 +399,9 @@ function RiderForm() {
                               ? "Vehicle Number Plate is required"
                               : false,
                         })}
-                        className={`input input-bordered w-full ${errors.vehicleNumberPlate ? "input-error" : ""
-                          }`}
+                        className={`input input-bordered w-full ${
+                          errors.vehicleNumberPlate ? "input-error" : ""
+                        }`}
                       />
                       {errors.vehicleNumberPlate && (
                         <p className="text-error text-sm mt-1">
@@ -408,8 +423,9 @@ function RiderForm() {
                         {...register("drivingLicense", {
                           required: "Driving License is required",
                         })}
-                        className={`input input-bordered w-full ${errors.drivingLicense ? "input-error" : ""
-                          }`}
+                        className={`input input-bordered w-full ${
+                          errors.drivingLicense ? "input-error" : ""
+                        }`}
                       />
                       {errors.drivingLicense && (
                         <p className="text-error text-sm mt-1">
@@ -431,8 +447,9 @@ function RiderForm() {
                         {...register("drivingLicenseImage", {
                           required: "Driving License Image is required",
                         })}
-                        className={`file-input file-input-bordered w-full ${errors.drivingLicenseImage ? "file-input-error" : ""
-                          }`}
+                        className={`file-input file-input-bordered w-full ${
+                          errors.drivingLicenseImage ? "file-input-error" : ""
+                        }`}
                         accept="image/*"
                       />
                       {errors.drivingLicenseImage && (
