@@ -88,7 +88,7 @@ const LoginForm = () => {
           />
 
           {
-            lock ? <Countdown lockUntil={lock} /> : null
+            lock && <Countdown lockUntil={lock} /> 
           }
           {
             error && <p className="text-red-500"> {error} </p>
