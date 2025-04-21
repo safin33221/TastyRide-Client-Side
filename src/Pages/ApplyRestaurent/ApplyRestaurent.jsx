@@ -13,19 +13,6 @@ const ApplyRestaurant = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
-  const { data: applications = [] } = useQuery({
-    queryKey: ['restaurant-applications'],
-    queryFn: async () => {
-      try {
-        const res = await axiosPublic.get('/api/restaurants-applications');
-        return res.data;
-      } catch (error) {
-        console.error('Error fetching applications:', error);
-        throw new Error('Failed to fetch applications');
-      }
-    },
-  });
-
   const {
     register,
     handleSubmit,
