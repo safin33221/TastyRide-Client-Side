@@ -18,7 +18,7 @@ export default function DeliveryRequest() {
     },
   });
 
-  const filteredOrders = orders?.filter(prev => prev.status === "On the Way")
+  const filteredOrders = orders?.filter(prev => prev.status === "On-the-Way")
 
   const handleAcceptRequest = async(id) => {
     const res = await axiosPublic.patch(`/api/accepted-rider/${id}`, {acceptedBy:user?.email})
