@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import useAuth from '../../Hooks/useAuth';
 import { imageUpload } from '../../Utils/Utils';
-import { useQuery } from '@tanstack/react-query';
 
 const ApplyRestaurant = () => {
   const axiosPublic = useAxiosPublic();
@@ -12,19 +11,6 @@ const ApplyRestaurant = () => {
   const [selectedDays, setSelectedDays] = useState([]);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
-
-  const { data: applications = [] } = useQuery({
-    queryKey: ['restaurant-applications'],
-    queryFn: async () => {
-      try {
-        const res = await axiosPublic.get('/api/restaurants-applications');
-        return res.data;
-      } catch (error) {
-        console.error('Error fetching applications:', error);
-        throw new Error('Failed to fetch applications');
-      }
-    },
-  });
 
   const {
     register,
@@ -43,12 +29,90 @@ const ApplyRestaurant = () => {
     });
   };
 
+  const onSubmit = async data => {
+    if (selectedDays.length === 0) {
+      Swal.fire('Error', 'Please select at least one open day', 'error');
+      return;
+    }
+
+    if (!image) {
+      Swal.fire('Error', 'Please upload a logo', 'error');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Upload image first
+      const imageData = await imageUpload(image);
+      const logo = imageData;
+      // Prepare days array
+      const daysMap = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ];
+      const openDays = selectedDays.map(dayIndex => daysMap[dayIndex]);
+
+      // Prepare restaurant data
+      const restaurantData = {
+        name: data.name,
+        businessName: data.businessName,
+        type: data.type,
+        description: data.description,
+        address: data.address,
+        pickup: data.pickup || false,
+        mapPin: data.mapPin,
+        openDays,
+        openTime: data.openTime,
+        closeTime: data.closeTime,
+        logo: logo,
+        email: user?.email,
+      };
+
+      console.log(restaurantData);
+      // Submit to backend
+      const res = await axiosPublic.post(
+        `api/restaurants/application/${user?.email}`,
+        restaurantData
+      );
+
+      if (res.data.success) {
+        Swal.fire('Success', 'Application submitted successfully!', 'success');
+        reset();
+        setSelectedDays([]);
+        setImage(null);
+      }
+    } catch (error) {
+      Swal.fire(
+        'Error',
+        error.response?.data?.message || 'Something went wrong',
+        'error'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+    }
+  };
+
   return (
     <div className=" container mx-auto p-8 bg-white rounded-xl shadow-lg mt-10 border border-gray-100">
       <h1 className="text-2xl m-5 font-bold text-center underline text-gray-800 mb-6 ">
         Register Your Restaurant
       </h1>
-      <form>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="p-8 bg-white rounded-xl shadow-lg mt-10 border border-gray-100"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label>Your Name*</label>
