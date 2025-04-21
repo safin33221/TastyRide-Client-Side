@@ -135,7 +135,7 @@ const ManageOrders = () => {
                     >
                       <option value="Pending">Pending</option>
                       <option value="Cooking">Cooking</option>
-                      <option value="On-the-Way">On the Way</option>
+                      <option value="On the Way">On the Way</option>
                       <option value="Delivered">Delivered</option>
                     </select>
                   </td>
