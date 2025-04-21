@@ -24,7 +24,7 @@ const AboutRestaurant = () => {
         console.log(description);
 
         try {
-            await axiosPublic.patch(`/api/restaruntProfile/${user?.email}`, { description })
+            await axiosPublic.patch(`/api/restaurantProfile/${user?.email}`, { description })
             refetch()
             toast.success('Description Update successfully')
         } catch (error) {

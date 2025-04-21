@@ -19,6 +19,10 @@ import useAuth from '../Hooks/useAuth';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 import useUserData from '../Hooks/useUserData';
+<<<<<<< HEAD
+=======
+import { MdDashboard } from 'react-icons/md';
+>>>>>>> fb99265e3fec16b0c1797dc8b8df60a196deceff
 import { FaUserFriends } from 'react-icons/fa';
 
 export const Dashboard = () => {
@@ -48,7 +52,7 @@ const Sidebar = () => {
 
       {/* All type of Sidebar links goes here  */}
       <div className="space-y-1">
-        {/* Admin Realted Links */}
+        {/* Admin Related Links */}
         {userData?.role === 'admin' && (
           <>
             <Option
@@ -175,7 +179,7 @@ const Sidebar = () => {
           </>
         )}
 
-        {/* customers Realted Links */}
+        {/* customers Related Links */}
 
         {userData?.role === 'customer' && (
           <>

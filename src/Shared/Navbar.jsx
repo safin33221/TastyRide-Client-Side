@@ -27,7 +27,7 @@ const Navbar = () => {
     navigate('/');
   };
 
-  // for MultiLaguge
+  // for MultiLanguage
   const [lang, setLang] = useState(true);
   const { t, i18n } = useTranslation();
   const changeLanguage = async language => {

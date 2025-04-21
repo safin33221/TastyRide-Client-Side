@@ -6,7 +6,7 @@ const Countdown = ({ lockUntil }) => {
 
     function getRemainingTime() {
         const diff = new Date(lockUntil) - new Date(); // ms
-        return diff > 0 ? diff : 0;
+        return diff > 0 ? diff : '';
     }
 
     useEffect(() => {

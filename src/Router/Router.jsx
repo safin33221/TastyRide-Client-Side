@@ -33,6 +33,12 @@ import PrivetRoute from './PrivetRoute/PrivetRoute';
 import RiderForm from '../Pages/RiderForm/RiderForm';
 import ApplyRestaurent from '../Pages/ApplyRestaurent/ApplyRestaurent';
 import RidersApplication from '../Dashboard/Admin Dashboard/RidersApplication';
+<<<<<<< HEAD
+=======
+import RiderDashboard from '../Dashboard/Rider/RiderDashboard';
+import DeliveryRequest from '../Dashboard/Rider/DeliveryRequest';
+import AcceptedRequest from '../Dashboard/Rider/AcceptedRequest';
+>>>>>>> fb99265e3fec16b0c1797dc8b8df60a196deceff
 import RestaurantApplication from '../Dashboard/Admin Dashboard/RestaurantApplication';
 
 const Router = () => {

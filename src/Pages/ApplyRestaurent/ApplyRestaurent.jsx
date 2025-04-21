@@ -43,6 +43,7 @@ const ApplyRestaurant = () => {
     });
   };
 
+<<<<<<< HEAD
   const onSubmit = async data => {
     if (selectedDays.length === 0) {
       Swal.fire('Error', 'Please select at least one open day', 'error');
@@ -128,6 +129,14 @@ const ApplyRestaurant = () => {
           Register Your Restaurant
         </h1>
 
+=======
+  return (
+    <div className=" container mx-auto p-8 bg-white rounded-xl shadow-lg mt-10 border border-gray-100">
+      <h1 className="text-2xl m-5 font-bold text-center underline text-gray-800 mb-6 ">
+        Register Your Restaurant
+      </h1>
+      <form>
+>>>>>>> fb99265e3fec16b0c1797dc8b8df60a196deceff
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label>Your Name*</label>
@@ -287,7 +296,11 @@ const ApplyRestaurant = () => {
           {loading ? 'Submitting...' : 'Submit Application'}
         </button>
       </form>
+<<<<<<< HEAD
     </>
+=======
+    </div>
+>>>>>>> fb99265e3fec16b0c1797dc8b8df60a196deceff
   );
 };
 
