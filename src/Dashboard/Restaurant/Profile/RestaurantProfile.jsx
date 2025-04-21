@@ -12,6 +12,7 @@ import Foods from './Foods';
 import ManageFollowers from './ManageFollowers';
 import toast from 'react-hot-toast';
 import useRestaurantData from '../../../Hooks/useRestaurantData';
+import Loading from '../../../Pages/Loader/Loading';
 
 
 
@@ -27,7 +28,7 @@ const RestaurantProfile = () => {
     const [profilePhotoFile, setProfilePhotoFile] = useState(null)
     const [CoverPhotoFile, setCoverPhotoFile] = useState(null)
 
-    const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
+    const [name, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode 
 
 
@@ -52,8 +53,8 @@ const RestaurantProfile = () => {
     const handleProfileChange = async () => {
         if (profilePhotoFile) {
             const profilePhoto = await imageUpload(profilePhotoFile)
-            await axiosPublic.patch(`/api/restaurantProfile/${user?.email}`, { profilePhoto })
-            refetch()
+            await axiosPublic.patch(`/api/restaurantProfileUpdate/${user?.email}`, { profilePhoto })
+            isResDataRefetch()
             setProfilePhotoFile(null)
             setSelectedProfilePhoto(null)
 
@@ -79,8 +80,8 @@ const RestaurantProfile = () => {
     const handleCoverPhotoChange = async () => {
         if (CoverPhotoFile) {
             const coverPhoto = await imageUpload(CoverPhotoFile)
-            await axiosPublic.patch(`/api/restaurantProfile/${user?.email}`, { coverPhoto })
-            refetch()
+            await axiosPublic.patch(`/api/restaurantProfileUpdate/${user?.email}`, { coverPhoto })
+            isResDataRefetch()
             setCoverPhotoFile(null)
             setSelectedCoverPhoto(null)
 
@@ -96,10 +97,10 @@ const RestaurantProfile = () => {
     const handleSaveClick = async () => {
         setIsEditing(false); // Disable edit mode
         // Here you can add logic to save the updated name to the server if needed
-        console.log("Updated Restaurant Name:", restaurantName);
+        console.log("Updated Restaurant Name:", name);
         try {
-            await axiosPublic.patch(`/api/restaurantProfile/${user?.email}`, { restaurantName })
-            refetch()
+            await axiosPublic.patch(`/api/restaurantProfileUpdate/${user?.email}`, { name })
+            isResDataRefetch()
             toast.success('Restaurant name change successfully')
         } catch (error) {
             console.log(error);
@@ -109,7 +110,7 @@ const RestaurantProfile = () => {
 
 
     console.log(restaurantData);
-
+    if(isPending || isResDataPending) return <Loading/>
 
     return (
         <div>
@@ -124,7 +125,7 @@ const RestaurantProfile = () => {
                 >
                     <img
                         className=' w-full object-cover h-[200px]  md:h-[400px] bg-center flex items-center'
-                        src={selectCoverPhoto || restaurantData?.logo || 'https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp'} alt="" />
+                        src={selectCoverPhoto || restaurantData?.coverPhoto || 'https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp'} alt="" />
 
 
                     <label className=' absolute top-2 right-5' >
