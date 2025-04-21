@@ -6,11 +6,12 @@ import useUserData from '../../../Hooks/useUserData';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router';
 import { FaEdit } from 'react-icons/fa';
+import useRestaurantData from '../../../Hooks/useRestaurantData';
 
 const AboutRestaurant = () => {
     const { user } = useAuth()
     const [userData, isPending, refetch] = useUserData()
-
+    const [restaurantData, isResDataPending, isResDataRefetch] = useRestaurantData()
     const axiosPublic = useAxiosPublic()
     const [isEditing, setIsEditing] = useState(false)
     const [description, setDescription] = useState(userData?.restaurantDetails?.description)
@@ -51,14 +52,14 @@ const AboutRestaurant = () => {
                         </div>
                         :
                         <>
-                            <p className='text-xl font-medium'>{userData?.restaurantDetails?.description || 'N/A'} </p>
+                            <p className='text-xl font-medium'>{restaurantData?.description || 'N/A'} </p>
                             <button onClick={handleEditClick}
                                 className='btn btn-outline absolute -top-10 right-3  '>Edit Bio</button>
                         </>
                 }
             </div>
             <div className='  min-h-52 w-11/12 mx-auto'>
-                <h1 className='text-xl font-bold underline mb-3 flex items-center gap-3 '>Others information <Link to={`/userProfile`}><FaEdit/></Link></h1>
+                <h1 className='text-xl font-bold underline mb-3 flex items-center gap-3 '>Others information <Link to={`/userProfile`}><FaEdit /></Link></h1>
                 <h2 className='text-2xl font-bold'>Name: <span className='text-gray-500 font-normal'>{userData?.username || ' N/A'}</span></h2>
                 <h2 className='text-2xl font-bold'>Email: <span className='text-gray-500 font-normal'>{userData?.email}</span></h2>
                 <h2 className='text-2xl font-bold'>Phone: <span className='text-gray-500 font-normal'>{userData?.phoneNumber || ' N/A'}</span></h2>

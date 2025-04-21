@@ -11,12 +11,14 @@ import { useQuery } from '@tanstack/react-query';
 import Foods from './Foods';
 import ManageFollowers from './ManageFollowers';
 import toast from 'react-hot-toast';
+import useRestaurantData from '../../../Hooks/useRestaurantData';
 
 
 
 const RestaurantProfile = () => {
     const { user } = useAuth()
     const [userData, isPending, refetch] = useUserData()
+    const [restaurantData, isResDataPending, isResDataRefetch] = useRestaurantData()
     const axiosPublic = useAxiosPublic()
 
     const [selectProfilePhoto, setSelectedProfilePhoto] = useState(null)
@@ -27,6 +29,8 @@ const RestaurantProfile = () => {
 
     const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode 
+
+
 
 
 
@@ -104,7 +108,7 @@ const RestaurantProfile = () => {
     // Change Restarant Name Functionality End-------------------------------------------------------
 
 
-
+    console.log(restaurantData);
 
 
     return (
@@ -119,8 +123,8 @@ const RestaurantProfile = () => {
 
                 >
                     <img
-                            className=' w-full object-cover h-[200px]  md:h-[400px] bg-center flex items-center'
-                        src={selectCoverPhoto || userData?.restaurantDetails?.coverPhoto || 'https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp'} alt="" />
+                        className=' w-full object-cover h-[200px]  md:h-[400px] bg-center flex items-center'
+                        src={selectCoverPhoto || restaurantData?.logo || 'https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp'} alt="" />
 
 
                     <label className=' absolute top-2 right-5' >
@@ -173,7 +177,7 @@ const RestaurantProfile = () => {
                     <div className='left-10 -bottom-50 absolute md:flex gap-10 items-center '>
                         <div className='relative'>
                             {/* Profile Image */}
-                            <img src={selectProfilePhoto || userData?.restaurantDetails?.profilePhoto || 'https://i.ibb.co.com/XMyNxFf/user.jpg'}
+                            <img src={selectProfilePhoto || restaurantData?.logo || 'https://i.ibb.co.com/XMyNxFf/user.jpg'}
                                 className='  border-2 w-52 mx-auto  md:h-72 md:w-72  flex items-center justify-center  rounded-full z-20' alt="" />
 
                             <label className=' absolute bottom-10 right-1' >
@@ -219,8 +223,8 @@ const RestaurantProfile = () => {
                                 <div className="flex items-center gap-4 flex-col md:flex-row ">
                                     <input
                                         type="text"
-                                        defaultValue={userData?.restaurantDetails?.restaurantName}
-                                        placeholder='Restarunt Name'
+                                        defaultValue={restaurantData?.name}
+                                        placeholder='Restaurant Name'
                                         onChange={(e) => setRestaurantName(e.target.value)}
                                         className=" text-xl md:text-4xl font-bold border-b-2 outline-none focus:border-blue-500"
                                     />
@@ -241,7 +245,7 @@ const RestaurantProfile = () => {
                                 </div>
                             ) : (
                                 <h1 className="text-xl md:text-4xl  font-bold flex gap-4">
-                                    {userData?.restaurantDetails?.restaurantName || "N/A"}
+                                    {restaurantData?.name || "N/A"}
                                     <span
                                         onClick={handleEditClick}
                                         className="cursor-pointer text-gray-500"
