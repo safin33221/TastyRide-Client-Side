@@ -87,7 +87,7 @@ const CheckoutComponent = () => {
           info,
           cart,
           restaurantEmail: restaurantEmail[0],
-          paymentMethod: 'cod',
+          paymentMethod: 'sslcommez',
           total_amount: total_amount,
           status: 'Pending',
           createdAt: new Date(),

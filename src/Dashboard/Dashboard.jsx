@@ -15,7 +15,7 @@ import { MdDeliveryDining, MdOutlineManageHistory } from "react-icons/md";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FcAcceptDatabase } from "react-icons/fc";
 import { FaBuysellads } from 'react-icons/fa6';
-import { GrRestaurant } from "react-icons/gr";
+import { GrRestaurant } from 'react-icons/gr';
 import { motion } from 'framer-motion';
 import { Link, Outlet, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
@@ -23,6 +23,7 @@ import { IoIosAddCircleOutline } from 'react-icons/io';
 
 import useUserData from '../Hooks/useUserData';
 import { MdDashboard } from 'react-icons/md';
+import { FaUserFriends } from 'react-icons/fa';
 
 export const Dashboard = () => {
   return (
@@ -51,7 +52,7 @@ const Sidebar = () => {
 
       {/* All type of Sidebar links goes here  */}
       <div className="space-y-1">
-        {/* Admin Realted Links */}
+        {/* Admin Related Links */}
         {userData?.role === 'admin' && (
           <>
             <Option
@@ -74,6 +75,14 @@ const Sidebar = () => {
               Icon={GrRestaurant}
               title="Riders Application"
               links="/dashboard/rider-application"
+              selected={selected}
+              setSelected={setSelected}
+              open={open}
+            />
+            <Option
+              Icon={FaUserFriends}
+              title="Restaurant Application"
+              links="/dashboard/restaurant-application"
               selected={selected}
               setSelected={setSelected}
               open={open}
@@ -170,7 +179,7 @@ const Sidebar = () => {
           </>
         )}
 
-        {/* customers Realted Links */}
+        {/* customers Related Links */}
 
         {userData?.role === 'customer' && (
           <>

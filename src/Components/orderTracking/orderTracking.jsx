@@ -11,7 +11,7 @@ const statusImages = {
   Cooking:
     'https://i.ibb.co.com/S4Z67Jvc/cooking-pan-3d-icon-download-in-png-blend-fbx-gltf-file-formats-frying-pack-food-drink-icons-5379604.webp', // Cooking image (as provided)
   On_the_Way:
-    'https://i.ibb.co.com/21BVwsDf/What-is-a-delivery-service-1024x536.webp', // Placeholder for On the Way (e.g., rider)
+    'https://i.ibb.co.com/21BVwsDf/What-is-a-delivery-service-1024x536.webp', // Placeholder for On-the-Way (e.g., rider)
   Delivered: 'https://i.ibb.co.com/yFcBxFMg/download-1.webp', // Placeholder for Delivered (e.g., checkmark)
   Cancelled: 'https://i.ibb.co.com/zhF2PqJD/images.png', // Placeholder for Cancelled (e.g., cross)
 };
@@ -123,7 +123,7 @@ const OrderTracking = () => {
         break;
       case 'On-the-Way':
         progress = 75; // First, second, and third bars filled
-        message = 'On the way';
+        message = 'On-the-Way';
         subMessage =
           timeRange === 'Anytime now'
             ? 'Get ready, the rider will be there anytime now'
