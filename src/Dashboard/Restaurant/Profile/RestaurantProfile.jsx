@@ -28,6 +28,15 @@ const RestaurantProfile = () => {
     const [restaurantName, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode 
 
+    const { data: restaurantData } = useQuery({
+        queryKey: ['restaurantData', userData?.email],
+        enabled: !!userData?.email,
+        queryFn: async () => {
+            const res = axiosPublic.get(`/api/restaurant/${userData?.email}`)
+            console.log(res);
+        }
+    })
+
 
 
 
@@ -119,7 +128,7 @@ const RestaurantProfile = () => {
 
                 >
                     <img
-                            className=' w-full object-cover h-[200px]  md:h-[400px] bg-center flex items-center'
+                        className=' w-full object-cover h-[200px]  md:h-[400px] bg-center flex items-center'
                         src={selectCoverPhoto || userData?.restaurantDetails?.coverPhoto || 'https://i.ibb.co.com/cTCcpBZ/DALL-E-2024-12-23-19-10-48-A-beautifully-styled-restaurant-themed-banner-background-image-with-a-war.webp'} alt="" />
 
 
