@@ -28,7 +28,7 @@ const RestaurantProfile = () => {
     const [profilePhotoFile, setProfilePhotoFile] = useState(null)
     const [CoverPhotoFile, setCoverPhotoFile] = useState(null)
 
-    const [name, setRestaurantName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
+    const [businessName, setBusinessName] = useState(userData?.restaurantDetails?.restaurantName || 'N/A');
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode 
 
 
@@ -97,9 +97,9 @@ const RestaurantProfile = () => {
     const handleSaveClick = async () => {
         setIsEditing(false); // Disable edit mode
         // Here you can add logic to save the updated name to the server if needed
-        console.log("Updated Restaurant Name:", name);
+        console.log("Updated Restaurant Name:", businessName);
         try {
-            await axiosPublic.patch(`/api/restaurantProfileUpdate/${user?.email}`, { name })
+            await axiosPublic.patch(`/api/restaurantProfileUpdate/${user?.email}`, { businessName })
             isResDataRefetch()
             toast.success('Restaurant name change successfully')
         } catch (error) {
@@ -224,9 +224,9 @@ const RestaurantProfile = () => {
                                 <div className="flex items-center gap-4 flex-col md:flex-row ">
                                     <input
                                         type="text"
-                                        defaultValue={restaurantData?.name}
+                                        defaultValue={restaurantData?.businessName}
                                         placeholder='Restaurant Name'
-                                        onChange={(e) => setRestaurantName(e.target.value)}
+                                        onChange={(e) => setBusinessName(e.target.value)}
                                         className=" text-xl md:text-4xl font-bold border-b-2 outline-none focus:border-blue-500"
                                     />
                                     <div className='flex gap-3'>
@@ -246,7 +246,7 @@ const RestaurantProfile = () => {
                                 </div>
                             ) : (
                                 <h1 className="text-xl md:text-4xl  font-bold flex gap-4">
-                                    {restaurantData?.name || "N/A"}
+                                    {restaurantData?.businessName || "N/A"}
                                     <span
                                         onClick={handleEditClick}
                                         className="cursor-pointer text-gray-500"
