@@ -10,9 +10,9 @@ const Register = () => {
   const { t } = useTranslation();
   return (
     <div className=" ">
-      <div className="flex flex-col lg:flex-row gap-4  mx-auto rounded-lg  p-6 md:p-12 ">
+      <div className="flex flex-col lg:flex-row gap-4  mx-auto rounded-lg   md:p-12 ">
         {/* img */}
-        <div className="relative md:w-1/2 w-full px-4 m-auto">
+        <div className="relative md:w-1/2 w-full md:px-4 m-auto">
           <img src={loginBanner} alt="" className=" md:w-10/12 w-full mx-auto " />
           <Link to={`/`} className=" absolute top-0 md:left-[60px]">
             <PrimaryButton  text={`Back Home`} />
