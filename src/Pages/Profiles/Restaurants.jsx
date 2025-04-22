@@ -4,9 +4,11 @@ import { Link, useParams } from "react-router";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import useUserData from "../../Hooks/useUserData";
 
 const Restaurants = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
+  const [userData] = useUserData()
   const { email } = useParams();
   const axiosPublic = useAxiosPublic();
   const [profile, setProfile] = useState(null);
@@ -17,8 +19,8 @@ const Restaurants = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   // find if the user already follow the restaurant
-  useEffect ( ()=>{
-    const fetchFollowStatus = async () =>{
+  useEffect(() => {
+    const fetchFollowStatus = async () => {
       try {
         const res = await axiosPublic.get(`/api/restaurant/follow?userEmail=${user?.email}&restaurantEmail=${email}`);
         setFollowing(res?.data?.isFollowing);
@@ -26,7 +28,7 @@ const Restaurants = () => {
         console.log(error?.response?.data?.message || "Error fetching follow status");
       }
     }
-    if(user?.email){
+    if (user?.email) {
       fetchFollowStatus();
     }
   }, [user?.email, email])
@@ -36,7 +38,7 @@ const Restaurants = () => {
       try {
         setLoading(true);
         // fetch restaurant profile by email
-        const res = await axiosPublic.get(`/api/restaurantProfile/${email}`);
+        const res = await axiosPublic.get(`/api/SingleRestaurantProfile/${email}`);
         setProfile(res.data);
       } catch (err) {
         setError(err?.response?.data?.message || "Error fetching profile");
@@ -107,38 +109,38 @@ const Restaurants = () => {
     );
   }
 
-  
+
 
   // follow the restaurant
   const handleFollowRestaurant = async () => {
     let message;
     try {
-      if(user?.email){ 
-      const res = await axiosPublic.patch(`/api/restaurant/follow`, {userEmail: user?.email, restaurantEmail: email});
-      console.log(res?.data);
-      
-      setFollowing(res?.data?.isFollowing);
-      if(res?.data?.isFollowing){
-        message = "Followed!";
-      }else{
-        message = "Unfollowed!";
+      if (user?.email) {
+        const res = await axiosPublic.patch(`/api/restaurant/follow`, { userEmail: user?.email, restaurantEmail: email });
+        console.log(res?.data);
+
+        setFollowing(res?.data?.isFollowing);
+        if (res?.data?.isFollowing) {
+          message = "Followed!";
+        } else {
+          message = "Unfollowed!";
+        }
+        await Swal.fire({
+          title: message,
+          text: message + "the restarunt successfully!",
+          icon: "success",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "#ef4444",
+          timer: 3000,
+          timerProgressBar: true,
+        });
+      } else {
+        setErrorMessage("Please login first to follow the restaurant.");
       }
-      await Swal.fire({
-        title: message,
-        text: message + "the restarunt successfully!",
-        icon: "success",
-        confirmButtonText: "Ok",
-        confirmButtonColor: "#ef4444",
-        timer: 3000,
-        timerProgressBar: true,
-      });
-    }else{
-      setErrorMessage("Please login first to follow the restaurant.");
-    }
     } catch (err) {
       console.log(err?.response?.data?.message || "Error following restaurant");
       setErrorMessage(err?.response?.data?.message || "Error following restaurant");
-    } 
+    }
   };
 
   // follow button
@@ -147,17 +149,16 @@ const Restaurants = () => {
       <div
         onClick={handleFollowRestaurant}
         className={`btn btn-md text-sm mt-4 
-        ${
-          following
+        ${following
             ? "border-black bg-white"
             : "border-red-500 bg-red-500 hover:bg-red-600 text-white"
-        }`}
+          }`}
       >
         {following ? "Following" : "Follow"}
       </div>
-        {
-          errorMessage && <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
-        }
+      {
+        errorMessage && <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
+      }
     </>
   );
 
@@ -222,7 +223,7 @@ const Restaurants = () => {
                 <div className="w-32 md:w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                   <img
                     src={
-                      profile?.profilePhoto ||
+                      profile?.logo ||
                       "https://placehold.co/150?text=profile"
                     }
                     alt="Profile"
@@ -232,7 +233,7 @@ const Restaurants = () => {
               </div>
               <div className="text-center">
                 <h2 className="text-3xl md:text-5xl font-bold text-red-600">
-                  {profile?.restaurantName}
+                  {profile?.businessName}
                 </h2>
                 <p className="text-neutral mt-1">
                   {profile.description || "A place for delicious meals"}
