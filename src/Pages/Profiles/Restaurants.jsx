@@ -5,6 +5,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useUserData from "../../Hooks/useUserData";
+import Loading from "../Loader/Loading";
 
 const Restaurants = () => {
   const { user } = useAuth();
@@ -69,14 +70,7 @@ const Restaurants = () => {
   console.log(menus);
 
   // Loading State
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-base-100">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
-  }
-
+  if (loading) return <Loading />
   //  error state
   if (error === "Restaurant not found") {
     return (
