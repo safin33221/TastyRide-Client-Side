@@ -62,7 +62,7 @@ const AboutRestaurant = () => {
                 <h1 className='text-xl font-bold underline mb-3 flex items-center gap-3 '>Others information <Link to={`/userProfile`}><FaEdit /></Link></h1>
                 <h2 className='text-2xl font-bold'>Name: <span className='text-gray-500 font-normal'>{userData?.username || ' N/A'}</span></h2>
                 <h2 className='text-2xl font-bold'>Email: <span className='text-gray-500 font-normal'>{userData?.email}</span></h2>
-                <h2 className='text-2xl font-bold'>Phone: <span className='text-gray-500 font-normal'>{userData?.phoneNumber || ' N/A'}</span></h2>
+                <h2 className='text-2xl font-bold'>Phone: <span className='text-gray-500 font-normal'>{userData?.phone || ' N/A'}</span></h2>
                 <h2 className='text-2xl font-bold'>Address: <span className='text-gray-500 font-normal'>{userData?.address || ' N/A'}</span></h2>
 
             </div>

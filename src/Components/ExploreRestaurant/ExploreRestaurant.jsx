@@ -46,7 +46,7 @@ const ExploreRestaurant = () => {
                                                 alt={`${restaurant.name} Logo`}
                                             />
                                             <h3 className="text-lg font-semibold text-gray-800">
-                                                {restaurant.name}
+                                                {restaurant.businessName}
                                             </h3>
                                         </div>
                                         <div className="flex items-center text-sm text-gray-500 gap-2">
