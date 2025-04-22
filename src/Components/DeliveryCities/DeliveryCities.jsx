@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SectionTitle from "../../Shared/SectionTitle";
 
 // Static city data (replace with API data if needed)
 const cities = [
@@ -28,7 +29,7 @@ const DeliveryCities = () => {
   return (
     <section className="py-12 bg-white">
       <div className="container mx-auto px-4 md-px-0">
-        <h2 className="text-4xl font-bold text-gray-800 mb-8">We deliver to:</h2>
+        <SectionTitle title={`Where We Deliver`} desc={` Explore the areas where fast, fresh delivery is guaranteed.`}/>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {visibleCities.map((city, index) => (
             <div
