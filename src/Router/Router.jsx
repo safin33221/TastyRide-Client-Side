@@ -37,6 +37,7 @@ import RiderDashboard from '../Dashboard/Rider/RiderDashboard';
 import DeliveryRequest from '../Dashboard/Rider/DeliveryRequest';
 import AcceptedRequest from '../Dashboard/Rider/AcceptedRequest';
 import RestaurantApplication from '../Dashboard/Admin Dashboard/RestaurantApplication';
+import CityRestaurants from '../Components/CityResturant/CityRestaurants';
 
 const Router = () => {
   return (
@@ -56,8 +57,10 @@ const Router = () => {
             path="restaurant-register-form"
             element={<ApplyRestaurent />}
           />
-
+          
           <Route path="restaurantProfile/:email" element={<Restaurants />} />
+          <Route path="/restaurants/city/:cityName" element={<CityRestaurants />} />
+
 
           {/* -----------------------------------------------------------Privet Routes */}
           <Route
@@ -69,6 +72,8 @@ const Router = () => {
             }
           />
           <Route path="order-tracking/:orderId" element={<OrderTracking />} />
+          
+
           <Route
             path="my-order"
             element={
