@@ -171,6 +171,14 @@ const RestaurantApplication = () => {
                       <span className="ml-2">{application.address}</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
+                      <span className="font-medium w-24">City:</span>
+                      <span className="ml-2">{application.city}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <span className="font-medium w-24">District:</span>
+                      <span className="ml-2">{application.district}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
                       <span className="font-medium w-24">Pickup:</span>
                       <span className="ml-2">
                         {application.pickup ? 'Available' : 'Not Available'}
