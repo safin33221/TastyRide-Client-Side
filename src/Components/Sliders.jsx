@@ -6,6 +6,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import PrimaryButton from '../Shared/PrimaryButton';
+import { Link } from 'react-router';
 
 const Sliders = () => {
   const axiosPublic = useAxiosPublic()
@@ -24,7 +25,7 @@ const Sliders = () => {
       return res.data.data
     }
   })
-
+console.log(sliders);
   // filter by accepted banner ad 
   const acceptedAds = sliders.filter(prev => prev.status === "accepted")
   // console.log(acceptedAds)
@@ -47,7 +48,7 @@ const Sliders = () => {
             <div className='bg-[rgba(0,0,0,0.5)] backdrop-blur-sm p-10 flex items-center justify-center w-[500px] flex-col gap-3'>
               <h1 className='text-white text-3xl font-semibold text-center'>{slider.title}</h1>
               <p className='text-gray-400 text-center font-semibold  mx-auto'>{slider.description}</p>
-              <div className='inline-flex'><PrimaryButton text={"Order Now"}/></div>
+              <Link to={`restaurantProfile/${slider.addedBy}`} className='inline-flex'><PrimaryButton text={"Order Now"}/></Link> 
             </div>
             </div>
           </SwiperSlide>

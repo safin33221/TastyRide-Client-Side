@@ -108,7 +108,7 @@ const RegisterForm = () => {
           </label>
         </div>
         {/* User Role */}
-        <div className="mb-6 flex w-full gap-4">
+        {/* <div className="mb-6 flex w-full gap-4">
           <label className="w-full  uppercase flex ">
 
             <div className=" font-semibold flex w-full  bg-blue-100 justify-center items-center gap-3 border-dashed p-2 px-4 cursor-pointer">
@@ -136,7 +136,7 @@ const RegisterForm = () => {
             </div>
           </label>
 
-        </div>
+        </div> */}
         {/* submit button */}
         <button className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6" type="submit">
           {
