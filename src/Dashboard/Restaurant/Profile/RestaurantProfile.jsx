@@ -52,8 +52,8 @@ const RestaurantProfile = () => {
     }
     const handleProfileChange = async () => {
         if (profilePhotoFile) {
-            const profilePhoto = await imageUpload(profilePhotoFile)
-            await axiosPublic.patch(`/api/restaurantProfileUpdate/${user?.email}`, { profilePhoto })
+            const logo = await imageUpload(profilePhotoFile)
+            await axiosPublic.patch(`/api/restaurantProfileUpdate/${user?.email}`, { logo })
             isResDataRefetch()
             setProfilePhotoFile(null)
             setSelectedProfilePhoto(null)
@@ -257,7 +257,7 @@ const RestaurantProfile = () => {
                             )}
                             {/* Others Infomation */}
                             <div className="flex gap-5">
-                                <h1 className="text-2xl text-gray-500">{userData?.restaurantDetails?.followers?.length} Follower</h1>
+                                <h1 className="text-2xl text-gray-500">{restaurantData?.followers?.length} Follower</h1>
                                 <h1 className="text-2xl text-gray-500">3.4 Review</h1>
                             </div>
                         </div>
