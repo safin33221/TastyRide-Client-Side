@@ -103,16 +103,18 @@ const RestaurantDashboard = () => {
     ]
   }
 
+
     // Pie Chart: Order Status Distribution
     const statusChartData = {
       labels: charts.statusDistribution.map(s => s.status),
       datasets: [{
         label: "Orders",
         data: charts.statusDistribution.map(s => s.count),
+        backgroundColor: ['#ef4444', '#10b981', '#f59e0b', '#3b82f6', '#6b7280'],
+        borderColor: '#fff',
+        borderWidth: 1,
       }],
-      backgroundColor: ['#ef4444', '#10b981', '#f59e0b', '#3b82f6', '#6b7280'],
-      borderColor: '#fff',
-      borderWidth: 1,
+     
     }
 
   // chart options
