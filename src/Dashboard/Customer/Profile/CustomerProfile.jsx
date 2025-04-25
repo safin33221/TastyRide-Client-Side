@@ -87,13 +87,11 @@ function CustomerProfile() {
 
   //   updating user data end ------------------------------------------------------
 
-  // Mock restaurant data (replace with real data from API/hook)
+  
 
   const {
     data: followedRestaurants = [],
-    refetch: reUpdate,
-    isLoading,
-    isError
+    refetch: reload
   } = useQuery({
     queryKey: ["restaurants", user?.email],
     queryFn: async () => {
@@ -102,13 +100,24 @@ function CustomerProfile() {
 
       return res?.data;
     },
-    enabled: !!user?.email // ✅ Only runs when userEmail is available
+    enabled: !!user?.email 
   });
 
   // hamdle unfollow
   const handleUnfollow = async (restaurantEmail) => {
     const res = await axiosPublic.patch(`/api/restaurant/follow`, { userEmail: user?.email, restaurantEmail });
-    if (!res?.data?.isFollowing) reUpdate();
+    if(!res?.data?.isFollowing){
+      await Swal.fire({
+                title: "Unfollow!",
+                text: "You unfollowed the restarunt successfully!",
+                icon: "success",
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#ef4444",
+                timer: 3000,
+                timerProgressBar: true,
+              });
+    }
+    reload();
   }
 
   return (
@@ -265,17 +274,17 @@ function CustomerProfile() {
                     <div className="flex items-center">
                       <div className="avatar">
                         <div className="w-20 h-20 rounded-full border-2 border-red-500">
-                          <img src={restaurant?.restaurantDetails?.profilePhoto} alt={restaurant?.restaurantDetails?.restaurantName} />
+                          <img src={restaurant?.logo} alt={restaurant?.businessName} />
                         </div>
                       </div>
 
                     </div>
                     <div className="flex flex-col">
                       {/* restaurant name */}
-                      <span className="font-medium">{restaurant?.restaurantDetails?.restaurantName}</span>
+                      <span className="font-medium">{restaurant?.businessName}</span>
                       {/* unfollow button */}
                       <button
-                        onClick={() => handleUnfollow(restaurant.email)}
+                        onClick={() => handleUnfollow(restaurant?.email)}
                         className="btn btn-sm btn-outline mt-2 border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
                       >
                         Unfollow
@@ -283,7 +292,7 @@ function CustomerProfile() {
                     </div>
                   </div>
                   {/* go to restaurant button */}
-                  <Link to={`/restaurantProfile/${restaurant.email}`}>
+                  <Link to={`/restaurantProfile/${restaurant?.email}`}>
                     <button className="w-full text-center py-2 px-5 bg-red-500  text-white font-semibold cursor-pointer select-none 
                     hover:bg-red-600 border-2 border-red-500 hover:border-red-600 transition-all ">
                       Go To Restaurant
@@ -294,7 +303,7 @@ function CustomerProfile() {
             </div>
           ) : (
             <p className="text-gray-500">
-              {followedRestaurants?.message}
+              You are not following any restaurant.
             </p>
           )}
         </div>

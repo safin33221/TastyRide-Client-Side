@@ -17,6 +17,7 @@ import {
   Legend,
   Filler
 } from 'chart.js';
+import DatePicker from 'react-datepicker';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Filler, Title, Tooltip, Legend);
 
 const RestaurantDashboard = () => {
@@ -28,7 +29,9 @@ const RestaurantDashboard = () => {
     const {data: restaurantOverViewData, isLoading, error} = useQuery({
       queryKey: ['restaurantOverViewData'],
       queryFn: async () => {
-        const res = await axiosPublic.get(`/api//orders/overview/${user?.email}?date=${selectedDate.toISOString().split('T')[0]}`);
+        // console.log(selectedDate.toISOString().split('T')[0]);
+        
+        const res = await axiosPublic.get(`/api//orders/overview/${user?.email}`);
         return res.data;
       }
     })
@@ -87,21 +90,21 @@ const RestaurantDashboard = () => {
   }
 
   // bar chart order in a day
-  const dayChartData = {
-    labels: Array.from({length: 24}, (_, i)=> `${i}:00`),
-    datasets: [
-      {
-        label: 'Orders',
-        data: Array.from({lenght: 24}, (_, i) => {
-          const hourData = charts.orderOverOneDay.find(d => d.hour === i);
-          return hourData? hourData.count : 0;
-        }),
-        backgroundColor: '#ef4444',
-        borderColor: '#dc2626',
-        borderWidth: 1,
-      }
-    ]
-  }
+  // const dayChartData = {
+  //   labels: Array.from({length: 24}, (_, i)=> `${i}:00`),
+  //   datasets: [
+  //     {
+  //       label: 'Orders',
+  //       data: Array.from({lenght: 24}, (_, i) => {
+  //         const hourData = charts.orderOverOneDay.find(d => d.hour === i);
+  //         return hourData? hourData.count : 0;
+  //       }),
+  //       backgroundColor: '#ef4444',
+  //       borderColor: '#dc2626',
+  //       borderWidth: 1,
+  //     }
+  //   ]
+  // }
 
 
     // Pie Chart: Order Status Distribution
@@ -213,7 +216,7 @@ const RestaurantDashboard = () => {
                 selected={selectedDate}
                 onChange={(date) => {
                   setSelectedDate(date);
-                  queryClient.invalidateQueries(['restaurantOverview']);
+                  
                 }}
                 dateFormat="yyyy-MM-dd"
                 className="input input-bordered w-full max-w-xs"
