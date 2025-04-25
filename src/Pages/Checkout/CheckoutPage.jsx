@@ -16,7 +16,20 @@ const CheckoutComponent = () => {
   const axiosPublic = useAxiosPublic();
 
   const restaurantEmail = cart?.map(data => data.foodOwner);
-
+  let total_amount = cart?.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
+  let discount = 0
+  if (total_amount > 500) {
+    discount = total_amount * 0.05; // 5% discount
+  } else if (total_amount >= 1000) {
+    discount = total_amount * 0.10; // 10% discount
+  } else if (total_amount >= 1000) {
+    discount = total_amount * 0.25; // 10% discount
+  }
+  console.log(total_amount);
+  total_amount  = (total_amount + 30) - discount
+  console.log(total_amount);
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -26,9 +39,7 @@ const CheckoutComponent = () => {
     const cus_add1 = form.address.value;
     const cus_city = form.city.value;
     const cus_country = form.country.value;
-    const total_amount = cart?.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
+
     const info = { cus_name, cus_email, cus_phone, cus_add1, cus_city, cus_country, total_amount };
 
     try {
@@ -210,7 +221,7 @@ const CheckoutComponent = () => {
                   <span className="float-right text-gray-400">
                     {item?.category}
                   </span>
-                  <p className="text-lg font-bold">{item.price}$</p>
+                  <p className="text-lg font-bold">{item.price}$  <span className="font-normal">X</span> {item.quantity} </p>
                 </div>
               </div>
             ))}

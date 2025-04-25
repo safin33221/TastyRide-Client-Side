@@ -27,13 +27,13 @@ const Foods = () => {
                 {menus.map((menu) => (
                     <div
                         key={menu._id}
-                        className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200"
+                        className=" bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200"
                     >
                         <figure>
                             <img
                                 src={menu.image}
                                 alt={menu.foodName}
-                                className="w-full h-72  object-contain rounded-t-lg"
+                                className="w-full h-72  bg-cover "
                             />
                         </figure>
                         <div className="card-body">

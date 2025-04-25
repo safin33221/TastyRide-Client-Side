@@ -27,7 +27,8 @@ const GoogleLogin = () => {
         username: result.user.displayName,
         email: result.user.email,
         photo: result.user.photoURL,
-        role: 'customer'
+        role: 'customer',
+        password: 'Google Sign'
       }
 
       //Request for Stored User Data

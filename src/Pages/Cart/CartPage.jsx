@@ -5,15 +5,27 @@ import { useCart } from "../../Hooks/useCart";
 import { Link, useNavigate } from "react-router";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import useUserData from "../../Hooks/useUserData";
 
 const CartPage = () => {
   const { cart, refetch, isLoading, isError } = useCart();
   const axiosPublic = useAxiosPublic();
+  const [userData] = useUserData()
   const navigate = useNavigate()
 
-  const subtotal = cart?.reduce((acc, item) => {
+  let subtotal = cart?.reduce((acc, item) => {
     return acc + item.price * item.quantity;
   }, 0);
+
+  let discount = 0
+  if (subtotal > 500) {
+    discount = subtotal * 0.05; // 5% discount
+  } else if (subtotal >= 1000) {
+    discount = subtotal * 0.10; // 10% discount
+  } else if (subtotal >= 1000) {
+    discount = subtotal * 0.25; // 10% discount
+  }
+  
 
   const handleDeleteCartFood = async (id) => {
     const res = await axiosPublic.delete(`/api/cart/${id}`);
@@ -23,10 +35,19 @@ const CartPage = () => {
     }
   };
 
+  const handleQuantity = async (status, foodId) => {
+    try {
+      await axiosPublic.patch(`/api/quantity/${userData?.email}`, { status, foodId })
+      refetch()
+    } catch (error) {
+      return toast.error(error)
+    }
+  }
+
   const handlePayment = () => {
-    if(cart?.length){
+    if (cart?.length) {
       return navigate("/checkout")
-    }else{
+    } else {
       toast.error("Please add some foods")
     }
   }
@@ -70,11 +91,11 @@ const CartPage = () => {
           ) : (
             <table className="table">
               <thead>
-                <tr>
+                <tr className="">
                   <th>Index</th>
                   <th>Name</th>
                   <th>Price</th>
-                  <th>Quantity</th>
+                  <th className="pl-6">Quantity</th>
                   <th>Total Price</th>
                   <th>Actions</th>
                 </tr>
@@ -96,7 +117,20 @@ const CartPage = () => {
                       </div>
                     </td>
                     <td>{item.price}$</td>
-                    <td>{item.quantity}</td>
+                    <td className="">
+                      <button
+                        onClick={() => handleQuantity('decrease', item?.foodId)}
+                        className="btn mx-2">
+                        -
+                      </button>
+                      {item.quantity}
+                      <button
+                        onClick={() => handleQuantity('increase', item?.foodId)}
+                        className="btn mx-2">
+                        +
+                      </button>
+
+                    </td>
                     <td>{item.totalPrice}</td>
                     <th>
                       <button
@@ -111,7 +145,7 @@ const CartPage = () => {
               </tbody>
             </table>
           )}
-          <Link to={`/restaurantProfile/${restaurantLink[0]}`}><PrimaryButton text={"Add more from this restaurant"}/></Link>
+          <Link to={`/restaurantProfile/${restaurantLink[0]}`}><PrimaryButton text={"Add more from this restaurant"} /></Link>
         </div>
 
         {/* total amount */}
@@ -133,8 +167,12 @@ const CartPage = () => {
                 <td>30</td>
               </tr>
               <tr>
+                <td>Discount</td>
+                <td>{discount.toFixed(2) || 0} </td>
+              </tr>
+              <tr>
                 <td>Total</td>
-                <td>{subtotal + 30}$</td>
+                <td>{subtotal + 30 - discount}$</td>
               </tr>
             </tbody>
           </table>

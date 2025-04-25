@@ -201,7 +201,7 @@ const AdminDashboard = () => {
             </div>
 
 
-            <div className='grid grid-cols-2 gap-2'>
+            {/* <div className='grid grid-cols-2 gap-2'>
                 <div className='border h-28 rounded-xl flex items-center justify-center'>{TotalSalesAmount}</div>
                 <div className='border h-28 rounded-xl flex items-center justify-center'> Negative Review</div>
             </div>
@@ -217,7 +217,7 @@ const AdminDashboard = () => {
             <div className=' gap-2'>
                 <div className='border h-80 rounded-xl flex items-center justify-center'>Recent orders details</div>
 
-            </div>
+            </div> */}
         </div>
     );
 };

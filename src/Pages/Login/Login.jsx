@@ -10,7 +10,7 @@ const Login = () => {
   const { t } = useTranslation();
   return (
     <div className=" py-12">
-      <div className="flex flex-col lg:flex-row gap-4 lg:max-w-[1300px] mx-auto rounded-lg  p-6 md:p-10 ">
+      <div className="flex flex-col lg:flex-row gap-4  mx-auto rounded-lg  md:p-6  ">
         {/* img */}
         <div className="lg:w-1/2 px-8 relative">
           <img src={loginBanner} alt="" className="   lg:w-10/12 w-full mx-auto h-full" />
