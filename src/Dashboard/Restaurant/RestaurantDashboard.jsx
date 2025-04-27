@@ -22,23 +22,25 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 
 const RestaurantDashboard = () => {
   const axiosPublic = useAxiosPublic();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   // get the api data for restaurant overview
-    const {data: restaurantOverViewData, isLoading, error} = useQuery({
-      queryKey: ['restaurantOverViewData'],
-      queryFn: async () => {
-        // console.log(selectedDate.toISOString().split('T')[0]);
-        
-        const res = await axiosPublic.get(`/api//orders/overview/${user?.email}`);
-        return res.data;
-      }
-    })
+  const { data: restaurantOverViewData = [], isLoading, error } = useQuery({
+    queryKey: ['restaurantOverViewData', user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      // console.log(selectedDate.toISOString().split('T')[0]);
 
-    const {metrics, charts} = restaurantOverViewData || {};
 
-  if(isLoading){
+      const res = await axiosPublic.get(`/api//orders/overview/${user?.email}`);
+      return res.data;
+    }
+  })
+
+  const { metrics, charts } = restaurantOverViewData || {};
+
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <span className="loading loading-spinner text-primary"></span>
@@ -107,22 +109,22 @@ const RestaurantDashboard = () => {
   // }
 
 
-    // Pie Chart: Order Status Distribution
-    const statusChartData = {
-      labels: charts.statusDistribution.map(s => s.status),
-      datasets: [{
-        label: "Orders",
-        data: charts.statusDistribution.map(s => s.count),
-        backgroundColor: ['#ef4444', '#10b981', '#f59e0b', '#3b82f6', '#6b7280'],
-        borderColor: '#fff',
-        borderWidth: 1,
-      }],
-     
-    }
+  // Pie Chart: Order Status Distribution
+  const statusChartData = {
+    labels: charts.statusDistribution.map(s => s.status),
+    datasets: [{
+      label: "Orders",
+      data: charts.statusDistribution.map(s => s.count),
+      backgroundColor: ['#ef4444', '#10b981', '#f59e0b', '#3b82f6', '#6b7280'],
+      borderColor: '#fff',
+      borderWidth: 1,
+    }],
+
+  }
 
   // chart options
   const chartOptions = {
-    responsive: true, 
+    responsive: true,
     plugins: {
       legend: {
         position: 'top',
@@ -137,11 +139,11 @@ const RestaurantDashboard = () => {
 
   return (
     <div className="py-10 px-4 mx-auto">
-       <h1 className="text-3xl font-bold text-primary mb-6">Restaurant Overview</h1>
+      <h1 className="text-3xl font-bold text-primary mb-6">Restaurant Overview</h1>
 
 
-       {/* matrics */}
-       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+      {/* matrics */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {/* total order */}
         <div className='card bg-base-100 shadow-xl'>
           <div className="card-body">
@@ -177,30 +179,30 @@ const RestaurantDashboard = () => {
             <p className="text-2xl font-bold">{metrics.cancelledOrders}</p>
           </div>
         </div>
-       </div>
+      </div>
 
 
-       {/* charts */}
-       <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-10'>
+      {/* charts */}
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-10'>
 
-       {/* line chart for one month */}
-          <div className='card bg-base-100 shadow-xl p-10'>
+        {/* line chart for one month */}
+        <div className='card bg-base-100 shadow-xl p-10'>
           <h2 className="card-title text-primary">Orders Over Time (Last 30 Days)</h2>
-          <Line data= {ordersChartData} 
-          options={{
-            ...chartOptions, 
-            plugins: {
-              ...chartOptions.plugins,
-              title: {
-                text: "Order in last 30 days"
+          <Line data={ordersChartData}
+            options={{
+              ...chartOptions,
+              plugins: {
+                ...chartOptions.plugins,
+                title: {
+                  text: "Order in last 30 days"
+                }
               }
-            }
-          }}
+            }}
           />
-          </div>
+        </div>
 
-          {/* line chart for one week */}
-          <div className="card bg-base-100 shadow-xl">
+        {/* line chart for one week */}
+        <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title text-primary">Orders Over One Week</h2>
             <Line data={weekChartData} options={{ ...chartOptions, plugins: { ...chartOptions.plugins, title: { text: 'Orders Over Week' } } }} />
@@ -231,17 +233,18 @@ const RestaurantDashboard = () => {
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title text-primary">Order Status Distribution</h2>
-            <Pie 
-            data={statusChartData} 
-            options={{ 
-              ...chartOptions, 
-              plugins: { 
-                ...chartOptions.plugins, 
-                title: { text: 'Order Status' } 
-              } }} />
+            <Pie
+              data={statusChartData}
+              options={{
+                ...chartOptions,
+                plugins: {
+                  ...chartOptions.plugins,
+                  title: { text: 'Order Status' }
+                }
+              }} />
           </div>
         </div>
-       </div>
+      </div>
     </div>
   );
 };

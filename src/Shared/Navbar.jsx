@@ -11,6 +11,7 @@ import useNotification from '../Hooks/useNotification';
 import useAxiosPublic from '../Hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
 import useUserData from '../Hooks/useUserData';
+import logo from '../../src/assets/logo/logo2.png'
 
 const Navbar = () => {
   const [notificationData, refetch] = useNotification();
@@ -98,7 +99,7 @@ const Navbar = () => {
               </div>
             </ul>
           </div>
-          <a className="text-xl">TastyRide</a>
+          <a className="text-xl"> <img src={logo} className='w-full h-20' alt="" /></a>
         </div>
         <div className="hidden md:flex navbar-center mx-auto ">
           <CountDown />
