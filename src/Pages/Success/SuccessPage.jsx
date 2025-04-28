@@ -15,11 +15,14 @@ const SuccessPage = () => {
   const { user } = useAuth();
 
   const tranId = queryParams.get("tran_id");
-  const amount = queryParams.get("amount");
+  const total_amount = queryParams.get("amount");
   const currency = queryParams.get("currency");
-  const tranDate = queryParams.get("tran_date");
-
+  const createdAt = queryParams.get("tran_date");
+  const order = {tranId, total_amount, currency, createdAt}
   useEffect(() => {
+    const placeOrder = async () => {
+      const res = await axiosPublic.post(`/api/orders`)
+    }
       if(user){
         const deleteCartData = async () => {
             const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
@@ -43,10 +46,10 @@ const SuccessPage = () => {
             <strong>Transaction ID:</strong> {tranId || "N/A"}
           </p>
           <p>
-            <strong>Amount:</strong> {amount} {currency}
+            <strong>Amount:</strong> {total_amount} {currency}
           </p>
           <p>
-            <strong>Date:</strong> {tranDate || "N/A"}
+            <strong>Date:</strong> {createdAt || "N/A"}
           </p>
         </div>
         <Link
