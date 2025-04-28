@@ -17,7 +17,7 @@ const BecomePartner = () => {
                    <Link to="/restaurant-register-form"> 
                    <button
                         type="button"
-                        className=" bg-red-500 mt-6 text-white cursor-pointer py-2 px-4 text-xl text-bold hover:bg-red-600 md:w-48"
+                        className=" bg-red-500 mt-6 text-white cursor-pointer py-2 px-4 text-xl  hover:bg-red-600 md:w-48"
                     >
                         Become a Partner
                     </button>
@@ -38,7 +38,7 @@ const BecomePartner = () => {
                     <button
                         type="button"
                         link="restaurant-register-form"
-                        className=" bg-red-500 cursor-pointer text-white mt-6 py-2 px-4 text-xl text-bold hover:bg-red-600 md:w-44"
+                        className=" bg-red-500 cursor-pointer text-white mt-6 py-2 px-4 text-xl  hover:bg-red-600 md:w-44"
                     >
                         Become a Hero
                     </button>
