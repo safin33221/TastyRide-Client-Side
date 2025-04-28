@@ -18,35 +18,31 @@ import {
   Filler
 } from 'chart.js';
 import DatePicker from 'react-datepicker';
+import Loading from '../../Pages/Loader/Loading';
+import useUserData from '../../Hooks/useUserData';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Filler, Title, Tooltip, Legend);
 
 const RestaurantDashboard = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
+  const [userData] = useUserData()
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   // get the api data for restaurant overview
-  const { data: restaurantOverViewData = [], isLoading, error } = useQuery({
-    queryKey: ['restaurantOverViewData', user?.email],
-    enabled: !!user?.email,
+  const { data: restaurantOverViewData = [], isPending, error } = useQuery({
+    queryKey: ['restaurantOverViewData', userData?.email],
+    enabled: !!userData?.email,
     queryFn: async () => {
-      // console.log(selectedDate.toISOString().split('T')[0]);
-
-
-      const res = await axiosPublic.get(`/api//orders/overview/${user?.email}`);
+      const res = await axiosPublic.get(`/api//orders/overview/${userData?.email}`);
       return res.data;
     }
   })
 
   const { metrics, charts } = restaurantOverViewData || {};
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner text-primary"></span>
-      </div>
-    );
-  }
+  if (isPending) return <Loading />
+
+
 
   // handle error for fatching data
   if (error) {
