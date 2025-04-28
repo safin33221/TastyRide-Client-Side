@@ -80,16 +80,18 @@ const Home = () => {
         <ExploreRestaurant />
         <SectionDivider></SectionDivider>
         <BecomePartner></BecomePartner>
-        <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
+       
         <section>
           {/* <CategoryFoods /> */}
           {/* <RandomFood/> */}
         </section>
-        <SectionDivider></SectionDivider>
+        {/* <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
-        <SectionDivider></SectionDivider>
+        <SectionDivider></SectionDivider> */}
         <DeliveryCities></DeliveryCities>
+        <SectionDivider></SectionDivider>
+        <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
         <OurClient></OurClient>
         <SectionDivider></SectionDivider>
