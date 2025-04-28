@@ -61,11 +61,11 @@ const RestaurantDashboard = () => {
 
   // line chart order over time
   const ordersChartData = {
-    labels: charts.orderOverOneMonth.map(data => data.date),
+    labels: charts?.orderOverOneMonth.map(data => data?.date),
     datasets: [
       {
         label: 'Orders',
-        data: charts.orderOverOneMonth.map(data => data.count),
+        data: charts?.orderOverOneMonth?.map(data => data.count),
         borderColor: '#ef4444',
         backgroundColor: 'rgba(239, 68, 68, 0.2',
         fill: true
@@ -75,7 +75,7 @@ const RestaurantDashboard = () => {
 
   // line chart order over one week 
   const weekChartData = {
-    labels: charts.orderOverOneWeek.map(data => data.date),
+    labels: charts?.orderOverOneWeek?.map(data => data.date),
     datasets: [
       {
         label: 'Orders',
@@ -107,7 +107,7 @@ const RestaurantDashboard = () => {
 
   // Pie Chart: Order Status Distribution
   const statusChartData = {
-    labels: charts.statusDistribution.map(s => s.status),
+    labels: charts?.statusDistribution?.map(s => s.status),
     datasets: [{
       label: "Orders",
       data: charts.statusDistribution.map(s => s.count),
