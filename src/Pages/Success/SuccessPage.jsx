@@ -8,20 +8,20 @@ const SuccessPage = () => {
   const location = useLocation();
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
-  const { refetch } = useCart(); // we still need refetch after clearing cart
+  const { refetch } = useCart(); // still needed
 
   const queryParams = new URLSearchParams(location.search);
   const tranId = queryParams.get("tran_id");
   const total_amount = queryParams.get("amount");
   const currency = queryParams.get("currency");
   const createdAt = queryParams.get("tran_date");
-  
+
   const info = JSON.parse(localStorage.getItem("info"));
-  const cart = JSON.parse(localStorage.getItem("cart")); // ✅ get cart from localStorage
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
   const restaurant = cart?.map(data => data.foodOwner);
-  if(restaurant){
-    var restaurantEmail = restaurant[0]
-  }
+  const restaurantEmail = restaurant ? restaurant[0] : null;
+
   const order = {
     tranId,
     total_amount,
@@ -29,12 +29,18 @@ const SuccessPage = () => {
     createdAt,
     info,
     cart,
-    restaurantEmail
+    restaurantEmail,
   };
 
   useEffect(() => {
     const placeOrderAndClearCart = async () => {
       try {
+        // ❗ ADD PROTECTION: check if cart and info exist
+        if (!cart || !info || cart.length === 0) {
+          console.log("Cart or info missing, skipping order placement.");
+          return;
+        }
+
         // 1. Place order
         const res = await axiosPublic.post(`/api/orders`, order);
         console.log("Order placed:", res.data);
@@ -46,16 +52,16 @@ const SuccessPage = () => {
               const clearRes = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
               console.log("Cart cleared:", clearRes.data);
 
-              refetch(); // refresh frontend cart
+              refetch(); // Refresh cart state
               
-              // Also clear localStorage cart & info
+              // Also remove from localStorage
               localStorage.removeItem('cart');
               localStorage.removeItem('info');
 
             } catch (error) {
               console.error("Failed to clear cart:", error);
             }
-          }, 2000); // ⏳ wait for 2 seconds
+          }, 2000);
         }
 
       } catch (error) {
@@ -64,7 +70,7 @@ const SuccessPage = () => {
     };
 
     placeOrderAndClearCart();
-  }, [axiosPublic, order, refetch, user]);
+  }, [axiosPublic, order, refetch, user, cart, info]); // dependencies updated!
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
