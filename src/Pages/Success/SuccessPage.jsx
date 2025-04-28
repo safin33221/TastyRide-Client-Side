@@ -1,36 +1,70 @@
-// frontend/src/components/SuccessPage.jsx
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
 import { useCart } from "../../Hooks/useCart";
-import { Link } from "react-router";
 
 const SuccessPage = () => {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const { cart, refetch, isLoading, isError } = useCart();
-
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
+  const { refetch } = useCart(); // we still need refetch after clearing cart
 
+  const queryParams = new URLSearchParams(location.search);
   const tranId = queryParams.get("tran_id");
   const total_amount = queryParams.get("amount");
   const currency = queryParams.get("currency");
   const createdAt = queryParams.get("tran_date");
-  const order = {tranId, total_amount, currency, createdAt}
+  
+  const info = JSON.parse(localStorage.getItem("info"));
+  const cart = JSON.parse(localStorage.getItem("cart")); // ✅ get cart from localStorage
+  const restaurant = cart?.map(data => data.foodOwner);
+  if(restaurant){
+    var restaurantEmail = restaurant[0]
+  }
+  const order = {
+    tranId,
+    total_amount,
+    currency,
+    createdAt,
+    info,
+    cart,
+    restaurantEmail
+  };
+
   useEffect(() => {
-    const placeOrder = async () => {
-      const res = await axiosPublic.post(`/api/orders`)
-    }
-      if(user){
-        const deleteCartData = async () => {
-            const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
-            refetch()
+    const placeOrderAndClearCart = async () => {
+      try {
+        // 1. Place order
+        const res = await axiosPublic.post(`/api/orders`, order);
+        console.log("Order placed:", res.data);
+
+        // 2. After 2 seconds, clear cart
+        if (user) {
+          setTimeout(async () => {
+            try {
+              const clearRes = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
+              console.log("Cart cleared:", clearRes.data);
+
+              refetch(); // refresh frontend cart
+              
+              // Also clear localStorage cart & info
+              localStorage.removeItem('cart');
+              localStorage.removeItem('info');
+
+            } catch (error) {
+              console.error("Failed to clear cart:", error);
+            }
+          }, 2000); // ⏳ wait for 2 seconds
         }
-        return deleteCartData;
+
+      } catch (error) {
+        console.error("Failed to place order:", error);
       }
-  }, []);
+    };
+
+    placeOrderAndClearCart();
+  }, [axiosPublic, order, refetch, user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -54,7 +88,6 @@ const SuccessPage = () => {
         </div>
         <Link
           to={`/my-order`}
-          href="/order-tracking"
           className="mt-6 inline-block rounded-md bg-gray-900 px-4 py-2 text-white"
         >
           Track Order
