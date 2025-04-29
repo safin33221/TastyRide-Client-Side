@@ -96,16 +96,16 @@ const Footer = () => {
         {/* Social Media and Copyright */}
         <div className="mt-8 pt-8 border-t border-gray-700 flex flex-col sm:flex-row justify-between items-center">
           <div className="flex space-x-4 mb-4 sm:mb-0">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className=" text-red-500 hover:text-red-700 transition-colors duration-300">
               <FaFacebookF size={24} />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className=" text-red-500 hover:text-red-700 transition-colors duration-300">
               <FaInstagram size={24} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className=" text-red-500 hover:text-red-700 transition-colors duration-300">
             <FaXTwitter size={24} />
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className=" text-red-500 hover:text-red-700 transition-colors duration-300">
             <FaYoutube size={24} />
             </a>
           </div>
