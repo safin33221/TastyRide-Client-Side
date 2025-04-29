@@ -37,13 +37,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/menu" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
-                  Menu
+                <a href="/all-food" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+                  All Food
                 </a>
               </li>
               <li>
-                <a href="" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
-                  Track Order
+                <a href="/gallery" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
+                  Gallery
                 </a>
               </li>
               <li>
