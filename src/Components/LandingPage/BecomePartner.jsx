@@ -5,7 +5,7 @@ const BecomePartner = () => {
     return (
         <section className="px-4 md:px-0 text-center ">
             <h1 className="text-3xl font-bold mb-2">Join the TestyRide Family</h1>
-            <p className="text-lg text-gray-600 ">Whether you're a restaurant owner or a delivery hero, partner with us today!</p>
+            <p className="text-lg text-gray-600 mb-12  ">Whether you're a restaurant owner or a delivery hero, partner with us today!</p>
 
             <div className="md:flex justify-center md:space-x-auto lg:space-x-44 overflow-x-auto">
                 <div className="relative w-full h-90 rounded-lg mb-8 md:mb-0 overflow-hidden shadow-lg">
