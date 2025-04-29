@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const BecomePartner = () => {
     return (
-        <div className=" px-4 md:px-0 md:flex justify-center md:space-x-auto lg:space-x-44 overflow-x-auto">
+        <div className=" px-4 md:px-6 space-x-4 lg:px-0 md:flex justify-center md:space-x-auto lg:space-x-44 overflow-x-auto">
             <div className="relative w-full h-90 rounded-lg mb-8 md:mb-0 overflow-hidden shadow-lg">
                 <img
                     src="https://i.ibb.co.com/9Hp34f7j/handshake-businessmen-1098-742.jpg"
