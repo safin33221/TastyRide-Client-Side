@@ -4,12 +4,12 @@ import SectionTitle from "../../Shared/SectionTitle";
 
 const BecomePartner = () => {
     return (
-        <section>
+        <section className="px-4 md:px-6  lg:px-2">
             <SectionTitle
                 title="Join the TestyRide Family"
                 desc="Whether you're a restaurant owner or a delivery hero, partner with us today!"
             />
-            <div className=" px-4 md:px-6 space-x-4 lg:px-0 md:flex justify-center md:space-x-auto lg:space-x-44 overflow-x-auto">
+            <div className="  md:flex justify-center space-x-4 md:space-x-auto lg:space-x-44 overflow-x-auto">
                 <div className="relative w-full h-90 rounded-lg mb-8 md:mb-0 overflow-hidden shadow-lg">
                     <img
                         src="https://i.ibb.co.com/9Hp34f7j/handshake-businessmen-1098-742.jpg"
