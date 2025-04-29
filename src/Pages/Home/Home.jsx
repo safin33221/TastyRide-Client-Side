@@ -15,6 +15,7 @@ import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import Reviews from '../../Components/Reviews/Reviews';
 import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
 import DeliveryCities from '../../Components/DeliveryCities/DeliveryCities';
+import BecomePartner from '../../Components/LandingPage/BecomePartner';
 
 
 const Home = () => {
@@ -77,16 +78,20 @@ const Home = () => {
         <SectionDivider></SectionDivider>
         {/* <DiscountsProduct /> */}
         <ExploreRestaurant />
-        <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
+        <BecomePartner></BecomePartner>
+        <SectionDivider></SectionDivider>
+       
         <section>
           {/* <CategoryFoods /> */}
           {/* <RandomFood/> */}
         </section>
-        <SectionDivider></SectionDivider>
+        {/* <SectionDivider></SectionDivider>
         <PopularCollection></PopularCollection>
-        <SectionDivider></SectionDivider>
+        <SectionDivider></SectionDivider> */}
         <DeliveryCities></DeliveryCities>
+        <SectionDivider></SectionDivider>
+        <InterNationalFood></InterNationalFood>
         <SectionDivider></SectionDivider>
         <OurClient></OurClient>
         <SectionDivider></SectionDivider>

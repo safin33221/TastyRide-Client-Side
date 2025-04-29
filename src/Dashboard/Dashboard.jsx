@@ -43,7 +43,7 @@ const Sidebar = () => {
   return (
     <motion.nav
       layout
-      className={`sticky z-10 top-0 h-screen  shrink-0 border-r border-slate-300 bg-white p-2 w-full   `}
+      className={`fixed md:sticky z-10 top-0  max-h-screen min-h-screen  shrink-0 border-r border-slate-300 bg-white p-2 w-full   `}
       style={{
         width: open ? '225px' : 'fit-content',
       }}
@@ -62,6 +62,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
               open={open}
+              
             />
             <Option
               Icon={FiUsers}
@@ -70,6 +71,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
               open={open}
+              
             />
             <Option
               Icon={GrRestaurant}
@@ -367,7 +369,7 @@ const ToggleClose = ({ open, setOpen }) => {
       onClick={() => setOpen(pv => !pv)}
       className="absolute bottom-0 left-0 right-0 border-t border-slate-300 transition-colors hover:bg-slate-100"
     >
-      <div className="flex items-center p-2">
+      <div className="flex items-center p-2 sticky bottom-0">
         <motion.div
           layout
           className="grid size-10 place-content-center text-lg"
@@ -393,7 +395,7 @@ const ToggleClose = ({ open, setOpen }) => {
 };
 
 const MainContent = () => (
-  <div className=" w-full bg-indigo-50   ">
+  <div className={` w-full bg-indigo-50  h-full ${open?" ml-14 h-full md:ml-0":"h-full"}  `}>
     <Outlet />
   </div>
 );

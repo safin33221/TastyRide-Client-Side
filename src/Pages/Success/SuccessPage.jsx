@@ -1,33 +1,76 @@
-// frontend/src/components/SuccessPage.jsx
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import useAuth from "../../Hooks/useAuth";
 import { useCart } from "../../Hooks/useCart";
-import { Link } from "react-router";
 
 const SuccessPage = () => {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const { cart, refetch, isLoading, isError } = useCart();
-
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
+  const { refetch } = useCart(); // still needed
 
+  const queryParams = new URLSearchParams(location.search);
   const tranId = queryParams.get("tran_id");
-  const amount = queryParams.get("amount");
+  const total_amount = queryParams.get("amount");
   const currency = queryParams.get("currency");
-  const tranDate = queryParams.get("tran_date");
+  const createdAt = queryParams.get("tran_date");
+
+  const info = JSON.parse(localStorage.getItem("info"));
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  const restaurant = cart?.map(data => data.foodOwner);
+  const restaurantEmail = restaurant ? restaurant[0] : null;
+
+  const order = {
+    tranId,
+    total_amount,
+    currency,
+    createdAt,
+    info,
+    cart,
+    restaurantEmail,
+  };
 
   useEffect(() => {
-      if(user){
-        const deleteCartData = async () => {
-            const res = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
-            refetch()
+    const placeOrderAndClearCart = async () => {
+      try {
+        // ❗ ADD PROTECTION: check if cart and info exist
+        if (!cart || !info || cart.length === 0) {
+          console.log("Cart or info missing, skipping order placement.");
+          return;
         }
-        return deleteCartData;
+
+        // 1. Place order
+        const res = await axiosPublic.post(`/api/orders`, order);
+        console.log("Order placed:", res.data);
+
+        // 2. After 2 seconds, clear cart
+        if (user) {
+          setTimeout(async () => {
+            try {
+              const clearRes = await axiosPublic.delete(`/api/clear-cart/${user.email}`);
+              console.log("Cart cleared:", clearRes.data);
+
+              refetch(); // Refresh cart state
+              
+              // Also remove from localStorage
+              localStorage.removeItem('cart');
+              localStorage.removeItem('info');
+
+            } catch (error) {
+              console.error("Failed to clear cart:", error);
+            }
+          }, 2000);
+        }
+
+      } catch (error) {
+        console.error("Failed to place order:", error);
       }
-  }, []);
+    };
+
+    placeOrderAndClearCart();
+  }, [axiosPublic, order, refetch, user, cart, info]); // dependencies updated!
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -43,15 +86,14 @@ const SuccessPage = () => {
             <strong>Transaction ID:</strong> {tranId || "N/A"}
           </p>
           <p>
-            <strong>Amount:</strong> {amount} {currency}
+            <strong>Amount:</strong> {total_amount} {currency}
           </p>
           <p>
-            <strong>Date:</strong> {tranDate || "N/A"}
+            <strong>Date:</strong> {createdAt || "N/A"}
           </p>
         </div>
         <Link
           to={`/my-order`}
-          href="/order-tracking"
           className="mt-6 inline-block rounded-md bg-gray-900 px-4 py-2 text-white"
         >
           Track Order
