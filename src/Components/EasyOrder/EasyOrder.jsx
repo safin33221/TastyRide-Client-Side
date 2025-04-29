@@ -11,8 +11,9 @@ function EasyOrder() {
   return (
     <div>
       <div
-        className="hero min-h-[500px] sm:min-h-[700px] bg-scroll sm:bg-fixed bg-cover bg-center bg-no-repeat"
+        className="hero  min-h-[500px] sm:min-h-[700px] bg-scroll sm:bg-fixed bg-cover bg-center bg-no-repeat"
         style={{
+          backgroundSize: "cover",
           backgroundImage:
             "url(https://lovefoodhatewaste.ca/wp-content/uploads/2020/11/FoodBackgroundNomeat.jpg)",
         }}
