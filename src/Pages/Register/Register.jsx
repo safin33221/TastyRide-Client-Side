@@ -13,7 +13,7 @@ const Register = () => {
       <div className="flex flex-col lg:flex-row gap-4  mx-auto rounded-lg   md:p-12 ">
         {/* img */}
         <div className="relative md:w-1/2 w-full md:px-4 m-auto">
-          <img src={loginBanner} alt="" className=" md:w-10/12 w-full mx-auto " />
+          <img src={loginBanner} alt="" className="    lg:w-10/12  w-full mx-auto h-full lg:h-[500px]" />
           <Link to={`/`} className=" absolute top-0 md:left-[60px]">
             <PrimaryButton  text={`Back Home`} />
           </Link>

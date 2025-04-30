@@ -73,7 +73,7 @@ const LoginForm = () => {
             type="email"
             {...register('email')}
             required
-            className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 px-4 shadow-sm"
+            className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 md:px-4  shadow-sm"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -84,7 +84,7 @@ const LoginForm = () => {
             type="password"
             {...register('password')}
             required
-            className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 px-4 shadow-sm"
+            className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 md:px-4  shadow-sm"
           />
 
           {

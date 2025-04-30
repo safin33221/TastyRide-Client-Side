@@ -30,6 +30,7 @@ const CheckoutComponent = () => {
   console.log(total_amount);
   total_amount  = (total_amount + 30) - discount
   console.log(total_amount);
+
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -51,6 +52,11 @@ const CheckoutComponent = () => {
       if (!restaurantEmail || !restaurantEmail[0]) {
         Swal.fire("Error", "Restaurant email is missing. Please try again.", "error");
         return;
+      }
+
+      if(shippingMethods !== "cod"){
+        localStorage.setItem("info", JSON.stringify(info))
+        localStorage.setItem("cart", JSON.stringify(cart))
       }
 
       if (shippingMethods === "cod") {

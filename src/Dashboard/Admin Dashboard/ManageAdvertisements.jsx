@@ -70,7 +70,7 @@ const ManageAdvertisements = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{ad.description}</td>
+                  <td>{ad.description.split(0,20)}.</td>
                   <th>
                     {ad?.status === "pending" ? (
                       <button className="btn btn-ghost btn-xs bg-warning text-white">
