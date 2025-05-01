@@ -16,7 +16,7 @@ import Reviews from '../../Components/Reviews/Reviews';
 import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
 import DeliveryCities from '../../Components/DeliveryCities/DeliveryCities';
 import BecomePartner from '../../Components/LandingPage/BecomePartner';
-import DiscountModal from '../../Components/DiscountModal/DiscountModal';
+// import DiscountModal from '../../Components/DiscountModal/DiscountModal';
 
 const Home = () => {
   const { user } = useAuth();
@@ -75,7 +75,7 @@ const Home = () => {
       <div className="container mx-auto">
         <SectionDivider></SectionDivider>
         {/* <DiscountsProduct /> */}
-        <DiscountModal userEmail={user?.email} />
+        {/* <DiscountModal userEmail={user?.email} /> */}
         <ExploreRestaurant />
         <SectionDivider></SectionDivider>
         <BecomePartner></BecomePartner>
