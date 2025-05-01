@@ -248,7 +248,7 @@ const ApplyRestaurant = () => {
       </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="p-8 bg-white rounded-xl shadow-lg mt-10 border border-gray-100"
+        className="p-2 bg-white rounded-xl shadow-lg mt-10 border border-gray-100"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
