@@ -95,7 +95,9 @@ const ManageOrders = () => {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
-      <h1 className="text-xl font-bold mb-6 text-center text-gray-800">Manage Orders</h1>
+      <h1 className="text-xl font-bold mb-6 text-center text-gray-800">
+        Manage Orders
+      </h1>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border table-auto rounded-md shadow-sm">
           <thead>
@@ -111,32 +113,48 @@ const ManageOrders = () => {
           <tbody>
             {orders.length === 0 ? (
               <tr>
-                <td colSpan="6" className="py-4 text-center text-sm sm:text-base text-gray-600">
+                <td
+                  colSpan="6"
+                  className="py-4 text-center text-sm sm:text-base text-gray-600"
+                >
                   No orders found.
                 </td>
               </tr>
             ) : (
               orders.map((order) => (
-                <tr key={order._id} className="hover:bg-gray-100 text-sm sm:text-base">
-                  <td className="py-2 px-4 border whitespace-nowrap">{order._id}</td>
-                  <td className="py-2 px-4 border whitespace-nowrap">{order.info.cus_name}</td>
+                <tr
+                  key={order._id}
+                  className="hover:bg-gray-100 text-sm sm:text-base"
+                >
+                  <td className="py-2 px-4 border whitespace-nowrap">
+                    {order._id}
+                  </td>
+                  <td className="py-2 px-4 border whitespace-nowrap">
+                    {order.info.cus_name}
+                  </td>
                   <td className="py-2 px-4 border">
                     {order.cart.map((item, index) => (
-                      <div key={index}>{item.name} (x{item.quantity})</div>
+                      <div key={index}>
+                        {item.name} (x{item.quantity})
+                      </div>
                     ))}
                   </td>
-                  <td className="py-2 px-4 border whitespace-nowrap">${order.total_amount}</td>
+                  <td className="py-2 px-4 border whitespace-nowrap">
+                    ${order.total_amount}
+                  </td>
                   <td className="py-2 px-4 border whitespace-nowrap">
                     <select
                       value={order.status}
-                      onChange={(e) => handleStatusChange(order._id, e.target.value, order)}
+                      onChange={(e) =>
+                        handleStatusChange(order._id, e.target.value, order)
+                      }
                       className="border rounded-md p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       disabled={updateOrderMutation.isLoading}
                     >
                       <option value="Pending">Pending</option>
                       <option value="Cooking">Cooking</option>
-                      <option value="On-the-Way">On-the-Way</option>
-                      <option value="Delivered">Delivered</option>
+                      {/* <option value="On-the-Way">On-the-Way</option> */}
+                      {/* <option value="Delivered">Delivered</option> */}
                     </select>
                   </td>
                   <td className="py-2 px-4 border space-x-2 whitespace-nowrap">
@@ -145,7 +163,8 @@ const ManageOrders = () => {
                       className="px-3 py-1 bg-red-600 text-white rounded-md hover:bg-red-700 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                       disabled={deleteOrderMutation.isLoading}
                     >
-                      {deleteOrderMutation.isLoading && deleteOrderMutation.variables === order._id
+                      {deleteOrderMutation.isLoading &&
+                      deleteOrderMutation.variables === order._id
                         ? "Deleting..."
                         : "Delete"}
                     </button>
