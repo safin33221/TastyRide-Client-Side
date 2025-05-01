@@ -20,22 +20,23 @@ import { useTranslation } from "react-i18next";
 const OurClient = () => {
   const { t } = useTranslation();
   return (
-    <div className=" -z-30">
+    <div className="">
       {/* title */}
       <SectionTitle
         title={t('sectionTitle.title5')}
         desc={t('sectionTitle.desc5')}
       />
       {/* slider */}
-      <div className="pt-6 z-10">
+      <div className="pt-6">
         <Marquee
           speed={80} 
           gradient={false}
           loop={0} 
+          style={{zIndex:'0'}}
           
           
         >
-          <div className="flex space-x-24 -z-10">
+          <div className="flex space-x-24">
             <ClientSlide logo={logo1}/>
             <ClientSlide logo={logo2}/>
             <ClientSlide logo={logo3}/>

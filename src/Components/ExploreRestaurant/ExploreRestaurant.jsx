@@ -24,7 +24,7 @@ const ExploreRestaurant = () => {
   return (
     <div className="pb-10">
       <SectionTitle
-        title="SavorSphere: Discover Culinary Treasures"
+        title="Explore Top Restaurants"
         desc="Where Every Bite Tells a Story – Explore Hidden Gems, Local Flavors & Global Delights"
       />
 

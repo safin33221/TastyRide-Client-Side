@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 
 function Banner() {
   return (
-    <section className="w-full h-full md:h-screen lg:max-h-[600px] py-12 flex items-center">
+    <section className="w-full h-full md:h-screen lg:max-h-[500px] py-12 flex items-center">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 px-4">
           <div className="w-full md:w-7/12">
