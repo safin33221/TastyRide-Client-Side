@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const DiscountModal = () => {
   const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    const alreadyShown = localStorage.getItem('discountModalShown');
+
+    if (!alreadyShown) {
+      const timer = setTimeout(() => {
+        setShowModal(true);
+        localStorage.setItem('discountModalShown', 'true');
+      }, 10000); // Show after 10 seconds
+
+      return () => clearTimeout(timer); // Cleanup
+    }
+  }, []);
   return (
     <div>
       {showModal && (
