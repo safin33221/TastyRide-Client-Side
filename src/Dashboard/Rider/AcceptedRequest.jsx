@@ -67,9 +67,13 @@ export default function AcceptedRequest() {
                 <th>
                   <button
                     onClick={() => handleDelivered(order?._id)}
-                    className="btn btn-xs btn-success text-white"
+                    className={`btn btn-xs ${
+                      order?.status === "On-the-Way"
+                        ? "btn-warning"
+                        : "btn-success"
+                    } text-white`}
                   >
-                    {order?.status === 'Accepted' ? "Deliver" : "Delivered"}
+                    {order?.status === "On-the-Way" ? "Deliver" : "Delivered"}
                   </button>
                 </th>
               </tr>
