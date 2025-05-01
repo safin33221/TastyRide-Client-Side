@@ -9,25 +9,17 @@ import PrimaryButton from '../Shared/PrimaryButton';
 import { Link } from 'react-router';
 
 const Sliders = () => {
-  const axiosPublic = useAxiosPublic()
-  // const images = [
-  //   'https://i.ibb.co.com/qhLq8rg/slide1-1.png',
-  //   'https://i.ibb.co.com/XZVg57d1/slide2.png',
-  //   'https://i.ibb.co.com/Qv6HNSB3/slider3-1.png',
-  //   'https://i.ibb.co.com/bjf6n01j/slider3-2.png',
-  //   'https://i.ibb.co.com/Kt0LydF/slider3-3.png',
-  // ];
-
-  const {data: sliders=[]} = useQuery({
-    queryKey: ["slider"],
+  const axiosPublic = useAxiosPublic();
+  const { data: sliders = [] } = useQuery({
+    queryKey: ['slider'],
     queryFn: async () => {
-      const res = await axiosPublic.get("/api/ad")
-      return res.data.data
-    }
-  })
-console.log(sliders);
-  // filter by accepted banner ad 
-  const acceptedAds = sliders.filter(prev => prev.status === "accepted")
+      const res = await axiosPublic.get('/api/ad');
+      return res.data.data;
+    },
+  });
+  console.log(sliders);
+  // filter by accepted banner ad
+  const acceptedAds = sliders.filter(prev => prev.status === 'accepted');
   // console.log(acceptedAds)
 
   return (
@@ -40,16 +32,28 @@ console.log(sliders);
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         className="w-full md:h-[600px] h-[400px]"
-        style={{ zIndex: "0" }}
+        style={{ zIndex: '0' }}
       >
         {acceptedAds.map((slider, index) => (
           <SwiperSlide key={index}>
-            <div style={{backgroundImage: `url(${slider.image})`}} className='w-full h-full relative bg-cover bg-center flex justify-center items-center'>
-            <div className='bg-[rgba(0,0,0,0.5)] backdrop-blur-sm p-10 flex items-center justify-center w-[500px] flex-col gap-3'>
-              <h1 className='text-white text-3xl font-semibold text-center'>{slider.title}</h1>
-              <p className='text-gray-400 text-center font-semibold  mx-auto'>{slider.description}</p>
-              <Link to={`restaurantProfile/${slider.addedBy}`} className='inline-flex'><PrimaryButton text={"Order Now"}/></Link> 
-            </div>
+            <div
+              style={{ backgroundImage: `url(${slider.image})` }}
+              className="w-full h-full relative bg-cover bg-center flex justify-center items-center"
+            >
+              <div className="bg-[rgba(0,0,0,0.5)] backdrop-blur-sm p-10 flex items-center justify-center w-[500px] flex-col gap-3">
+                <h1 className="text-white text-3xl font-semibold text-center">
+                  {slider.title}
+                </h1>
+                <p className="text-gray-400 text-center font-semibold  mx-auto">
+                  {slider.description}
+                </p>
+                <Link
+                  to={`restaurantProfile/${slider.addedBy}`}
+                  className="inline-flex"
+                >
+                  <PrimaryButton text={'Order Now'} />
+                </Link>
+              </div>
             </div>
           </SwiperSlide>
         ))}
