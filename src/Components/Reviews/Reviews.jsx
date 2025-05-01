@@ -56,6 +56,7 @@ const Reviews = () => {
           speed={60}
           gradient={false}
           loop={0}
+          style={{zIndex:'0'}}
            
           >
           <div className="flex gap-6">
