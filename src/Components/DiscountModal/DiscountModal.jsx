@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
-const DiscountModal = () => {
+const DiscountModal = ({ userEmail }) => {
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
-    const alreadyShown = localStorage.getItem('discountModalShown');
+    if (!userEmail) return; // ইমেইল না থাকলে কিছু করো না
+
+    const key = `discountModal_${userEmail}`;
+    const alreadyShown = localStorage.getItem(key);
 
     if (!alreadyShown) {
       const timer = setTimeout(() => {
         setShowModal(true);
-        localStorage.setItem('discountModalShown', 'true');
-      }, 10000); // Show after 10 seconds
+        localStorage.setItem(key, 'true');
+      }, 20000); // ১০ সেকেন্ড পরে দেখাও
 
-      return () => clearTimeout(timer); // Cleanup
+      return () => clearTimeout(timer);
     }
-  }, []);
+  }, [userEmail]);
   return (
     <div>
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
           <div className="relative bg-white rounded-lg p-6 w-[90%] max-w-md text-center shadow-lg animate-fade-in">
             {/* Close Button */}
             <button

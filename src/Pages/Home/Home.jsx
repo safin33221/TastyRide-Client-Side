@@ -16,7 +16,7 @@ import Reviews from '../../Components/Reviews/Reviews';
 import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
 import DeliveryCities from '../../Components/DeliveryCities/DeliveryCities';
 import BecomePartner from '../../Components/LandingPage/BecomePartner';
-
+import DiscountModal from '../../Components/DiscountModal/DiscountModal';
 
 const Home = () => {
   const { user } = useAuth();
@@ -25,7 +25,7 @@ const Home = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isShowModal = localStorage.getItem('isShowModal')
+  const isShowModal = localStorage.getItem('isShowModal');
   useEffect(() => {
     const checkSubscription = async () => {
       setIsLoading(true);
@@ -46,17 +46,15 @@ const Home = () => {
   }, [user?.email]);
 
   useEffect(() => {
-
     if (!isLoading) {
       if (!isSubscribed && !isShowModal) {
         const timer = setTimeout(() => {
           setShowModal(true);
-          localStorage.setItem('isShowModal', true)
+          localStorage.setItem('isShowModal', true);
 
           const resetTimer = setTimeout(() => {
             localStorage.removeItem('isShowModal');
           }, 10800000); // 3 hours in milliseconds
-
 
           return () => clearTimeout(resetTimer); // Cleanup the timer on unmount
         }, 10000); // Show modal after 5 seconds
@@ -77,11 +75,12 @@ const Home = () => {
       <div className="container mx-auto">
         <SectionDivider></SectionDivider>
         {/* <DiscountsProduct /> */}
+        <DiscountModal userEmail={user?.email} />
         <ExploreRestaurant />
         <SectionDivider></SectionDivider>
         <BecomePartner></BecomePartner>
         <SectionDivider></SectionDivider>
-       
+
         <section>
           {/* <CategoryFoods /> */}
           {/* <RandomFood/> */}
