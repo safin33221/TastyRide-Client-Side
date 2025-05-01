@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const DiscountModal = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div>
       {showModal && (
