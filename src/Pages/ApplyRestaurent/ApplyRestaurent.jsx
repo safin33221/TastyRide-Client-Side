@@ -4,6 +4,7 @@ import { set, useForm } from 'react-hook-form';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import useAuth from '../../Hooks/useAuth';
 import { imageUpload } from '../../Utils/Utils';
+import useUserData from '../../Hooks/useUserData';
 
 const cities = [
   {
@@ -104,6 +105,8 @@ const cities = [
 const ApplyRestaurant = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
+  const [userData] = useUserData();
+  console.log(userData);
   const [selectedDays, setSelectedDays] = useState([]);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
@@ -244,11 +247,31 @@ const ApplyRestaurant = () => {
       <p className="text-center text-gray-600 mb-4 w-full md:w-1/2 mx-auto">
         Welcome to our restaurant registration page! We are excited to have you
         Fill out the form below to apply for restaurant registration.
-        <span className="bold text-red-500">
+        <span className="font-bold  text-black">
           Please make sure to provide accurate information.
         </span>
         We will review your application and get back to you as soon as possible.
       </p>
+
+      {userData?.restaurantStatus === 'pending' && (
+        <p className="text-center md:text-xl  text-red-500 mb-4 w-full md:w-1/2 mx-auto">
+          Note:
+          <span className="underline mx-2">
+            You have already applied for a restaurant. Please wait for the
+            approval.
+          </span>
+        </p>
+      )}
+
+      {userData?.restaurantStatus === 'rejected' && (
+        <p className="text-center md:text-xl  text-red-500 mb-4 w-full md:w-1/2 mx-auto">
+          Note:
+          <span className="underline mx-2">
+            Your applied for a restaurant has been rejected. Please contact us
+            for more details.
+          </span>
+        </p>
+      )}
 
       <form
         onSubmit={handleSubmit(onSubmit)}
