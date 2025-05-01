@@ -144,12 +144,12 @@ const ManageOrders = () => {
                   </td>
                   <td className="py-2 px-4 border whitespace-nowrap">
                     <select
-                      value={order.status}
+                      value={order?.status}
                       onChange={(e) =>
                         handleStatusChange(order._id, e.target.value, order)
                       }
                       className="border rounded-md p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      disabled={updateOrderMutation.isLoading}
+                      disabled={updateOrderMutation?.isLoading}
                     >
                       <option value="Pending">Pending</option>
                       <option value="Cooking">Cooking</option>
