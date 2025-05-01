@@ -63,14 +63,20 @@ const Sliders = () => {
           <SwiperSlide key={index}>
             <div style={{ backgroundImage: `url(${slider.image})` }} className='w-full h-full relative bg-cover bg-center flex justify-center items-center'>
               <div className='bg-[rgba(0,0,0,0.5)] backdrop-blur-xs p-10 flex items-center justify-center  flex-col gap-3 w-full h-full'>
-                <h1 className='text-white text-3xl font-semibold text-center'>{slider.title}</h1>
-                <p className='text-gray-400 text-center font-semibold  mx-auto'>{slider.description.slice(0, 100)}</p>
+                <h1 className='text-white text-xl md:text-3xl font-semibold text-center'>{slider.title}</h1>
+                <p className='text-gray-400 text-center text-sm md:text-xl font-semibold  mx-auto'>{slider.description.slice(0, 100)}</p>
                 <Link to={`restaurantProfile/${slider.addedBy}`} className='inline-flex'><PrimaryButton text={"Order Now"} /></Link>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+      <button className="custom-prev  absolute top-1/2 left-4 transform -translate-y-1/2 z-10">
+          &#8592; {/* Left arrow */}
+        </button>
+        <button className="custom-next absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
+          &#8594; {/* Right arrow */}
+        </button>
     </div>
   );
 };
