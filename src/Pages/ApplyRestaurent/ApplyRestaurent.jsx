@@ -249,6 +249,7 @@ const ApplyRestaurant = () => {
         </span>
         We will review your application and get back to you as soon as possible.
       </p>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="p-2 bg-white rounded-xl shadow-lg mt-10 border border-gray-100"
