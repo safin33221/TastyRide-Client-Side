@@ -33,13 +33,13 @@ const ExploreRestaurant = () => {
   if (error) return <p className="text-center text-red-500">Error: {error.message}</p>;
 
   return (
-    <div className="  ">
+    <div className="px-4 md:px-6  lg:px-2  ">
       <SectionTitle
         title="Explore Top Restaurants"
         desc="Where Every Bite Tells a Story – Explore Hidden Gems, Local Flavors & Global Delights"
       />
 
-      <div className=" 2xl:grid-cols-5 gap-2">
+      <div className=" h-full">
         <Swiper
           navigation={true}
           modules={[Pagination, Autoplay, Navigation]}
@@ -48,12 +48,12 @@ const ExploreRestaurant = () => {
 
 
           // autoplay={{ delay: 3000, disableOnInteraction: false }}
-          className="w-full  "
+          className="w-full h-full "
           style={{ zIndex: "0" }}
 
           breakpoints={{
             340: {
-              slidesPerView: 1.2, // 1 slide on mobile screens
+              slidesPerView: 1.1, // 1 slide on mobile screens
             },
             768: {
               slidesPerView: 2, // 2 slides on tablets
@@ -66,15 +66,15 @@ const ExploreRestaurant = () => {
           {
             restaurantData.map((restaurant, index) => (
               <SwiperSlide key={index}>
-                <Link key={restaurant._id} to={`/restaurantProfile/${restaurant.email}`}>
-                  <div className="bg-gray-100 hover:shadow-xl h-full hover:cursor-pointer shadow-md overflow-hidden border border-gray-200 mx-2 md:mx-0 transition-all duration-300 ease-in-out">
+                <Link  key={restaurant._id} to={`/restaurantProfile/${restaurant.email}`}>
+                  <div className="bg-gray-100  hover:shadow-2xl my-5 h-full hover:cursor-pointer shadow-md overflow-auto border border-gray-200 mx-2 md:mx-0 transition-all duration-300 ease-in-out">
                     <img
                       className="w-full h-48 object-cover"
                       src={restaurant?.coverPhoto || 'https://i.ibb.co.com/default-placeholder.jpg'}
                       alt={restaurant.businessName}
                       loading="lazy"
                     />
-                    <div className="p-4 space-y-2">
+                    <div className="p-4 space-y-2 h-full">
                       <div className="flex items-center gap-2">
                         <img
                           className="w-8 rounded-full"

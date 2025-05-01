@@ -75,11 +75,11 @@ function Banner() {
                     />
                   </label>
                   {isShowRestaurantsTabs && restaurantData.length > 0 && (
-                    <div className=" w-8/12 bg-white h-52 absolute top-12 overflow-y-auto shadow-lg z-10">
+                    <div className=" w-8/12 bg-white absolute top-12 overflow-y-auto shadow-lg z-10">
                       {restaurantData.map((restaurant, index) => (
                         <Link to={`restaurantProfile/${restaurant.email}`} key={index}>
                           <div
-                            className="p-2 hover:bg-gray-200 cursor-pointer"
+                            className="p-2 max-h-52 hover:bg-gray-200 cursor-pointer shadow-sm"
                             onClick={() => handleSelectRestaurant(restaurant)}
                           >
                             <div className="flex justify-between">
