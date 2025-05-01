@@ -18,18 +18,22 @@ export default function DeliveryRequest() {
     },
   });
 
-  const filteredOrders = orders?.filter(prev => prev.status === "On-the-Way")
+  const filteredOrders = orders?.filter((prev) => prev.status === "Cooking");
 
-  const handleAcceptRequest = async(id) => {
-    const res = await axiosPublic.patch(`/api/accepted-rider/${id}`, {acceptedBy:user?.email})
-    console.log(res.data)
-    const statusRes = await axiosPublic.put(`/api/orders/${id}`, {status: "Accepted"})
-    console.log(statusRes.data)
-    if(statusRes.data.success){
-      toast.success("Order accepted")
-      refetch()
+  const handleAcceptRequest = async (id) => {
+    const res = await axiosPublic.patch(`/api/accepted-rider/${id}`, {
+      acceptedBy: user?.email,
+    });
+    console.log(res.data);
+    const statusRes = await axiosPublic.put(`/api/orders/${id}`, {
+      status: "On-the-Way",
+    });
+    console.log(statusRes.data);
+    if (statusRes.data.success) {
+      toast.success("Order accepted");
+      refetch();
     }
-  }
+  };
   return (
     <div className="md:m-5 xl:m-10 bg-white md:p-5 xl:p-10 md:rounded-xl">
       <h1 className="font-semibold text-2xl mb-5">Delivery Request</h1>
