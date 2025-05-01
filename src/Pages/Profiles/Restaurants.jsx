@@ -121,7 +121,7 @@ const Restaurants = () => {
         }
         await Swal.fire({
           title: message,
-          text: message + "the restarunt successfully!",
+          text: message + "the restaurant successfully!",
           icon: "success",
           confirmButtonText: "Ok",
           confirmButtonColor: "#ef4444",
