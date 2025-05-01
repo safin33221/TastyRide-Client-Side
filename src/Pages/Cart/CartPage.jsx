@@ -25,7 +25,7 @@ const CartPage = () => {
   } else if (subtotal >= 1000) {
     discount = subtotal * 0.25; // 10% discount
   }
-  
+
 
   const handleDeleteCartFood = async (id) => {
     const res = await axiosPublic.delete(`/api/cart/${id}`);
@@ -76,9 +76,9 @@ const CartPage = () => {
   return (
     <div className="container mx-auto my-20">
       <h1 className="font-bold text-5xl text-center mb-10">Cart</h1>
-      <div className="grid grid-cols-6 items-start gap-5">
+      <div className="grid grid-cols-6 items-start gap-10">
         {/* cart */}
-        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 col-span-4">
+        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 col-span-10  md:col-span-4 ">
           {cart.length === 0 ? (
             <div className="text-center">
               <p className="text-xl text-red-500 my-5 font-semibold">
@@ -92,7 +92,7 @@ const CartPage = () => {
             <table className="table">
               <thead>
                 <tr className="">
-                  <th>Index</th>
+                  <th className="hidden md:flex">Index</th>
                   <th>Name</th>
                   <th>Price</th>
                   <th className="pl-6">Quantity</th>
@@ -103,7 +103,7 @@ const CartPage = () => {
               <tbody>
                 {cart.map((item, index) => (
                   <tr key={index}>
-                    <th>{index + 1}</th>
+                    <th className="hidden md:flex">{index + 1}</th>
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="avatar">
@@ -117,7 +117,7 @@ const CartPage = () => {
                       </div>
                     </td>
                     <td>{item.price}$</td>
-                    <td className="">
+                    <td className="flex items-center">
                       <button
                         onClick={() => handleQuantity('decrease', item?.foodId)}
                         className="btn mx-2">
@@ -145,11 +145,11 @@ const CartPage = () => {
               </tbody>
             </table>
           )}
-          <Link to={`/restaurantProfile/${restaurantLink[0]}`}><PrimaryButton text={"Add more from this restaurant"} /></Link>
+          <Link className="w-full block overflow-x-auto" to={`/restaurantProfile/${restaurantLink[0]}`}><PrimaryButton className='' text={"Add more from this restaurant"} /></Link>
         </div>
 
         {/* total amount */}
-        <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 col-span-2">
+        <div className=" rounded-box border border-base-content/5 bg-base-100 col-span-10  md:col-span-2">
           <table className="table">
             <thead>
               <tr>

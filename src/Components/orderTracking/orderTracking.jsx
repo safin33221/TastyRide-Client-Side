@@ -4,6 +4,7 @@ import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import Loading from '../../Pages/Loader/Loading';
 
 // Status-specific images (replace with actual image URLs)
 const statusImages = {
@@ -214,7 +215,7 @@ const OrderTracking = () => {
 
   // Handle loading and error states
   if (orderLoading)
-    return <div className="text-center py-10 text-gray-600">Loading...</div>;
+    return <div className="text-center py-10 text-gray-600"><Loading/></div>;
   if (orderError) {
     if (orderError.message.includes('Order not found')) {
       return (

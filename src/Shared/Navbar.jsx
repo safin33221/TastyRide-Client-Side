@@ -234,8 +234,8 @@ const Navbar = () => {
                   userData?.role === 'customer' && (
                     <>
                       <li><NavLink to={"/my-order"}>{t("userMenu.My Order")}</NavLink></li>
-                      <li><NavLink to={"/restaurant-register-form"}>{t("userMenu.Apply for Restaurant")}</NavLink></li>
-                      <li><NavLink to={"/rider-register-form"}>{t("userMenu.Apply for Rider")}</NavLink></li>
+                      {/* <li><NavLink to={"/restaurant-register-form"}>{t("userMenu.Apply for Restaurant")}</NavLink></li>
+                      <li><NavLink to={"/rider-register-form"}>{t("userMenu.Apply for Rider")}</NavLink></li> */}
 
                     </>
                   )}
