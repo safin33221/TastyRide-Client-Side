@@ -10,6 +10,7 @@ import {
 import { Link } from 'react-router';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { useAddToCart } from '../../Hooks/userAddToCart';
+import Loading from '../Loader/Loading';
 
 const AllFood = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -64,7 +65,7 @@ const AllFood = () => {
 
   // add to cart function
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading/>;
   if (error) return <p>Error: {error}</p>;
   if (!foods.length) return <p>No food data available.</p>;
 
