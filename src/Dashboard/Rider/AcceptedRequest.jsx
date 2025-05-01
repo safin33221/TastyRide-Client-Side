@@ -13,7 +13,7 @@ export default function AcceptedRequest() {
     queryKey: ["orders"],
     queryFn: async () => {
       const res = await axiosPublic.get("/api/allOrders");
-      console.log(res.data);
+      console.log("at accepted delivery", res.data);
       return res.data;
     },
   });
