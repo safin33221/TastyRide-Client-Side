@@ -141,28 +141,28 @@ const RestaurantDashboard = () => {
       {/* matrics */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {/* total order */}
-        <div className='card bg-base-100 shadow-xl'>
+        <div className='card bg-[#ef4444] shadow-xl'>
           <div className="card-body">
             <h2 className='card-title text-primary'>Total Order</h2>
             <p className="text-2xl font-bold">{metrics.totalOrders}</p>
           </div>
         </div>
         {/* total revenue */}
-        <div className='card bg-base-100 shadow-xl'>
+        <div className='card bg-[#3b82f6] shadow-xl'>
           <div className="card-body">
             <h2 className='card-title text-primary'>Total Revenue</h2>
             <p className="text-2xl font-bold">{metrics.totalRevenue.toFixed(2)} tk</p>
           </div>
         </div>
         {/* active orders */}
-        <div className='card bg-base-100 shadow-xl'>
+        <div className='card bg-[#f59e0b] shadow-xl'>
           <div className="card-body">
             <h2 className='card-title text-primary'>Active Orders</h2>
             <p className="text-2xl font-bold">{metrics.activeOrders}</p>
           </div>
         </div>
         {/* delivered orders  */}
-        <div className='card bg-base-100 shadow-xl'>
+        <div className='card bg-[#10b981] shadow-xl'>
           <div className="card-body">
             <h2 className='card-title text-primary'>Delivered Orders</h2>
             <p className="text-2xl font-bold">{metrics.deliveredOrders}</p>

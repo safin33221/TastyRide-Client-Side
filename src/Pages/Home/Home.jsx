@@ -16,6 +16,7 @@ import Reviews from '../../Components/Reviews/Reviews';
 import NewsLetterModal from '../../Components/NewsLetterModal/NewsLetterModal';
 import DeliveryCities from '../../Components/DeliveryCities/DeliveryCities';
 import BecomePartner from '../../Components/LandingPage/BecomePartner';
+import Banner from '../../Components/Banner';
 
 
 const Home = () => {
@@ -72,6 +73,7 @@ const Home = () => {
   };
   return (
     <div>
+      <Banner />
       <Sliders></Sliders>
       {/* {showModal && <LocationModal onClose={() => setShowModal(false)} />} */}
       <div className="container mx-auto">
