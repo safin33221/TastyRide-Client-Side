@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import useAuth from '../../Hooks/useAuth';
 import { imageUpload } from '../../Utils/Utils';
@@ -110,6 +110,7 @@ const ApplyRestaurant = () => {
   const [selectedCity, setSelectedCity] = useState('');
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const {
     register,
@@ -230,6 +231,8 @@ const ApplyRestaurant = () => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewUrl(imageUrl);
     }
   };
 
@@ -246,9 +249,10 @@ const ApplyRestaurant = () => {
         </span>
         We will review your application and get back to you as soon as possible.
       </p>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="p-8 bg-white rounded-xl shadow-lg mt-10 border border-gray-100"
+        className="p-2 bg-white rounded-xl shadow-lg mt-10 border border-gray-100"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -390,16 +394,6 @@ const ApplyRestaurant = () => {
         </div>
 
         <div className="mt-6">
-          <label>Logo Upload*</label>
-          <input
-            type="file"
-            className="file-input file-input-bordered w-full"
-            onChange={handleImageChange}
-            accept="image/*"
-          />
-        </div>
-
-        <div className="mt-6">
           <label>Open Days*</label>
           <div className="flex flex-wrap gap-2 mt-2">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(
@@ -442,6 +436,93 @@ const ApplyRestaurant = () => {
             />
             {errors.closeTime && (
               <p className="text-red-500 mt-1">{errors.closeTime.message}</p>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
+            {/* Upload Section */}
+            <div className="w-full sm:w-auto">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Logo Upload <span className="text-red-500">*</span>
+              </label>
+
+              <div className="relative">
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleImageChange}
+                  required
+                  accept="image/*"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  id="logo-upload"
+                />
+                <label
+                  htmlFor="logo-upload"
+                  className="flex flex-col items-center justify-center px-6 py-8 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+                >
+                  <svg
+                    className="w-10 h-10 text-gray-400 mb-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    />
+                  </svg>
+                  <p className="text-sm text-gray-600 mb-1">
+                    <span className="font-semibold text-blue-600">
+                      Click to upload
+                    </span>{' '}
+                    or drag and drop
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    SVG, PNG, JPG (max. 2MB)
+                  </p>
+                </label>
+              </div>
+            </div>
+
+            {/* Preview Section */}
+            {previewUrl && (
+              <div className="flex flex-col items-start">
+                <p className="text-sm font-medium text-gray-700 mb-2">
+                  Logo Preview:
+                </p>
+                <div className="relative group">
+                  <img
+                    src={previewUrl}
+                    alt="Logo preview"
+                    className="w-32 h-32 object-contain p-2 border border-gray-200 rounded-lg bg-white shadow-sm"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setPreviewUrl(null)}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
+                    aria-label="Remove logo"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <p className="mt-1 text-xs text-gray-500">
+                  Click the X to remove
+                </p>
+              </div>
             )}
           </div>
         </div>

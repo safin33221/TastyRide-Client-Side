@@ -38,6 +38,7 @@ import DeliveryRequest from '../Dashboard/Rider/DeliveryRequest';
 import AcceptedRequest from '../Dashboard/Rider/AcceptedRequest';
 import RestaurantApplication from '../Dashboard/Admin Dashboard/RestaurantApplication';
 import CityRestaurants from '../Components/CityResturant/CityRestaurants';
+import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 
 const Router = () => {
   return (
@@ -45,6 +46,7 @@ const Router = () => {
       <Routes>
         {/* --------------------------------------------------------------------------Main Layout */}
         <Route path="/" element={<MainLayout />}>
+          <Route path="*" element={<ErrorPage />} />
           <Route index element={<Home />} />
 
           <Route path="all-food" element={<AllFood />} />
@@ -57,10 +59,12 @@ const Router = () => {
             path="restaurant-register-form"
             element={<ApplyRestaurent />}
           />
-          
-          <Route path="restaurantProfile/:email" element={<Restaurants />} />
-          <Route path="/restaurants/city/:cityName" element={<CityRestaurants />} />
 
+          <Route path="restaurantProfile/:email" element={<Restaurants />} />
+          <Route
+            path="/restaurants/city/:cityName"
+            element={<CityRestaurants />}
+          />
 
           {/* -----------------------------------------------------------Privet Routes */}
           <Route
@@ -72,7 +76,6 @@ const Router = () => {
             }
           />
           <Route path="order-tracking/:orderId" element={<OrderTracking />} />
-          
 
           <Route
             path="my-order"
@@ -154,13 +157,12 @@ const Router = () => {
 
           {/* ----------------------------------------------------------Rider routes*/}
 
-          <Route path='rider-dashboard' element={<RiderDashboard />} />
-          <Route path='delivery-request' element={<DeliveryRequest />} />
-          <Route path='accepted-request' element={<AcceptedRequest />} />
+          <Route path="rider-dashboard" element={<RiderDashboard />} />
+          <Route path="delivery-request" element={<DeliveryRequest />} />
+          <Route path="accepted-request" element={<AcceptedRequest />} />
 
-          <Route path='rider-dashboard' element={<RiderDashboard />} />
-          <Route path='delivery-request' element={<DeliveryRequest />} />
-
+          <Route path="rider-dashboard" element={<RiderDashboard />} />
+          <Route path="delivery-request" element={<DeliveryRequest />} />
         </Route>
       </Routes>
     </BrowserRouter>
