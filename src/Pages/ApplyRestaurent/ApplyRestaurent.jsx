@@ -238,6 +238,14 @@ const ApplyRestaurant = () => {
       <h1 className="text-2xl m-5 font-bold text-center underline text-gray-800 mb-6 ">
         Register Your Restaurant
       </h1>
+      <p className="text-center text-gray-600 mb-4 w-full md:w-1/2 mx-auto">
+        Welcome to our restaurant registration page! We are excited to have you
+        Fill out the form below to apply for restaurant registration.
+        <span className="bold text-red-500">
+          Please make sure to provide accurate information.
+        </span>
+        We will review your application and get back to you as soon as possible.
+      </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="p-8 bg-white rounded-xl shadow-lg mt-10 border border-gray-100"
