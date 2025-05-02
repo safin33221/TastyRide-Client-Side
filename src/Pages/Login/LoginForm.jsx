@@ -7,6 +7,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import Countdown from "../../Components/CountDownTimer/Countdown";
 import { LuLoaderPinwheel } from "react-icons/lu";
+import PrimaryButton from "../../Shared/PrimaryButton";
 
 const LoginForm = () => {
   const { LoginUser, resetPassword, user } = useAuth()
@@ -73,6 +74,7 @@ const LoginForm = () => {
             type="email"
             {...register('email')}
             required
+            placeholder="ex@gmail.com"
             className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 md:px-4  shadow-sm"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -83,12 +85,13 @@ const LoginForm = () => {
           <input
             type="password"
             {...register('password')}
+            placeholder="Enter Your Password"
             required
             className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 md:px-4  shadow-sm"
           />
 
           {
-            lock && <Countdown lockUntil={lock} /> 
+            lock && <Countdown lockUntil={lock} />
           }
           {
             error && <p className="text-red-500"> {error} </p>
@@ -97,10 +100,12 @@ const LoginForm = () => {
 
         <button
           type="submit"
-          className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6">
-          {
-            isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" /> :  t('userMenu.Login') 
-          }
+          className="w-full"
+        >
+          <PrimaryButton text={
+            isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" /> : t('userMenu.Login')
+          } />
+
         </button>
         <button type="button" onClick={handleResetPassword}
           className="text-blue-500 underline cursor-pointer hover:text-blue-700">Forget Password?

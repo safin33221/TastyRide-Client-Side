@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { LuLoaderPinwheel } from "react-icons/lu"
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useTranslation } from "react-i18next";
+import PrimaryButton from "../../Shared/PrimaryButton";
 const RegisterForm = () => {
   const { CreateUserWithEmail, UpdateUserProfile } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
@@ -65,6 +66,7 @@ const RegisterForm = () => {
             type="text"
             {...register('name')}
             required
+            placeholder="Your name"
             className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 px-4 shadow-sm"
           />
         </div>
@@ -76,6 +78,7 @@ const RegisterForm = () => {
             type="email"
             {...register('email')}
             required
+            placeholder="ex@gmail.com"
             className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 px-4 shadow-sm"
           />
         </div>
@@ -87,6 +90,7 @@ const RegisterForm = () => {
             type="password"
             {...register('password')}
             required
+            placeholder="Enter Password"
             className="mt-1 w-full border-b-2 duration-300 py-1 focus:py-2 outline-none bg-transparent focus:bg-blue-100 px-4 shadow-sm"
           />
         </div>
@@ -138,11 +142,12 @@ const RegisterForm = () => {
 
         </div> */}
         {/* submit button */}
-        <button className="w-full font-semibold border rounded-md cursor-pointer uppercase py-2 px-6" type="submit">
-          {
-            isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" />
-              : t('register.Register')
-          }
+        <button className="w-full " type="submit">
+          <PrimaryButton
+            text={
+              isLoading ? <LuLoaderPinwheel className="animate-spin mx-auto text-2xl" />
+                : t('register.Register')
+            } />
         </button>
       </form>
     </div>
