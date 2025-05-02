@@ -44,7 +44,7 @@ const OrderTracking = () => {
     );
   }
 
-  console.log('Order ID from URL:', orderId);
+  // console.log('Order ID from URL:', orderId);
 
   // Fetch the specific order with polling for live updates
   const {
@@ -65,6 +65,7 @@ const OrderTracking = () => {
     refetchInterval: 5000, // Poll every 5 seconds for live updates
     refetchIntervalInBackground: true, // Continue polling even if the tab is not in focus
   });
+
 
   // Calculate estimated arrival time
   const calculateTimeRange = (createdAt, status) => {
@@ -96,9 +97,9 @@ const OrderTracking = () => {
       .getMinutes()
       .toString()
       .padStart(2, '0')} – ${end.getHours()}:${end
-      .getMinutes()
-      .toString()
-      .padStart(2, '0')}`;
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')}`;
   };
 
   // Map status to messages, estimated time, and progress
@@ -157,9 +158,13 @@ const OrderTracking = () => {
     try {
       const reviewData = {
         userId: user?.email,
+        userPhoto: user?.photoURL,
+        restaurantEmail: order?.restaurantEmail,
         rating,
         review,
+        orderId
       };
+      console.log(reviewData);
 
       // Show loading alert
       Swal.fire({
@@ -215,7 +220,7 @@ const OrderTracking = () => {
 
   // Handle loading and error states
   if (orderLoading)
-    return <div className="text-center py-10 text-gray-600"><Loading/></div>;
+    return <div className="text-center py-10 text-gray-600"><Loading /></div>;
   if (orderError) {
     if (orderError.message.includes('Order not found')) {
       return (
@@ -273,24 +278,20 @@ const OrderTracking = () => {
             {/* Progress Bar */}
             <div className="flex mt-2 space-x-1">
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 25 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 25 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 50 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 50 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 75 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 75 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 100 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 100 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
             </div>
             <p className="text-md font-medium text-gray-700 mt-2">{message}</p>
@@ -371,9 +372,8 @@ const OrderTracking = () => {
                   <button
                     key={star}
                     onClick={() => setRating(star)}
-                    className={`text-2xl ${
-                      star <= rating ? 'text-yellow-500' : 'text-gray-300'
-                    }`}
+                    className={`text-2xl ${star <= rating ? 'text-yellow-500' : 'text-gray-300'
+                      }`}
                   >
                     ★
                   </button>
