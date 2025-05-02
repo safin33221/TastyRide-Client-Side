@@ -1,11 +1,14 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: light --default;
 }
 
 a.active {
-  background-color: #ef4444; /* red-500 */
-  color: #ffffff; /* white text on hover */
+  background-color: #ef4444;
+  /* red-500 */
+  color: #ffffff;
+  /* white text on hover */
 }
 
 
@@ -14,30 +17,66 @@ a.active {
 .select-bordered:focus,
 .input-bordered:focus,
 .file-input-bordered:focus {
-  border-color: #ef4444; /* red-500 */
-  outline-color: #ef4444; /* red-500 */
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3); /* red-500 with opacity */
+  border-color: #ef4444;
+  /* red-500 */
+  outline-color: #ef4444;
+  /* red-500 */
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+  /* red-500 with opacity */
 }
 
 .select-bordered:hover,
 .input-bordered:hover,
 .file-input-bordered:hover {
-  border-color: #ef4444; /* red-500 */
+  border-color: #ef4444;
+  /* red-500 */
 }
 
 .checkbox:checked,
 .radio:checked {
-  background-color: #ef4444; /* red-500 */
-  border-color: #ef4444; /* red-500 */
+  background-color: #ef4444;
+  /* red-500 */
+  border-color: #ef4444;
+  /* red-500 */
 }
 
 .checkbox:focus,
 .radio:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3); /* red-500 with opacity */
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+  /* red-500 with opacity */
 }
 
 /* Custom dropdown menu styles */
 .dropdown .menu li:hover {
-  background-color: #ef4444; /* red-500 */
-  color: #ffffff; /* white text on hover */
+  background-color: #ef4444;
+  /* red-500 */
+  color: #ffffff;
+  /* white text on hover */
+}
+
+
+
+
+
+
+/* Style the previous button */
+.swiper-button-prev,
+.swiper-button-next::backdrop {
+  color: #ef4444;
+  /*  Change the color */
+  font-size: 24px;
+  /* Adjust the size */
+  left: 10px;
+  /* Adjust position */
+
+}
+
+/* Add hover effect */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #ef4444;
+  /* Change color on hover */
+  transform: scale(1.2);
+  /* Add a zoom effect */
+  transition: transform 0.3s ease, color 0.3s ease;
 }

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import Loading from '../../Pages/Loader/Loading';
+import toast from 'react-hot-toast';
+import PrimaryButton from '../../Shared/PrimaryButton';
 
 // Status-specific images (replace with actual image URLs)
 const statusImages = {
@@ -43,7 +46,7 @@ const OrderTracking = () => {
     );
   }
 
-  console.log('Order ID from URL:', orderId);
+  // console.log('Order ID from URL:', orderId);
 
   // Fetch the specific order with polling for live updates
   const {
@@ -64,6 +67,22 @@ const OrderTracking = () => {
     refetchInterval: 5000, // Poll every 5 seconds for live updates
     refetchIntervalInBackground: true, // Continue polling even if the tab is not in focus
   });
+
+  const { data: getSingleOrderReview = [] } = useQuery({
+    queryKey: ['getSingleOrderReview', orderId],
+    enabled: !!orderId,
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/api/singleOrderById/${orderId}`)
+      return res.data
+    }
+  })
+  useEffect(() => {
+    if (getSingleOrderReview.success) {
+      setRating(getSingleOrderReview.data.rating || 0); // Set default rating
+      setReview(getSingleOrderReview.data.review || ''); // Set default review
+    }
+  }, [getSingleOrderReview]);
+
 
   // Calculate estimated arrival time
   const calculateTimeRange = (createdAt, status) => {
@@ -95,9 +114,9 @@ const OrderTracking = () => {
       .getMinutes()
       .toString()
       .padStart(2, '0')} – ${end.getHours()}:${end
-      .getMinutes()
-      .toString()
-      .padStart(2, '0')}`;
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')}`;
   };
 
   // Map status to messages, estimated time, and progress
@@ -156,9 +175,21 @@ const OrderTracking = () => {
     try {
       const reviewData = {
         userId: user?.email,
+        userPhoto: user?.photoURL,
+        userName: user?.displayName,
+        restaurantEmail: order?.restaurantEmail,
         rating,
         review,
+        orderId
       };
+      // return console.log(reviewData);
+      if (getSingleOrderReview.success == true) {
+        return toast.error('You have already submitted a review for this order.');
+      }
+
+      if (review.length > 100) {
+        return toast.error('Your review is too long. Please limit it to 100 characters.');
+      }
 
       // Show loading alert
       Swal.fire({
@@ -184,8 +215,7 @@ const OrderTracking = () => {
 
         // Close modal and reset form
         setShowReviewModal(false);
-        setRating(0);
-        setReview('');
+
       } else {
         // API returned success: false
         Swal.fire({
@@ -214,7 +244,7 @@ const OrderTracking = () => {
 
   // Handle loading and error states
   if (orderLoading)
-    return <div className="text-center py-10 text-gray-600">Loading...</div>;
+    return <div className="text-center py-10 text-gray-600"><Loading /></div>;
   if (orderError) {
     if (orderError.message.includes('Order not found')) {
       return (
@@ -272,24 +302,20 @@ const OrderTracking = () => {
             {/* Progress Bar */}
             <div className="flex mt-2 space-x-1">
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 25 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 25 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 50 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 50 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 75 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 75 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
               <div
-                className={`h-2 rounded-full flex-1 ${
-                  progress >= 100 ? 'bg-red-500' : 'bg-gray-200'
-                }`}
+                className={`h-2 rounded-full flex-1 ${progress >= 100 ? 'bg-red-500' : 'bg-gray-200'
+                  }`}
               ></div>
             </div>
             <p className="text-md font-medium text-gray-700 mt-2">{message}</p>
@@ -344,13 +370,13 @@ const OrderTracking = () => {
               Tk {order.total_amount}
             </p>
           </div>
-          <div className="mx-auto w-1/2">
+          <div className="mx-auto ">
             {canReview && ( // Added this button conditionally
               <button
                 onClick={() => handleReviewClick(order)}
-                className="mt-2 bg-pink-600 hover:bg-pink-700 text-white px-3 py-1 rounded-lg text-sm"
+                className=" w-full my-3"
               >
-                Rate & Review
+                <PrimaryButton text="Submit Review & Rating" />
               </button>
             )}
           </div>
@@ -370,9 +396,8 @@ const OrderTracking = () => {
                   <button
                     key={star}
                     onClick={() => setRating(star)}
-                    className={`text-2xl ${
-                      star <= rating ? 'text-yellow-500' : 'text-gray-300'
-                    }`}
+                    className={`text-2xl ${star <= rating ? 'text-yellow-500' : 'text-gray-300'
+                      }`}
                   >
                     ★
                   </button>
@@ -389,9 +414,12 @@ const OrderTracking = () => {
                 rows="4"
                 className="w-full p-2 border rounded"
                 value={review}
+                defaultValue={getSingleOrderReview?.data?.review}
                 onChange={e => setReview(e.target.value)}
+                // readOnly={getSingleOrderReview.success == true}
                 placeholder="Share your experience..."
               ></textarea>
+              <p>Your review length: {review.length} characters (Max 100 allowed)</p>
             </div>
 
             <div className="flex justify-end space-x-2">
@@ -405,6 +433,7 @@ const OrderTracking = () => {
                 onClick={handleReviewSubmit}
                 className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700"
                 disabled={rating === 0}
+
               >
                 Submit Review
               </button>

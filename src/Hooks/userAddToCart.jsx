@@ -3,10 +3,12 @@ import useAuth from "./useAuth";
 import useAxiosPublic from "./useAxiosPublic";
 import { useCart } from "./useCart";
 import Swal from "sweetalert2";
+import useUserData from "./useUserData";
 
 export const useAddToCart = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
+  const [userData] = useUserData()
   const { cart, refetch, isLoading, isError } = useCart();
 
   const restaurant = cart.map((item) => item.foodOwner);
@@ -17,13 +19,15 @@ export const useAddToCart = () => {
       toast.error("User not logged in");
       return;
     }
-
+    if(userData?.role !== 'customer'){
+      return toast.error(`Only customers are allowed to purchase products. As a ${userData?.role}, you cannot make purchases.`);
+    }
     const foodWithEmail = {
       ...food,
       userEmail: user.email,
     };
-    console.log('foodDetails:',foodWithEmail);
-   
+    console.log('foodDetails:', foodWithEmail);
+
 
     console.log("res", restaurant[0], "addedFood", food.addedBy);
 

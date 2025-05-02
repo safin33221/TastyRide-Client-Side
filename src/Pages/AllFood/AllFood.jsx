@@ -10,6 +10,8 @@ import {
 import { Link } from 'react-router';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { useAddToCart } from '../../Hooks/userAddToCart';
+import Loading from '../Loader/Loading';
+import { CgDetailsMore } from "react-icons/cg";
 
 const AllFood = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -64,7 +66,7 @@ const AllFood = () => {
 
   // add to cart function
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading/>;
   if (error) return <p>Error: {error}</p>;
   if (!foods.length) return <p>No food data available.</p>;
 
@@ -92,7 +94,7 @@ const AllFood = () => {
   };
 
   return (
-    <div className='bg-gray-100'>
+    <div className='bg-gray-100 '>
       {/* Hero section */}
       <div
         className="hero min-h-96 "
@@ -110,7 +112,7 @@ const AllFood = () => {
       </div>
 
       {/* Filter and Sort Controls */}
-      <div className=" py-8  container mx-auto">
+      <div className=" py-8  container mx-auto px-4 md:px-6  lg:px-2">
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex items-center bg-white p-2 rounded-lg shadow-sm flex-1">
             <FaSearch className="text-gray-500" />
@@ -187,7 +189,7 @@ const AllFood = () => {
                   <p className="text-red-500 font-bold">${price}</p></>
                 <Link to={`/all-food/${_id}`}>
                   <button className="bg-red-500 text-white w-full mt-3 py-2 flex items-center  justify-center gap-2    transition-opacity duration-300 cursor-pointer">
-                    <FaShoppingCart /> Add to Cart
+                    <CgDetailsMore /> Details
                   </button>
                 </Link>
               </div>

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { Link } from "react-router";
+import Loading from "../../../Pages/Loader/Loading";
 
 const MyOrder = () => {
     const { user } = useAuth();
@@ -61,7 +62,7 @@ const MyOrder = () => {
         }
     };
 
-    if (isLoading) return <div className="text-center py-10 text-gray-600">Loading...</div>;
+    if (isLoading) return <Loading/>
 
     return (
         <div className="p-4 sm:p-6 lg:p-8">
@@ -75,6 +76,7 @@ const MyOrder = () => {
                             <th className="py-2 px-4 border whitespace-nowrap">Total</th>
                             <th className="py-2 px-4 border whitespace-nowrap">Status</th>
                             <th className="py-2 px-4 border whitespace-nowrap">Actions</th>
+                            <th className="py-2 px-4 border whitespace-nowrap">Track</th>
                         </tr>
                     </thead>
                     <tbody>
