@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import Loading from '../../Pages/Loader/Loading';
+import toast from 'react-hot-toast';
 
 // Status-specific images (replace with actual image URLs)
 const statusImages = {
@@ -65,6 +66,21 @@ const OrderTracking = () => {
     refetchInterval: 5000, // Poll every 5 seconds for live updates
     refetchIntervalInBackground: true, // Continue polling even if the tab is not in focus
   });
+
+  const { data: getSingleOrderReview = [] } = useQuery({
+    queryKey: ['getSingleOrderReview', orderId],
+    enabled: !!orderId,
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/api/singleOrderById/${orderId}`)
+      return res.data
+    }
+  })
+  useEffect(() => {
+    if (getSingleOrderReview.success) {
+      setRating(getSingleOrderReview.data.rating || 0); // Set default rating
+      setReview(getSingleOrderReview.data.review || ''); // Set default review
+    }
+  }, [getSingleOrderReview]);
 
 
   // Calculate estimated arrival time
@@ -165,6 +181,9 @@ const OrderTracking = () => {
         orderId
       };
       console.log(reviewData);
+      if (getSingleOrderReview.success == true) {
+        return toast.error('You have already submitted a review for this order.');
+      }
 
       // Show loading alert
       Swal.fire({
@@ -390,7 +409,9 @@ const OrderTracking = () => {
                 rows="4"
                 className="w-full p-2 border rounded"
                 value={review}
+                defaultValue={getSingleOrderReview?.data?.review}
                 onChange={e => setReview(e.target.value)}
+                readOnly={getSingleOrderReview.success == true}
                 placeholder="Share your experience..."
               ></textarea>
             </div>
@@ -406,6 +427,7 @@ const OrderTracking = () => {
                 onClick={handleReviewSubmit}
                 className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700"
                 disabled={rating === 0}
+
               >
                 Submit Review
               </button>
