@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import Loading from '../../Pages/Loader/Loading';
 import toast from 'react-hot-toast';
+import PrimaryButton from '../../Shared/PrimaryButton';
 
 // Status-specific images (replace with actual image URLs)
 const statusImages = {
@@ -175,14 +176,19 @@ const OrderTracking = () => {
       const reviewData = {
         userId: user?.email,
         userPhoto: user?.photoURL,
+        userName: user?.displayName,
         restaurantEmail: order?.restaurantEmail,
         rating,
         review,
         orderId
       };
-      console.log(reviewData);
+      // return console.log(reviewData);
       if (getSingleOrderReview.success == true) {
         return toast.error('You have already submitted a review for this order.');
+      }
+
+      if (review.length > 100) {
+        return toast.error('Your review is too long. Please limit it to 100 characters.');
       }
 
       // Show loading alert
@@ -209,8 +215,7 @@ const OrderTracking = () => {
 
         // Close modal and reset form
         setShowReviewModal(false);
-        setRating(0);
-        setReview('');
+
       } else {
         // API returned success: false
         Swal.fire({
@@ -365,13 +370,13 @@ const OrderTracking = () => {
               Tk {order.total_amount}
             </p>
           </div>
-          <div className="mx-auto w-1/2">
+          <div className="mx-auto ">
             {canReview && ( // Added this button conditionally
               <button
                 onClick={() => handleReviewClick(order)}
-                className="mt-2 bg-pink-600 hover:bg-pink-700 text-white px-3 py-1 rounded-lg text-sm"
+                className=" w-full my-3"
               >
-                Rate & Review
+                <PrimaryButton text="Submit Review & Rating" />
               </button>
             )}
           </div>
@@ -411,9 +416,10 @@ const OrderTracking = () => {
                 value={review}
                 defaultValue={getSingleOrderReview?.data?.review}
                 onChange={e => setReview(e.target.value)}
-                readOnly={getSingleOrderReview.success == true}
+                // readOnly={getSingleOrderReview.success == true}
                 placeholder="Share your experience..."
               ></textarea>
+              <p>Your review length: {review.length} characters (Max 100 allowed)</p>
             </div>
 
             <div className="flex justify-end space-x-2">
