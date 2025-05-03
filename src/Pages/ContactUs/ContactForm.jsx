@@ -88,7 +88,7 @@ const ContactForm = () => {
         <div className="flex items-center justify-center">
           <button
             type="submit"
-            className="px-2 md:px-6 bg-black text-white py-2 md:py-4 hover:bg-red-500"
+            className="px-2 md:px-6 bg-red-500 text-white py-2 md:py-4 hover:bg-red-700"
           >
             SEND MESSAGE
           </button>
