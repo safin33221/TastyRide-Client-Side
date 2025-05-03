@@ -53,6 +53,7 @@ const BecomePartner = () => {
                 </div>
             </div>
         </section>
+        
 
     );
 };
