@@ -99,7 +99,7 @@ const Reviews = () => {
                   </div>
 
                   {/* <!-- Name --> */}
-                  <h3 class="text-gray-800 font-semibold text-lg mb-2">- - {review.userName}</h3>
+                  <h3 class="text-gray-800 font-semibold text-xl mb-2">- - {review.userName}</h3>
 
                   {/* <!-- Text --> */}
                   <p class="text-gray-600 text-sm">
