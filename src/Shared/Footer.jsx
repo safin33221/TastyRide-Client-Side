@@ -16,9 +16,9 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black text-white py-8">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-black text-white pb-8 pt-20">
+      <div className="container mx-auto px-4 sm:px-8 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
           {/* Company Info */}
           <div>
             <h3 className="text-3xl font-bold text-red-500 mb-4">TastyRide</h3>
@@ -28,8 +28,8 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+          <div className="pl-12">
+            <h4 className="text-lg  font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <a href="/" className="text-gray-300 hover:text-pink-500 transition-colors duration-300">
@@ -74,7 +74,7 @@ const Footer = () => {
             <p className="text-gray-300 text-sm mb-4">
               Stay updated with the latest offers and updates from TastyRide!
             </p>
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row  gap-2">
               <input
                 type="email"
                 name="email"
