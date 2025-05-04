@@ -40,7 +40,7 @@ function Banner() {
   }, []);
 
   return (
-    <section className="w-full h-full md:h-screen lg:max-h-[400px] py-10 md:py-0 flex items-center">
+    <section className="w-full h-full md:h-screen lg:max-h-[400px] py-10 md:py-0 flex items-center mb-6 md:mb-16 lg:mb-20">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 px-4">
           <div className="w-full md:w-7/12">

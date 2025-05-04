@@ -29,7 +29,7 @@ const DeliveryCities = () => {
     return (
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle title="Where We Deliver" desc="Explore the areas where fast, fresh delivery is guaranteed." />
+          <SectionTitle title="Our Delivery Cities" desc="Discover the cities where we bring fast, fresh, and reliable delivery right to your door." />
           <p className="text-center text-gray-500">Loading cities...</p>
         </div>
       </section>
@@ -40,7 +40,7 @@ const DeliveryCities = () => {
     return (
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle title="Where We Deliver" desc="Explore the areas where fast, fresh delivery is guaranteed." />
+          <SectionTitle title="Our Delivery Cities" desc="Discover the cities where we bring fast, fresh, and reliable delivery right to your door." />
           <p className="text-center text-red-500">Error loading cities: {error.message}</p>
         </div>
       </section>
@@ -50,7 +50,7 @@ const DeliveryCities = () => {
   return (
     <section className="py-12 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle title="Where We Deliver" desc="Explore the areas where fast, fresh delivery is guaranteed." />
+        <SectionTitle title="Our Delivery Cities" desc="Discover the cities where we bring fast, fresh, and reliable delivery  right to your door." />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {visibleCities.length === 0 ? (
             <p className="text-center text-gray-500 col-span-full">

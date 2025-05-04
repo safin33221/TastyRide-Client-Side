@@ -9,7 +9,7 @@ const BecomePartner = () => {
                 title="Join the TestyRide Family"
                 desc="Whether you're a restaurant owner or a delivery hero, partner with us today!"
             />
-            <div className="  md:flex justify-center space-x-4 md:space-x-auto lg:space-x-44 overflow-x-auto">
+            <div className="  md:flex justify-center space-x-4 md:space-x-auto lg:space-x-16 overflow-x-auto">
                 <div className="relative w-full h-90 rounded-lg mb-8 md:mb-0 overflow-hidden shadow-lg">
                     <img
                         src="https://i.ibb.co.com/9Hp34f7j/handshake-businessmen-1098-742.jpg"
@@ -53,6 +53,7 @@ const BecomePartner = () => {
                 </div>
             </div>
         </section>
+        
 
     );
 };

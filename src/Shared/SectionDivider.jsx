@@ -2,7 +2,7 @@ import React from 'react'
 
 const SectionDivider = () => {
   return (
-    <div className='mb-20 lg:mb-28'></div>
+    <div className='mb-16 lg:mb-20'></div>
   )
 }
 
